@@ -1,0 +1,39 @@
+  <!-- base:css -->
+  <link rel="stylesheet" href="/assets/BackOffice/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/assets/BackOffice/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/assets/BackOffice/css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="/assets/BackOffice/images/favicon.png" />
+
+<div class="container-scroller d-flex">
+
+    <nav class="sidebar sidebar-offcanvas" id="sidebar ">
+        <app-sidebar-back></app-sidebar-back>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+
+        <app-header-back></app-header-back>
+
+        <router-outlet></router-outlet>
+
+        <app-footer-back></app-footer-back>
+    </div>
+</div>
+
+  <!-- container-scroller -->
+  <!-- base:js -->
+  <script src="/assets/BackOffice/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="/assets/BackOffice/js/off-canvas.js"></script>
+  <script src="/assets/BackOffice/js/hoverable-collapse.js"></script>
+  <script src="/assets/BackOffice/js/template.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <script src="/assets/BackOffice/vendors/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="/assets/BackOffice/js/chart.js"></script>
+  <!-- End custom js for this page-->
