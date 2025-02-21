@@ -9,6 +9,9 @@ import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
 import { AllTemplateDoctorFrontComponent } from './FrontOffice/DoctorFrontOffice/all-template-doctor-front/all-template-doctor-front.component';
+import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
+import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
+import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
 
 const routes: Routes = [
 
@@ -62,8 +65,14 @@ const routes: Routes = [
   },
   {
     path:'coatch',
-    component:AllTemplateCoachFrontComponent
-    
+    component:AllTemplateCoachFrontComponent,
+    children:[ 
+      {path:'', redirectTo:'AddTactic',pathMatch:'full'},
+      {path:'AddTactic',component: AddTacticComponent},
+      {path:'HomeCoach',component: HomeCoachComponent},
+      {path:'AjouterFormation',component: FormationCoachComponent},
+
+    ]
 
    
   },

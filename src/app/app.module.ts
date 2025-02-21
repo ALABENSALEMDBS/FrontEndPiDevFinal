@@ -25,6 +25,9 @@ import { HeaderAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { FooterAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/footer-analyste-front/footer-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
+import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
+import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
+import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.c
     AllTemplateAnalysteFrontComponent,
     FooterAnalysteFrontComponent,
     HomePageComponent,
+    AddTacticComponent,
+    HomeCoachComponent,
+    FormationCoachComponent,
 
 
   ],
