@@ -28,6 +28,11 @@ import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.c
 import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
 import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
 import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sousgroup.component';
+import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
+import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,7 @@ import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formatio
     SidebarBackComponent,
     AllTemplateBackComponent,
     FooterBackComponent,
-  
+
     DoctorComponent,
     HomeDoctorsComponent,
     StateticComponent,
@@ -57,12 +62,18 @@ import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formatio
     AddTacticComponent,
     HomeCoachComponent,
     FormationCoachComponent,
+    SousgroupComponent,
+    UpdatesousGroupComponent,
+    AddsousgroupComponent,
 
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
