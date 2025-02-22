@@ -1,6 +1,63 @@
 <p>formation-coach works!</p>
 
 
+<!-- Bouton Ajouter un formation -->
+<div style="margin-bottom: 20px;">
+    <button [routerLink]="['addformation']" class="btn-add">
+      Ajouter un formation
+    </button>
+  </div>
+
+
+<h2>Liste des Formations</h2>
+<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom du Formation</th>
+        <th>descriptionFormation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let f of formation">
+        <td>{{ f.idFormation }}</td>
+        <td>{{ f.nameFormation }}</td>
+        <td>{{ f.descriptionFormation }}</td>
+         <td>
+          <button (click)="deleteFormation(f.idFormation)" class="btn-delete">
+            Supprimer
+          </button>
+         <!-- <button class="btn btn-success m-3" [routerLink]="['update', sg.idSousGroup]">
+            Update
+          </button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+  
+
+
+
+  <router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <body>
     <div class="container">
         <h2>Ajouter une Formation</h2>
@@ -26,4 +83,4 @@
             </div>
         </form>
     </div>
-</body>
+</body> -->

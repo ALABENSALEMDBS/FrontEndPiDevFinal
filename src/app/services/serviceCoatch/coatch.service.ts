@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { sousgroup } from 'src/core/models/sousgroup';
+import { formation } from 'src/core/models/formation';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +38,21 @@ getbyidsousgroup(idSousGroup:any):Observable<sousgroup[]>{
 addsousgroup(sg:sousgroup):Observable<sousgroup[]>{
   return this.http.post<sousgroup[]>("http://localhost:8089/PiDevBackEndProject/sousGroupes/add-sousGroupes",sg)
 }
+//********************************************************** */
+
+getAllFormation(): Observable<formation[]> {
+  return this.http.get<formation[]>("http://localhost:8089/PiDevBackEndProject/Formations/retrieve-all-formation");
+}
+
+delFormation(id:any):Observable<formation[]>{
+  return this.http.delete<formation[]>("http://localhost:8089/PiDevBackEndProject/Formations/remove-formation"+"/"+id)
+}
+
+
+addformation(f:formation):Observable<formation[]>{
+  return this.http.post<formation[]>("http://localhost:8089/PiDevBackEndProject/Formations/add-formations",f)
+}
+
+
+
 }

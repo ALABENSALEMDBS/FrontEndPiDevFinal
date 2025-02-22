@@ -16,6 +16,7 @@ import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sou
 import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
 import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
+import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformation/addformation.component';
 
 const routes: Routes = [
 
@@ -77,15 +78,22 @@ const routes: Routes = [
       { path: '', redirectTo: 'AddTactic', pathMatch: 'full' },
       { path: 'AddTactic', component: AddTacticComponent },
       { path: 'HomeCoach', component: HomeCoachComponent },
-      { path: 'AjouterFormation', component: FormationCoachComponent },
       {
         path: 'ShowSousGroups',
         component: SousgroupComponent,
         children: [
           { path: 'update/:idSousGroup', component: UpdatesousGroupComponent },
-          { path: 'addsousgroup', component: AddsousgroupComponent }
+          { path: 'addsousgroup', component: AddsousgroupComponent },
         ]
-      }
+      },
+
+      {
+        path: 'showFormation', component: FormationCoachComponent,
+        children:[
+          {path: 'addformation', component: AddformationComponent },
+        ]
+      },
+
     ]
   }
   ,
