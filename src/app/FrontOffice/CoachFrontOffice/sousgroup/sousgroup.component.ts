@@ -9,6 +9,7 @@ import { sousgroup } from 'src/core/models/sousgroup';
 })
 export class SousgroupComponent implements OnInit {
   sousGroupes: sousgroup[] = [];
+  showOutlet: boolean = false;
 
   constructor(private coatchService: CoatchService) {}
 
@@ -40,6 +41,8 @@ export class SousgroupComponent implements OnInit {
     // Logique pour mettre à jour le sous-groupe (par exemple, ouvrir un formulaire de modification)
     // Vous pouvez implémenter un modal ou rediriger vers une page de mise à jour
   }*/
-
+    toggleRouterOutlet() {
+      this.showOutlet = !this.showOutlet;
+    }
     
 }

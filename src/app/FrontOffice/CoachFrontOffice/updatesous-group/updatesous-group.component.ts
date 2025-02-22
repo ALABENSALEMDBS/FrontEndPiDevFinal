@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-updatesous-group',
@@ -9,9 +10,41 @@ import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
 })
 export class UpdatesousGroupComponent implements OnInit {
 
-  idurl:any
-  constructor(private act:ActivatedRoute, private sousgrpService: CoatchService , private router:Router){ }
+  idSousGroup: any;
+  sousGroupForm!: FormGroup;
+  listSousGroup: any[] = [];
+
+  constructor(private act: ActivatedRoute, private sousGrpService: CoatchService, private router: Router) { }
+
   ngOnInit(): void {
-    this.idurl= this.act.snapshot.params['idSousGroup']
+    this.idSousGroup = this.act.snapshot.params['idSousGroup']; // Récupérer l'ID du sous-groupe
+
+    // Initialisation du formulaire
+    this.sousGroupForm = new FormGroup({
+      nameSousGroup: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      nbrJoueurSousGroup: new FormControl('', [Validators.required, Validators.min(1), Validators.max(50)]),
+    });
+
+    // Charger les données du sous-groupe à modifier
+    this.sousGrpService.getbyidsousgroup(this.idSousGroup).subscribe((data) => {
+      this.listSousGroup = [data];  // On met les données récupérées dans le tableau
+      this.sousGroupForm.patchValue(this.listSousGroup[0]);  // Remplir le formulaire avec les données récupérées
+    });
+  }
+
+  get nameSousGroup() {
+    return this.sousGroupForm.get('nameSousGroup');
+  }
+
+  get nbrJoueurSousGroup() {
+    return this.sousGroupForm.get('nbrJoueurSousGroup');
+  }
+
+  updateSousGroup() {
+    if (this.sousGroupForm.valid) {
+      this.sousGrpService.updatesousgroup( this.idSousGroup,this.sousGroupForm.value).subscribe(() => {
+        this.router.navigate(['/ShowSousGroups']);  // Rediriger après la mise à jour
+      });
+    }
   }
 }
