@@ -35,6 +35,7 @@ import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updates
 import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
 
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
+import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformation/addformation.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { AccueilComponent } from './BackOffice/accueil/accueil.component';
     AddsousgroupComponent,
 
     AccueilComponent,
+      AddformationComponent,
 
 
   ],
