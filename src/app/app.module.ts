@@ -25,6 +25,14 @@ import { HeaderAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { FooterAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/footer-analyste-front/footer-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
+import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
+import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
+import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sousgroup.component';
+import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
+import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
 
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 
@@ -35,7 +43,7 @@ import { AccueilComponent } from './BackOffice/accueil/accueil.component';
     SidebarBackComponent,
     AllTemplateBackComponent,
     FooterBackComponent,
-  
+
     DoctorComponent,
     HomeDoctorsComponent,
     StateticComponent,
@@ -53,6 +61,12 @@ import { AccueilComponent } from './BackOffice/accueil/accueil.component';
     AllTemplateAnalysteFrontComponent,
     FooterAnalysteFrontComponent,
     HomePageComponent,
+    AddTacticComponent,
+    HomeCoachComponent,
+    FormationCoachComponent,
+    SousgroupComponent,
+    UpdatesousGroupComponent,
+    AddsousgroupComponent,
 
     AccueilComponent,
 
@@ -61,6 +75,9 @@ import { AccueilComponent } from './BackOffice/accueil/accueil.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
     
   ],
   providers: [],
