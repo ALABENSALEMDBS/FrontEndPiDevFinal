@@ -25,11 +25,13 @@ export class CoatchService {
 
  }
 
- updatesousgroup(res:sousgroup):Observable<sousgroup[]>{
-  return this.http.put<sousgroup[]>(this.apiUrlUpDate +'/',res)
+ updatesousgroup(id:any,res:sousgroup):Observable<sousgroup[]>{
+  return this.http.put<sousgroup[]>(this.apiUrlUpDate +'/'+id,res)
 }
-getbyidsousgroup(id:any):Observable<sousgroup[]>{
-  return this.http.get<sousgroup[]>(this.apiUrlGetById+'/'+id)
+
+
+getbyidsousgroup(idSousGroup:any):Observable<sousgroup[]>{
+  return this.http.get<sousgroup[]>(this.apiUrlGetById+'/'+idSousGroup)
 }
 
 addsousgroup(sg:sousgroup):Observable<sousgroup[]>{

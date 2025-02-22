@@ -4,7 +4,9 @@
 
 <!-- Bouton Ajouter un Sous-Groupe -->
 <div style="margin-bottom: 20px;">
-  <button routerLink="addsousgroup" class="btn-add">Ajouter un Sous-Groupe</button>
+  <button [routerLink]="['addsousgroup']" class="btn-add">
+    Ajouter un Sous-Groupe
+  </button>
 </div>
 
 <!-- Tableau des Sous-Groupes -->
@@ -14,7 +16,7 @@
       <th>ID</th>
       <th>Nom du Sous-Groupe</th>
       <th>Nombre de Joueurs</th>
-      <th>Actions</th> <!-- Colonne pour les actions (supprimer et mettre à jour) -->
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -23,12 +25,16 @@
       <td>{{ sg.nameSousGroup }}</td>
       <td>{{ sg.nbrJoueurSousGroup }}</td>
       <td>
-        <!-- Bouton Supprimer -->
-        <button (click)="deleteSousGroup(sg.idSousGroup)" class="btn-delete">Supprimer</button>
-
-        <!-- Bouton Mettre à Jour -->
-        <button class="btn btn-success m-3" [routerLink]="['/update',sg.idSousGroup]">Update</button>
+        <button (click)="deleteSousGroup(sg.idSousGroup)" class="btn-delete">
+          Supprimer
+        </button>
+        <button class="btn btn-success m-3" [routerLink]="['update', sg.idSousGroup]">
+          Update
+        </button>
       </td>
-      </tr>
-      </tbody>
+    </tr>
+  </tbody>
 </table>
+
+<!-- Ajout du router-outlet ici -->
+<router-outlet></router-outlet>
