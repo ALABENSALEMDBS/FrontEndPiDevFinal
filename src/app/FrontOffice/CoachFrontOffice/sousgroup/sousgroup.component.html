@@ -1,0 +1,34 @@
+<p>sousgroup works!</p>
+
+<h2>Liste des Sous-Groupes</h2>
+
+<!-- Bouton Ajouter un Sous-Groupe -->
+<div style="margin-bottom: 20px;">
+  <button routerLink="addsousgroup" class="btn-add">Ajouter un Sous-Groupe</button>
+</div>
+
+<!-- Tableau des Sous-Groupes -->
+<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom du Sous-Groupe</th>
+      <th>Nombre de Joueurs</th>
+      <th>Actions</th> <!-- Colonne pour les actions (supprimer et mettre à jour) -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sg of sousGroupes">
+      <td>{{ sg.idSousGroup }}</td>
+      <td>{{ sg.nameSousGroup }}</td>
+      <td>{{ sg.nbrJoueurSousGroup }}</td>
+      <td>
+        <!-- Bouton Supprimer -->
+        <button (click)="deleteSousGroup(sg.idSousGroup)" class="btn-delete">Supprimer</button>
+
+        <!-- Bouton Mettre à Jour -->
+        <button class="btn btn-success m-3" [routerLink]="['/update',sg.idSousGroup]">Update</button>
+      </td>
+      </tr>
+      </tbody>
+</table>
