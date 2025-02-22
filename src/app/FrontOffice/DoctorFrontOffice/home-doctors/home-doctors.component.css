@@ -5,19 +5,21 @@ body {
     padding: 0;
     text-align: center;
     background-color: #f4f4f4;
+    min-height: 100vh; /* Assure que le contenu reste dans la page */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* En-tête */
-header {
-    background-color: #ffffff; /* Rouge foncé */
-    color: white;
-    padding: 20px;
-    font-size: 1.5em;
-    font-weight: bold;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+/* Conteneur principal */
+.container {
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
 }
 
-/* Section de présentation */
+/* Présentation du médecin */
 .presentation {
     display: flex;
     flex-direction: column;
@@ -25,39 +27,40 @@ header {
     margin: 30px auto;
     padding: 20px;
     background: white;
-    max-width: 600px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
-.presentation img {
-    width: 150px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    border: 3px solid #eee7e7; /* Ajout d'un contour rouge */
+/* Image principale */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-.bio {
-    text-align: center;
-    padding: 10px;
-    color: #333;
-}
-
-/* Section contact */
-.contact {
-    background-color: #0a0300;
-    color: rgb(0, 0, 0);
+/* Sections */
+.football-role, .rehabilitation {
+    background: white;
     padding: 20px;
-    margin-top: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
-/* Pied de page */
-footer {
-    background: #e9c3c3; /* Rouge plus foncé */
-    color: white;
+/* Listes */
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* Exercices */
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.exercise {
+    background: #ececec;
     padding: 10px;
-    margin-top: 20px;
+    border-radius: 8px;
 }
-
-
-

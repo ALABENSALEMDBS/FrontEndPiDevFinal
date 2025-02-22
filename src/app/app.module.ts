@@ -34,6 +34,8 @@ import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sou
 import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
 import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
 
+import { AccueilComponent } from './BackOffice/accueil/accueil.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +68,8 @@ import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgro
     UpdatesousGroupComponent,
     AddsousgroupComponent,
 
+    AccueilComponent,
+
 
   ],
   imports: [
@@ -74,6 +78,7 @@ import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgro
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

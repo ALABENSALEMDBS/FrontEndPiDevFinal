@@ -15,6 +15,7 @@ import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formatio
 import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sousgroup.component';
 import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
 import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
+import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 
 const routes: Routes = [
 
@@ -29,8 +30,11 @@ const routes: Routes = [
         path:'static',
         component: StateticComponent
       },
-
-
+      {
+        path:'HomeAccueil',
+        component: AccueilComponent
+      },     
+      
     ]
   }
   ,
