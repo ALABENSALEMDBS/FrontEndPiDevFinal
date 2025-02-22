@@ -9,6 +9,7 @@ import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
 import { AllTemplateDoctorFrontComponent } from './FrontOffice/DoctorFrontOffice/all-template-doctor-front/all-template-doctor-front.component';
+import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 
 const routes: Routes = [
 
@@ -23,6 +24,11 @@ const routes: Routes = [
         path:'static',
         component: StateticComponent
       },
+      {
+        path:'HomeAccueil',
+        component: AccueilComponent
+      },
+
       
       
     ]

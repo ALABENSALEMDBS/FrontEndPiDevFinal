@@ -26,6 +26,8 @@ import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOf
 import { FooterAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/footer-analyste-front/footer-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
 
+import { AccueilComponent } from './BackOffice/accueil/accueil.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,11 +54,14 @@ import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.c
     FooterAnalysteFrontComponent,
     HomePageComponent,
 
+    AccueilComponent,
+
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
