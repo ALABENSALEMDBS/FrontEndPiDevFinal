@@ -1,0 +1,26 @@
+.footer {
+    background: linear-gradient(to right, #0f9b0f, #000);
+    padding: 20px 0;
+  }
+  
+  .footer a {
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .footer a:hover {
+    color: #f8c800; /* Couleur or inspirée des trophées */
+  }
+  
+  .footer i {
+    font-size: 1.2rem;
+  }
+  .footer a:hover {
+    color: #ffc107 !important;
+    transition: color 0.3s ease-in-out;
+}
+.btn-outline-light:hover {
+    background: #ffc107 !important;
+    color: #212529 !important;
+    transition: 0.3s;
+}
+  

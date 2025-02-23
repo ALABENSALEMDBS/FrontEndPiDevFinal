@@ -1,50 +1,4 @@
-<!-- Offcanvas Menu Section Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="canvas-close">
-        <i class="fa fa-close"></i>
-    </div>
-    <div class="search-btn search-switch">
-        <i class="fa fa-search"></i>
-    </div>
-    <div class="header__top--canvas">
-        <div class="ht-info">
-            <ul>
-                <li>20:00 - May 19, 2019</li>
-                <li><a href="#">Sign in</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-        <div class="ht-links">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-vimeo"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-google-plus"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
-    </div>
-    <ul class="main-menu mobile-menu">
-        <li class="active"><a href="./index.html">Home</a></li>
-        <li><a href="./club.html">Club</a></li>
-        <li><a href="./schedule.html">Schedule</a></li>
-        <li><a routerLink="/AddTactic">AddTactic</a></li>
-        <li><a href="#">Sport</a></li>
-        <li><a href="#">Pages</a>
-            <ul class="dropdown">
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./blog-details.html">Blog Details</a></li>
-                <li><a href="#">Schedule</a></li>
-                <li><a href="#">Results</a></li>
-            </ul>
-        </li>
-        <li><a href="./contact.html">Contact Us</a></li>
-    </ul>
-    <div id="mobile-menu-wrap"></div>
-</div>
-<!-- Offcanvas Menu Section End -->
-
-
- <!-- Header Section Begin -->
+<!-- 
  <header class="header-section">
     <div class="header__top">
         <div class="container">
@@ -81,7 +35,7 @@
                 <div class="col-lg-10">
                     <div class="nav-menu">
                         <ul class="main-menu">
-                            <!-- <li class="active"><a routerLink="HomeCoach">Home</a></li> -->
+                            <li class="active"><a routerLink="HomeCoach">Home</a></li>
                             <li ><a routerLink="HomeCoach">Home</a></li>
                             <li><a routerLink="addsousgroup">addsousgroup</a></li>
                             <li><a  routerLink="showFormation">Formation</a></li>
@@ -91,7 +45,6 @@
                             <li><a routerLink="showexercice">showexercice</a></li>
                             
 
-                            <!-- <li><a routerLink="static"routerLinkActive="active">Contact Us</a></li> -->
 
                         </ul>
                         <div class="nm-right search-switch">
@@ -106,6 +59,75 @@
         </div>
     </div>
 
-</header>
+</header> -->
 <!-- Header End -->
- <!-- Hhhhhhhhhhhhhh -->
+ <!-- HhhhhUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUhhhhhhhhh -->
+ <nav class="navbar navbar-expand-lg navbar-dark " id="hhhh">
+    <div class="container-fluid">
+      <!-- Logo et Nom de l'Application -->
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-futbol text-success"></i> Football Innovant
+      </a>
+  
+      <!-- Bouton de Menu pour Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Liens de Navigation -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="HomeCoach">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="addsousgroup">addsousgroup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="showFormation">Formation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="AddTactic">AddTactic</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="ShowSousGroups">ShowSousGroups</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="showseance">showseance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="showexercice">showexercice</a>
+          </li>
+          
+          <!-- Notifications Icon -->
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="notifications">
+              <i class="fas fa-bell"></i>
+              <span class="badge bg-danger">3</span> <!-- Badge de notifications -->
+            </a>
+          </li>
+  
+          <!-- Messagerie Icon -->
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="messages">
+              <i class="fas fa-envelope"></i>
+              <span class="badge bg-primary">5</span> <!-- Badge de messages -->
+            </a>
+          </li>
+  
+          <!-- Profil Utilisateur -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://via.placeholder.com/30" alt="Profil" class="rounded-circle"> <!-- Photo de profil -->
+              <span>Utilisateur</span> <!-- Nom de l'utilisateur -->
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Paramètres</a></li> <!-- Lien vers les paramètres -->
+              <li><a class="dropdown-item" href="#">Déconnexion</a></li> <!-- Lien vers la déconnexion -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

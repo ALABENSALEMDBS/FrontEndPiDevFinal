@@ -1,27 +1,16 @@
- <!-- Google Font -->
- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
-<!-- 
- Css Styles -->
- <link rel="stylesheet" href="/assets/FrontOffice/css/bootstrap.min.css" type="text/css">
- <link rel="stylesheet" href="/assets/FrontOffice/css/font-awesome.min.css" type="text/css">
- <link rel="stylesheet" href="/assets/FrontOffice/css/owl.carousel.min.css" type="text/css">
- <link rel="stylesheet" href="/assets/FrontOffice/css/magnific-popup.css" type="text/css">
- <link rel="stylesheet" href="/assets/FrontOffice/css/slicknav.min.css" type="text/css">
- <link rel="stylesheet" href="/assets/FrontOffice/css/style.css" type="text/css"> 
+<!-- Header Section -->
+<app-header-coach-front></app-header-coach-front>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
- <!-- je doit ajouter user type in header  -->
-  <!-- <app-header-front [userType]="userType"></app-header-front> -->
- <app-header-coach-front></app-header-coach-front>
- <router-outlet></router-outlet>
-  <app-footer-coach-front></app-footer-coach-front>
+<!-- Main Content Section with Router Outlet -->
+<div class="container-fluid my-4">
+  <div class="row">
+    <div class="col-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
 
-  <!-- Js Plugins -->
-  <script src="assets/FrontOffice/js/jquery-3.3.1.min.js"></script>
-  <script src="assets/FrontOffice/js/bootstrap.min.js"></script>
-  <script src="assets/FrontOffice/js/jquery.magnific-popup.min.js"></script>
-  <script src="assets/FrontOffice/js/jquery.slicknav.js"></script>
-  <script src="assets/FrontOffice/js/owl.carousel.min.js"></script>
-  <script src="assets/FrontOffice/js/main.js"></script>
- 
-
+<!-- Footer Section -->
+<app-footer-coach-front></app-footer-coach-front>
 

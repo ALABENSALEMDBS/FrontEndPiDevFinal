@@ -41,6 +41,8 @@ import { AddseanceComponent } from './FrontOffice/CoachFrontOffice/addseance/add
 import { AddexerciceComponent } from './FrontOffice/CoachFrontOffice/addexercice/addexercice.component';
 import { ListExerciceComponent } from './FrontOffice/CoachFrontOffice/list-exercice/list-exercice.component';
 import { UpdateformationComponent } from './FrontOffice/CoachFrontOffice/updateformation/updateformation.component';
+import { UpdateexerciceComponent } from './FrontOffice/CoachFrontOffice/updateexercice/updateexercice.component';
+import { UpdateseanceComponent } from './FrontOffice/CoachFrontOffice/updateseance/updateseance.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,8 @@ import { UpdateformationComponent } from './FrontOffice/CoachFrontOffice/updatef
       AddexerciceComponent,
       ListExerciceComponent,
       UpdateformationComponent,
+      UpdateexerciceComponent,
+      UpdateseanceComponent,
 
 
   ],

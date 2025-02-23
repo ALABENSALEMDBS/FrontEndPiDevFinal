@@ -1,0 +1,33 @@
+<p>updateseance works!</p>
+{{ idSeance }}
+
+<div class="container">
+  <h2>Mettre à jour la Séance</h2>
+
+  <form [formGroup]="seanceform" (ngSubmit)="updateSeance()">
+
+    <div class="form-group">
+      <label>ID de la Séance</label>
+      <input type="text" class="form-control" formControlName="idSeance" >
+    </div>
+
+    <div class="form-group">
+      <label>Titre de la Séance</label>
+      <input type="text" class="form-control" formControlName="titleSeance">
+      <div *ngIf="titleSeance?.invalid && titleSeance?.touched" class="text-danger">
+        Titre requis (min 3 caractères).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Jour de la Séance</label>
+      <input type="datetime" class="form-control" formControlName="jourSeance">
+      <div *ngIf="jourSeance?.invalid && jourSeance?.touched" class="text-danger">
+        Sélectionner un jour valide.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="updateSeance()" [disabled]="seanceform.invalid">Mettre à jour</button>
+    <button type="button" class="btn btn-secondary" routerLink="/showseance">Annuler</button>
+  </form>
+</div>

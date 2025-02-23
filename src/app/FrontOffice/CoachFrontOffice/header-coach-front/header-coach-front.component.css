@@ -1,0 +1,54 @@
+.navbar {
+    background-color: #0f9b0f; /* Couleur verte inspirée du terrain de football */
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #fff;
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #f8c800; /* Jaune vif pour un effet dynamique */
+  }
+  
+  .navbar-nav i {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-nav .nav-item {
+    margin-right: 15px;
+  }
+  .navbar-nav .nav-link {
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.navbar .dropdown-menu {
+    min-width: 200px;
+}
+
+.badge {
+    font-size: 0.75rem;
+}
+
+.nav-item .fa-lg {
+    font-size: 1.2rem;
+}
+
+
+#hhhh{
+    background-color: #2d840b;
+}

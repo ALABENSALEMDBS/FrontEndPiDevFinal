@@ -21,10 +21,13 @@
       <tr *ngFor="let s of seance">
         <td>{{ s.idSeance }}</td>
         <td>{{ s.titleSeance }}</td>
-        <td>{{ s.jourSeance }}</td>
+        <td>{{ s.jourSeance | date:'yyyy-MM-dd' }}</td>
          <td>
           <button (click)="deleteSeances(s.idSeance)" class="btn-delete">
             Supprimer
+          </button>
+          <button class="btn btn-success m-3" [routerLink]="['updateseance', s.idSeance]">
+            Update
           </button>
          <!-- <button class="btn btn-success m-3" [routerLink]="['update', sg.idSousGroup]">
             Update
