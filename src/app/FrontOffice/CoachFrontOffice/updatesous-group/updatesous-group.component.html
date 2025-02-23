@@ -4,6 +4,12 @@
   <h2>Mettre à jour le Sous-Groupe</h2>
 
   <form [formGroup]="sousGroupForm" (ngSubmit)="updateSousGroup()">
+
+    <div class="form-group">
+      <label>ID du Sous-Groupe</label>
+      <input type="text" class="form-control" formControlName="idSousGroup">
+    </div>
+
     <div class="form-group">
       <label>Nom du Sous-Groupe</label>
       <input type="text" class="form-control" formControlName="nameSousGroup">

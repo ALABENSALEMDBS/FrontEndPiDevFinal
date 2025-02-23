@@ -21,6 +21,7 @@ export class UpdatesousGroupComponent implements OnInit {
 
     // Initialisation du formulaire
     this.sousGroupForm = new FormGroup({
+      idSousGroup: new FormControl({value: '', disabled: true}), // Ajout champ idSousGroup
       nameSousGroup: new FormControl('', [Validators.required, Validators.minLength(3)]),
       nbrJoueurSousGroup: new FormControl('', [Validators.required, Validators.min(1), Validators.max(50)]),
     });
@@ -43,7 +44,8 @@ export class UpdatesousGroupComponent implements OnInit {
   updateSousGroup() {
     if (this.sousGroupForm.valid) {
       this.sousGrpService.updatesousgroup( this.idSousGroup,this.sousGroupForm.value).subscribe(() => {
-        this.router.navigate(['/ShowSousGroups']);  // Rediriger après la mise à jour
+        this.sousGroupForm.reset();
+        window.location.reload();
       });
     }
   }
