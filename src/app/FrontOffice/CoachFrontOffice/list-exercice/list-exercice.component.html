@@ -1,0 +1,41 @@
+<p>list-seance works!</p>
+<!-- Bouton Ajouter un seance -->
+<div style="margin-bottom: 20px;">
+    <button [routerLink]="['addseance']" class="btn-add">
+      Ajouter une exercice
+    </button>
+  </div>
+
+
+<h2>Liste des Seances</h2>
+<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>nom Exercice</th>
+        <th>description Exercice</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of exercice">
+        <td>{{ e.idExercice }}</td>
+        <td>{{ e.nomExercice }}</td>
+        <td>{{ e.descriptionExercice }}</td>
+         <td>
+          <button (click)="deleteExercices(e.idExercice)" class="btn-delete">
+            Supprimer
+          </button>
+         <!-- <button class="btn btn-success m-3" [routerLink]="['update', sg.idSousGroup]">
+            Update
+          </button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+  
+
+
+
+  <router-outlet></router-outlet>
+

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { sousgroup } from 'src/core/models/sousgroup';
 import { formation } from 'src/core/models/formation';
 import { seance } from 'src/core/models/seance';
+import { Exercices } from 'src/core/models/exercice';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,22 @@ delSeances(id:any):Observable<seance[]>{
 addSeances(f:seance):Observable<seance[]>{
   return this.http.post<seance[]>("http://localhost:8089/PiDevBackEndProject/seances/add-seances",f)
 }
+
+//********************************************************** */
+
+getAllExercices(): Observable<Exercices[]> {
+  return this.http.get<Exercices[]>("http://localhost:8089/PiDevBackEndProject/Exercices/retrieve-all-exercices");
+}
+
+delExercices(id:any):Observable<Exercices[]>{
+  return this.http.delete<Exercices[]>("http://localhost:8089/PiDevBackEndProject/Exercices/remove-exercices"+"/"+id)
+}
+
+
+addExercices(e:Exercices):Observable<Exercices[]>{
+  return this.http.post<Exercices[]>("http://localhost:8089/PiDevBackEndProject/Exercices/add-exercices",e)
+}
+
 
 
 }
