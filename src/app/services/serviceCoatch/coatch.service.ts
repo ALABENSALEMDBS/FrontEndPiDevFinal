@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { sousgroup } from 'src/core/models/sousgroup';
 import { formation } from 'src/core/models/formation';
-import { seance } from 'src/core/models/seance';
 
 @Injectable({
   providedIn: 'root'
@@ -54,20 +53,6 @@ addformation(f:formation):Observable<formation[]>{
   return this.http.post<formation[]>("http://localhost:8089/PiDevBackEndProject/Formations/add-formations",f)
 }
 
-//********************************************************** */
-
-getAllSeances(): Observable<seance[]> {
-  return this.http.get<seance[]>("http://localhost:8089/PiDevBackEndProject/seances/retrieve-all-seances");
-}
-
-delSeances(id:any):Observable<seance[]>{
-  return this.http.delete<seance[]>("http://localhost:8089/PiDevBackEndProject/seances/remove-seances"+"/"+id)
-}
-
-
-addSeances(f:seance):Observable<seance[]>{
-  return this.http.post<seance[]>("http://localhost:8089/PiDevBackEndProject/seances/add-seances",f)
-}
 
 
 }
