@@ -1,1 +1,33 @@
 <p>updateformation works!</p>
+{{idFormation}}
+
+<div class="container">
+  <h2>Mettre à jour la Formation</h2>
+
+  <form [formGroup]="formationForm" (ngSubmit)="updateFormation()">
+
+    <div class="form-group">
+      <label>ID de la Formation</label>
+      <input type="text" class="form-control" formControlName="idFormation" >
+    </div>
+
+    <div class="form-group">
+      <label>Nom de la Formation</label>
+      <input type="text" class="form-control" formControlName="nameFormation">
+      <div *ngIf="nameFormation?.invalid && nameFormation?.touched" class="text-danger">
+        Nom requis (min 3 caractères).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description de la Formation</label>
+      <textarea class="form-control" formControlName="descriptionFormation"></textarea>
+      <div *ngIf="descriptionFormation?.invalid && descriptionFormation?.touched" class="text-danger">
+        Description requise.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">Mettre à jour</button>
+    <button type="reset" class="btn btn-secondary" >Annuler</button>
+  </form>
+</div>

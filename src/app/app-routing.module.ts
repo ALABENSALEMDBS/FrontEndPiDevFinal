@@ -21,6 +21,7 @@ import { ListSeanceComponent } from './FrontOffice/CoachFrontOffice/list-seance/
 import { AddseanceComponent } from './FrontOffice/CoachFrontOffice/addseance/addseance.component';
 import { ListExerciceComponent } from './FrontOffice/CoachFrontOffice/list-exercice/list-exercice.component';
 import { AddexerciceComponent } from './FrontOffice/CoachFrontOffice/addexercice/addexercice.component';
+import { UpdateformationComponent } from './FrontOffice/CoachFrontOffice/updateformation/updateformation.component';
 
 const routes: Routes = [
 
@@ -95,6 +96,8 @@ const routes: Routes = [
         path: 'showFormation', component: FormationCoachComponent,
         children:[
           {path: 'addformation', component: AddformationComponent },
+          {path: 'updateformation/:idFormation', component: UpdateformationComponent },
+
         ]
       },
 
