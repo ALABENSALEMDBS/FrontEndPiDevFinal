@@ -20,6 +20,7 @@ import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformati
 import { ListSeanceComponent } from './FrontOffice/CoachFrontOffice/list-seance/list-seance.component';
 import { AddseanceComponent } from './FrontOffice/CoachFrontOffice/addseance/addseance.component';
 import { ListExerciceComponent } from './FrontOffice/CoachFrontOffice/list-exercice/list-exercice.component';
+import { AddexerciceComponent } from './FrontOffice/CoachFrontOffice/addexercice/addexercice.component';
 
 const routes: Routes = [
 
@@ -106,6 +107,9 @@ const routes: Routes = [
 
       {
         path: 'showexercice', component: ListExerciceComponent,
+        children:[
+          {path: 'addexercice', component: AddexerciceComponent },
+        ]
       }
     ]
   }

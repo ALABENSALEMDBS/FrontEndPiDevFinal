@@ -1,1 +1,43 @@
-<p>addexercice works!</p>
+<div class="container">
+    <h2>Ajouter un exercice</h2>
+
+    <form [formGroup]="exerciceform" (ngSubmit)="addExercice()">
+        <div class="form-group">
+            <label>Nom de l'exercice</label>
+            <input type="text" class="form-control" formControlName="nameExercice">
+            <div *ngIf="exerciceform.get('nameExercice')?.invalid && exerciceform.get('nameExercice')?.touched" class="text-danger">
+                Nom requis (min 3 caractères).
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Description de l'exercice</label>
+            <textarea class="form-control" formControlName="descriptionExercice"></textarea>
+            <div *ngIf="exerciceform.get('descriptionExercice')?.invalid && exerciceform.get('descriptionExercice')?.touched" class="text-danger">
+                Description requise.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Vidéo de l'exercice (URL)</label>
+            <input type="text" class="form-control" formControlName="videoExercice">
+            <div *ngIf="exerciceform.get('videoExercice')?.invalid && exerciceform.get('videoExercice')?.touched" class="text-danger">
+                Vidéo requise.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Photo de l'exercice</label>
+            <input type="text" class="form-control" formControlName="photoExercice">
+            <div *ngIf="exerciceform.get('photoExercice')?.invalid && exerciceform.get('photoExercice')?.touched" class="text-danger">
+                Photo requise.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="exerciceform.invalid">Ajouter</button>
+        <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+    </form>
+
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+</div>

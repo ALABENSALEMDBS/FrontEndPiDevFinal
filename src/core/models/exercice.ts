@@ -1,6 +1,6 @@
 export class Exercices {
   idExercice!: number;
-  nomExercice!: string;
+  nameExercice!: string;
   descriptionExercice!: string;
   videoExercice!: string;
   photoExercice!: string;

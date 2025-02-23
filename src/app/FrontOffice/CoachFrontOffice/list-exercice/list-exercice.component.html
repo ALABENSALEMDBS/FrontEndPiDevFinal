@@ -1,7 +1,7 @@
 <p>list-seance works!</p>
 <!-- Bouton Ajouter un seance -->
 <div style="margin-bottom: 20px;">
-    <button [routerLink]="['addseance']" class="btn-add">
+    <button [routerLink]="['addexercice']" class="btn-add">
       Ajouter une exercice
     </button>
   </div>
@@ -14,14 +14,19 @@
         <th>ID</th>
         <th>nom Exercice</th>
         <th>description Exercice</th>
+        <th>video Exercice</th>
+        <th>photo Exercice</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let e of exercice">
         <td>{{ e.idExercice }}</td>
-        <td>{{ e.nomExercice }}</td>
+        <td>{{ e.nameExercice }}</td>
         <td>{{ e.descriptionExercice }}</td>
+        <td>{{ e.videoExercice }}</td>
+        <td>{{ e.photoExercice }}</td>
+
          <td>
           <button (click)="deleteExercices(e.idExercice)" class="btn-delete">
             Supprimer
