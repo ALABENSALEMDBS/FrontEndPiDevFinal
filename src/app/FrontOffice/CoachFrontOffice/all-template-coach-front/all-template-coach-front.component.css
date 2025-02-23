@@ -1,0 +1,24 @@
+/* S'assurer que la page prend toute la hauteur */
+html, body {
+    height: 100%;
+    margin: 0;
+    position: relative;
+  }
+  
+  /* Le contenu principal occupe l'espace restant */
+  .container-fluid {
+    padding-bottom: 380px; /* Ajuste cette valeur en fonction de la hauteur du footer */
+  }
+  
+  /* Footer fixé en bas de la page */
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1a1a1a; /* Couleur de fond du footer */
+    color: white;
+    padding: 20px 0;
+    z-index: 9999; /* S'assurer que le footer soit toujours au-dessus du contenu */
+  }
+  

@@ -78,6 +78,16 @@ addSeances(f:seance):Observable<seance[]>{
   return this.http.post<seance[]>("http://localhost:8089/PiDevBackEndProject/seances/add-seances",f)
 }
 
+
+getbyidSeances(idseance:any):Observable<formation[]>{
+  return this.http.get<formation[]>( "http://localhost:8089/PiDevBackEndProject/seances/retrieve-seances/"+idseance)
+}
+
+
+updateSeances(id:any,seance:seance):Observable<seance[]>{
+  return this.http.put<seance[]>("http://localhost:8089/PiDevBackEndProject/seances/modify-seances"+'/'+id,seance)
+}
+
 //********************************************************** */
 
 getAllExercices(): Observable<Exercices[]> {
@@ -93,6 +103,14 @@ addExercices(e:Exercices):Observable<Exercices[]>{
   return this.http.post<Exercices[]>("http://localhost:8089/PiDevBackEndProject/Exercices/add-exercices",e)
 }
 
+getbyidExercices(idExercices:any):Observable<formation[]>{
+  return this.http.get<formation[]>( "http://localhost:8089/PiDevBackEndProject/Exercices/retrieve-exercices/"+idExercices)
+}
+
+
+updateExercices(idExercices:any,Exercices:Exercices):Observable<Exercices[]>{
+  return this.http.put<Exercices[]>("http://localhost:8089/PiDevBackEndProject/Exercices/modify-exercices"+'/'+idExercices,Exercices)
+}
 
 
 }
