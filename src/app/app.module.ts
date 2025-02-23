@@ -36,6 +36,8 @@ import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgro
 
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformation/addformation.component';
+import { ListSeanceComponent } from './FrontOffice/CoachFrontOffice/list-seance/list-seance.component';
+import { AddseanceComponent } from './FrontOffice/CoachFrontOffice/addseance/addseance.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformati
 
     AccueilComponent,
       AddformationComponent,
+      ListSeanceComponent,
+      AddseanceComponent,
 
 
   ],
