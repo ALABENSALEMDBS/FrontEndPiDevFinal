@@ -17,6 +17,8 @@ import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updates
 import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformation/addformation.component';
+import { ListSeanceComponent } from './FrontOffice/CoachFrontOffice/list-seance/list-seance.component';
+import { AddseanceComponent } from './FrontOffice/CoachFrontOffice/addseance/addseance.component';
 
 const routes: Routes = [
 
@@ -92,6 +94,14 @@ const routes: Routes = [
         children:[
           {path: 'addformation', component: AddformationComponent },
         ]
+      },
+
+      {
+        path: 'showseance', component: ListSeanceComponent,
+        children: [
+          { path: 'addseance', component: AddseanceComponent },
+        ]
+        
       },
 
     ]
