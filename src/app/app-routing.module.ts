@@ -24,6 +24,7 @@ import { AddexerciceComponent } from './FrontOffice/CoachFrontOffice/addexercice
 import { UpdateformationComponent } from './FrontOffice/CoachFrontOffice/updateformation/updateformation.component';
 import { UpdateseanceComponent } from './FrontOffice/CoachFrontOffice/updateseance/updateseance.component';
 import { UpdateexerciceComponent } from './FrontOffice/CoachFrontOffice/updateexercice/updateexercice.component';
+import { ListTacticComponent } from './FrontOffice/CoachFrontOffice/list-tactic/list-tactic.component';
 
 const routes: Routes = [
 
@@ -82,8 +83,7 @@ const routes: Routes = [
     path: 'coatch',
     component: AllTemplateCoachFrontComponent,
     children: [
-      { path: '', redirectTo: 'AddTactic', pathMatch: 'full' },
-      { path: 'AddTactic', component: AddTacticComponent },
+      { path: '', redirectTo: 'HomeCoach', pathMatch: 'full' },
       { path: 'HomeCoach', component: HomeCoachComponent },
       {
         path: 'ShowSousGroups',
@@ -119,7 +119,17 @@ const routes: Routes = [
           {path: 'updateexercice/:idExercice', component: UpdateexerciceComponent },
 
         ]
-      }
+      },
+
+      {
+        path: 'listTactic', component: ListTacticComponent,
+        children:[
+          {path: 'AddTactic', component: AddTacticComponent },
+
+        ]
+      },
+
+
     ]
   }
   ,

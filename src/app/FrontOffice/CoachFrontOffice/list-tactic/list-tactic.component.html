@@ -1,0 +1,47 @@
+<div class="container">
+    <h2>Liste des Tactiques</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Photo</th>
+          <th>Vidéo</th>
+          <th>Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of tactic">
+          <td>{{ t.idTactic }}</td>
+          <td>{{ t.nameTactic }}</td>
+          <td>{{ t.descriptionTactic }}</td>
+          <td>
+            <img *ngIf="t.photoTactic" [src]="t.photoTactic" alt="Photo" class="tactic-img">
+            <span *ngIf="!t.photoTactic">Aucune image</span>
+          </td>
+          <td>
+            <button *ngIf="t.videoTactic" (click)="openModal(t.videoTactic)" class="btn-video">
+              Voir la vidéo
+            </button>
+            <span *ngIf="!t.videoTactic">Pas de vidéo</span>
+          </td>
+          <td>
+            <button (click)="deleteTactic(t.idTactic)" class="btn-delete">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Modal -->
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeModal()">X</button>
+      <iframe [src]="safeVideoUrl" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+  
