@@ -32,6 +32,9 @@ import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur
 import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
 import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
 import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
+import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
+import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
+import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match/add-match.component';
 
 const routes: Routes = [
 
@@ -49,6 +52,14 @@ const routes: Routes = [
         children: [
           { path: 'update/:idTournoi', component: UpdateTournoiComponent },
           { path: 'addtournoi', component: AddTournoiComponent },
+        ]
+      },
+      {
+        path: 'showmatch',
+        component: ListMatchComponent,
+        children: [
+          { path: 'update/:idMatch', component: UpdateMatchComponent },
+          { path: 'addmatch', component: AddMatchComponent },
         ]
       },
     ]
