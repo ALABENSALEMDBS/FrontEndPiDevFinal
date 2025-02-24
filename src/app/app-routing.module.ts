@@ -9,6 +9,12 @@ import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
 import { AllTemplateDoctorFrontComponent } from './FrontOffice/DoctorFrontOffice/all-template-doctor-front/all-template-doctor-front.component';
+import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
+import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
+import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
+import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sousgroup.component';
+import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
+import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 import { CreateUpdateFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/create-update-fiche-medical/create-update-fiche-medical.component';
 import { ListeFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/liste-fiche-medical/liste-fiche-medical.component';
@@ -19,10 +25,10 @@ import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/Fi
 
 const routes: Routes = [
 
-  
+
 
   {
-    
+
     path: 'admin',
     component: AllTemplateBackComponent,
     children:[
@@ -33,16 +39,14 @@ const routes: Routes = [
       {
         path:'HomeAccueil',
         component: AccueilComponent
-      },
-
-      
+      },     
       
     ]
   }
   ,
-  
+
   // {
-    
+
   //   path: '',
   //   component: AllTemplateFrontComponent,
   //   children:[
@@ -54,7 +58,7 @@ const routes: Routes = [
   //         path: 'Homedoctors',
   //         component:HomeDoctorsComponent
   //     }
-      
+
   //   ]
   // },
   {
@@ -62,7 +66,7 @@ const routes: Routes = [
     component:AllTemplateDoctorFrontComponent,
 
     children:[ {
-      
+
               path:'Fichedoctors',
               component: DoctorComponent
             },
@@ -99,24 +103,37 @@ const routes: Routes = [
             },
 
             { path: '', redirectTo: '/doctor/listefiche', pathMatch: 'full' }
+            
     ]
   },
   {
-    path:'coatch',
-    component:AllTemplateCoachFrontComponent
-    
-
-   
-  },
+    path: 'coatch',
+    component: AllTemplateCoachFrontComponent,
+    children: [
+      { path: '', redirectTo: 'AddTactic', pathMatch: 'full' },
+      { path: 'AddTactic', component: AddTacticComponent },
+      { path: 'HomeCoach', component: HomeCoachComponent },
+      { path: 'AjouterFormation', component: FormationCoachComponent },
+      {
+        path: 'ShowSousGroups',
+        component: SousgroupComponent,
+        children: [
+          { path: 'update/:idSousGroup', component: UpdatesousGroupComponent },
+          { path: 'addsousgroup', component: AddsousgroupComponent }
+        ]
+      }
+    ]
+  }
+  ,
   {
     path:'player',
-    component:AllTemplatePlayerFrontComponent 
+    component:AllTemplatePlayerFrontComponent
 
-   
+
   },
   {
     path:'analyste',
-    component:AllTemplateAnalysteFrontComponent 
+    component:AllTemplateAnalysteFrontComponent
 
   },
 
@@ -124,9 +141,9 @@ const routes: Routes = [
     path:'home',
     component:HomePageComponent
   }
-  
 
-  
+
+
 ];
 
 @NgModule({

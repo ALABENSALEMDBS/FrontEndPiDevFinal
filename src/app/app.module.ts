@@ -25,12 +25,20 @@ import { HeaderAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { FooterAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/footer-analyste-front/footer-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
+import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
+import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
+import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sousgroup.component';
+import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
+import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
+
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 import { CreateUpdateFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/create-update-fiche-medical/create-update-fiche-medical.component';
 import { ListeFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/liste-fiche-medical/liste-fiche-medical.component';
 import { ServiceDoctorService } from './services/service-doctor.service';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { ListeExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/liste-exercice-retablissement/liste-exercice-retablissement.component';
 import { CreateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/create-exercice-retablissement/create-exercice-retablissement.component';
 import { UpdateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/update-exercice-retablissement/update-exercice-retablissement.component';
@@ -42,6 +50,7 @@ import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/Fi
     SidebarBackComponent,
     AllTemplateBackComponent,
     FooterBackComponent,
+
     DoctorComponent,
     HomeDoctorsComponent,
     StateticComponent,
@@ -58,6 +67,13 @@ import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/Fi
     AllTemplateAnalysteFrontComponent,
     FooterAnalysteFrontComponent,
     HomePageComponent,
+    AddTacticComponent,
+    HomeCoachComponent,
+    FormationCoachComponent,
+    SousgroupComponent,
+    UpdatesousGroupComponent,
+    AddsousgroupComponent,
+
     AccueilComponent,
     CreateUpdateFicheMedicalComponent,
     ListeFicheMedicalComponent,
@@ -73,6 +89,8 @@ import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/Fi
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
     
   ],
   providers: [],
