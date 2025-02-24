@@ -52,6 +52,9 @@ import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/ac
 import { ListJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/list-joueur/list-joueur.component';
 import { AddJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/add-joueur/add-joueur.component';
 import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/update-joueur/update-joueur.component';
+import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
+import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
+import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +105,9 @@ import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur
       ListJoueurComponent,
       AddJoueurComponent,
       UpdateJoueurComponent,
+      ListTournoiComponent,
+      AddTournoiComponent,
+      UpdateTournoiComponent,
 
 
   ],

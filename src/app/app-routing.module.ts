@@ -29,6 +29,9 @@ import { AllTemplateClubComponent } from './BackOffice/admin-club-backoffice/all
 import { ListJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/list-joueur/list-joueur.component';
 import { AddJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/add-joueur/add-joueur.component';
 import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/update-joueur/update-joueur.component';
+import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
+import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
+import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
 
 const routes: Routes = [
 
@@ -40,6 +43,14 @@ const routes: Routes = [
     children:[
       { path: '', redirectTo: 'HomeAccueilsuperadmin', pathMatch: 'full' },
       {path:'HomeAccueilsuperadmin',component: AccueilComponent},
+      {
+        path: 'showtournoi',
+        component: ListTournoiComponent,
+        children: [
+          { path: 'update/:idTournoi', component: UpdateTournoiComponent },
+          { path: 'addtournoi', component: AddTournoiComponent },
+        ]
+      },
     ]
   },
 
@@ -52,7 +63,6 @@ const routes: Routes = [
       {path:'ListJoueurs',component: ListJoueurComponent},
       {path:'AddJoueur',component: AddJoueurComponent},
       {path:'UpdateJoueur',component: UpdateJoueurComponent},
-
 
     ]
   },
