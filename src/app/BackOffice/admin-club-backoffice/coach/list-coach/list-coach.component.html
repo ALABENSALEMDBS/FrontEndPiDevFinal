@@ -1,0 +1,42 @@
+<!-- <p>list-coach works!</p> -->
+
+<div class="container">
+  <h2 class="title">Liste des Coachs</h2>
+  <div class="table-container" *ngIf="coach.length > 0">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of coach">
+          <td>{{ c.idUser }}</td>
+          <td>{{ c.nameUsers }}</td>
+          <td>{{ c.prenomUser }}</td>
+          <td>{{ c.emailUser }}</td>
+          <td>{{ c.telephoneUser }}</td>
+          <td>
+
+          </td>
+          <button (click)="deleteCoach(c.idUser)" class="btn-delete">
+            Supprimer
+          </button>
+          <button class="btn btn-success m-3" [routerLink]="['updateCoach', c.idUser]">
+            Update
+          </button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="coach.length === 0" class="no-data">
+    Aucun coach trouvé.
+  </div>
+</div>
+<router-outlet></router-outlet>
