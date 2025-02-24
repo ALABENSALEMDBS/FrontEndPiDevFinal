@@ -1,0 +1,29 @@
+<p>list-joueur works!</p>
+
+<div class="container">
+  <h2 class="title">Liste des Joueurs</h2>
+<div class="table-container" *ngIf="joueur.length > 0">
+  <table class="styled-table">
+      <thead>
+          <tr>
+              <th>Numéro</th>
+              <th>Poste</th>
+              <th>Début du contrat</th>
+              <th>Fin du contrat</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let j of joueur">
+              <td>{{ j.numeroJoueur }}</td>
+              <td>{{ j.posteJoueur }}</td>
+              <td>{{ j.debutContratJoueur | date:'dd/MM/yyyy' }}</td>
+              <td>{{ j.finContratJoueur | date:'dd/MM/yyyy' }}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+<div *ngIf="joueur.length === 0" class="no-data">
+  Aucun joueur trouvé.
+</div>
+</div>

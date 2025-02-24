@@ -49,6 +49,9 @@ import { FooterAdminClubComponent } from './BackOffice/admin-club-backoffice/foo
 import { HeaderAdminClubComponent } from './BackOffice/admin-club-backoffice/header-admin-club/header-admin-club.component';
 import { SidebarAdminClubComponent } from './BackOffice/admin-club-backoffice/sidebar-admin-club/sidebar-admin-club.component';
 import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/acceuil-admin-club/acceuil-admin-club.component';
+import { ListJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/list-joueur/list-joueur.component';
+import { AddJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/add-joueur/add-joueur.component';
+import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/update-joueur/update-joueur.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +99,9 @@ import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/ac
       HeaderAdminClubComponent,
       SidebarAdminClubComponent,
       AcceuilAdminClubComponent,
+      ListJoueurComponent,
+      AddJoueurComponent,
+      UpdateJoueurComponent,
 
 
   ],
