@@ -55,6 +55,9 @@ import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur
 import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
 import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
 import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
+import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match/add-match.component';
+import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
+import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +111,9 @@ import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/up
       ListTournoiComponent,
       AddTournoiComponent,
       UpdateTournoiComponent,
+      AddMatchComponent,
+      ListMatchComponent,
+      UpdateMatchComponent,
 
 
   ],
