@@ -1,0 +1,35 @@
+
+
+<div class="container mt-4">
+    <h2>Ajouter un Exercice de Rétablissement</h2>
+    <form [formGroup]="exerciceForm" (ngSubmit)="ajouterExercice()">
+      
+      <div class="form-group">
+        <label for="nom">Nom de l'Exercice</label>
+        <input id="nom" type="text" class="form-control" formControlName="nomExerciceRetablissement" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" formControlName="descriptionExerciceRetablissement" required></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="duree">Durée (en minutes)</label>
+        <input id="duree" type="number" class="form-control" formControlName="dureeExercice" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="niveau">Niveau de Difficulté</label>
+        <select id="niveau" class="form-control" formControlName="niveauDifficulte" required>
+          <option value="">Sélectionner un niveau</option>
+          <option value="Facile">Facile</option>
+          <option value="Moyen">Moyen</option>
+          <option value="Difficile">Difficile</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary mt-3"   [disabled]="exerciceForm.invalid">Ajouter</button>
+    </form>
+  </div>
+  

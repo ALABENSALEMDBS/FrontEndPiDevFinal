@@ -10,6 +10,12 @@ import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOf
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
 import { AllTemplateDoctorFrontComponent } from './FrontOffice/DoctorFrontOffice/all-template-doctor-front/all-template-doctor-front.component';
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
+import { CreateUpdateFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/create-update-fiche-medical/create-update-fiche-medical.component';
+import { ListeFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/liste-fiche-medical/liste-fiche-medical.component';
+import { ListeExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/liste-exercice-retablissement/liste-exercice-retablissement.component';
+import { CreateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/create-exercice-retablissement/create-exercice-retablissement.component';
+import { UpdateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/update-exercice-retablissement/update-exercice-retablissement.component';
+import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/update-fiche-medicale/update-fiche-medicale.component';
 
 const routes: Routes = [
 
@@ -63,7 +69,36 @@ const routes: Routes = [
             {
                 path: 'Homedoctors',
                 component:HomeDoctorsComponent
-            } 
+            } ,
+            {
+              path:'fichePlayer',
+              component:CreateUpdateFicheMedicalComponent
+            } ,
+            {
+              path:'update-fiche-player',
+              component: UpdateFicheMedicaleComponent
+            },
+            {
+              path:'listefiche',
+              component:ListeFicheMedicalComponent
+              
+            },
+            
+            {
+              path:'listeExercicedeRetablissement',
+              component:ListeExerciceRetablissementComponent
+
+            },
+            {
+              path:'creationexerciceRetab',
+              component:CreateExerciceRetablissementComponent
+            },
+            {
+              path:'updateexercice/:id',
+              component:UpdateExerciceRetablissementComponent
+            },
+
+            { path: '', redirectTo: '/doctor/listefiche', pathMatch: 'full' }
     ]
   },
   {

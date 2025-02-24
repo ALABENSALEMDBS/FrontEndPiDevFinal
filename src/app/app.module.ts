@@ -25,9 +25,16 @@ import { HeaderAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { FooterAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/footer-analyste-front/footer-analyste-front.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AccueilComponent } from './BackOffice/accueil/accueil.component';
-
+import { CreateUpdateFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/create-update-fiche-medical/create-update-fiche-medical.component';
+import { ListeFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/liste-fiche-medical/liste-fiche-medical.component';
+import { ServiceDoctorService } from './services/service-doctor.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ListeExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/liste-exercice-retablissement/liste-exercice-retablissement.component';
+import { CreateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/create-exercice-retablissement/create-exercice-retablissement.component';
+import { UpdateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/update-exercice-retablissement/update-exercice-retablissement.component';
+import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/update-fiche-medicale/update-fiche-medicale.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,11 +42,9 @@ import { AccueilComponent } from './BackOffice/accueil/accueil.component';
     SidebarBackComponent,
     AllTemplateBackComponent,
     FooterBackComponent,
-  
     DoctorComponent,
     HomeDoctorsComponent,
     StateticComponent,
-
     FooterCoachFrontComponent,
     AllTemplateCoachFrontComponent,
     HeaderCoachFrontComponent,
@@ -53,14 +58,21 @@ import { AccueilComponent } from './BackOffice/accueil/accueil.component';
     AllTemplateAnalysteFrontComponent,
     FooterAnalysteFrontComponent,
     HomePageComponent,
-
     AccueilComponent,
+    CreateUpdateFicheMedicalComponent,
+    ListeFicheMedicalComponent,
+    ListeExerciceRetablissementComponent,
+    CreateExerciceRetablissementComponent,
+    UpdateExerciceRetablissementComponent,
+    UpdateFicheMedicaleComponent,
 
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     
   ],
   providers: [],

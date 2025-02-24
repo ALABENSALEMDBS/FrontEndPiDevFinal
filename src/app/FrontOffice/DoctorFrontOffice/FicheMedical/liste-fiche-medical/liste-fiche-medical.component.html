@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Liste des Fiches Médicales</h2>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <button class="btn btn-primary mt-3" routerLink="/doctor/fichePlayer">Ajouter une Fiche</button>
+
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+         
+          <!-- <th>Joueur</th> -->
+          <th>Poids (kg)</th>
+          <th>Taille (cm)</th>
+          <th>Date de Blessure</th>
+          <th>Gravité</th>
+          <th>Type de Blessure</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fiche of fichesMedicales">
+           <!-- <td>{{ fiche.numeroJoueur }}</td> -->
+          <td>{{ fiche.poidsFicheMedicale }}</td>
+          <td>{{ fiche.tailleFicheMedicale }}</td>
+          <td>{{ fiche.dateBlessure | date }}</td>
+          <td>{{ fiche.gravite }}</td>
+          <td>{{ fiche.type }}</td>
+          <td> <button  class="btn btn-warning" (click)="onUpdateFicheMedicaleClicked(fiche)">Edit</button> 
+            <button class="btn btn-danger" (click)="supprimerficheMedical(fiche)">🗑️ Supprimer</button></td>
+         
+        </tr>
+      </tbody>
+    </table>
+  
+  </div>
+  
