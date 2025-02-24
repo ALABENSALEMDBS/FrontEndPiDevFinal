@@ -1,52 +1,53 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllTemplateBackComponent } from './BackOffice/all-template-back/all-template-back.component';
-import { DoctorComponent } from './FrontOffice/DoctorFrontOffice/doctor/doctor.component';
-import { HomeDoctorsComponent } from './FrontOffice/DoctorFrontOffice/home-doctors/home-doctors.component';
-import { StateticComponent } from './BackOffice/statetic/statetic.component';
-import { AllTemplateCoachFrontComponent } from './FrontOffice/CoachFrontOffice/all-template-coach-front/all-template-coach-front.component';
-import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/all-template-player-front/all-template-player-front.component';
+import { AccueilComponent } from './BackOffice/admin-backoffice/accueil/accueil.component';
+import { AllTemplateBackComponent } from './BackOffice/admin-backoffice/all-template-back/all-template-back.component';
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
-import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
-import { AllTemplateDoctorFrontComponent } from './FrontOffice/DoctorFrontOffice/all-template-doctor-front/all-template-doctor-front.component';
 import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
-import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
-import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
-import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sousgroup.component';
-import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
-import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
-import { AccueilComponent } from './BackOffice/accueil/accueil.component';
-import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformation/addformation.component';
-import { ListSeanceComponent } from './FrontOffice/CoachFrontOffice/list-seance/list-seance.component';
-import { AddseanceComponent } from './FrontOffice/CoachFrontOffice/addseance/addseance.component';
-import { ListExerciceComponent } from './FrontOffice/CoachFrontOffice/list-exercice/list-exercice.component';
 import { AddexerciceComponent } from './FrontOffice/CoachFrontOffice/addexercice/addexercice.component';
+import { AddformationComponent } from './FrontOffice/CoachFrontOffice/addformation/addformation.component';
+import { AddseanceComponent } from './FrontOffice/CoachFrontOffice/addseance/addseance.component';
+import { AddsousgroupComponent } from './FrontOffice/CoachFrontOffice/addsousgroup/addsousgroup.component';
+import { AllTemplateCoachFrontComponent } from './FrontOffice/CoachFrontOffice/all-template-coach-front/all-template-coach-front.component';
+import { FormationCoachComponent } from './FrontOffice/CoachFrontOffice/formation-coach/formation-coach.component';
+import { HomeCoachComponent } from './FrontOffice/CoachFrontOffice/homeCoach/home-coach/home-coach.component';
+import { ListExerciceComponent } from './FrontOffice/CoachFrontOffice/list-exercice/list-exercice.component';
+import { ListSeanceComponent } from './FrontOffice/CoachFrontOffice/list-seance/list-seance.component';
+import { ListTacticComponent } from './FrontOffice/CoachFrontOffice/list-tactic/list-tactic.component';
+import { SousgroupComponent } from './FrontOffice/CoachFrontOffice/sousgroup/sousgroup.component';
+import { UpdateexerciceComponent } from './FrontOffice/CoachFrontOffice/updateexercice/updateexercice.component';
 import { UpdateformationComponent } from './FrontOffice/CoachFrontOffice/updateformation/updateformation.component';
 import { UpdateseanceComponent } from './FrontOffice/CoachFrontOffice/updateseance/updateseance.component';
-import { UpdateexerciceComponent } from './FrontOffice/CoachFrontOffice/updateexercice/updateexercice.component';
-import { ListTacticComponent } from './FrontOffice/CoachFrontOffice/list-tactic/list-tactic.component';
+import { UpdatesousGroupComponent } from './FrontOffice/CoachFrontOffice/updatesous-group/updatesous-group.component';
+import { AllTemplateDoctorFrontComponent } from './FrontOffice/DoctorFrontOffice/all-template-doctor-front/all-template-doctor-front.component';
+import { DoctorComponent } from './FrontOffice/DoctorFrontOffice/doctor/doctor.component';
+import { HomeDoctorsComponent } from './FrontOffice/DoctorFrontOffice/home-doctors/home-doctors.component';
+import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
+import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/all-template-player-front/all-template-player-front.component';
+import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/acceuil-admin-club/acceuil-admin-club.component';
+import { AllTemplateClubComponent } from './BackOffice/admin-club-backoffice/all-template-club/all-template-club.component';
 
 const routes: Routes = [
 
 
 
   {
-
-    path: 'admin',
+    path: 'superadmin',
     component: AllTemplateBackComponent,
     children:[
-      {
-        path:'static',
-        component: StateticComponent
-      },
-      {
-        path:'HomeAccueil',
-        component: AccueilComponent
-      },     
-      
+      { path: '', redirectTo: 'HomeAccueilsuperadmin', pathMatch: 'full' },
+      {path:'HomeAccueilsuperadmin',component: AccueilComponent},
     ]
-  }
-  ,
+  },
+
+  {
+    path: 'clubadmin',
+    component: AllTemplateClubComponent,
+    children:[
+      { path: '', redirectTo: 'HomeAccueilclubadmin', pathMatch: 'full' },
+      {path:'HomeAccueilclubadmin',component: AcceuilAdminClubComponent},
+    ]
+  },
 
   // {
 
