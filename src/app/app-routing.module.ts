@@ -28,6 +28,7 @@ import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/ac
 import { AllTemplateClubComponent } from './BackOffice/admin-club-backoffice/all-template-club/all-template-club.component';
 import { ListJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/list-joueur/list-joueur.component';
 import { AddJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/add-joueur/add-joueur.component';
+import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/update-joueur/update-joueur.component';
 
 const routes: Routes = [
 
@@ -50,6 +51,8 @@ const routes: Routes = [
       {path:'HomeAccueilclubadmin',component: AcceuilAdminClubComponent},
       {path:'ListJoueurs',component: ListJoueurComponent},
       {path:'AddJoueur',component: AddJoueurComponent},
+      {path:'UpdateJoueur',component: UpdateJoueurComponent},
+
 
     ]
   },
