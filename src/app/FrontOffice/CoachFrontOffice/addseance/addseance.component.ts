@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
 
 @Component({
   selector: 'app-addseance',
@@ -13,7 +13,7 @@ export class AddseanceComponent {
     successMessage: string = '';
     errorMessage: string = '';
 
-    constructor(private seanceService: CoatchService,private rout:Router) {
+    constructor(private seanceService: SeanceService,private rout:Router) {
         // Initialisation manuelle du FormGroup
         this.seanceform = new FormGroup({
           titleSeance: new FormControl('', [Validators.required, Validators.minLength(3)]),

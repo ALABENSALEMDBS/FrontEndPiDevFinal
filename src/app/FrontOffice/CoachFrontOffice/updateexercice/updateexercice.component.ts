@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { ExerciceService } from 'src/app/services/serviceCoatch/serviceExercice/exercice.service';
 
 @Component({
   selector: 'app-updateexercice',
@@ -14,7 +14,7 @@ export class UpdateexerciceComponent implements OnInit {
     exerciceform!: FormGroup;
     listexercice: any[] = [];
   
-    constructor(private act: ActivatedRoute, private servise: CoatchService, private router: Router) { }
+    constructor(private act: ActivatedRoute, private servise: ExerciceService, private router: Router) { }
  
     ngOnInit(): void {
       this.idExercice = this.act.snapshot.params['idExercice'];

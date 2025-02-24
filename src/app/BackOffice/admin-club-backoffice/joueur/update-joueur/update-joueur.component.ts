@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { JoueurService } from 'src/app/services/serviceAdminClub/serviceJoueur/joueur.service';
 
 @Component({
   selector: 'app-update-joueur',
@@ -15,7 +15,7 @@ export class UpdateJoueurComponent implements OnInit {
   joueurForm!: FormGroup;
   joueurData: any = {};
 
-  constructor(private act: ActivatedRoute, private joueurService: CoatchService, private router: Router) { }
+  constructor(private act: ActivatedRoute, private joueurService: JoueurService, private router: Router) { }
 
   ngOnInit(): void {
     this.numeroJoueur = this.act.snapshot.params['numeroJoueur']; // Get the player number from route

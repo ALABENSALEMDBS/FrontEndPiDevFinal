@@ -10,6 +10,9 @@ export class TacticService {
 
   constructor(private http:HttpClient) { }
 
+  private baseUrl = "http://localhost:8089/PiDevBackEndProject/tactics";
+
+
    getAlltactic(): Observable<tactic[]> {
       return this.http.get<tactic[]>("http://localhost:8089/PiDevBackEndProject/tactics/retrieve-all-tactics");
     }
@@ -24,7 +27,12 @@ export class TacticService {
   //   return this.http.get<sousgroup[]>(this.apiUrlGetById+'/'+idSousGroup)
   // }
   
-  // addsousgroup(sg:sousgroup):Observable<sousgroup[]>{
-  //   return this.http.post<sousgroup[]>("http://localhost:8089/PiDevBackEndProject/sousGroupes/add-sousGroupes",sg)
+  addtactic(tac:tactic):Observable<tactic[]>{
+    return this.http.post<tactic[]>("http://localhost:8089/PiDevBackEndProject/tactics/add-tactics",tac)
+  }
+
+
+  // addtacticc(formData: FormData): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/add-tactics`, formData);
   // }
 }

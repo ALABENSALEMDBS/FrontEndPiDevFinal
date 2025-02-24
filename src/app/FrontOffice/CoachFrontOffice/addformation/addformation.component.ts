@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 
 @Component({
   selector: 'app-addformation',
@@ -13,7 +13,7 @@ export class AddformationComponent {
     successMessage: string = '';
     errorMessage: string = '';
 
-    constructor(private formationService: CoatchService,private rout:Router) {
+    constructor(private formationService: FormationService,private rout:Router) {
         // Initialisation manuelle du FormGroup
         this.formationForm = new FormGroup({
           nameFormation: new FormControl('', [Validators.required, Validators.minLength(3)]),

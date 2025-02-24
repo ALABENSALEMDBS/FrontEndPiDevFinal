@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGroupe/sousgroupe.service';
 import { sousgroup } from 'src/core/models/sousgroup';
 
 @Component({
@@ -11,7 +11,7 @@ export class SousgroupComponent implements OnInit {
   sousGroupes: sousgroup[] = [];
   showOutlet: boolean = false;
 
-  constructor(private coatchService: CoatchService) {}
+  constructor(private coatchService: SousgroupeService) {}
 
   ngOnInit(): void {
     this.getSousGroupes();

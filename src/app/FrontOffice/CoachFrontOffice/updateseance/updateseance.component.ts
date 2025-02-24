@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
 
 @Component({
   selector: 'app-updateseance',
@@ -14,7 +14,7 @@ export class UpdateseanceComponent {
   seanceform!: FormGroup;
   listseance: any[] = [];
 
-  constructor(private act: ActivatedRoute, private service: CoatchService, private router: Router) { }
+  constructor(private act: ActivatedRoute, private service: SeanceService, private router: Router) { }
 
   ngOnInit(): void {
     this.idSeance = this.act.snapshot.params['idSeance'];

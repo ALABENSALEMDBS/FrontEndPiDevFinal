@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 
 @Component({
   selector: 'app-updateformation',
@@ -14,7 +14,7 @@ export class UpdateformationComponent implements OnInit {
     formationForm!: FormGroup;
     listFormation: any[] = [];
   
-    constructor(private act: ActivatedRoute, private servise: CoatchService, private router: Router) { }
+    constructor(private act: ActivatedRoute, private servise: FormationService, private router: Router) { }
  
     ngOnInit(): void {
       this.idFormation = this.act.snapshot.params['idFormation'];

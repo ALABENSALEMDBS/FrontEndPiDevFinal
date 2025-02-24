@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { ExerciceService } from 'src/app/services/serviceCoatch/serviceExercice/exercice.service';
 
 @Component({
   selector: 'app-addexercice',
@@ -13,7 +13,7 @@ exerciceform: FormGroup;
     successMessage: string = '';
     errorMessage: string = '';
 
-    constructor(private seanceExercice: CoatchService,private rout:Router) {
+    constructor(private seanceExercice: ExerciceService,private rout:Router) {
         // Initialisation manuelle du FormGroup
         this.exerciceform = new FormGroup({
           nameExercice: new FormControl('', [Validators.required, Validators.minLength(3)]),
