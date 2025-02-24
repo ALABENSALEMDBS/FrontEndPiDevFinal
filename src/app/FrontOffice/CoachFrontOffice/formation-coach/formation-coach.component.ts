@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 import { formation } from 'src/core/models/formation';
 
 @Component({
@@ -12,7 +12,7 @@ export class FormationCoachComponent {
 
    formation: formation[] = [];
   
-    constructor(private coatchService: CoatchService) {}
+    constructor(private coatchService: FormationService) {}
   
     ngOnInit(): void {
       this.getFormations();

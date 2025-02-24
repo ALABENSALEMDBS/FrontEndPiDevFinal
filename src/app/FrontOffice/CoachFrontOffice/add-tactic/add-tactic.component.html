@@ -1,1 +1,121 @@
+<hr>
 <p>add-tactic works!</p>
+<hr>
+
+<div class="form-container">
+    <div class="form-group">
+        <label for="nom">Tactic Name :</label>
+        <input type="text" id="nom" name="nom" placeholder="Put the Tactic Name"  [(ngModel)]="nameTactic">
+        <p class="description">Veuillez entrer votre nom complet.</p>
+    </div>
+    <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea id="description" name="description" rows="2" placeholder="Entrez une description" [(ngModel)]="descriptionTactic"></textarea>
+        <p class="description">Veuillez entrer une description détaillée.</p>
+    </div>
+  </div>
+  
+  <div class="Butt-DA" [hidden]="!isTacticVisible()">
+    
+      <!-- Bouton pour démarrer et arrêter l'enregistrement -->
+      <div class="controls">
+        <button (click)="startRecording()" [disabled]="isRecording">Démarrer l'enregistrement</button>
+        <button (click)="stopRecording()" [disabled]="!isRecording">Arrêter l'enregistrement</button>
+      </div>
+      <div class="point-enregis" *ngIf="isRecording">
+        🔥
+      </div>
+  
+      <button style="background-color: rgb(234, 255, 0); color: black;" (click)="confirmDelete()"> {{ isVideoVisible ? '❌ Delete' : '🎥' }}</button>
+  
+      <div *ngIf="isVideoVisible">
+        <video #videoPlayer controls ></video>
+      </div>
+      
+  
+  <!-- Bouton de sauvegarde de la tactique -->
+  <button class="save-tactic" (click)="saveTactic()">Save Tactic</button>
+  
+  <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
+  <div class="container" >
+      <!-- Menu latéral gauche -->
+    
+      <div class="menu">
+        <!-- <h3>Joueurs</h3> -->
+        <div class="menu-grid">
+          <div class="menu-item player red" (click)="onMenuItemClick('j1')">
+            <img src="assets/images/j1.png" alt="Joueur Rouge" width="75px" height="60px" />
+          </div>
+          <div class="menu-item player red" (click)="onMenuItemClick('j5')">
+            <img src="assets/images/j5.png" alt="Joueur Rouge" width="75px" height="60px" />
+          </div>
+          <div class="menu-item player blue" (click)="onMenuItemClick('h1')">
+            <img src="assets/images/h1.png" alt="Joueur Bleu" width="75px" height="60px" />
+          </div>
+          <div class="menu-item player blue" (click)="onMenuItemClick('h2')">
+            <img src="assets/images/h2.png" alt="Joueur Bleu" width="75px" height="60px" />
+          </div>
+          <div class="menu-item cone" (click)="onMenuItemClick('c1')">
+            <img src="assets/images/c1.png" alt="Cône" width="75px" height="60px" />
+          </div>
+          <div class="menu-item cone" (click)="onMenuItemClick('c2')">
+            <img src="assets/images/c2.png" alt="Cône" width="75px" height="60px" />
+          </div>
+          <div class="menu-item obstacle" (click)="onMenuItemClick('j4')">
+            <img src="assets/images/j4.png" alt="Obstacle" width="75px" height="60px" />
+          </div>
+          <div class="menu-item obstacle" (click)="onMenuItemClick('f1')">
+            <img src="assets/images/f1.png" alt="Obstacle" width="75px" height="60px" />
+          </div>
+  
+          <div class="menu-item text" (click)="onMenuItemClick('text')">
+            <img src="assets/images/Texte.png" alt="Texte" width="75px" height="60px" />
+        </div>
+        
+        </div>
+      </div>
+      
+   
+      
+        <!-- Le terrain est affiché ici -->
+        <div  class="canvas-container"  #canvasContainer   (click)="onCanvasClick($event)" >
+        </div>
+  
+    
+    
+        <div class="ball-menu">
+            <h3>Ballons</h3>
+    
+            <div class="menu-item ball" (click)="onMenuItemClick('fl1')">
+                <img src="assets/images/fl1.png" alt="Ballon" width="75px" height="60px" />
+            </div>
+    
+            <div  class="menu-item arrow"  (click)="onMenuItemClick('b2')" >
+                <img src="assets/images/b2.png" alt="Flèche" width="75px" height="60px" />
+            </div>
+        </div>
+    
+    </div>
+    
+    
+    <div class="containerdessous">
+    
+        <div class="ball-menu-dessous">
+            <h3>Ballons</h3>
+            <div class="menu-itemss">
+    
+              <div class="menu-item ball" (click)="onMenuItemClick('fl1')">
+                  <img src="assets/images/fl1.png" alt="Ballon" width="75px" height="60px" />
+              </div>
+    
+              <div class="menu-item arrow" (click)="onMenuItemClick('b2')">
+                  <img src="assets/images/b2.png" alt="Flèche" width="75px" height="60px" />
+              </div>
+            </div>
+        </div>
+        
+    </div>
+    
+  </div>

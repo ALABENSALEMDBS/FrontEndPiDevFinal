@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CoatchService } from './coatch.service';
+import { SousgroupeService } from './sousgroupe.service';
 
-describe('CoatchService', () => {
-  let service: CoatchService;
+describe('SousgroupeService', () => {
+  let service: SousgroupeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CoatchService);
+    service = TestBed.inject(SousgroupeService);
   });
 
   it('should be created', () => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGroupe/sousgroupe.service';
 
 @Component({
   selector: 'app-updatesous-group',
@@ -14,7 +14,7 @@ export class UpdatesousGroupComponent implements OnInit {
   sousGroupForm!: FormGroup;
   listSousGroup: any[] = [];
 
-  constructor(private act: ActivatedRoute, private sousGrpService: CoatchService, private router: Router) { }
+  constructor(private act: ActivatedRoute, private sousGrpService: SousgroupeService, private router: Router) { }
 
   ngOnInit(): void {
     this.idSousGroup = this.act.snapshot.params['idSousGroup']; // Récupérer l'ID du sous-groupe

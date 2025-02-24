@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { ExerciceService } from 'src/app/services/serviceCoatch/serviceExercice/exercice.service';
 import { Exercices } from 'src/core/models/exercice';
 
 @Component({
@@ -10,7 +10,7 @@ import { Exercices } from 'src/core/models/exercice';
 export class ListExerciceComponent {
  exercice: Exercices[] = [];
     
-      constructor(private coatchService: CoatchService) {}
+      constructor(private coatchService: ExerciceService) {}
     
       ngOnInit(): void {
         this.getExercices();

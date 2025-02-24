@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
 import { seance } from 'src/core/models/seance';
 
 @Component({
@@ -12,7 +12,7 @@ export class ListSeanceComponent implements OnInit {
 
      seance: seance[] = [];
     
-      constructor(private coatchService: CoatchService) {}
+      constructor(private coatchService: SeanceService) {}
     
       ngOnInit(): void {
         this.getSeances();

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CoatchService } from 'src/app/services/serviceCoatch/coatch.service';
+import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGroupe/sousgroupe.service';
 
 @Component({
   selector: 'app-addsousgroup',
@@ -13,7 +13,7 @@ export class AddsousgroupComponent {
   successMessage: string = '';
   errorMessage: string = '';
 
-  constructor(private sousGroupService: CoatchService,private rout:Router) {
+  constructor(private sousGroupService: SousgroupeService,private rout:Router) {
     // Initialisation manuelle du FormGroup
     this.sousGroupForm = new FormGroup({
       nameSousGroup: new FormControl('', [Validators.required, Validators.minLength(3)]),
