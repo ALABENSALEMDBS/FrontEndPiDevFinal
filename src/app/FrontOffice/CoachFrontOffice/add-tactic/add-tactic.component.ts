@@ -508,62 +508,95 @@ export class AddTacticComponent implements OnInit {
     return this.nameTactic.trim() !== '' && this.descriptionTactic.trim() !== '';
   }
 
-
   uploadError: string | null = null;
+  uploadResponse: any;
+  
   saveTactic(): void {
-    if (!this.canvasContainer) {
-        this.uploadError = 'Image not found.';
-        return;
-    }
-
-    html2canvas(this.canvasContainer.nativeElement).then(canvas => {
-        canvas.toBlob(blob => {
-            if (blob) {
-                // Create a file for the image
-                const imageFile = new File([blob], `${this.nameTactic}.png`, { type: 'image/png' });
-
-                // Upload the image file
-                this.uploadFile(imageFile);
-
-                // If a video exists, create a video file
-                if (this.videoPath && this.mediaRecorder) {
-
-                  const blob = this.mediaRecorder.getBlob();
-    
-                  if (blob) {
-                    const videoFile = new File([blob], `${this.nameTactic}.mp4`, { type: 'video/mp4' });
-                    this.uploadFile(videoFile);
+      if (!this.canvasContainer) {
+          this.uploadError = 'Image not found.';
+          return;
+      }
+  
+      html2canvas(this.canvasContainer.nativeElement).then(canvas => {
+          canvas.toBlob(async blob => {
+              if (blob) {
+                  try {
+                      // Upload de l'image
+                      const imageFile = new File([blob], `${this.nameTactic}.png`, { type: 'image/png' });
+                      await this.uploadFile(imageFile);
+  
+                      // Vérifier si une vidéo existe et l'uploader
+                      let videoUrl: string | null = null;
+                      if (this.videoPath && this.mediaRecorder) {
+                          const videoBlob = this.mediaRecorder.getBlob();
+                          if (videoBlob) {
+                              const videoFile = new File([videoBlob], `${this.nameTactic}.mp4`, { type: 'video/mp4' });
+                              await this.uploadFile(videoFile);
+                              videoUrl = `http://localhost/tactics/${this.nameTactic}.mp4`;
+                          }
+                      }
+  
+                      // Ajouter la tactique après l'upload
+                      this.addTactic(videoUrl);
+                  } catch (error) {
+                      console.error('Upload failed:', error);
+                      this.uploadError = 'Upload process failed.';
                   }
-                }
-            } else {
-                this.uploadError = 'Failed to create blob from canvas.';
-            }
-        }, 'image/png');
-    }).catch(error => {
-        this.uploadError = 'Error capturing image: ' + error.message;
-        console.error('Error capturing image:', error);
-    });
-}
-
-
-    uploadResponse: any;
-    uploadFile(file: File): void {
-      this.uploadError = null;
-      this.tacticservic.uploadFile(file).subscribe({
+              } else {
+                  this.uploadError = 'Failed to create blob from canvas.';
+              }
+          }, 'image/png');
+      }).catch(error => {
+          this.uploadError = 'Error capturing image: ' + error.message;
+          console.error('Error capturing image:', error);
+      });
+  }
+  
+  uploadFile(file: File): Promise<void> {
+      return new Promise((resolve, reject) => {
+          this.uploadError = null;
+          this.tacticservic.uploadFile(file).subscribe({
+              next: (response) => {
+                  console.log('Upload successful:', response);
+                  resolve();
+              },
+              error: (error) => {
+                  this.uploadError = 'Upload failed: ' + error.message;
+                  console.error('Upload error:', error);
+                  reject(error);
+              }
+          });
+      });
+  }
+  
+  addTactic(videoUrl: string | null): void {
+      const tactic = {
+          nameTactic: this.nameTactic,
+          descriptionTactic: this.descriptionTactic,
+          photoTactic: `http://localhost/tactics/${this.nameTactic}.png`,
+          videoTactic: videoUrl, // Stocke null si aucune vidéo
+      };
+  
+      this.tacticservic.addtactic(tactic).subscribe({
           next: (response) => {
-              this.uploadResponse = response;
-              console.log('Upload successful:', response);
+              console.log('Tactic added successfully:', response);
           },
           error: (error) => {
-              this.uploadError = 'Upload failed: ' + error.message;
-              console.error('Upload error:', error);
+              console.error('Error adding tactic:', error);
+              this.uploadError = 'Failed to add tactic: ' + error.message;
           }
       });
   }
+  
 
 }
 
-
+/**
+  nameTactic: string = '';
+  descriptionTactic: string = '';
+  videoPath: string | null = null;
+  imagePath: string ='';
+ */
 //************************************************************************************************************* */
 
   // // Sauvegarder la tactique
