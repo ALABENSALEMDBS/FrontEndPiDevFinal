@@ -3,6 +3,7 @@ html, body {
     height: 100%;
     margin: 0;
     position: relative;
+    
   }
   
   /* Le contenu principal occupe l'espace restant */
@@ -22,3 +23,9 @@ html, body {
     z-index: 9999; /* S'assurer que le footer soit toujours au-dessus du contenu */
   }
   
+
+
+  .col-12{
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToJkCTdysdggAPzjehCZ_Ya7Ty60770DzErQ&s') 
+              center/cover no-repeat fixed;
+  }

@@ -35,4 +35,13 @@ export class TacticService {
   // addtacticc(formData: FormData): Observable<any> {
   //   return this.http.post(`${this.baseUrl}/add-tactics`, formData);
   // }
+
+
+  private baseUrl1 = 'http://localhost:8089/PiDevBackEndProject/tactics'; // Replace with your actual backend URL
+
+  uploadFile(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);  // 'file' must match @RequestParam name on backend
+    return this.http.post(`${this.baseUrl1}/upload`, formData); //, { headers });
+  }
 }
