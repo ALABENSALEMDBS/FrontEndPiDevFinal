@@ -25,7 +25,7 @@ html, body {
   
 
 
-  .col-12{
-    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToJkCTdysdggAPzjehCZ_Ya7Ty60770DzErQ&s') 
-              center/cover no-repeat fixed;
-  }
+  .col-12 {
+    background: url('https://media.istockphoto.com/id/849258904/fr/photo/entra%C3%AEneur-%C3%A9quipe-de-football-junior-donneur-dordres.jpg?s=2048x2048&w=is&k=20&c=X6odqiWY_MuuXmdF_sVBCueMnVwu6Jfv_mWZ1UkQn84=') 
+             center/cover no-repeat fixed; 
+}
