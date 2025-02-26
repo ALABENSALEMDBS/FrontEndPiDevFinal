@@ -117,8 +117,31 @@
                     <a class="nav-link" routerLink="AddJoueur">Add Joueur</a>
                 </a>
             </li>
+
           </ul>
       </li>
+
+
+      <li class="menu-item" (click)="onMenuItemClick($event)">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-football"></i>
+          <div data-i18n="Authentications">Coach</div>
+        </a>
+
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="auth-login-basic.html" class="menu-link" target="_blank">
+                    <a class="nav-link" routerLink="ListCoach">List des Coach</a>
+                </a>
+            </li>
+            <li class="menu-item">
+              <a href="auth-login-basic.html" class="menu-link" target="_blank">
+                  <a class="nav-link" routerLink="AddCoach">Add Coach</a>
+              </a>
+          </li>
+        </ul>
+    </li>
+
 
 
 

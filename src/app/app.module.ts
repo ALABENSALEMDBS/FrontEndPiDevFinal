@@ -49,9 +49,6 @@ import { FooterAdminClubComponent } from './BackOffice/admin-club-backoffice/foo
 import { HeaderAdminClubComponent } from './BackOffice/admin-club-backoffice/header-admin-club/header-admin-club.component';
 import { SidebarAdminClubComponent } from './BackOffice/admin-club-backoffice/sidebar-admin-club/sidebar-admin-club.component';
 import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/acceuil-admin-club/acceuil-admin-club.component';
-import { ListJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/list-joueur/list-joueur.component';
-import { AddJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/add-joueur/add-joueur.component';
-import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/update-joueur/update-joueur.component';
 import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
 import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
 import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
@@ -105,15 +102,13 @@ import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update
       HeaderAdminClubComponent,
       SidebarAdminClubComponent,
       AcceuilAdminClubComponent,
-      ListJoueurComponent,
-      AddJoueurComponent,
-      UpdateJoueurComponent,
       ListTournoiComponent,
       AddTournoiComponent,
       UpdateTournoiComponent,
       AddMatchComponent,
       ListMatchComponent,
       UpdateMatchComponent,
+  
 
 
   ],
@@ -123,7 +118,7 @@ import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

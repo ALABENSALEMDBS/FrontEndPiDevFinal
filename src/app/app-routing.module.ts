@@ -26,9 +26,6 @@ import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.c
 import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/all-template-player-front/all-template-player-front.component';
 import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/acceuil-admin-club/acceuil-admin-club.component';
 import { AllTemplateClubComponent } from './BackOffice/admin-club-backoffice/all-template-club/all-template-club.component';
-import { ListJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/list-joueur/list-joueur.component';
-import { AddJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/add-joueur/add-joueur.component';
-import { UpdateJoueurComponent } from './BackOffice/admin-club-backoffice/joueur/update-joueur/update-joueur.component';
 import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
 import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
 import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
@@ -71,9 +68,6 @@ const routes: Routes = [
     children:[
       { path: '', redirectTo: 'HomeAccueilclubadmin', pathMatch: 'full' },
       {path:'HomeAccueilclubadmin',component: AcceuilAdminClubComponent},
-      {path:'ListJoueurs',component: ListJoueurComponent},
-      {path:'AddJoueur',component: AddJoueurComponent},
-      {path:'UpdateJoueur',component: UpdateJoueurComponent},
 
     ]
   },
