@@ -97,3 +97,190 @@
     background-color: #0056b3;
   }
   
+
+
+
+
+/* --- Style de la popup --- */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* Fond assombri */
+  backdrop-filter: blur(8px); /* Effet de flou */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* --- Afficher la popup avec animation --- */
+.popup-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Contenu de la popup --- */
+.popup-content {
+  background: rgba(255, 255, 255, 0.9); /* Effet semi-transparent */
+  backdrop-filter: blur(12px); /* Effet de verre */
+  padding: 25px;
+  width: 50%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transform: translateY(-20px);
+  animation: fadeInUp 0.3s ease-out forwards;
+}
+
+/* --- Animation d’apparition --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Bouton de fermeture stylisé --- */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Dégradé rouge/rose */
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(255, 69, 58, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* --- Effet de hover sur le bouton de fermeture --- */
+.close-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(255, 69, 58, 0.5);
+}
+
+/* --- Responsive pour mobile --- */
+@media (max-width: 768px) {
+  .popup-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+
+
+
+
+
+
+/* --- Style du popup de confirmation --- */
+.confirm-popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* --- Afficher le popup --- */
+.confirm-popup-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Contenu du popup --- */
+.confirm-popup-content {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* --- Animation d’apparition --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Texte du popup --- */
+.confirm-popup-content h3 {
+  color: #d9534f;
+  font-size: 22px;
+}
+
+.confirm-popup-content p {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* --- Boutons du popup --- */
+.popup-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* --- Bouton Annuler --- */
+.btn-cancel {
+  background: #ccc;
+  color: #333;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* --- Bouton Supprimer --- */
+.btn-delete {
+  background: red;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* --- Effet Hover --- */
+.btn-cancel:hover {
+  background: #bbb;
+}
+
+.btn-delete:hover {
+  background: darkred;
+}
