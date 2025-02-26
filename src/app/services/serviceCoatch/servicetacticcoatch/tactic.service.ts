@@ -32,7 +32,11 @@ export class TacticService {
   }
 
 
-  // addtacticc(formData: FormData): Observable<any> {
-  //   return this.http.post(`${this.baseUrl}/add-tactics`, formData);
-  // }
+
+
+  uploadFile(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);  // 'file' must match @RequestParam name on backend
+    return this.http.post(`${this.baseUrl}/upload`, formData); //, { headers });
+  }
 }

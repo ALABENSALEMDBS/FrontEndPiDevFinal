@@ -1,1 +1,42 @@
 <p>update-tournoi works!</p>
+
+{{idTournoi}}
+
+<div class="container">
+  <h2>Mettre à jour le Tournoi</h2>
+
+  <form [formGroup]="tournoiForm" (ngSubmit)="updateTournoi()">
+
+    <div class="form-group">
+      <label>ID du Tournoi</label>
+      <input type="text" class="form-control" formControlName="idTournoi" >
+    </div>
+
+    <div class="form-group">
+      <label>Nom du Tournoi</label>
+      <input type="text" class="form-control" formControlName="nameTournoi">
+      <div *ngIf="nameTournoi?.invalid && nameTournoi?.touched" class="text-danger">
+        Nom requis (min 3 caractères).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Date de début</label>
+      <input type="date" class="form-control" formControlName="debutTournoi">
+      <div *ngIf="debutTournoi?.invalid && debutTournoi?.touched" class="text-danger">
+        Date de début requise.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Date de fin</label>
+      <input type="date" class="form-control" formControlName="finTournoi">
+      <div *ngIf="finTournoi?.invalid && finTournoi?.touched" class="text-danger">
+        Date de fin requise.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="tournoiForm.invalid">Mettre à jour</button>
+    <button type="reset" class="btn btn-secondary">Annuler</button>
+  </form>
+</div>

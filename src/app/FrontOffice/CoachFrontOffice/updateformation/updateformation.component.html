@@ -1,20 +1,18 @@
-<p>updateformation works!</p>
-{{idFormation}}
 
-<div class="container">
+<div class="update-container">
   <h2>Mettre à jour la Formation</h2>
 
-  <form [formGroup]="formationForm" (ngSubmit)="updateFormation()">
-
+  <form [formGroup]="formationForm" (ngSubmit)="updateFormation()" class="form-card">
+    
     <div class="form-group">
       <label>ID de la Formation</label>
-      <input type="text" class="form-control" formControlName="idFormation" >
+      <input type="text" class="form-control" formControlName="idFormation" readonly>
     </div>
 
     <div class="form-group">
       <label>Nom de la Formation</label>
       <input type="text" class="form-control" formControlName="nameFormation">
-      <div *ngIf="nameFormation?.invalid && nameFormation?.touched" class="text-danger">
+      <div *ngIf="nameFormation?.invalid && nameFormation?.touched" class="error-message">
         Nom requis (min 3 caractères).
       </div>
     </div>
@@ -22,12 +20,16 @@
     <div class="form-group">
       <label>Description de la Formation</label>
       <textarea class="form-control" formControlName="descriptionFormation"></textarea>
-      <div *ngIf="descriptionFormation?.invalid && descriptionFormation?.touched" class="text-danger">
+      <div *ngIf="descriptionFormation?.invalid && descriptionFormation?.touched" class="error-message">
         Description requise.
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">Mettre à jour</button>
-    <button type="reset" class="btn btn-secondary" >Annuler</button>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">
+        Mettre à jour
+      </button>
+      <button type="reset" class="btn btn-secondary">Annuler</button>
+    </div>
   </form>
 </div>

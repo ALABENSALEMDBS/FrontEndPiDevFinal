@@ -1,0 +1,71 @@
+.tournoi-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  
+
+
+  .btn-add {
+    background-color: #28a745; /* Vert */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-add:hover {
+    background-color: #218838; /* Vert plus foncé au survol */
+  }
+  
+  .btn-add:active {
+    background-color: #1e7e34; /* Vert encore plus foncé au clic */
+  }
+  

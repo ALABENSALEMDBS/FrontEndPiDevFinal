@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
 import Konva from 'konva';
 import * as RecordRTC from 'recordrtc';
 import { TacticService } from 'src/app/services/serviceCoatch/servicetacticcoatch/tactic.service';
@@ -32,6 +33,7 @@ export class AddTacticComponent implements OnInit {
   descriptionTactic: string = '';
   videoPath: string | null = null;
   imagePath: string ='';
+
   // Enregistrement vidéo
   mediaRecorder!: RecordRTC;
   isRecording: boolean = false;
@@ -479,9 +481,10 @@ export class AddTacticComponent implements OnInit {
       stopRecording(): void {
         this.isRecording = false;
         this.isVideoVisible = true; // Rendre la vidéo visible après l'arrêt de l'enregistrement
-        this.videoPath = `assets/FontOffice/tactic/video/${this.nameTactic}.mp4`;
+        this.videoPath = `${this.nameTactic}.mp4`;
 
         this.mediaRecorder.stopRecording(() => {
+          
 
           const videoURL = this.mediaRecorder.toURL();
           this.videoPlayer.nativeElement.src = videoURL;
@@ -505,168 +508,185 @@ export class AddTacticComponent implements OnInit {
     return this.nameTactic.trim() !== '' && this.descriptionTactic.trim() !== '';
   }
 
-
-
-
-  // Sauvegarder la tactique
-  async saveTactic(): Promise<void> {
-    if (!this.nameTactic || !this.descriptionTactic) {
-      alert('Veuillez renseigner le nom et la description de la tactique.');
-      return;
-    }
-
-    try {
-      // 1. Sauvegarder l'image du canvas
-      const canvasElement = this.container.nativeElement.querySelector('canvas');
-      if (!canvasElement) {
-        console.error('Canvas element not found');
-        return;
+  uploadError: string | null = null;
+  uploadResponse: any;
+  
+  saveTactic(): void {
+      if (!this.canvasContainer) {
+          this.uploadError = 'Image not found.';
+          return;
       }
-      const imageDataURL = canvasElement.toDataURL('image/png');
-      const imageName = `${this.nameTactic}.png`;
-      this.imagePath = imageName;  //Stock imagePath
-
-      // Convertir l'image en Blob
-      const imageBlob = await this.dataURItoBlob(imageDataURL);
-      await this.saveFile(imageBlob, imageName);
-
-      // 2. Sauvegarder la vidéo (si elle existe)
-      if (this.isVideoVisible && this.mediaRecorder) {
-        const blob = this.mediaRecorder.getBlob();
-        const videoName = `${this.nameTactic}.mp4`;
-        this.videoPath = videoName; // Stock videoPath
-        await this.saveFile(blob, videoName);
-      }
-
-      // 3. Préparer les données pour le service
-      const tacticData = {
-        nameTactic: this.nameTactic,
-        descriptionTactic: this.descriptionTactic,
-        photoTactic: this.imagePath,
-        videoTactic: this.isVideoVisible ? this.videoPath : null, // Laisser vide si pas de vidéo
+  
+      html2canvas(this.canvasContainer.nativeElement).then(canvas => {
+          canvas.toBlob(async blob => {
+              if (blob) {
+                  try {
+                      // Upload de l'image
+                      const imageFile = new File([blob], `${this.nameTactic}.png`, { type: 'image/png' });
+                      await this.uploadFile(imageFile);
+  
+                      // Vérifier si une vidéo existe et l'uploader
+                      let videoUrl: string | null = null;
+                      if (this.videoPath && this.mediaRecorder) {
+                          const videoBlob = this.mediaRecorder.getBlob();
+                          if (videoBlob) {
+                              const videoFile = new File([videoBlob], `${this.nameTactic}.mp4`, { type: 'video/mp4' });
+                              await this.uploadFile(videoFile);
+                              videoUrl = `http://localhost/tactics/${this.nameTactic}.mp4`;
+                          }
+                      }
+  
+                      // Ajouter la tactique après l'upload
+                      this.addTactic(videoUrl);
+                  } catch (error) {
+                      console.error('Upload failed:', error);
+                      this.uploadError = 'Upload process failed.';
+                  }
+              } else {
+                  this.uploadError = 'Failed to create blob from canvas.';
+              }
+          }, 'image/png');
+      }).catch(error => {
+          this.uploadError = 'Error capturing image: ' + error.message;
+          console.error('Error capturing image:', error);
+      });
+  }
+  
+  uploadFile(file: File): Promise<void> {
+      return new Promise((resolve, reject) => {
+          this.uploadError = null;
+          this.tacticservic.uploadFile(file).subscribe({
+              next: (response) => {
+                  console.log('Upload successful:', response);
+                  resolve();
+              },
+              error: (error) => {
+                  this.uploadError = 'Upload failed: ' + error.message;
+                  console.error('Upload error:', error);
+                  reject(error);
+              }
+          });
+      });
+  }
+  
+  addTactic(videoUrl: string | null): void {
+      const tactic = {
+          nameTactic: this.nameTactic,
+          descriptionTactic: this.descriptionTactic,
+          photoTactic: `http://localhost/tactics/${this.nameTactic}.png`,
+          videoTactic: videoUrl, // Stocke null si aucune vidéo
       };
-
-      // 4. Appeler le service pour sauvegarder la tactique
-      this.tacticservic.addtactic(tacticData).subscribe(
-       (response) => {
-         console.log('Tactique sauvegardée avec succès !', response);
-         this.successMessage = 'Tactic ajouté avec succès !';
-         this.errorMessage = '';
-         window.location.reload();
-       },
-       (error) => {
-         console.error('Erreur lors de la sauvegarde de la tactique :', error);
-         this.errorMessage = 'Erreur lors de l’ajout du Tactic.';
-         this.successMessage = '';
-        }
-      );
-
-      console.log('Tactique sauvegardée localement (simulé).', tacticData);
-
-    } catch (error) {
-      console.error('Erreur lors de la sauvegarde de la tactique :', error);
-      alert('Erreur lors de la sauvegarde de la tactique.');
-    }
+  
+      this.tacticservic.addtactic(tactic).subscribe({
+          next: (response) => {
+              console.log('Tactic added successfully:', response);
+              window.location.reload();
+          },
+          error: (error) => {
+              console.error('Error adding tactic:', error);
+              this.uploadError = 'Failed to add tactic: ' + error.message;
+          }
+      });
   }
+  
 
-  // Fonction utilitaire pour convertir une data URI en Blob
-  dataURItoBlob(dataURI: string): Promise<Blob> {
-    return new Promise((resolve, reject) => {
-      const byteString = atob(dataURI.split(',')[1]);
-      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-      resolve(new Blob([ab], { type: mimeString }));
-    });
-  }
-
-  // Fonction utilitaire pour sauvegarder un fichier (Blob)
-  async saveFile(blob: Blob, filename: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = filename; // Nom du fichier à sauvegarder
-      document.body.appendChild(a);
-      a.click();
-      URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      resolve();
-    });
-  }
-
-
-
-// tactic.component.ts
-
-// async saveTactic(): Promise<void> {
-//   if (!this.nameTactic || !this.descriptionTactic) {
-//     alert('Veuillez renseigner le nom et la description de la tactique.');
-//     return;
-//   }
-
-//   try {
-//     const canvasElement = this.container.nativeElement.querySelector('canvas');
-//     if (!canvasElement) {
-//       console.error('Canvas element not found');
-//       return;
-//     }
-//     const imageDataURL = canvasElement.toDataURL('image/png');
-//     const imageBlob = await this.dataURItoBlob(imageDataURL);
-
-//     let videoBlob: Blob | null = null;
-//     if (this.isVideoVisible && this.mediaRecorder) {
-//       videoBlob = this.mediaRecorder.getBlob();
-//     }
-
-//     // Create FormData to send the data
-//     const formData = new FormData();
-//     formData.append('nameTactic', this.nameTactic);
-//     formData.append('descriptionTactic', this.descriptionTactic);
-
-//     formData.append('photoTactic', imageBlob, `${this.nameTactic}.png`); // Image file
-//     if (videoBlob) {
-//       formData.append('videoTactic', videoBlob, `${this.nameTactic}.mp4`); // Video file
-//     }
-
-//     this.tacticservic.addtactic(formData).subscribe(  // Send FormData
-//       (response) => {
-//         console.log('Tactique sauvegardée avec succès !', response);
-//         this.successMessage = 'Tactic ajouté avec succès !';
-//         this.errorMessage = '';
-//         window.location.reload();
-//       },
-//       (error) => {
-//         console.error('Erreur lors de la sauvegarde de la tactique :', error);
-//         this.errorMessage = 'Erreur lors de l’ajout du Tactic.';
-//         this.successMessage = '';
-//       }
-//     );
-
-//   } catch (error) {
-//     console.error('Erreur lors de la sauvegarde de la tactique :', error);
-//     alert('Erreur lors de la sauvegarde de la tactique.');
-//   }
-// }
-
-
-
-
-// dataURItoBlob(dataURI: string): Promise<Blob> {
-//   return new Promise((resolve, reject) => {
-//     const byteString = atob(dataURI.split(',')[1]);
-//     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-//     const ab = new ArrayBuffer(byteString.length);
-//     const ia = new Uint8Array(ab);
-//     for (let i = 0; i < byteString.length; i++) {
-//       ia[i] = byteString.charCodeAt(i);
-//     }
-//     resolve(new Blob([ab], { type: mimeString }));
-//   });
-// }
 }
 
+/**
+  nameTactic: string = '';
+  descriptionTactic: string = '';
+  videoPath: string | null = null;
+  imagePath: string ='';
+ */
+//************************************************************************************************************* */
+
+  // // Sauvegarder la tactique
+  // async saveTactic(): Promise<void> {
+  //   if (!this.nameTactic || !this.descriptionTactic) {
+  //     alert('Veuillez renseigner le nom et la description de la tactique.');
+  //     return;
+  //   }
+
+  //   try {
+  //     // 1. Sauvegarder l'image du canvas
+  //     const canvasElement = this.container.nativeElement.querySelector('canvas');
+  //     if (!canvasElement) {
+  //       console.error('Canvas element not found');
+  //       return;
+  //     }
+  //     const imageDataURL = canvasElement.toDataURL('image/png');
+  //     const imageName = `${this.nameTactic}.png`;
+  //     this.imagePath = imageName;  //Stock imagePath
+
+  //     // Convertir l'image en Blob
+  //     const imageBlob = await this.dataURItoBlob(imageDataURL);
+  //     await this.saveFile(imageBlob, imageName);
+
+  //     // 2. Sauvegarder la vidéo (si elle existe)
+  //     if (this.isVideoVisible && this.mediaRecorder) {
+  //       const blob = this.mediaRecorder.getBlob();
+  //       const videoName = `${this.nameTactic}.mp4`;
+  //       this.videoPath = videoName; // Stock videoPath
+  //       await this.saveFile(blob, videoName);
+  //     }
+
+  //     // 3. Préparer les données pour le service
+  //     const tacticData = {
+  //       nameTactic: this.nameTactic,
+  //       descriptionTactic: this.descriptionTactic,
+  //       photoTactic: this.imagePath,
+  //       videoTactic: this.isVideoVisible ? this.videoPath : null, // Laisser vide si pas de vidéo
+  //     };
+
+  //     // 4. Appeler le service pour sauvegarder la tactique
+  //     this.tacticservic.addtactic(tacticData).subscribe(
+  //      (response) => {
+  //        console.log('Tactique sauvegardée avec succès !', response);
+  //        this.successMessage = 'Tactic ajouté avec succès !';
+  //        this.errorMessage = '';
+  //        window.location.reload();
+  //      },
+  //      (error) => {
+  //        console.error('Erreur lors de la sauvegarde de la tactique :', error);
+  //        this.errorMessage = 'Erreur lors de l’ajout du Tactic.';
+  //        this.successMessage = '';
+  //       }
+  //     );
+
+  //     console.log('Tactique sauvegardée localement (simulé).', tacticData);
+
+  //   } catch (error) {
+  //     console.error('Erreur lors de la sauvegarde de la tactique :', error);
+  //     alert('Erreur lors de la sauvegarde de la tactique.');
+  //   }
+  // }
+
+  // // Fonction utilitaire pour convertir une data URI en Blob
+  // dataURItoBlob(dataURI: string): Promise<Blob> {
+  //   return new Promise((resolve, reject) => {
+  //     const byteString = atob(dataURI.split(',')[1]);
+  //     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  //     const ab = new ArrayBuffer(byteString.length);
+  //     const ia = new Uint8Array(ab);
+  //     for (let i = 0; i < byteString.length; i++) {
+  //       ia[i] = byteString.charCodeAt(i);
+  //     }
+  //     resolve(new Blob([ab], { type: mimeString }));
+  //   });
+  // }
+
+  // // Fonction utilitaire pour sauvegarder un fichier (Blob)
+  // async saveFile(blob: Blob, filename: string): Promise<void> {
+  //   return new Promise((resolve, reject) => {
+  //     const url = URL.createObjectURL(blob);
+  //     const a = document.createElement('a');
+  //     a.style.display = 'none';
+  //     a.href = url;
+  //     a.download = filename;
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     URL.revokeObjectURL(url);
+  //     document.body.removeChild(a);
+  //     resolve();
+  //   });
+  // }

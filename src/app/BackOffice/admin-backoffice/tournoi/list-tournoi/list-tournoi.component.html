@@ -1,1 +1,36 @@
-<p>list-tournoi works!</p>
+<div style="margin-bottom: 20px;">
+    <button [routerLink]="['addtournoi']" class="btn-add">
+      Ajouter un Tournoi
+    </button>
+  </div>
+
+<div class="tournoi-container">
+    <h2>Liste des Tournois</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Début</th>
+          <th>Fin</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tournoi of tournois">
+          <td>{{ tournoi.idTournoi }}</td>
+          <td>{{ tournoi.nameTournoi }}</td>
+          <td>{{ tournoi.debutTournoi | date:'dd/MM/yyyy' }}</td>
+          <td>{{ tournoi.finTournoi | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteTournoi(tournoi.idTournoi)">Supprimer</button>
+            <button class="btn btn-success m-3" [routerLink]="['update', tournoi.idTournoi]">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+
+
+  <router-outlet></router-outlet>
