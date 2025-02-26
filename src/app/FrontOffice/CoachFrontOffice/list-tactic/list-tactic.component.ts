@@ -4,9 +4,10 @@ import { TacticService } from 'src/app/services/serviceCoatch/servicetacticcoatc
 import { tactic } from 'src/core/models/tactic';
 
 @Component({
-  selector: 'app-list-tactic',
-  templateUrl: './list-tactic.component.html',
-  styleUrls: ['./list-tactic.component.css']
+    selector: 'app-list-tactic',
+    templateUrl: './list-tactic.component.html',
+    styleUrls: ['./list-tactic.component.css'],
+    standalone: false
 })
 export class ListTacticComponent implements OnInit {
   tactic: tactic[] = [];

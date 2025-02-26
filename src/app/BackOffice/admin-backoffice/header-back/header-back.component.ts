@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-header-back',
-  templateUrl: './header-back.component.html',
-  styleUrls: ['./header-back.component.css']
+    selector: 'app-header-back',
+    templateUrl: './header-back.component.html',
+    styleUrls: ['./header-back.component.css'],
+    standalone: false
 })
 export class HeaderBackComponent {
   onMenuItemClick(event: any): void {

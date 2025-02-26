@@ -3,9 +3,10 @@ import html2canvas from 'html2canvas';
 import { TacticService } from 'src/app/services/serviceCoatch/servicetacticcoatch/tactic.service';
 
 @Component({
-  selector: 'app-home-coach',
-  templateUrl: './home-coach.component.html',
-  styleUrls: ['./home-coach.component.css']
+    selector: 'app-home-coach',
+    templateUrl: './home-coach.component.html',
+    styleUrls: ['./home-coach.component.css'],
+    standalone: false
 })
 export class HomeCoachComponent {
 

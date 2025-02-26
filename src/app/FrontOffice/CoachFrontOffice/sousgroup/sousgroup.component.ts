@@ -3,9 +3,10 @@ import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGro
 import { sousgroup } from 'src/core/models/sousgroup';
 
 @Component({
-  selector: 'app-sousgroup',
-  templateUrl: './sousgroup.component.html',
-  styleUrls: ['./sousgroup.component.css']
+    selector: 'app-sousgroup',
+    templateUrl: './sousgroup.component.html',
+    styleUrls: ['./sousgroup.component.css'],
+    standalone: false
 })
 export class SousgroupComponent implements OnInit {
   sousGroupes: sousgroup[] = [];

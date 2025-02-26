@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-header-admin-club',
-  templateUrl: './header-admin-club.component.html',
-  styleUrls: ['./header-admin-club.component.css']
+    selector: 'app-header-admin-club',
+    templateUrl: './header-admin-club.component.html',
+    styleUrls: ['./header-admin-club.component.css'],
+    standalone: false
 })
 export class HeaderAdminClubComponent {
   onMenuItemClick(event: any): void {

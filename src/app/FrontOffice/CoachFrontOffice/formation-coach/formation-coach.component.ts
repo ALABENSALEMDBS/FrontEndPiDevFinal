@@ -3,9 +3,10 @@ import { FormationService } from 'src/app/services/serviceCoatch/serviceformatio
 import { formation } from 'src/core/models/formation';
 
 @Component({
-  selector: 'app-formation-coach',
-  templateUrl: './formation-coach.component.html',
-  styleUrls: ['./formation-coach.component.css']
+    selector: 'app-formation-coach',
+    templateUrl: './formation-coach.component.html',
+    styleUrls: ['./formation-coach.component.css'],
+    standalone: false
 })
 export class FormationCoachComponent {
 

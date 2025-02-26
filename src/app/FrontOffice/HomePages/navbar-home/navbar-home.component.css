@@ -1,0 +1,11 @@
+.site-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(95, 86, 86, 0.5); /* Fond semi-transparent */
+    backdrop-filter: blur(10px); /* Effet de flou */
+    -webkit-backdrop-filter: blur(10px); /* Compatibilité Safari */
+    z-index: 1000; /* Toujours au-dessus du contenu */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}

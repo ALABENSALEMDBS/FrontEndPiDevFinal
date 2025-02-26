@@ -1,31 +1,11 @@
-/* S'assurer que la page prend toute la hauteur */
-html, body {
-    height: 100%;
-    margin: 0;
-    position: relative;
-    
+  /* Partie 1 : Fond et couleur */
+  .content-wrapper {
+    background-color: #343a40; /* Couleur de fond Bootstrap bg-dark */
+    color: white; /* Couleur du texte */
   }
-  
-  /* Le contenu principal occupe l'espace restant */
-  .container-fluid {
-    padding-bottom: 380px; /* Ajuste cette valeur en fonction de la hauteur du footer */
-  }
-  
-  /* Footer fixé en bas de la page */
-  footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #1a1a1a; /* Couleur de fond du footer */
-    color: white;
-    padding: 20px 0;
-    z-index: 9999; /* S'assurer que le footer soit toujours au-dessus du contenu */
-  }
-  
 
-
-  .col-12 {
-    background: url('https://media.istockphoto.com/id/849258904/fr/photo/entra%C3%AEneur-%C3%A9quipe-de-football-junior-donneur-dordres.jpg?s=2048x2048&w=is&k=20&c=X6odqiWY_MuuXmdF_sVBCueMnVwu6Jfv_mWZ1UkQn84=') 
-             center/cover no-repeat fixed; 
-}
+  /* Partie 2 : Mise en page */
+  .content-wrapper {
+    min-height: 100vh; /* Assure que la section prend toute la hauteur */
+    padding: 20px; /* Ajoute de l'espace intérieur autour du contenu */
+  }
