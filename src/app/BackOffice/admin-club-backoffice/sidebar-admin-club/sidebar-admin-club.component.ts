@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-sidebar-admin-club',
-  templateUrl: './sidebar-admin-club.component.html',
-  styleUrls: ['./sidebar-admin-club.component.css']
+    selector: 'app-sidebar-admin-club',
+    templateUrl: './sidebar-admin-club.component.html',
+    styleUrls: ['./sidebar-admin-club.component.css'],
+    standalone: false
 })
 export class SidebarAdminClubComponent {
   onMenuItemClick(event: any): void {

@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ExerciceService } from 'src/app/services/serviceCoatch/serviceExercice/exercice.service';
 
 @Component({
-  selector: 'app-updateexercice',
-  templateUrl: './updateexercice.component.html',
-  styleUrls: ['./updateexercice.component.css']
+    selector: 'app-updateexercice',
+    templateUrl: './updateexercice.component.html',
+    styleUrls: ['./updateexercice.component.css'],
+    standalone: false
 })
 export class UpdateexerciceComponent implements OnInit {
 

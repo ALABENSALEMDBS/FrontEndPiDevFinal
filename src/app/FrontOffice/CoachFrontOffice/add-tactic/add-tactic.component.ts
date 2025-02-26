@@ -1,13 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 import Konva from 'konva';
-import * as RecordRTC from 'recordrtc';
+import  RecordRTC from 'recordrtc';
 import { TacticService } from 'src/app/services/serviceCoatch/servicetacticcoatch/tactic.service';
 
 @Component({
-  selector: 'app-add-tactic',
-  templateUrl: './add-tactic.component.html',
-  styleUrls: ['./add-tactic.component.css']
+    selector: 'app-add-tactic',
+    templateUrl: './add-tactic.component.html',
+    styleUrls: ['./add-tactic.component.css'],
+    standalone: false
 })
 export class AddTacticComponent implements OnInit {
   successMessage: string = '';

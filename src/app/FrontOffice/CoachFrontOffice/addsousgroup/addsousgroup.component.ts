@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGroupe/sousgroupe.service';
 
 @Component({
-  selector: 'app-addsousgroup',
-  templateUrl: './addsousgroup.component.html',
-  styleUrls: ['./addsousgroup.component.css']
+    selector: 'app-addsousgroup',
+    templateUrl: './addsousgroup.component.html',
+    styleUrls: ['./addsousgroup.component.css'],
+    standalone: false
 })
 export class AddsousgroupComponent {
   sousGroupForm: FormGroup;

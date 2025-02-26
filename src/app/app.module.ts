@@ -55,6 +55,8 @@ import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/up
 import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match/add-match.component';
 import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
 import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
+import { FooterHomeComponent } from "./FrontOffice/HomePages/footer-home/footer-home.component";
+import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-home.component";
 
 @NgModule({ declarations: [
         AppComponent,
@@ -106,7 +108,7 @@ import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update
         UpdateMatchComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        FormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule, FooterHomeComponent, NavbarHomeComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

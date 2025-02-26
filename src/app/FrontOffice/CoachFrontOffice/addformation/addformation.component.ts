@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 
 @Component({
-  selector: 'app-addformation',
-  templateUrl: './addformation.component.html',
-  styleUrls: ['./addformation.component.css']
+    selector: 'app-addformation',
+    templateUrl: './addformation.component.html',
+    styleUrls: ['./addformation.component.css'],
+    standalone: false
 })
 export class AddformationComponent {
     formationForm: FormGroup;

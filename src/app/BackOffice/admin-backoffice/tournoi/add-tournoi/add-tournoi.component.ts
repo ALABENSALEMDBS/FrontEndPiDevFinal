@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { TournoiService } from 'src/app/services/serviceSuperAdmin/servicegerertournoi/tournoi.service';
 
 @Component({
-  selector: 'app-add-tournoi',
-  templateUrl: './add-tournoi.component.html',
-  styleUrls: ['./add-tournoi.component.css']
+    selector: 'app-add-tournoi',
+    templateUrl: './add-tournoi.component.html',
+    styleUrls: ['./add-tournoi.component.css'],
+    standalone: false
 })
 export class AddTournoiComponent {
 

@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 
 @Component({
-  selector: 'app-updateformation',
-  templateUrl: './updateformation.component.html',
-  styleUrls: ['./updateformation.component.css']
+    selector: 'app-updateformation',
+    templateUrl: './updateformation.component.html',
+    styleUrls: ['./updateformation.component.css'],
+    standalone: false
 })
 export class UpdateformationComponent implements OnInit {
 

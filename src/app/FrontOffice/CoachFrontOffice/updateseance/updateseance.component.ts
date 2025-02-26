@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
 
 @Component({
-  selector: 'app-updateseance',
-  templateUrl: './updateseance.component.html',
-  styleUrls: ['./updateseance.component.css']
+    selector: 'app-updateseance',
+    templateUrl: './updateseance.component.html',
+    styleUrls: ['./updateseance.component.css'],
+    standalone: false
 })
 export class UpdateseanceComponent {
 

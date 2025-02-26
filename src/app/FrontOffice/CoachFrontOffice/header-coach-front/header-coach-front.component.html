@@ -1,136 +1,62 @@
-<!-- 
- <header class="header-section">
-    <div class="header__top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="ht-info">
-                        <ul>
-                            <li>20:00 - May 19, 2019</li>
-                            <li><a href="#">Sign in</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="ht-links">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-vimeo"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="header__nav">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="logo">
-                        <a href="./index.html"><img src="/assets/FrontOffice/img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="nav-menu">
-                        <ul class="main-menu">
-                            <li class="active"><a routerLink="HomeCoach">Home</a></li>
-                            <li ><a routerLink="HomeCoach">Home</a></li>
-                            <li><a routerLink="addsousgroup">addsousgroup</a></li>
-                            <li><a  routerLink="showFormation">Formation</a></li>
-                            <li><a routerLink="AddTactic">AddTactic</a></li>
-                            <li><a routerLink="ShowSousGroups">ShowSousGroups</a></li>
-                            <li><a routerLink="showseance">showseance</a></li>
-                            <li><a routerLink="showexercice">showexercice</a></li>
-                            
+<div class="site-wrap">
 
-
-                        </ul>
-                        <div class="nm-right search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </div>
-
-</header> -->
-<!-- Header End -->
- <!-- HhhhhUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUhhhhhhhhh -->
- <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-
- <nav class="navbar navbar-expand-lg navbar-dark " id="hhhh">
-    <div class="container-fluid">
-      <!-- Logo et Nom de l'Application -->
-      <a class="navbar-brand" href="#">
-        <i class="fas fa-futbol text-success"></i> Football Innovant
-      </a>
-  
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-
-  
-      <!-- Liens de Navigation -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="HomeCoach">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="listTactic">listTactic</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="showFormation">Formation</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" routerLink="ShowSousGroups">ShowSousGroups</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="showseance">showseance</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="showexercice">showexercice</a>
-          </li>
-          
-          <!-- Notifications Icon -->
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="notifications">
-              <i class="fas fa-bell"></i>
-              <span class="badge bg-danger">3</span> <!-- Badge de notifications -->
-            </a>
-          </li>
-  
-          <!-- Messagerie Icon -->
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="messages">
-              <i class="fas fa-envelope"></i>
-              <span class="badge bg-primary">5</span> <!-- Badge de messages -->
-            </a>
-          </li>
-  
-          <!-- Profil Utilisateur -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profil" class="rounded-circle" width="50" height="50"> <!-- Photo de profil -->
-              <span>Utilisateur</span> <!-- Nom de l'utilisateur -->
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="#">Paramètres</a></li> <!-- Lien vers les paramètres -->
-              <li><a class="dropdown-item" href="#">Déconnexion</a></li> <!-- Lien vers la déconnexion -->
-            </ul>
-          </li>
-        </ul>
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icon-close2 js-menu-toggle"></span>
       </div>
     </div>
-  </nav>
+    <div class="site-mobile-menu-body"></div>
+  </div>
   
+  <header class="site-navbar py-4" role="banner">
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <div class="site-logo">
+                <a routerLink="HomeCoach">
+                    <img src="assets/front/images/logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="ml-auto">
+                <nav class="site-navigation position-relative text-right" role="navigation">
+                    <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                        <li class="active"><a routerLink="HomeCoach" class="nav-link">Home</a></li>
+                        <li><a routerLink="listTactic" class="nav-link">List Tactic</a></li>
+                        <li><a routerLink="showFormation" class="nav-link">Formation</a></li>
+                        <li><a routerLink="ShowSousGroups" class="nav-link">Show Sub Groups</a></li>
+                        <li><a routerLink="showseance" class="nav-link">Show Seance</a></li>
+                        <li><a routerLink="showexercice" class="nav-link">Show Exercice</a></li>
+
+                        <!-- Profil Utilisateur avec Combobox -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profil" class="rounded-circle" width="40" height="40">
+                                <span>Utilisateur</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" routerLink="settings">⚙️ Paramètres</a></li>
+                                <li><a class="dropdown-item text-danger" routerLink="logout">🚪 Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+                <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
+                    <span class="icon-menu h3 text-white"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+  </header>
+
+  <div class="hero overlay" style="background-image: url('assets/front/images/cinematic-shot-football-arena-background (1).jpg');">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 ml-auto">
+          <h1 class="text-white">{{ pageTitle }}</h1> <!-- Dynamic page title -->
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
