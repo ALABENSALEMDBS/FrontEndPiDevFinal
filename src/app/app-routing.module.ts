@@ -2,6 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccueilComponent } from './BackOffice/admin-backoffice/accueil/accueil.component';
 import { AllTemplateBackComponent } from './BackOffice/admin-backoffice/all-template-back/all-template-back.component';
+import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match/add-match.component';
+import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
+import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
+import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
+import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
+import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
+import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/acceuil-admin-club/acceuil-admin-club.component';
+import { AllTemplateClubComponent } from './BackOffice/admin-club-backoffice/all-template-club/all-template-club.component';
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { AddTacticComponent } from './FrontOffice/CoachFrontOffice/add-tactic/add-tactic.component';
 import { AddexerciceComponent } from './FrontOffice/CoachFrontOffice/addexercice/addexercice.component';
@@ -24,14 +32,6 @@ import { DoctorComponent } from './FrontOffice/DoctorFrontOffice/doctor/doctor.c
 import { HomeDoctorsComponent } from './FrontOffice/DoctorFrontOffice/home-doctors/home-doctors.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
 import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/all-template-player-front/all-template-player-front.component';
-import { AcceuilAdminClubComponent } from './BackOffice/admin-club-backoffice/acceuil-admin-club/acceuil-admin-club.component';
-import { AllTemplateClubComponent } from './BackOffice/admin-club-backoffice/all-template-club/all-template-club.component';
-import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
-import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
-import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
-import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
-import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
-import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match/add-match.component';
 
 const routes: Routes = [
 
