@@ -49,4 +49,8 @@ export class UpdatesousGroupComponent implements OnInit {
       });
     }
   }
+  goToShowSousGroups() {
+    this.router.navigate(['/coatch/ShowSousGroups']);
+  }
+
 }

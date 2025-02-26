@@ -1,49 +1,69 @@
-<p>updateexercice works!</p>
+<!-- <p>updateexercice works!</p> -->
 {{ idExercice }}
 
-<div class="container">
-  <h2>Mettre à jour l'Exercice</h2>
+<div class="container mt-4 p-4" style="background-color: rgba(0, 0, 0, 0.6); border-radius: 15px; color: white; backdrop-filter: blur(10px);">
+  <h2 style="font-family: 'Dancing Script', cursive; font-style: italic; text-align: center;">
+    Mettre à jour l'Exercice
+  </h2>
 
   <form [formGroup]="exerciceform" (ngSubmit)="updateExercice()">
 
-    <div class="form-group">
-      <label>ID de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="idExercice">
+    <div class="form-group mb-3">
+      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">ID de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="idExercice"
+             style="border: none; border-radius: 5px;">
     </div>
 
-    <div class="form-group">
-      <label>Nom de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="nameExercice">
+    <div class="form-group mb-3">
+      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Nom de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="nameExercice"
+             style="border: none; border-radius: 5px;">
       <div *ngIf="nameExercice?.invalid && nameExercice?.touched" class="text-danger">
         Nom requis (min 3 caractères).
       </div>
     </div>
 
-    <div class="form-group">
-      <label>Description</label>
-      <textarea class="form-control" formControlName="descriptionExercice"></textarea>
+    <div class="form-group mb-3">
+      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Description</label>
+      <textarea class="form-control" formControlName="descriptionExercice"
+                style="border: none; border-radius: 5px;"></textarea>
       <div *ngIf="descriptionExercice?.invalid && descriptionExercice?.touched" class="text-danger">
         Description requise.
       </div>
     </div>
 
-    <div class="form-group">
-      <label>Vidéo de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="videoExercice">
+    <div class="form-group mb-3">
+      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Vidéo de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="videoExercice"
+             style="border: none; border-radius: 5px;">
       <div *ngIf="videoExercice?.invalid && videoExercice?.touched" class="text-danger">
         URL de la vidéo requise.
       </div>
     </div>
 
-    <div class="form-group">
-      <label>Photo de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="photoExercice">
+    <div class="form-group mb-3">
+      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Photo de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="photoExercice"
+             style="border: none; border-radius: 5px;">
       <div *ngIf="photoExercice?.invalid && photoExercice?.touched" class="text-danger">
         URL de la photo requise.
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" (click)="updateExercice()" [disabled]="exerciceform.invalid">Mettre à jour</button>
-    <button type="button" class="btn btn-secondary" routerLink="/listeexercices">Annuler</button>
+    <div class="text-center">
+      <button type="submit" class="btn m-2"
+              style="background-color: #28a745; color: white; border-radius: 10px; font-family: 'Dancing Script', cursive; font-style: italic;"
+              [disabled]="exerciceform.invalid">
+        Mettre à jour
+      </button>
+      <button type="button" class="btn m-2"
+      style="background-color: #6c757d; color: white; border-radius: 10px; font-family: 'Dancing Script', cursive; font-style: italic;"
+      routerLink="/coatch/showexercice">
+        Annuler
+      </button>
+
+
+    </div>
   </form>
 </div>
+

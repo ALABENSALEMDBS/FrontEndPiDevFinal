@@ -1,28 +1,75 @@
-<div class="container">
-    <h2>Ajouter un Sous-Groupe</h2>
-    
+<div class="container mt-4">
+  <!-- Carte transparente sombre -->
+  <div class="card shadow-lg p-4" style="max-width: 600px; margin: 0 auto; background-color: rgba(0, 0, 0, 0.7); color: white;">
+    <h2 class="text-center" style="font-family: 'Dancing Script', cursive; font-style: italic;">
+      Ajouter un Sous-Groupe
+    </h2>
+
     <form [formGroup]="sousGroupForm" (ngSubmit)="addSousGroup()">
-      <div class="form-group">
-        <label>Nom du Sous-Groupe</label>
-        <input type="text" class="form-control" formControlName="nameSousGroup">
-        <div *ngIf="sousGroupForm.get('nameSousGroup')?.invalid && sousGroupForm.get('nameSousGroup')?.touched" class="text-danger">
+      <!-- Nom du Sous-Groupe -->
+      <div class="form-group mb-3">
+        <label for="nameSousGroup" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Nom du Sous-Groupe</label>
+        <input
+          type="text"
+          id="nameSousGroup"
+          class="form-control"
+          formControlName="nameSousGroup"
+          style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
+        />
+        <div
+          *ngIf="nameSousGroup?.invalid && nameSousGroup?.touched"
+          class="text-danger"
+          style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;"
+        >
           Nom requis (min 3 caractères).
         </div>
       </div>
-  
-      <div class="form-group">
-        <label>Nombre de Joueurs</label>
-        <input type="number" class="form-control" formControlName="nbrJoueurSousGroup">
-        <div *ngIf="sousGroupForm.get('nbrJoueurSousGroup')?.invalid && sousGroupForm.get('nbrJoueurSousGroup')?.touched" class="text-danger">
-          Entre 1 et 50 joueurs.
+
+      <!-- Nombre de Joueurs -->
+      <div class="form-group mb-3">
+        <label for="nbrJoueurSousGroup" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Nombre de Joueurs</label>
+        <input
+          type="number"
+          id="nbrJoueurSousGroup"
+          class="form-control"
+          formControlName="nbrJoueurSousGroup"
+          style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
+        />
+        <div
+          *ngIf="nbrJoueurSousGroup?.invalid && nbrJoueurSousGroup?.touched"
+          class="text-danger"
+          style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;"
+        >
+          Nombre strictement positif (au moins 1 joueur).
         </div>
       </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="sousGroupForm.invalid">Ajouter</button>
-      <button type="reset" class="btn btn-secondary" >Reset</button>
+
+      <!-- Boutons d'Action -->
+      <div class="d-flex justify-content-between mt-3">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="sousGroupForm.invalid"
+          style="background-color: #007bff; border-radius: 5px; font-family: 'Dancing Script', cursive; font-style: italic; color: white; font-size: 1.1em;"
+        >
+          Ajouter
+        </button>
+        <button
+          type="reset"
+          class="btn btn-secondary"
+          style="background-color: #6c757d; border-radius: 5px; font-family: 'Dancing Script', cursive; font-style: italic; color: white; font-size: 1.1em;"
+        >
+          Reset
+        </button>
+      </div>
     </form>
-  
-    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
+    <!-- Messages de succès / erreur -->
+    <div *ngIf="successMessage" class="alert alert-success mt-3" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;">
+      {{ errorMessage }}
+    </div>
   </div>
-  
+</div>

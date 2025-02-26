@@ -16,9 +16,16 @@ export class AddsousgroupComponent {
   constructor(private sousGroupService: SousgroupeService,private rout:Router) {
     // Initialisation manuelle du FormGroup
     this.sousGroupForm = new FormGroup({
-      nameSousGroup: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      nbrJoueurSousGroup: new FormControl('', [Validators.required, Validators.min(1), Validators.max(50)])
-    });
+      //nameSousGroup: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      //nbrJoueurSousGroup: new FormControl('', [Validators.required, Validators.min(1), Validators.max(50)])
+        idSousGroup: new FormControl({ value: '', disabled: true }),
+        nameSousGroup: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        nbrJoueurSousGroup: new FormControl('', [
+          Validators.required,
+          Validators.min(1),  // Le nombre doit être au moins 1
+          Validators.pattern('^[1-9][0-9]*$') // Validation pour un nombre strictement positif
+        ]),
+      });
   }
   // cancel() {
   //   // Réinitialiser le formulaire et rediriger vers une autre page (par exemple ShowSousGroups)
@@ -40,5 +47,12 @@ export class AddsousgroupComponent {
         }
       });
     }
+  }
+  get nameSousGroup() {
+    return this.sousGroupForm.get('nameSousGroup');
+  }
+
+  get nbrJoueurSousGroup() {
+    return this.sousGroupForm.get('nbrJoueurSousGroup');
   }
 }

@@ -1,40 +1,63 @@
-<p>list-seance works!</p>
-<!-- Bouton Ajouter un seance -->
-<div style="margin-bottom: 20px;">
-  <button [routerLink]="['addexercice']" class="btn-add">
-    Ajouter une exercice
-  </button>
-</div>
+<!-- <p>list-seance works!</p> -->
 
-<h2>Liste des Exercices</h2>
-<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
-  <thead>
-    <tr>
-      <th style="border: 1px solid black;">ID</th>
-      <th style="border: 1px solid black;">nom Exercice</th>
-      <th style="border: 1px solid black;">description Exercice</th>
-      <th style="border: 1px solid black;">video Exercice</th>
-      <th style="border: 1px solid black;">photo Exercice</th>
-      <th style="border: 1px solid black;">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let e of exercice">
-      <td style="border: 1px solid black;">{{ e.idExercice }}</td>
-      <td style="border: 1px solid black;">{{ e.nameExercice }}</td>
-      <td style="border: 1px solid black;">{{ e.descriptionExercice }}</td>
-      <td style="border: 1px solid black;">{{ e.videoExercice }}</td>
-      <td style="border: 1px solid black;">{{ e.photoExercice }}</td>
-      <td style="border: 1px solid black;">
-        <button (click)="deleteExercices(e.idExercice)" class="btn-delete">
-          Supprimer
-        </button>
-        <button class="btn btn-success m-3" [routerLink]="['updateexercice', e.idExercice]">
-          Update
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container-fluid p-4">
+  <h2 style="font-family: 'Dancing Script', cursive; font-style: italic; text-align: center; color: white;">
+    Liste des Exercices
+  </h2>
+  <!-- Bouton Ajouter un Exercice -->
+  <div class="text-center mb-4">
+    <button [routerLink]="['addexercice']" class="btn btn-primary"
+            style="background-color: #007bff; border-radius: 8px; font-family: 'Dancing Script', cursive; font-style: italic; color: white;">
+      Ajouter un Exercice
+    </button>
+  </div>
+
+  <!-- Liste des Exercices en Cards pleine largeur -->
+  <div class="row g-4">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let e of exercice">
+      <div class="card h-100 shadow-lg card-hover"
+           style="background-color: rgba(0, 0, 0, 0.75); color: white; border: none; border-radius: 15px;">
+        <!-- Image de l'Exercice -->
+        <img [src]="e.photoExercice" class="card-img-top"
+             style="border-top-left-radius: 15px; border-top-right-radius: 15px; max-height: 200px; object-fit: cover;">
+
+        <div class="card-body">
+          <!-- Nom de l'Exercice -->
+          <h3 class="card-title"
+              style="font-family: 'Dancing Script', cursive; font-style: italic;">
+            {{ e.nameExercice }}
+          </h3>
+
+          <!-- Description de l'Exercice -->
+          <p class="card-text"
+             style="font-family: 'Dancing Script', cursive; font-style: italic;">
+            {{ e.descriptionExercice }}
+          </p>
+
+          <!-- Vidéo Exercice (optionnel) -->
+          <div *ngIf="e.videoExercice">
+            <video controls style="width: 100%; border-radius: 10px; margin-top: 10px;">
+              <source [src]="e.videoExercice" type="video/mp4">
+              Votre navigateur ne supporte pas la vidéo.
+            </video>
+          </div>
+        </div>
+
+        <!-- Boutons d'Actions -->
+        <div class="card-footer text-center"
+             style="background-color: transparent; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+          <button (click)="deleteExercices(e.idExercice)" class="btn btn-danger m-2"
+                  style="font-family: 'Dancing Script', cursive; font-style: italic; border-radius: 5px;">
+            Supprimer
+          </button>
+          <button class="btn btn-success m-2" [routerLink]="['updateexercice', e.idExercice]"
+                  style="font-family: 'Dancing Script', cursive; font-style: italic; border-radius: 5px;">
+            Modifier
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <router-outlet></router-outlet>
