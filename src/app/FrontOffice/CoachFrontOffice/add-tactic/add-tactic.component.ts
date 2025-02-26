@@ -580,6 +580,7 @@ export class AddTacticComponent implements OnInit {
       this.tacticservic.addtactic(tactic).subscribe({
           next: (response) => {
               console.log('Tactic added successfully:', response);
+              window.location.reload();
           },
           error: (error) => {
               console.error('Error adding tactic:', error);

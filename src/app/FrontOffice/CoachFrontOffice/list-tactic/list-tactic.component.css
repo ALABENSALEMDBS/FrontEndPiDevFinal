@@ -39,6 +39,7 @@
   transition: transform 0.2s ease-in-out;
 }
 
+
 .tactic-card:hover {
   transform: translateY(-5px);
 }
