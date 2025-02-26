@@ -1,7 +1,9 @@
-<div class="container">
-  <h2>Ajouter une Fiche Médicale</h2>
 
-  <form [formGroup]="ficheMedicalForm" (ngSubmit)="addFicheMedicale()">
+
+<div class="container">
+  <h2 class="form-title">Ajouter une Fiche Médicale</h2>
+
+  <form [formGroup]="ficheMedicalForm" (ngSubmit)="addFicheMedicale()" class="custom-form">
 
     <!-- Poids -->
     <div class="form-group">

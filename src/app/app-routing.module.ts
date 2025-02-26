@@ -22,6 +22,9 @@ import { ListeExerciceRetablissementComponent } from './FrontOffice/DoctorFrontO
 import { CreateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/create-exercice-retablissement/create-exercice-retablissement.component';
 import { UpdateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/update-exercice-retablissement/update-exercice-retablissement.component';
 import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/update-fiche-medicale/update-fiche-medicale.component';
+import { CreateNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/create-nourriture/create-nourriture.component';
+import { UpdateNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/update-nourriture/update-nourriture.component';
+import { ListeNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/liste-nourriture/liste-nourriture.component';
 
 const routes: Routes = [
 
@@ -102,7 +105,24 @@ const routes: Routes = [
               component:UpdateExerciceRetablissementComponent
             },
 
-            { path: '', redirectTo: '/doctor/listefiche', pathMatch: 'full' }
+            { path: '', redirectTo: '/doctor/listefiche', pathMatch: 'full' },
+            {
+              path:'createnouriture',
+              component:CreateNourritureComponent
+
+            },
+            {
+              path:'updatenouriture',
+              component:UpdateNourritureComponent
+
+            },
+            {
+              path:'listenouriture',
+              component:ListeNourritureComponent
+
+            }
+
+
             
     ]
   },

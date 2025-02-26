@@ -43,6 +43,9 @@ import { ListeExerciceRetablissementComponent } from './FrontOffice/DoctorFrontO
 import { CreateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/create-exercice-retablissement/create-exercice-retablissement.component';
 import { UpdateExerciceRetablissementComponent } from './FrontOffice/DoctorFrontOffice/ExcerciceRetablissement/update-exercice-retablissement/update-exercice-retablissement.component';
 import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/update-fiche-medicale/update-fiche-medicale.component';
+import { UpdateNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/update-nourriture/update-nourriture.component';
+import { CreateNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/create-nourriture/create-nourriture.component';
+import { ListeNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/liste-nourriture/liste-nourriture.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +84,9 @@ import { UpdateFicheMedicaleComponent } from './FrontOffice/DoctorFrontOffice/Fi
     CreateExerciceRetablissementComponent,
     UpdateExerciceRetablissementComponent,
     UpdateFicheMedicaleComponent,
+    UpdateNourritureComponent,
+    CreateNourritureComponent,
+    ListeNourritureComponent,
 
 
   ],

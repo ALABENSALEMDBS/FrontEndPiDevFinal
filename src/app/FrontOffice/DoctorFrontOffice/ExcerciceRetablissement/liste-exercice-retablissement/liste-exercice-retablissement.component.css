@@ -1,0 +1,76 @@
+/* Style du titre */
+.table-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+/* Style du bouton "Créer un Exercice" */
+.custom-create-btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 20px auto;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-create-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Style du tableau */
+.custom-table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des en-têtes */
+.custom-table thead {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+}
+
+/* Style des lignes */
+.custom-table tbody tr {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Espacement des actions */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Style des boutons */
+.custom-btn-delete {
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-btn-delete:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.custom-btn-update {
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-btn-update:hover {
+    background-color: #e0a800;
+    transform: scale(1.05);
+}

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement';
 import { FicheMedical } from 'src/core/models/ficheMedical';
 import { Joueur } from 'src/core/models/Joueurs';
+import { Nouriture } from 'src/core/models/nouriture';
 
 @Injectable({
   providedIn: 'root'
@@ -84,4 +85,37 @@ deletfichemedicalbyid(id :number): Observable<void[]>{
   getExerciceById(id: number): Observable<ExerciceRetablissements> {
     return this.http.get<ExerciceRetablissements>(`${this.apiUrl}/ExerciceRetablissements/retrieve-exerciceRetablissements/${id}`);
   }
+
+
+  //nouriture create
+  addnouriture(nouriture:Nouriture):Observable<Nouriture>{
+    return this.http.post<Nouriture>(`${this.apiUrl}/Nouriture/add-nouriture`,nouriture
+      
+    );
+  }
+
+//delete nouriture 
+
+deletNouriturebyid(idNourriture :number): Observable<void[]>{
+  return this.http.delete<void[]>(`${this.apiUrl}/Nouriture/remove-nouriture/${idNourriture}`);
+}
+
+
+//getAllnouriture
+getAllNouriture(): Observable<Nouriture[]> {
+  return this.http.get<Nouriture[]>(`${this.apiUrl}/Nouriture/retrieve-all-nouriture`);
+}
+
+//get by id nouriture
+getNouritureById(id: number): Observable<Nouriture> {
+  return this.http.get<Nouriture>(`${this.apiUrl}/Nouriture/retrieve-nouriture/${id}`);
+}
+
+//updatenouriture
+
+updateNourritures(nouriture: Nouriture): Observable<Nouriture> {
+  return this.http.put<Nouriture>(`${this.apiUrl}/Nouriture/modify-nouriture`, nouriture);
+}
+
+
 }
