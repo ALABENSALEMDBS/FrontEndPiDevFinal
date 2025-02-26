@@ -1,1 +1,28 @@
-<p>addsousgroup works!</p>
+<div class="container">
+    <h2>Ajouter un Sous-Groupe</h2>
+    
+    <form [formGroup]="sousGroupForm" (ngSubmit)="addSousGroup()">
+      <div class="form-group">
+        <label>Nom du Sous-Groupe</label>
+        <input type="text" class="form-control" formControlName="nameSousGroup">
+        <div *ngIf="sousGroupForm.get('nameSousGroup')?.invalid && sousGroupForm.get('nameSousGroup')?.touched" class="text-danger">
+          Nom requis (min 3 caractères).
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Nombre de Joueurs</label>
+        <input type="number" class="form-control" formControlName="nbrJoueurSousGroup">
+        <div *ngIf="sousGroupForm.get('nbrJoueurSousGroup')?.invalid && sousGroupForm.get('nbrJoueurSousGroup')?.touched" class="text-danger">
+          Entre 1 et 50 joueurs.
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="sousGroupForm.invalid">Ajouter</button>
+      <button type="reset" class="btn btn-secondary" >Reset</button>
+    </form>
+  
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  </div>
+  

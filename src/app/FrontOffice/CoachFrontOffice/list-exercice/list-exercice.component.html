@@ -1,0 +1,40 @@
+<p>list-seance works!</p>
+<!-- Bouton Ajouter un seance -->
+<div style="margin-bottom: 20px;">
+  <button [routerLink]="['addexercice']" class="btn-add">
+    Ajouter une exercice
+  </button>
+</div>
+
+<h2>Liste des Exercices</h2>
+<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid black;">ID</th>
+      <th style="border: 1px solid black;">nom Exercice</th>
+      <th style="border: 1px solid black;">description Exercice</th>
+      <th style="border: 1px solid black;">video Exercice</th>
+      <th style="border: 1px solid black;">photo Exercice</th>
+      <th style="border: 1px solid black;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of exercice">
+      <td style="border: 1px solid black;">{{ e.idExercice }}</td>
+      <td style="border: 1px solid black;">{{ e.nameExercice }}</td>
+      <td style="border: 1px solid black;">{{ e.descriptionExercice }}</td>
+      <td style="border: 1px solid black;">{{ e.videoExercice }}</td>
+      <td style="border: 1px solid black;">{{ e.photoExercice }}</td>
+      <td style="border: 1px solid black;">
+        <button (click)="deleteExercices(e.idExercice)" class="btn-delete">
+          Supprimer
+        </button>
+        <button class="btn btn-success m-3" [routerLink]="['updateexercice', e.idExercice]">
+          Update
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<router-outlet></router-outlet>

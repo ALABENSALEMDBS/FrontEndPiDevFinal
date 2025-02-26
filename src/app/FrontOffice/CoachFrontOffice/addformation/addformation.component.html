@@ -1,0 +1,37 @@
+
+<div class="add-container">
+  <h2>Ajouter une Formation</h2>
+
+  <form [formGroup]="formationForm" (ngSubmit)="addFormation()" class="form-card">
+    
+    <div class="form-group">
+      <label>Nom de la Formation</label>
+      <input type="text" class="form-control" formControlName="nameFormation">
+      <div *ngIf="formationForm.get('nameFormation')?.invalid && formationForm.get('nameFormation')?.touched" class="error-message">
+        Nom requis (min 3 caractères).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description de la Formation</label>
+      <input type="text" class="form-control" formControlName="descriptionFormation">
+      <div *ngIf="formationForm.get('descriptionFormation')?.invalid && formationForm.get('descriptionFormation')?.touched" class="error-message">
+        Description requise.
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">
+        Ajouter
+      </button>
+      <button type="reset" class="btn btn-secondary">Reset</button>
+    </div>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success mt-3 fade-in">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3 fade-in">
+    {{ errorMessage }}
+  </div>
+</div>

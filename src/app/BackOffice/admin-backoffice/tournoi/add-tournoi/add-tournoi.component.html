@@ -1,0 +1,38 @@
+<p>add-tournoi works!</p>
+<div class="container">
+    <h2>Ajouter un Tournoi</h2>
+  
+    <form [formGroup]="tournoiForm" (ngSubmit)="addTournoi()">
+      
+      <div>
+        <label for="name">Nom du Tournoi :</label>
+        <input type="text" id="name" formControlName="nameTournoi" />
+        <small *ngIf="tournoiForm.controls['nameTournoi'].invalid && tournoiForm.controls['nameTournoi'].touched">
+          Le nom doit contenir au moins 3 caractères.
+        </small>
+      </div>
+  
+      <div>
+        <label for="debut">Date de Début :</label>
+        <input type="date" id="debut" formControlName="debutTournoi" />
+        <small *ngIf="tournoiForm.controls['debutTournoi'].invalid && tournoiForm.controls['debutTournoi'].touched">
+          La date de début est requise.
+        </small>
+      </div>
+  
+      <div>
+        <label for="fin">Date de Fin :</label>
+        <input type="date" id="fin" formControlName="finTournoi" />
+        <small *ngIf="tournoiForm.controls['finTournoi'].invalid && tournoiForm.controls['finTournoi'].touched">
+          La date de fin est requise.
+        </small>
+      </div>
+  
+      <button type="submit" class="btn-add" [disabled]="tournoiForm.invalid">Ajouter</button>
+    </form>
+  
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+  
+  

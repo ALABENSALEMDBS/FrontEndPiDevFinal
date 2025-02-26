@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Ajouter une seance</h2>
+    
+    <form [formGroup]="seanceform" (ngSubmit)="addSeance()">
+      <div class="form-group">
+        <label>Nom du seance</label>
+        <input type="text" class="form-control" formControlName="titleSeance">
+        <div *ngIf="seanceform.get('titleSeance')?.invalid && seanceform.get('titleSeance')?.touched" class="text-danger">
+          Nom requis (min 3 caractères).
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>date du seance</label>
+        <input type="date" class="form-control" formControlName="jourSeance">
+        <div *ngIf="seanceform.get('jourSeance')?.invalid && seanceform.get('jourSeance')?.touched" class="text-danger">
+            description requis
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="seanceform.invalid">Ajouter</button>
+      <button type="reset" class="btn btn-secondary" >Reset</button>
+    </form>
+  
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  </div>

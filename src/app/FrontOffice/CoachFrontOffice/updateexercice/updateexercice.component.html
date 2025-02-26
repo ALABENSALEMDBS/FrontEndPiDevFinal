@@ -1,0 +1,49 @@
+<p>updateexercice works!</p>
+{{ idExercice }}
+
+<div class="container">
+  <h2>Mettre à jour l'Exercice</h2>
+
+  <form [formGroup]="exerciceform" (ngSubmit)="updateExercice()">
+
+    <div class="form-group">
+      <label>ID de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="idExercice">
+    </div>
+
+    <div class="form-group">
+      <label>Nom de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="nameExercice">
+      <div *ngIf="nameExercice?.invalid && nameExercice?.touched" class="text-danger">
+        Nom requis (min 3 caractères).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea class="form-control" formControlName="descriptionExercice"></textarea>
+      <div *ngIf="descriptionExercice?.invalid && descriptionExercice?.touched" class="text-danger">
+        Description requise.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Vidéo de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="videoExercice">
+      <div *ngIf="videoExercice?.invalid && videoExercice?.touched" class="text-danger">
+        URL de la vidéo requise.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Photo de l'Exercice</label>
+      <input type="text" class="form-control" formControlName="photoExercice">
+      <div *ngIf="photoExercice?.invalid && photoExercice?.touched" class="text-danger">
+        URL de la photo requise.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="updateExercice()" [disabled]="exerciceform.invalid">Mettre à jour</button>
+    <button type="button" class="btn btn-secondary" routerLink="/listeexercices">Annuler</button>
+  </form>
+</div>

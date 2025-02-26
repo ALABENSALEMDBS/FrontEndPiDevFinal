@@ -1,3 +1,17 @@
-.all-template-fo-container {
+/* .all-template-fo-container {
     display: block;
-}
+} */
+
+
+
+  /* Partie 1 : Fond et couleur */
+  .content-wrapper {
+    background-color: #343a40; /* Couleur de fond Bootstrap bg-dark */
+    color: white; /* Couleur du texte */
+  }
+
+  /* Partie 2 : Mise en page */
+  .content-wrapper {
+    min-height: 100vh; /* Assure que la section prend toute la hauteur */
+    padding: 20px; /* Ajoute de l'espace intérieur autour du contenu */
+  }
