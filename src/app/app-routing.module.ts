@@ -32,6 +32,7 @@ import { DoctorComponent } from './FrontOffice/DoctorFrontOffice/doctor/doctor.c
 import { HomeDoctorsComponent } from './FrontOffice/DoctorFrontOffice/home-doctors/home-doctors.component';
 import { HomePageComponent } from './FrontOffice/HomePages/home-page/home-page.component';
 import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/all-template-player-front/all-template-player-front.component';
+import { VideComponent } from './FrontOffice/CoachFrontOffice/vide/vide.component';
 
 const routes: Routes = [
 
@@ -121,6 +122,8 @@ const routes: Routes = [
       {
         path: 'showFormation', component: FormationCoachComponent,
         children:[
+          { path: '', redirectTo: 'vide', pathMatch: 'full' },
+          {path: 'vide', component: VideComponent },
           {path: 'addformation', component: AddformationComponent },
           {path: 'updateformation/:idFormation', component: UpdateformationComponent },
 

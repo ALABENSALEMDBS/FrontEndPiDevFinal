@@ -5,13 +5,13 @@
   <form [formGroup]="formationForm" (ngSubmit)="updateFormation()" class="form-card">
     
     <div class="form-group">
-      <label>ID de la Formation</label>
-      <input type="text" class="form-control" formControlName="idFormation" readonly>
+      <label>Reference of Formation</label>
+      <input type="text"  formControlName="idFormation" readonly>
     </div>
 
     <div class="form-group">
       <label>Nom de la Formation</label>
-      <input type="text" class="form-control" formControlName="nameFormation">
+      <input type="text"  formControlName="nameFormation">
       <div *ngIf="nameFormation?.invalid && nameFormation?.touched" class="error-message">
         Nom requis (min 3 caractères).
       </div>
@@ -19,7 +19,7 @@
 
     <div class="form-group">
       <label>Description de la Formation</label>
-      <textarea class="form-control" formControlName="descriptionFormation"></textarea>
+      <textarea  formControlName="descriptionFormation"></textarea>
       <div *ngIf="descriptionFormation?.invalid && descriptionFormation?.touched" class="error-message">
         Description requise.
       </div>

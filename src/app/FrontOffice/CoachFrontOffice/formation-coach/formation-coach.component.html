@@ -1,10 +1,72 @@
-
-<!-- Bouton Ajouter un formation -->
+<!-- Bouton Ajouter une formation -->
 <div class="add-btn-container">
   <button [routerLink]="['addformation']" class="btn-add">
     Ajouter une formation
   </button>
 </div>
+
+<router-outlet></router-outlet>
+
+<h2>Liste des Formations</h2>
+
+<div class="card-container">
+  <div class="card" *ngFor="let f of formation">
+    <h3>{{ f.nameFormation }}</h3>
+    <p>{{ f.descriptionFormation }}</p>
+    <div class="card-actions">
+      <!-- <button (click)="deleteFormation(f.idFormation)" class="btn-delete">
+        Supprimer
+      </button> -->
+
+      <button (click)="openConfirmPopup(f.idFormation)" class="btn-delete">
+        Supprimer
+      </button>
+
+      <button class="btn-update" (click)="openPopup(f)">
+        Modifier
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup de mise à jour -->
+<div class="popup-container" [class.show]="showPopup">
+  <div class="popup-content">
+    <button class="close-btn" (click)="closePopup()">×</button>
+    <app-updateformation *ngIf="showPopup" [formationData]="selectedFormation"></app-updateformation>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Popup de confirmation de suppression -->
+<div class="confirm-popup-container" [class.show]="showConfirmPopup">
+  <div class="confirm-popup-content">
+    <h3>Êtes-vous sûr ?</h3>
+    <p>Voulez-vous vraiment supprimer cette formation ? Cette action est irréversible.</p>
+    <div class="popup-actions">
+      <button class="btn-cancel" (click)="closeConfirmPopup()">Annuler</button>
+      <button class="btn-delete" (click)="confirmDelete()">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- 
+<div class="add-btn-container">
+  <button [routerLink]="['addformation']" class="btn-add">
+    Ajouter une formation
+  </button>
+</div>
+
+
+<router-outlet></router-outlet>
+
 
 <h2>Liste des Formations</h2>
 
@@ -23,4 +85,5 @@
   </div>
 </div>
 
-<router-outlet></router-outlet>
+ -->
+

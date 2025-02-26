@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 
 @Component({
@@ -10,7 +10,9 @@ import { FormationService } from 'src/app/services/serviceCoatch/serviceformatio
     standalone: false
 })
 export class AddformationComponent {
-    formationForm: FormGroup;
+  formationOptions = ["3-3-4", "5-2-3", "4-4-2"]; // Liste des formats disponibles
+
+  formationForm: FormGroup;
     successMessage: string = '';
     errorMessage: string = '';
 
@@ -27,17 +29,24 @@ export class AddformationComponent {
         if (this.formationForm.valid) {
           this.formationService.addformation(this.formationForm.value).subscribe({
             next: () => {
-              this.successMessage = 'formation ajouté avec succès !';
-              this.errorMessage = '';
-              this.formationForm.reset();
-              window.location.reload();
+              const navigationExtras: NavigationExtras = {
+                state: { successMessage: 'Formation ajoutée avec succès !' }
+              };
+              this.rout.navigate(['coatch/showFormation'], navigationExtras).then(() => {
+                window.location.reload();  // This will reload the page
+              });
             },
             error: () => {
-              this.errorMessage = 'Erreur lors de l’ajout du formation.';
-              this.successMessage = '';
+              const navigationExtras: NavigationExtras = {
+                state: { errorMessage: 'Erreur lors de l’ajout de la formation.' }
+              };
+              this.rout.navigate(['coatch/showFormation'], navigationExtras).then(() => {
+                window.location.reload();  // This will reload the page
+              });
             }
           });
         }
       }
+      
 
 }

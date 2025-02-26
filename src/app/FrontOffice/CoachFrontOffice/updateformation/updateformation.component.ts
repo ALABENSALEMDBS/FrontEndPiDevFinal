@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
@@ -10,6 +10,7 @@ import { FormationService } from 'src/app/services/serviceCoatch/serviceformatio
     standalone: false
 })
 export class UpdateformationComponent implements OnInit {
+  @Input() formationData: any;  // Ajout de l'Input pour recevoir la formation sélectionnée
 
     idFormation: any;
     formationForm!: FormGroup;
@@ -20,6 +21,9 @@ export class UpdateformationComponent implements OnInit {
     ngOnInit(): void {
       this.idFormation = this.act.snapshot.params['idFormation'];
 
+      
+        console.error(this.formationData.idFormation);
+      
 
      // Initialisation du formulaire
         this.formationForm = new FormGroup({
@@ -29,7 +33,7 @@ export class UpdateformationComponent implements OnInit {
         });
     
         // Charger les données du sous-groupe à modifier
-        this.servise.getbyidformation(this.idFormation).subscribe((data) => {
+        this.servise.getbyidformation(this.formationData.idFormation).subscribe((data) => {
           this.listFormation = [data];
           this.formationForm.patchValue(this.listFormation[0]);
         });
@@ -45,9 +49,13 @@ export class UpdateformationComponent implements OnInit {
 
     updateFormation() {
       if (this.formationForm.valid) {
-        this.servise.updateformation( this.idFormation,this.formationForm.value).subscribe(() => {
+        this.servise.updateformation( this.formationData.idFormation,this.formationForm.value).subscribe(() => {
           this.formationForm.reset();
-          window.location.reload();
+
+          this.router.navigate(['coatch/showFormation']).then(() => {
+            window.location.reload();  // This will reload the page after navigation
+          });
+
         });
       }
     }
