@@ -1,0 +1,193 @@
+.seance-form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.seance-form-container h2 {
+    text-align: center;
+    color: #343a40;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 24px;
+}
+
+.seance-form .form-group {
+    margin-bottom: 25px;
+}
+
+.seance-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.seance-form .input-wrapper {
+    position: relative;
+}
+
+.seance-form .form-control {
+    padding: 12px 40px 12px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff;
+    color: #333;
+}
+
+.seance-form .form-control:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.seance-form .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+.seance-form .error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.seance-form .button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.seance-form .btn {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+}
+
+.seance-form .btn i {
+    margin-right: 8px;
+}
+
+.seance-form .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.seance-form .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 123, 255, 0.5);
+}
+
+.seance-form .btn-secondary {
+    background-color: #777; /* Changed to grey */
+    color: white;
+}
+
+.seance-form .btn-secondary:hover {
+    background-color: #999; /* Changed to a lighter grey for hover */
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(85, 85, 85, 0.5);
+}
+
+.seance-form .success-message,
+.seance-form .error-message {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.seance-form .success-message i,
+.seance-form .error-message i {
+    margin-right: 8px;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode h2 {
+    color: #fff;
+}
+
+.dark-mode label {
+    color: #fff;
+}
+
+.dark-mode .form-control {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .success-message {
+    background-color: #28a745;
+    color: white;
+}
+
+.dark-mode .error-message {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Innovative Styling */
+.innovative {
+    background-color: #1e1e1e;
+    color: white;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.innovative h2 {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.innovative .form-control {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+.innovative .form-control:focus {
+    border-color: #007bff;
+    box-shadow: none;
+}
+
+.innovative .btn-primary {
+    background-color: #007bff;
+}
+
+.innovative .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.innovative .btn-secondary {
+    background-color: #444;
+}
+
+.innovative .btn-secondary:hover {
+    background-color: #666;
+}
