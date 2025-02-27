@@ -3,9 +3,10 @@ import { TournoiService } from 'src/app/services/serviceSuperAdmin/servicegerert
 import { Tournois } from 'src/core/models/tournois';
 
 @Component({
-  selector: 'app-list-tournoi',
-  templateUrl: './list-tournoi.component.html',
-  styleUrls: ['./list-tournoi.component.css']
+    selector: 'app-list-tournoi',
+    templateUrl: './list-tournoi.component.html',
+    styleUrls: ['./list-tournoi.component.css'],
+    standalone: false
 })
 export class ListTournoiComponent implements OnInit {
   tournois: Tournois[] = [];

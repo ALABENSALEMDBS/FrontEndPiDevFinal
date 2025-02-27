@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
 
 @Component({
-  selector: 'app-addseance',
-  templateUrl: './addseance.component.html',
-  styleUrls: ['./addseance.component.css']
+    selector: 'app-addseance',
+    templateUrl: './addseance.component.html',
+    styleUrls: ['./addseance.component.css'],
+    standalone: false
 })
 export class AddseanceComponent {
  seanceform: FormGroup;

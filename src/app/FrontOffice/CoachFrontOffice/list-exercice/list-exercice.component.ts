@@ -3,9 +3,10 @@ import { ExerciceService } from 'src/app/services/serviceCoatch/serviceExercice/
 import { Exercices } from 'src/core/models/exercice';
 
 @Component({
-  selector: 'app-list-exercice',
-  templateUrl: './list-exercice.component.html',
-  styleUrls: ['./list-exercice.component.css']
+    selector: 'app-list-exercice',
+    templateUrl: './list-exercice.component.html',
+    styleUrls: ['./list-exercice.component.css'],
+    standalone: false
 })
 export class ListExerciceComponent {
  exercice: Exercices[] = [];

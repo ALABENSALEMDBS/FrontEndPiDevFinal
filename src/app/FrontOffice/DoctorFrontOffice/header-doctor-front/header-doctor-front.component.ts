@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-header-doctor-front',
-  templateUrl: './header-doctor-front.component.html',
-  styleUrls: ['./header-doctor-front.component.css']
+    selector: 'app-header-doctor-front',
+    templateUrl: './header-doctor-front.component.html',
+    styleUrls: ['./header-doctor-front.component.css'],
+    standalone: false
 })
 export class HeaderDoctorFrontComponent {
 

@@ -1,13 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 import Konva from 'konva';
-import * as RecordRTC from 'recordrtc';
+import RecordRTC from 'recordrtc';
 import { TacticService } from 'src/app/services/serviceCoatch/servicetacticcoatch/tactic.service';
 
 @Component({
-  selector: 'app-add-tactic',
-  templateUrl: './add-tactic.component.html',
-  styleUrls: ['./add-tactic.component.css']
+    selector: 'app-add-tactic',
+    templateUrl: './add-tactic.component.html',
+    styleUrls: ['./add-tactic.component.css'],
+    standalone: false
 })
 export class AddTacticComponent implements OnInit {
   successMessage: string = '';
@@ -180,7 +181,7 @@ export class AddTacticComponent implements OnInit {
   onCanvasClick(event: MouseEvent): void {
 
 
-    
+
     if (this.selectedItem && this.stage && this.layer) {
         const position = this.stage.getPointerPosition();
         if (position) {
@@ -194,7 +195,7 @@ export class AddTacticComponent implements OnInit {
                 fill: 'black',
                 draggable: true,
             });
-            
+
             const transformer = new Konva.Transformer({
                 nodes: [newText],
                 enabledAnchors: ['top-left',
@@ -210,7 +211,7 @@ export class AddTacticComponent implements OnInit {
                     return newBox;
                 },
             });
-            
+
             // Bouton Modifier
             const editButton = new Konva.Rect({
                 x: newText.x(),
@@ -221,7 +222,7 @@ export class AddTacticComponent implements OnInit {
                 cornerRadius: 5,
                 visible: false,
             });
-            
+
             const editText = new Konva.Text({
                 x: editButton.x() + 10,
                 y: editButton.y() + 5,
@@ -230,7 +231,7 @@ export class AddTacticComponent implements OnInit {
                 fill: 'white',
                 visible: false,
             });
-            
+
             // Bouton Supprimer
             const deleteButton = new Konva.Rect({
                 x: newText.x() + 90,
@@ -241,7 +242,7 @@ export class AddTacticComponent implements OnInit {
                 cornerRadius: 5,
                 visible: false,
             });
-            
+
             const deleteText = new Konva.Text({
                 x: deleteButton.x() + 10,
                 y: deleteButton.y() + 5,
@@ -250,7 +251,7 @@ export class AddTacticComponent implements OnInit {
                 fill: 'white',
                 visible: false,
             });
-            
+
             // Fonction pour afficher les boutons Modifier et Supprimer
             newText.on('dblclick', () => {
                 editButton.visible(true);
@@ -270,11 +271,11 @@ export class AddTacticComponent implements OnInit {
               deleteText.position({ x: newPosition.x + 100, y: newPosition.y - 25 });
               this.layer!.batchDraw();
             });
-            
+
             // Fonction pour afficher l'input de modification
             const showInput = () => {
                 const textPosition = newText.getAbsolutePosition();
-            
+
                 const input = document.createElement('input');
                 input.type = 'text';
                 input.value = newText.text();
@@ -287,7 +288,7 @@ export class AddTacticComponent implements OnInit {
                 input.style.zIndex = '100';
                 document.body.appendChild(input);
                 input.focus();
-            
+
                 input.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
                         newText.text(input.value);
@@ -296,7 +297,7 @@ export class AddTacticComponent implements OnInit {
                         this.layer!.batchDraw();
                     }
                 });
-            
+
                 input.addEventListener('blur', () => {
                     newText.text(input.value);
                     document.body.removeChild(input);
@@ -304,7 +305,7 @@ export class AddTacticComponent implements OnInit {
                     this.layer!.batchDraw();
                 });
             };
-            
+
             // Fonction pour supprimer le texte
             const deleteTextElement = () => {
                 newText.destroy();
@@ -315,7 +316,7 @@ export class AddTacticComponent implements OnInit {
                 transformer.destroy();
                 this.layer!.batchDraw();
             };
-            
+
             // Fonction pour cacher les boutons
             const hideButtons = () => {
                 editButton.visible(false);
@@ -325,13 +326,13 @@ export class AddTacticComponent implements OnInit {
                 transformer.nodes([]);
                 this.layer!.batchDraw();
             };
-            
+
             // Événement sur les boutons
             editButton.on('click', showInput);
             editText.on('click', showInput);
             deleteButton.on('click', deleteTextElement);
             deleteText.on('click', deleteTextElement);
-            
+
             // Ajouter les éléments à la couche
             this.layer.add(newText);
             this.layer.add(transformer);
@@ -340,14 +341,14 @@ export class AddTacticComponent implements OnInit {
             this.layer.add(deleteButton);
             this.layer.add(deleteText);
             this.layer.draw();
-            
+
             // Cacher les boutons lorsqu'on clique en dehors
             this.stage.on('click', (e) => {
                 if (e.target !== newText && e.target !== editButton && e.target !== editText && e.target !== deleteButton && e.target !== deleteText) {
                     hideButtons();
                 }
             });
-            
+
 
             } else {
                 // Gestion des images comme avant
@@ -460,7 +461,7 @@ export class AddTacticComponent implements OnInit {
             // Attendre que le flux soit prêt
             setTimeout(() => {
               this.mediaRecorder.startRecording();
-      
+
               // Mettre à jour périodiquement le canvas même s'il n'y a pas de changements
               const updateCanvas = () => {
                 if (this.isRecording) {
@@ -484,7 +485,7 @@ export class AddTacticComponent implements OnInit {
         this.videoPath = `${this.nameTactic}.mp4`;
 
         this.mediaRecorder.stopRecording(() => {
-          
+
 
           const videoURL = this.mediaRecorder.toURL();
           this.videoPlayer.nativeElement.src = videoURL;
@@ -499,24 +500,24 @@ export class AddTacticComponent implements OnInit {
           this.isVideoVisible = true;
         }
       }
-      
+
 //********************************* */
 
-  
-  
+
+
   isTacticVisible(): boolean {
     return this.nameTactic.trim() !== '' && this.descriptionTactic.trim() !== '';
   }
 
   uploadError: string | null = null;
   uploadResponse: any;
-  
+
   saveTactic(): void {
       if (!this.canvasContainer) {
           this.uploadError = 'Image not found.';
           return;
       }
-  
+
       html2canvas(this.canvasContainer.nativeElement).then(canvas => {
           canvas.toBlob(async blob => {
               if (blob) {
@@ -524,7 +525,7 @@ export class AddTacticComponent implements OnInit {
                       // Upload de l'image
                       const imageFile = new File([blob], `${this.nameTactic}.png`, { type: 'image/png' });
                       await this.uploadFile(imageFile);
-  
+
                       // Vérifier si une vidéo existe et l'uploader
                       let videoUrl: string | null = null;
                       if (this.videoPath && this.mediaRecorder) {
@@ -535,7 +536,7 @@ export class AddTacticComponent implements OnInit {
                               videoUrl = `http://localhost/tactics/${this.nameTactic}.mp4`;
                           }
                       }
-  
+
                       // Ajouter la tactique après l'upload
                       this.addTactic(videoUrl);
                   } catch (error) {
@@ -551,7 +552,7 @@ export class AddTacticComponent implements OnInit {
           console.error('Error capturing image:', error);
       });
   }
-  
+
   uploadFile(file: File): Promise<void> {
       return new Promise((resolve, reject) => {
           this.uploadError = null;
@@ -568,7 +569,7 @@ export class AddTacticComponent implements OnInit {
           });
       });
   }
-  
+
   addTactic(videoUrl: string | null): void {
       const tactic = {
           nameTactic: this.nameTactic,
@@ -576,7 +577,7 @@ export class AddTacticComponent implements OnInit {
           photoTactic: `http://localhost/tactics/${this.nameTactic}.png`,
           videoTactic: videoUrl, // Stocke null si aucune vidéo
       };
-  
+
       this.tacticservic.addtactic(tactic).subscribe({
           next: (response) => {
               console.log('Tactic added successfully:', response);
@@ -588,7 +589,7 @@ export class AddTacticComponent implements OnInit {
           }
       });
   }
-  
+
 
 }
 

@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TournoiService } from 'src/app/services/serviceSuperAdmin/servicegerertournoi/tournoi.service';
 
 @Component({
-  selector: 'app-update-tournoi',
-  templateUrl: './update-tournoi.component.html',
-  styleUrls: ['./update-tournoi.component.css']
+    selector: 'app-update-tournoi',
+    templateUrl: './update-tournoi.component.html',
+    styleUrls: ['./update-tournoi.component.css'],
+    standalone: false
 })
 export class UpdateTournoiComponent implements OnInit {
 

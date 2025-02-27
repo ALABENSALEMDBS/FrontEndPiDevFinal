@@ -3,9 +3,10 @@ import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/sean
 import { seance } from 'src/core/models/seance';
 
 @Component({
-  selector: 'app-list-seance',
-  templateUrl: './list-seance.component.html',
-  styleUrls: ['./list-seance.component.css']
+    selector: 'app-list-seance',
+    templateUrl: './list-seance.component.html',
+    styleUrls: ['./list-seance.component.css'],
+    standalone: false
 })
 export class ListSeanceComponent implements OnInit {
 

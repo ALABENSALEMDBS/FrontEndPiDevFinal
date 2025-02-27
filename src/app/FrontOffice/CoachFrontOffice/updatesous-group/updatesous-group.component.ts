@@ -4,9 +4,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGroupe/sousgroupe.service';
 
 @Component({
-  selector: 'app-updatesous-group',
-  templateUrl: './updatesous-group.component.html',
-  styleUrls: ['./updatesous-group.component.css']
+    selector: 'app-updatesous-group',
+    templateUrl: './updatesous-group.component.html',
+    styleUrls: ['./updatesous-group.component.css'],
+    standalone: false
 })
 export class UpdatesousGroupComponent implements OnInit {
 

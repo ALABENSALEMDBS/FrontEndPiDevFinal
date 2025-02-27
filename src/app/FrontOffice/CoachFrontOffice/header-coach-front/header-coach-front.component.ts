@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-header-coach-front',
-  templateUrl: './header-coach-front.component.html',
-  styleUrls: ['./header-coach-front.component.css']
+    selector: 'app-header-coach-front',
+    templateUrl: './header-coach-front.component.html',
+    styleUrls: ['./header-coach-front.component.css'],
+    standalone: false
 })
 export class HeaderCoachFrontComponent {
   isMenuOpen = false;

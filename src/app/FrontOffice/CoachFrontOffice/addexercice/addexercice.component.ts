@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { ExerciceService } from 'src/app/services/serviceCoatch/serviceExercice/exercice.service';
 
 @Component({
-  selector: 'app-addexercice',
-  templateUrl: './addexercice.component.html',
-  styleUrls: ['./addexercice.component.css']
+    selector: 'app-addexercice',
+    templateUrl: './addexercice.component.html',
+    styleUrls: ['./addexercice.component.css'],
+    standalone: false
 })
 export class AddexerciceComponent {
   exerciceform: FormGroup;
