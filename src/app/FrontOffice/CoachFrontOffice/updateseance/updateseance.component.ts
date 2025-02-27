@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
@@ -10,6 +10,7 @@ import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/sean
     standalone: false
 })
 export class UpdateseanceComponent {
+  @Input() seanceData: any;  // Ajoute cette ligne
 
   idSeance: any;
   seanceform!: FormGroup;
@@ -28,10 +29,11 @@ export class UpdateseanceComponent {
     });
 
     // Charger les données de la séance à modifier
-    this.service.getbyidSeances(this.idSeance).subscribe((data) => {
+    this.service.getbyidSeances(this.seanceData.idSeance).subscribe((data) => {
       this.listseance = [data];
       this.seanceform.patchValue(this.listseance[0]);
     });
+   
   }
 
   get titleSeance() {
@@ -44,11 +46,15 @@ export class UpdateseanceComponent {
 
   updateSeance() {
     if (this.seanceform.valid) {
-      this.service.updateSeances(this.idSeance, this.seanceform.value).subscribe(() => {
+      this.service.updateSeances( this.seanceData.idSeance,this.seanceform.value).subscribe(() => {
         this.seanceform.reset();
-        window.location.reload();
+
+        this.router.navigate(['coatch/showseance']).then(() => {
+          window.location.reload();  // This will reload the page after navigation
+        });
 
       });
     }
   }
+
 }
