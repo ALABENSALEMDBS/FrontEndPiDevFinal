@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { DoctorComponent } from './FrontOffice/DoctorFrontOffice/doctor/doctor.component';
 import { HomeDoctorsComponent } from './FrontOffice/DoctorFrontOffice/home-doctors/home-doctors.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AllTemplateAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/all-template-analyste-front/all-template-analyste-front.component';
 import { FooterAnalysteFrontComponent } from './FrontOffice/AnalysteFrontOffice/footer-analyste-front/footer-analyste-front.component';
@@ -56,71 +56,57 @@ import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match
 import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
 import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderBackComponent,
-    SidebarBackComponent,
-    AllTemplateBackComponent,
-    FooterBackComponent,
-
-    DoctorComponent,
-    HomeDoctorsComponent,
-
-    FooterCoachFrontComponent,
-    AllTemplateCoachFrontComponent,
-    HeaderCoachFrontComponent,
-    HeaderDoctorFrontComponent,
-    AllTemplateDoctorFrontComponent,
-    FooterDoctorFrontComponent,
-    FooterPlayerFrontComponent,
-    AllTemplatePlayerFrontComponent,
-    HeaderPlayerFrontComponent,
-    HeaderAnalysteFrontComponent,
-    AllTemplateAnalysteFrontComponent,
-    FooterAnalysteFrontComponent,
-    HomePageComponent,
-    AddTacticComponent,
-    HomeCoachComponent,
-    FormationCoachComponent,
-    SousgroupComponent,
-    UpdatesousGroupComponent,
-    AddsousgroupComponent,
-
-    AccueilComponent,
-      AddformationComponent,
-      ListSeanceComponent,
-      AddseanceComponent,
-      AddexerciceComponent,
-      ListExerciceComponent,
-      UpdateformationComponent,
-      UpdateexerciceComponent,
-      UpdateseanceComponent,
-      ListTacticComponent,
-      AllTemplateClubComponent,
-      FooterAdminClubComponent,
-      HeaderAdminClubComponent,
-      SidebarAdminClubComponent,
-      AcceuilAdminClubComponent,
-      ListTournoiComponent,
-      AddTournoiComponent,
-      UpdateTournoiComponent,
-      AddMatchComponent,
-      ListMatchComponent,
-      UpdateMatchComponent,
-  
-
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule
-
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HeaderBackComponent,
+        SidebarBackComponent,
+        AllTemplateBackComponent,
+        FooterBackComponent,
+        DoctorComponent,
+        HomeDoctorsComponent,
+        FooterCoachFrontComponent,
+        AllTemplateCoachFrontComponent,
+        HeaderCoachFrontComponent,
+        HeaderDoctorFrontComponent,
+        AllTemplateDoctorFrontComponent,
+        FooterDoctorFrontComponent,
+        FooterPlayerFrontComponent,
+        AllTemplatePlayerFrontComponent,
+        HeaderPlayerFrontComponent,
+        HeaderAnalysteFrontComponent,
+        AllTemplateAnalysteFrontComponent,
+        FooterAnalysteFrontComponent,
+        HomePageComponent,
+        AddTacticComponent,
+        HomeCoachComponent,
+        FormationCoachComponent,
+        SousgroupComponent,
+        UpdatesousGroupComponent,
+        AddsousgroupComponent,
+        AccueilComponent,
+        AddformationComponent,
+        ListSeanceComponent,
+        AddseanceComponent,
+        AddexerciceComponent,
+        ListExerciceComponent,
+        UpdateformationComponent,
+        UpdateexerciceComponent,
+        UpdateseanceComponent,
+        ListTacticComponent,
+        AllTemplateClubComponent,
+        FooterAdminClubComponent,
+        HeaderAdminClubComponent,
+        SidebarAdminClubComponent,
+        AcceuilAdminClubComponent,
+        ListTournoiComponent,
+        AddTournoiComponent,
+        UpdateTournoiComponent,
+        AddMatchComponent,
+        ListMatchComponent,
+        UpdateMatchComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
