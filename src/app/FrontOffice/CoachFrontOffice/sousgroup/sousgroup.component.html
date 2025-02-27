@@ -1,40 +1,44 @@
-<p>sousgroup works!</p>
+<!-- <p>sousgroup works!</p> -->
 
-<h2>Liste des Sous-Groupes</h2>
+<h2 style="text-align: center; margin-bottom: 20px; font-family: 'Dancing Script', cursive; color: #fff;">
+  Liste des Sous-Groupes
+</h2>
 
 <!-- Bouton Ajouter un Sous-Groupe -->
-<div style="margin-bottom: 20px;">
-  <button [routerLink]="['addsousgroup']" class="btn-add">
+<div style="text-align: center; margin-bottom: 20px;">
+  <button [routerLink]="['addsousgroup']"
+          style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-family: 'Dancing Script', cursive;">
     Ajouter un Sous-Groupe
   </button>
 </div>
 
-<!-- Tableau des Sous-Groupes -->
-<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nom du Sous-Groupe</th>
-      <th>Nombre de Joueurs</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let sg of sousGroupes">
-      <td>{{ sg.idSousGroup }}</td>
-      <td>{{ sg.nameSousGroup }}</td>
-      <td>{{ sg.nbrJoueurSousGroup }}</td>
-      <td>
-        <button (click)="deleteSousGroup(sg.idSousGroup)" class="btn-delete">
-          Supprimer
-        </button>
-        <button class="btn btn-success m-3" [routerLink]="['update', sg.idSousGroup]">
-          Update
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<!-- Liste des Cartes Sous-Groupes -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  <div *ngFor="let sg of sousGroupes"
+       style="width: 300px; border-radius: 10px; padding: 20px; background: rgba(0, 0, 0, 0.6);
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px);
+              color: white; font-family: 'Dancing Script', cursive; text-align: center;">
+
+    <h3>{{ sg.nameSousGroup }}</h3>
+    <p>Nombre de Joueurs : {{ sg.nbrJoueurSousGroup }}</p>
+
+    <!-- Boutons d'Action -->
+    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+      <button (click)="deleteSousGroup(sg.idSousGroup)"
+              style="background-color: #dc3545; color: white; border: none; padding: 5px 10px;
+                     border-radius: 5px; cursor: pointer; font-family: 'Dancing Script', cursive;">
+        Supprimer
+      </button>
+      <button [routerLink]="['update', sg.idSousGroup]"
+              style="background-color: #007bff; color: white; border: none; padding: 5px 10px;
+                     border-radius: 5px; cursor: pointer; font-family: 'Dancing Script', cursive;">
+        Update
+      </button>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- Ajout du router-outlet ici -->
 <router-outlet></router-outlet>
