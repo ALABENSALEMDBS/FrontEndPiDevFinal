@@ -10,6 +10,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeaderCoachFrontComponent {
   pageTitle: string = '';
 
+  isDropdownOpen = false;
+
+toggleDropdown() {
+  this.isDropdownOpen = !this.isDropdownOpen;
+}
+
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
