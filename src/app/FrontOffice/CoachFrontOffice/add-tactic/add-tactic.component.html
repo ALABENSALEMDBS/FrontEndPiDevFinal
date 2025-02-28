@@ -1,8 +1,10 @@
 <hr>
-<p>add-tactic works!</p>
-<hr>
 
 <div class="form-container">
+  <button class="close-btn" (click)="avoidAdd()">
+    ✖
+  </button>
+  
     <div class="form-group">
         <label for="nom">Tactic Name :</label>
         <input type="text" id="nom" name="nom" placeholder="Put the Tactic Name"  [(ngModel)]="nameTactic">
