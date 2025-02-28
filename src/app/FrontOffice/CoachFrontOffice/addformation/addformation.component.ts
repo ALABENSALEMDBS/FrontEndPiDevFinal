@@ -54,4 +54,9 @@ export class AddformationComponent {
       }
       
 
+
+
+      avoidAdd() {
+        this.rout.navigate(['coatch/showFormation']); // Changez '/listformation' selon votre route réelle
+      }
 }
