@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './vide.component.css'
 })
 export class VideComponent {
-
+ coachPhrase = "Transform Your Team, Ignite Your Passion!"
+  coachImageUrl = "https://thepfsa.co.uk/wp-content/uploads/2022/07/Football-Coach.jpg"
 }

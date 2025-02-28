@@ -24,10 +24,10 @@ export class HeaderAnalysteFrontComponent {
     const currentUrl = this.router.url;
 
     // Define dynamic titles for each route
-    if (currentUrl.includes('analyste')) {
+    if (currentUrl.includes('Homeanalyste')) {
       this.pageTitle = 'Welcome Analyst';
-    } else if (currentUrl.includes('listTactic')) {
-      this.pageTitle = 'Management Tactic';
+    } else if (currentUrl.includes('Reportshow')) {
+      this.pageTitle = 'Management Reports';
     } else if (currentUrl.includes('showFormation')) {
       this.pageTitle = 'Management Formation';
     } else if (currentUrl.includes('ShowSousGroups')) {

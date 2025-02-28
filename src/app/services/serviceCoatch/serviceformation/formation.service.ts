@@ -30,4 +30,8 @@ export class FormationService {
   updateformation(id:any,forma:formation):Observable<formation[]>{
     return this.http.put<formation[]>("http://localhost:8089/PiDevBackEndProject/Formations/modify-formations"+'/'+id,forma)
   }
+
+
+
+ 
 }
