@@ -35,10 +35,6 @@ export class FormationCoachComponent {
     }
 
 
-   
-
-
-
 
 
     openPopup(formation: any) {
@@ -49,9 +45,6 @@ export class FormationCoachComponent {
     closePopup() {
       this.showPopup = false;
     }
-
-
-
 
 
     showConfirmPopup = false;
@@ -85,5 +78,13 @@ export class FormationCoachComponent {
         console.log("deleted Formation !!!!")
         window.location.reload()
       })
+    }
+
+
+    
+    showPlayers(formationId: number): void {
+      // Implement logic to fetch and display players based on formationId
+      console.log(`Show players for formation with ID: ${formationId}`);
+      // You can add a call to another function that handles fetching players from the server
     }
 }

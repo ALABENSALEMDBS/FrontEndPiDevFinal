@@ -1,35 +1,38 @@
 <hr>
 <div class="add-container">
-  <h2>Ajouter une Formation</h2>
+  <button class="close-btn" (click)="avoidAdd()">
+    ✖
+  </button>
+  <h2>Add a Training</h2>
 
   <form [formGroup]="formationForm" (ngSubmit)="addFormation()" class="form-card">
     
     <div class="form-group">
-      <label>Nom de la Formation</label>
+      <label>Training Name</label>
       <select formControlName="nameFormation">
-        <option value="" disabled selected>Choisissez un format</option>
+        <option value="" disabled selected>Choose a format</option>
         <option *ngFor="let option of formationOptions" [value]="option">
           {{ option }}
         </option>
       </select>
       <div *ngIf="formationForm.get('nameFormation')?.invalid && formationForm.get('nameFormation')?.touched" class="error-message">
-        Sélection requise.
+        Selection required.
       </div>
     </div>
 
     <div class="form-group">
-      <label>Description de la Formation</label>
-      <input type="text"  formControlName="descriptionFormation">
+      <label>Training Description</label>
+      <input type="text" formControlName="descriptionFormation">
       <div *ngIf="formationForm.get('descriptionFormation')?.invalid && formationForm.get('descriptionFormation')?.touched" class="error-message">
-        Description requise.
+        Description required.
       </div>
     </div>
 
     <div class="btn-group">
       <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">
-        Ajouter
+        <i class="fas fa-plus-circle"></i> Add
       </button>
-      <button type="reset" class="btn btn-secondary">Reset</button>
+      <button type="reset" class="btn btn-secondary"> <i class="fas fa-undo"></i> Reset</button>
     </div>
   </form>
 

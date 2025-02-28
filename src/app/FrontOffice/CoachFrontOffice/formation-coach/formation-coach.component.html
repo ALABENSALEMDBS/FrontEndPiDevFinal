@@ -1,35 +1,92 @@
-<!-- Bouton Ajouter une formation -->
-<div class="add-btn-container">
-  <button [routerLink]="['addformation']" class="btn-add">
-    Ajouter une formation
-  </button>
-</div>
+<div class="container">
+  <div class="add-btn-container">
+    <button [routerLink]="['addformation']" class="btn-add">+ Add Training</button>
+  </div>
+ 
 
 <router-outlet></router-outlet>
 
-<h2>Liste des Formations</h2>
+  <h2>Training List</h2>
 
-<div class="card-container">
-  <div class="card" *ngFor="let f of formation">
-    <h3>{{ f.nameFormation }}</h3>
-    <p>{{ f.descriptionFormation }}</p>
-    <div class="card-actions">
-      <!-- <button (click)="deleteFormation(f.idFormation)" class="btn-delete">
-        Supprimer
-      </button> -->
-
-      <button (click)="openConfirmPopup(f.idFormation)" class="btn-delete">
-        Supprimer
-      </button>
-
-      <button class="btn-update" (click)="openPopup(f)">
-        Modifier
-      </button>
+  <div class="card-container">
+    <div class="card" *ngFor="let f of formation">
+      <div class="card-image">
+        <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Football Training">
+        <span class="level-badge"> {{f.nameFormation}}</span>
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">{{ f.nameFormation }}</h3>
+        <p class="card-date">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          {{f.descriptionFormation}}
+          <!-- {{ f.schedule || 'Schedule not specified' }} -->
+        </p>
+        <!-- <p class="card-description">{{ f.descriptionFormation }}</p> -->
+        <div class="card-details">
+          <div class="detail-item">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <!-- {{ f.duration || '90 minutes' }} -->
+          </div>
+          <div class="detail-item" >
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+             Coach:  Ben Salem Ala <!-- {{ f.coach || 'Not specified' }} -->
+          </div>
+          <div class="detail-item full-width">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <!-- {{ f.currentPlayers || '0' }} / {{ f.maxPlayers || '16' }} players -->
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-edit" (click)="openPopup(f)">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Edit
+          </button>
+          <div class="action-group">
+            <button class="btn btn-players" (click)="showPlayers(f.idFormation)">
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Players
+            </button>
+            <button class="btn btn-delete" (click)="openConfirmPopup(f.idFormation)">
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Popup de mise à jour -->
+<!-- Update Popup -->
 <div class="popup-container" [class.show]="showPopup">
   <div class="popup-content">
     <button class="close-btn" (click)="closePopup()">×</button>
@@ -37,19 +94,14 @@
   </div>
 </div>
 
-
-
-
-
-
-<!-- Popup de confirmation de suppression -->
+<!-- Delete Confirmation Popup -->
 <div class="confirm-popup-container" [class.show]="showConfirmPopup">
   <div class="confirm-popup-content">
-    <h3>Êtes-vous sûr ?</h3>
-    <p>Voulez-vous vraiment supprimer cette formation ? Cette action est irréversible.</p>
+    <h3>Are you sure?</h3>
+    <p>Do you really want to delete this training? This action is irreversible.</p>
     <div class="popup-actions">
-      <button class="btn-cancel" (click)="closeConfirmPopup()">Annuler</button>
-      <button class="btn-delete" (click)="confirmDelete()">Supprimer</button>
+      <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
+      <button class="btn-delete" (click)="confirmDelete()">Delete</button>
     </div>
   </div>
 </div>
@@ -57,7 +109,11 @@
 
 
 
-<!-- 
+
+
+
+
+<!--
 <div class="add-btn-container">
   <button [routerLink]="['addformation']" class="btn-add">
     Ajouter une formation
