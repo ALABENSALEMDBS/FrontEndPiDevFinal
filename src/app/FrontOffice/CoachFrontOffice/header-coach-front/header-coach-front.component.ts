@@ -39,7 +39,7 @@ toggleDropdown() {
     } else if (currentUrl.includes('showseance')) {
       this.pageTitle = 'Management Session';
     } else if (currentUrl.includes('showexercice')) {
-      this.pageTitle = 'Management Exercices';
+      this.pageTitle = 'Management Exercise';
     } else {
       this.pageTitle = 'Welcome';
     }
