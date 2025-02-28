@@ -1,22 +1,32 @@
 <div class="tactic-container">
+  
   <button [routerLink]="['AddTactic']" class="btn-add">
-    + Ajouter une Tactic
+    <i class="fas fa-plus"></i> Add Tactic
   </button>
 
-  <h2>Liste des Tactiques</h2>
+  <div style="margin-bottom: 50px;">
+      <router-outlet></router-outlet>
+  </div>
+
+  <h2><i class="fas fa-clipboard-list"></i> Tactic List</h2>
 
   <div class="tactic-grid">
     <div class="tactic-card" *ngFor="let t of tactic">
-      <img *ngIf="t.photoTactic" [src]="t.photoTactic" alt="Photo" class="tactic-img">
+      <div class="tactic-image-container">
+        <img *ngIf="t.photoTactic" [src]="t.photoTactic" alt="Photo" class="tactic-img">
+        <div *ngIf="!t.photoTactic" class="tactic-img-placeholder">
+          <i class="fas fa-futbol"></i>
+        </div>
+      </div>
       <div class="tactic-info">
-        <h3>{{ t.nameTactic }}</h3>
-        <p>{{ t.descriptionTactic }}</p>
+        <h3><i class="fas fa-chess"></i> {{ t.nameTactic }}</h3>
+        <p><i class="fas fa-info-circle"></i> {{ t.descriptionTactic }}</p>
         <div class="tactic-actions">
           <button *ngIf="t.videoTactic" (click)="openModal(t.videoTactic)" class="btn-video">
-            🎥 Voir la vidéo
+            <i class="fas fa-play-circle"></i> WATCH VIDEO
           </button>
-          <button (click)="deleteTactic(t.idTactic)" class="btn-delete">
-            🗑 Supprimer
+          <button (click)="openConfirmPopup(t.idTactic ?? 0 )" class="btn-delete">
+            <i class="fas fa-trash-alt"></i> DELETE
           </button>
         </div>
       </div>
@@ -24,12 +34,26 @@
   </div>
 </div>
 
-<!-- Modal pour afficher la vidéo -->
+<!-- Modal to display the video -->
 <div *ngIf="isModalOpen" class="modal-overlay">
   <div class="modal-content">
-    <button class="close-btn" (click)="closeModal()">✖</button>
+    <button class="close-btn" (click)="closeModal()"><i class="fas fa-times"></i></button>
     <iframe [src]="safeVideoUrl" width="560" height="315" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
-<router-outlet></router-outlet>
+
+
+
+
+<!-- Delete Confirmation Popup -->
+<div class="confirm-popup-container" [class.show]="showConfirmPopup">
+  <div class="confirm-popup-content">
+    <h3>Are you sure?</h3>
+    <p>Do you really want to delete this Tactic? This action is irreversible.</p>
+    <div class="popup-actions">
+      <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
+      <button class="btn-delete" (click)="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>

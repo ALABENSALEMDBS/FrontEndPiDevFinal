@@ -157,6 +157,8 @@ const routes: Routes = [
       {
         path: 'listTactic', component: ListTacticComponent,
         children:[
+          { path: '', redirectTo: 'vide', pathMatch: 'full' },
+          {path: 'vide', component: VideComponent },
           {path: 'AddTactic', component: AddTacticComponent },
 
         ]
