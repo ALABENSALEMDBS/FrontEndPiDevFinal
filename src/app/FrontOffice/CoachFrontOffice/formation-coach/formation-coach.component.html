@@ -12,7 +12,7 @@
     <div class="card" *ngFor="let f of formation">
       <div class="card-image">
         <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Football Training">
-        <span class="level-badge" [ngClass]="f.joueurs?.length === 11 ? 'green' : 'red'">
+        <span class="level-badge" [ngClass]="f.joueurs?.length === 11 ? 'green' : (f.joueurs?.length === 0 ? 'red' : 'orange')">
           {{ f.nameFormation }}
         </span>
       </div>
