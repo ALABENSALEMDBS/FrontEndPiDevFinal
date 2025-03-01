@@ -1,1 +1,87 @@
-<p>update-rapport works!</p>
+<div class="update-rapport-container">
+    <h2>Update Report</h2>
+  
+    <form [formGroup]="rapportForm" (ngSubmit)="updateRapport()">
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="getProgressPercentage()"></div>
+      </div>
+  
+      <div *ngIf="currentSection === 'performance'">
+        <h3>Performance</h3>
+        <label>Speed:</label>
+        <input formControlName="speedRapport" type="text" />
+        
+        <label>Acceleration:</label>
+        <input formControlName="accelerationRapport" type="text" />
+        
+        <label>Endurance:</label>
+        <input formControlName="endurance" type="text" />
+      </div>
+  
+      <div *ngIf="currentSection === 'strength'">
+        <h3>Strength</h3>
+        <label>Muscular Endurance:</label>
+        <input formControlName="muscularEndurance" type="text" />
+        
+        <label>Aerobic Capacity:</label>
+        <input formControlName="aerobicCapacity" type="text" />
+        
+        <label>Anaerobic Capacity:</label>
+        <input formControlName="anaerobicCapacity" type="text" />
+        
+        <label>Strength:</label>
+        <input formControlName="strength" type="text" />
+        
+        <label>Power:</label>
+        <input formControlName="power" type="text" />
+        
+        <label>Explosiveness:</label>
+        <input formControlName="explosiveness" type="text" />
+      </div>
+  
+      <div *ngIf="currentSection === 'agility'">
+        <h3>Agility</h3>
+        <label>Agility:</label>
+        <input formControlName="agility" type="text" />
+        
+        <label>Balance:</label>
+        <input formControlName="balance" type="text" />
+        
+        <label>Coordination:</label>
+        <input formControlName="coordination" type="text" />
+        
+        <label>Reaction Time:</label>
+        <input formControlName="reactionTime" type="text" />
+        
+        <label>Reactivity:</label>
+        <input formControlName="reactivity" type="text" />
+        
+        <label>Vertical Jump:</label>
+        <input formControlName="verticalJump" type="text" />
+        
+        <label>Horizontal Jump:</label>
+        <input formControlName="horizontalJump" type="text" />
+      </div>
+  
+      <div *ngIf="currentSection === 'state'">
+        <h3>State</h3>
+        <label>Report State:</label>
+        <select formControlName="etatRapport">
+          <option *ngFor="let option of etatOptions" [value]="option">{{ option }}</option>
+        </select>
+        
+        <label>Injury Level:</label>
+        <select formControlName="blessureRapport">
+          <option *ngFor="let option of blessureOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+  
+      <div class="button-container">
+        <button type="button" (click)="prevSection()" [disabled]="currentSection === 'performance'">Previous</button>
+        <button type="button" (click)="nextSection()" [disabled]="currentSection === 'state'">Next</button>
+        <button type="submit" [disabled]="!rapportForm.valid">Update</button>
+      </div>
+    </form>
+  </div>
+  
+ 

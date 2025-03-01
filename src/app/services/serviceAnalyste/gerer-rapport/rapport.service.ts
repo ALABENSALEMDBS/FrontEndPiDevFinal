@@ -30,7 +30,7 @@ export class RapportService {
   }
   
   
-  updateRapport(id:any,seance:Rapport):Observable<Rapport[]>{
-    return this.http.put<Rapport[]>("http://localhost:8089/PiDevBackEndProject/rapports/modify-rapports"+'/'+id,seance)
+  updateRapport(id:any,Rapport:Rapport):Observable<Rapport[]>{
+    return this.http.put<Rapport[]>("http://localhost:8089/PiDevBackEndProject/rapports/modify-rapports"+'/'+id,Rapport)
   }
 }

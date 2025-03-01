@@ -1,10 +1,12 @@
 <div class="rapport-management-container">
     <!-- Add Rapport Button -->
     <div class="add-btn-container">
-        <button (click)="openAddPopup()" class="btn-add">
-            Add Report
+        <button [routerLink]="['addreports']" class="btn-add"> Add Report
+    
         </button>
     </div>
+
+    <router-outlet></router-outlet>
 
     <!-- Rapport List Header -->
     <h2>Report List</h2>
@@ -31,12 +33,7 @@
     </div>
 
     <!-- Add Report Popup -->
-    <div class="popup-container" [class.show]="showAddPopup">
-        <div class="popup-content">
-            <button class="close-btn" (click)="closeAddPopup()">×</button>
-            <app-add-rapport *ngIf="showAddPopup"></app-add-rapport>
-        </div>
-    </div>
+    
 
     <!-- Update Popup -->
     <div class="popup-container" [class.show]="showPopup">
@@ -58,5 +55,4 @@
         </div>
     </div>
 
-   <router-outlet></router-outlet>
 </div>

@@ -14,6 +14,17 @@ export class AddRapportComponent {
   rapportForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
+  sections: string[] = ["performance", "strength", "agility", "state"]
+  currentSection = "performance"
+
+
+  etatOptions = [
+    "good","bad"
+  ];
+
+  blessureOptions = [
+    "None","Minor","Moderate","Severe"
+  ];
 
   constructor(private rapportService: RapportService, private rout: Router) {
     // Initialisation sans `titleSeance` et `jourSeance`
@@ -38,6 +49,31 @@ export class AddRapportComponent {
       blessureRapport: new FormControl('', [Validators.required]),
     });
   }
+  setCurrentSection(section: string): void {
+    this.currentSection = section
+  }
+
+  nextSection(): void {
+    const currentIndex = this.sections.indexOf(this.currentSection)
+    if (currentIndex < this.sections.length - 1) {
+      this.currentSection = this.sections[currentIndex + 1]
+    }
+  }
+
+  // Move to the previous section
+  prevSection(): void {
+    const currentIndex = this.sections.indexOf(this.currentSection)
+    if (currentIndex > 0) {
+      this.currentSection = this.sections[currentIndex - 1]
+    }
+  }
+
+  // Calculate progress percentage
+  getProgressPercentage(): number {
+    const currentIndex = this.sections.indexOf(this.currentSection)
+    return ((currentIndex + 1) / this.sections.length) * 100
+  }
+
 
   addRapport() {
           if (this.rapportForm.valid) {
@@ -60,5 +96,8 @@ export class AddRapportComponent {
               }
             });
           }
+        }
+        avoidAdd() {
+          this.rout.navigate(['analyste/Reportshow']); // Changez '/listformation' selon votre route réelle
         }
 }
