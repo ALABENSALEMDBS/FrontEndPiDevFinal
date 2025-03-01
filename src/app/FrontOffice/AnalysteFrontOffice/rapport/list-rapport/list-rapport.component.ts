@@ -8,7 +8,7 @@ import { AddRapportComponent } from "../add-rapport/add-rapport.component";
 
 @Component({
   selector: 'app-list-rapport',
-  imports: [UpdateRapportComponent, RouterModule, CommonModule, AddRapportComponent],
+  imports: [UpdateRapportComponent, RouterModule, CommonModule],
   templateUrl: './list-rapport.component.html',
   styleUrl: './list-rapport.component.css'
 })

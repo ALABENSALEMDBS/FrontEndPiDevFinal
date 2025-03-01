@@ -1,266 +1,316 @@
-/* Main Container Styles */
+/* Main Container */
 .rapport-management-container {
-    font-family: 'Roboto', 'Segoe UI', sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #333;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Header Styles */
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 2rem 0;
+  color: #ffffff;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  border-radius: 2px;
+}
+
+/* Add Button Container */
+.add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+/* Add Button */
+.btn-add {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-add::before {
+  content: "+";
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+/* Card Container */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Card Styles */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #6366f1, #8b5cf6);
+  opacity: 0.7;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Content */
+.card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2d3748;
+}
+
+.card p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #4a5568;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card p::after {
+  content: "";
+  flex-grow: 1;
+  border-bottom: 1px dashed #e2e8f0;
+  margin: 0 0.5rem;
+  transform: translateY(-0.5rem);
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* Button Styles */
+.btn-delete,
+.btn-update {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-update {
+  background-color: #ebf5ff;
+  color: #3182ce;
+  border: 1px solid #bee3f8;
+}
+
+.btn-update:hover {
+  background-color: #bee3f8;
+}
+
+.btn-delete {
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #fed7d7;
+}
+
+.btn-delete:hover {
+  background-color: #fed7d7;
+}
+
+/* Popup Container */
+.popup-container,
+.confirm-popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.popup-container.show,
+.confirm-popup-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Popup Content */
+.popup-content,
+.confirm-popup-content {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.popup-container.show .popup-content,
+.confirm-popup-container.show .confirm-popup-content {
+  transform: translateY(0);
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #a0aec0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #4a5568;
+}
+
+/* Confirmation Popup */
+.confirm-popup-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #2d3748;
+}
+
+.confirm-popup-content p {
+  margin-bottom: 1.5rem;
+  color: #4a5568;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-cancel {
+  background-color: #edf2f7;
+  color: #4a5568;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #e2e8f0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
   }
-  
-  /* Header Styles */
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #2c3e50;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
+
+  .popup-content,
+  .confirm-popup-content {
+    width: 95%;
+    padding: 1.5rem;
   }
-  
-  /* Add Button Styles */
+
   .add-btn-container {
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: flex-end;
+    justify-content: center;
   }
-  
-  .btn-add {
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+}
+
+/* Animation for new cards */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .btn-add:hover {
-    background-color: #2ecc71;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn-add:active {
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
-  
-  .btn-add::before {
-    content: "+";
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  /* Card Container Styles */
-  .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  /* Card Styles */
-  .card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-    border-top: 4px solid #3498db;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  }
-  
-  .card h3 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #2c3e50;
-  }
-  
-  .card p {
-    margin: 8px 0;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #f1f1f1;
-    padding-bottom: 8px;
-  }
-  
-  .card p::before {
-    font-weight: bold;
-    color: #7f8c8d;
-  }
-  
-  /* Card Actions */
-  .card-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #ecf0f1;
-  }
-  
-  .btn-delete, .btn-update {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .btn-delete {
-    background-color: #e74c3c;
-    color: white;
-  }
-  
-  .btn-delete:hover {
-    background-color: #c0392b;
-  }
-  
-  .btn-update {
-    background-color: #3498db;
-    color: white;
-  }
-  
-  .btn-update:hover {
-    background-color: #2980b9;
-  }
-  
-  /* Popup Styles */
-  .popup-container, .confirm-popup-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s;
-  }
-  
-  .popup-container.show, .confirm-popup-container.show {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .popup-content, .confirm-popup-content {
-    background-color: white;
-    border-radius: 8px;
-    padding: 25px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    position: relative;
-    transform: scale(0.9);
-    transition: transform 0.3s;
-  }
-  
-  .popup-container.show .popup-content,
-  .confirm-popup-container.show .confirm-popup-content {
-    transform: scale(1);
-  }
-  
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #7f8c8d;
-  }
-  
-  .close-btn:hover {
-    color: #34495e;
-  }
-  
-  /* Confirmation Popup Specific Styles */
-  .confirm-popup-content h3 {
-    color: #e74c3c;
-    margin-bottom: 15px;
-  }
-  
-  .popup-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .btn-cancel {
-    background-color: #95a5a6;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-cancel:hover {
-    background-color: #7f8c8d;
-  }
-  
-  /* Performance Metrics Styling */
-  .card p:nth-child(2)::before { content: "Speed: "; }
-  .card p:nth-child(3)::before { content: "Acceleration: "; }
-  .card p:nth-child(4)::before { content: "Endurance: "; }
-  .card p:nth-child(5)::before { content: "Strength: "; }
-  .card p:nth-child(6)::before { content: "State: "; }
-  .card p:nth-child(7)::before { content: "Injury: "; }
-  
-  /* Performance Indicators */
-  .card p span {
-    font-weight: 500;
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .card-container {
-      grid-template-columns: 1fr;
-    }
-    
-    .popup-content, .confirm-popup-content {
-      width: 95%;
-      padding: 20px;
-    }
-    
-    .add-btn-container {
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-  }
-  
-  /* Animation for new cards */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .card {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
-  
-  /* Visual indicators for performance levels */
-  .performance-high {
-    color: #27ae60;
-  }
-  
-  .performance-medium {
-    color: #f39c12;
-  }
-  
-  .performance-low {
-    color: #e74c3c;
-  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Staggered animation for multiple cards */
+.card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.card:nth-child(6) {
+  animation-delay: 0.6s;
+}

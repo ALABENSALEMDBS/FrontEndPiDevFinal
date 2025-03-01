@@ -1,345 +1,267 @@
-/* Modern Variables */
-:root {
-  --primary: #4361ee;
-  --primary-dark: #3a0ca3;
-  --success: #2ecc71;
-  --warning: #f7b731;
-  --danger: #e74c3c;
-  --background: #f8fafc;
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --border-radius: 16px;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-/* Main Container - More Compact */
+/* Main Container Styles */
 .add-rapport-container {
-  max-width: 800px;
-  margin: 20px auto;
-  background: linear-gradient(135deg, #4361ee05, #3a0ca305);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg);
-  padding: 20px;
-  position: relative;
-}
-
-/* Enhanced Background Pattern */
-.add-rapport-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at top left, rgba(67, 97, 238, 0.05), transparent 50%),
-    radial-gradient(circle at bottom right, rgba(58, 12, 163, 0.05), transparent 50%);
-  border-radius: var(--border-radius);
-  z-index: -1;
-}
-
-/* Compact Title */
-.add-rapport-container h2 {
-  font-size: 24px;
-  color: var(--primary);
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Scrollable Form */
-form {
-  max-height: 70vh;
-  overflow-y: auto;
-  padding-right: 15px;
-  scroll-behavior: smooth;
-}
-
-/* Enhanced Scrollbar */
-form::-webkit-scrollbar {
-  width: 5px;
-}
-
-form::-webkit-scrollbar-track {
-  background: rgba(241, 241, 241, 0.5);
-  border-radius: 3px;
-}
-
-form::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 3px;
-  transition: all 0.3s;
-}
-
-/* Compact Form Sections */
-.form-section {
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
   padding: 15px;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(67, 97, 238, 0.1);
-  transition: all 0.3s ease;
 }
 
-.form-section:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-/* Compact Section Headers */
-.form-section h3 {
-  font-size: 16px;
-  color: var(--primary);
-  margin-bottom: 15px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid rgba(67, 97, 238, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.form-section h3::before {
-  content: '';
-  width: 20px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-  border-radius: 2px;
-}
-
-/* Compact Form Groups */
-.form-group {
-  margin-bottom: 15px;
+.add-container {
   position: relative;
-}
-
-/* Enhanced Labels */
-.form-group label {
-  font-size: 13px;
-  color: #64748b;
-  margin-bottom: 4px;
-  display: block;
-  transition: all 0.3s;
-}
-
-.form-group:focus-within label {
-  color: var(--primary);
-}
-
-/* Enhanced Inputs */
-.form-group input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1.5px solid #e2e8f0;
+  background-color: #fff;
   border-radius: 8px;
-  font-size: 14px;
-  transition: all 0.3s;
-  background: white;
-}
-
-.form-group input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-  outline: none;
-}
-
-/* Number Input Styling */
-input[type="number"] {
-  appearance: textfield;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0;
-}
-
-/* Compact Error Messages */
-.error-message {
-  font-size: 11px;
-  color: var(--danger);
-  margin-top: 4px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  opacity: 0;
-  transform: translateY(-5px);
-  animation: slideDown 0.2s forwards;
-}
-
-/* Enhanced Success Message */
-.success-message {
-  background: linear-gradient(135deg, var(--success), #27ae60);
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+  padding: 20px;
   margin-top: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s;
 }
 
-/* Enhanced Submit Button */
-.btn-submit {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: rgb(231, 178, 6);
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 14px;
+/* Header Styles */
+.add-container h2 {
+  color: #1a1a1a;
+  font-size: 20px;
   font-weight: 600;
-  width: 100%;
-  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #666;
   cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
+  transition: color 0.2s;
 }
 
-.btn-submit::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(236, 2, 2, 0.2),
-    transparent
-  );
-  transition: 0.5s;
+.close-btn:hover {
+  color: #f44336;
 }
 
-.btn-submit:not(:disabled):hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
-}
-
-.btn-submit:not(:disabled):hover::before {
-  left: 100%;
-}
-
-.btn-submit:disabled {
-  background: #1171ef;
-  cursor: not-allowed;
-}
-
-/* Grid Layout for Form Groups */
-@media (min-width: 640px) {
-  .form-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .form-section h3 {
-    grid-column: 1 / -1;
-  }
-}
-
-/* Responsive Adjustments */
-@media (max-width: 639px) {
-  .add-rapport-container {
-    margin: 10px;
-    padding: 15px;
-  }
-
-  .form-section {
-    padding: 12px;
-  }
-}
-
-/* Progress Bar */
-.form-progress {
-  height: 4px;
-  background: #e2e8f0;
-  border-radius: 2px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-  transition: width 0.3s;
+/* Form Card Styles */
+.form-card {
   position: relative;
 }
 
-.progress-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  animation: shimmer 2s infinite;
+/* Tab Navigation */
+.form-tabs {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 15px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-/* Animations */
-@keyframes slideDown {
+.form-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.form-tab {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.form-tab.active {
+  color: #4a90e2;
+  border-bottom-color: #4a90e2;
+}
+
+.form-tab:hover:not(.active) {
+  color: #333;
+  border-bottom-color: #ddd;
+}
+
+/* Form Section Styles */
+.form-section {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+  display: none;
+}
+
+.form-section.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.form-section h3 {
+  color: #2c3e50;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 12px;
 }
 
-/* Value Indicators */
-.form-group input[type="number"] {
-  padding-right: 30px;
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 4px;
 }
 
-.form-group::after {
-  content: '%';
-  position: absolute;
-  right: 10px;
-  top: 32px;
-  color: #94a3b8;
-  font-size: 12px;
+/* Input and Select Styles */
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Section Indicators */
-.form-section {
-  position: relative;
+input[type="number"]:focus,
+select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+  outline: none;
 }
 
-.form-section::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8.825L1.175 4 2.05 3.125 6 7.075 9.95 3.125 10.825 4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 24px;
+}
+
+/* Navigation Buttons */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.nav-button {
+  background-color: #f0f0f0;
+  color: #555;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-button:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.nav-button.next {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.nav-button.next:hover {
+  background-color: #3a7bc8;
+}
+
+.nav-button.submit {
+  background-color: #43a047;
+  color: white;
+}
+
+.nav-button.submit:hover {
+  background-color: #388e3c;
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Progress Indicator */
+.progress-bar {
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
   height: 100%;
-  width: 3px;
-  border-radius: 3px 0 0 3px;
+  background-color: #4a90e2;
+  border-radius: 2px;
+  transition: width 0.3s ease;
 }
 
-/* Section-specific colors */
-.form-section:nth-child(1)::before { background: linear-gradient(to bottom, var(--primary), var(--primary-dark)); }
-.form-section:nth-child(2)::before { background: linear-gradient(to bottom, #4361ee, #3a0ca3); }
-.form-section:nth-child(3)::before { background: linear-gradient(to bottom, #f7b731, #f59f00); }
-.form-section:nth-child(4)::before { background: linear-gradient(to bottom, #e74c3c, #c0392b); }
+/* Message Styles */
+.error-message {
+  color: #e53935;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.success-message {
+  color: #43a047;
+  font-size: 13px;
+  padding: 8px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Input Validation Styles */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #e53935;
+}
+
+input.ng-valid.ng-touched,
+select.ng-valid.ng-touched {
+  border-color: #43a047;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .add-container {
+    padding: 15px;
+  }
+
+  .form-tab {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
