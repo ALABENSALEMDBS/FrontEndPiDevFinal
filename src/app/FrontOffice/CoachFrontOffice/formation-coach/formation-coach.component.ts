@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JoueurService } from 'src/app/services/serviceAdminClub/serviceJoueur/joueur.service';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 import { formation } from 'src/core/models/formation';
+import { Joueurs } from 'src/core/models/joueur';
 
 @Component({
     selector: 'app-formation-coach',
@@ -9,16 +11,18 @@ import { formation } from 'src/core/models/formation';
     styleUrls: ['./formation-coach.component.css'],
     standalone: false
 })
-export class FormationCoachComponent {
+export class FormationCoachComponent implements OnInit {
+
 
 
    formation: formation[] = [];
+   joueurs: Joueurs[] = [];
 
    showPopup = false; // Contrôle l'affichage de la popup   h
    selectedFormation: any = null;                         //h
 
   
-    constructor(private coatchService: FormationService, private router: Router) {}
+    constructor(private coatchService: FormationService, private joueurservice:JoueurService) {}
   
 
     successMessage: string = '';
@@ -34,6 +38,8 @@ export class FormationCoachComponent {
       });
     }
 
+
+    
 
 
 
@@ -83,8 +89,10 @@ export class FormationCoachComponent {
 
     
     showPlayers(formationId: number): void {
-      // Implement logic to fetch and display players based on formationId
+      this.joueurservice.getJoueursByIdformation(formationId).subscribe(data => {
+        this.joueurs = data;
+      });
       console.log(`Show players for formation with ID: ${formationId}`);
-      // You can add a call to another function that handles fetching players from the server
     }
+
 }

@@ -12,7 +12,9 @@
     <div class="card" *ngFor="let f of formation">
       <div class="card-image">
         <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Football Training">
-        <span class="level-badge"> {{f.nameFormation}}</span>
+        <span class="level-badge" [ngClass]="f.joueurs?.length === 11 ? 'green' : 'red'">
+          {{ f.nameFormation }}
+        </span>
       </div>
       <div class="card-content">
         <h3 class="card-title">{{ f.nameFormation }}</h3>
@@ -49,7 +51,13 @@
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            <!-- {{ f.currentPlayers || '0' }} / {{ f.maxPlayers || '16' }} playerss -->
+            <!-- {{ f.currentPlayers || '0' }} / {{ f.maxPlayers || '16' }} players -->
+            <div class="player-marquee">
+              <div class="player-list">
+                <span *ngFor="let player of f.joueurs" class="player-item"  > {{ player.nameUsers }}</span>
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="card-actions">
