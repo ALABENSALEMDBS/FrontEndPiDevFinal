@@ -32,7 +32,7 @@ export class ListeFicheMedicalComponent {
   }
 
    supprimerficheMedical(fiche: FicheMedical): void {
-      if (confirm("Voulez-vous vraiment supprimer cet exercice ?")) {
+      if (confirm("Do you really want to delete this Medical Record ?")) {
         this.servicedoctors.deletfichemedicalbyid(fiche.idFicheMedicale).subscribe({
           next: () => {
             alert('Exercice supprimé avec succès !');

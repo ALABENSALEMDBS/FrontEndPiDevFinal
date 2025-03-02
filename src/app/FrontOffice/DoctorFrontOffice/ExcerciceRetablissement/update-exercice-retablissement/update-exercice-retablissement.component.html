@@ -1,10 +1,10 @@
 
 <div class="container mt-4">
-    <h2>Mettre à jour un Exercice de Rétablissement</h2>
+    <h2>Update a Recovery Exercise</h2>
     <form [formGroup]="exerciceForm" (ngSubmit)="updateExercice()">
       
       <div class="form-group">
-        <label for="nom">Nom de l'Exercice</label>
+        <label for="nom">Exercise Name</label>
         <input id="nom" type="text" class="form-control" formControlName="nomExerciceRetablissement" required>
       </div>
   
@@ -14,21 +14,21 @@
       </div>
   
       <div class="form-group">
-        <label for="duree">Durée (en minutes)</label>
+        <label for="duree">Duration (in minutes)</label>
         <input id="duree" type="number" class="form-control" formControlName="dureeExercice" required>
       </div>
   
       <div class="form-group">
-        <label for="niveau">Niveau de Difficulté</label>
+        <label for="niveau">Difficulty Level</label>
         <select id="niveau" class="form-control" formControlName="niveauDifficulte" required>
-          <option value="">Sélectionner un niveau</option>
-          <option value="Facile">Facile</option>
-          <option value="Moyen">Moyen</option>
-          <option value="Difficile">Difficile</option>
+          <option value="">Select a level</option>
+          <option value="Facile">Easy</option>
+          <option value="Moyen">Medium</option>
+          <option value="Difficile">Hard</option>
         </select>
       </div>
   
-      <button type="submit" class="btn btn-primary mt-3" [disabled]="exerciceForm.invalid">Mettre à jour</button>
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="exerciceForm.invalid">SAVE</button>
       <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listeExercicedeRetablissement'">Cancel</button>
     </form>
   </div>

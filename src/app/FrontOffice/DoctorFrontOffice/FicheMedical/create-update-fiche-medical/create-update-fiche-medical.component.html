@@ -2,60 +2,60 @@
 
 <div class="container">
   
-  <h2 class="form-title">Ajouter une Fiche Médicale</h2>
+  <h2 class="form-title">Add a Medical Record</h2>
 
   <form [formGroup]="ficheMedicalForm" (ngSubmit)="addFicheMedicale()" class="custom-form">
 
     <!-- Poids -->
     <div class="form-group">
-      <label for="poids">Poids (kg)</label>
+      <label for="poids">Weight (kg)</label>
       <input type="number" id="poids" class="form-control" formControlName="poidsFicheMedicale" placeholder="Entrez le poids" required>
       <div *ngIf="ficheMedicalForm.get('poidsFicheMedicale')?.invalid && ficheMedicalForm.get('poidsFicheMedicale')?.touched" class="text-danger">
-        Poids requis (doit être supérieur à 0).
+        Weight required (must be greater than 0).
       </div>
     </div>
 
     <!-- Taille -->
     <div class="form-group">
-      <label for="taille">Taille (cm)</label>
+      <label for="taille">Height (cm)</label>
       <input type="number" id="taille" class="form-control" formControlName="tailleFicheMedicale" placeholder="Entrez la taille" required>
       <div *ngIf="ficheMedicalForm.get('tailleFicheMedicale')?.invalid && ficheMedicalForm.get('tailleFicheMedicale')?.touched" class="text-danger">
-        Taille requise (doit être supérieure à 0).
+        Height required (must be greater than 0).
       </div>
     </div>
 
     <!-- Date de Blessure -->
     <div class="form-group">
-      <label for="dateBlessure">Date de Blessure</label>
+      <label for="dateBlessure">Injury Date</label>
       <input type="date" id="dateBlessure" class="form-control" formControlName="dateBlessure" required>
       <div *ngIf="ficheMedicalForm.get('dateBlessure')?.invalid && ficheMedicalForm.get('dateBlessure')?.touched" class="text-danger">
-        Date requise.
+        Date required.
       </div>
     </div>
 
     <!-- Gravité -->
     <div class="form-group">
-      <label for="gravite">Gravité</label>
+      <label for="gravite">Severity</label>
       <select id="gravite" class="form-control" formControlName="gravite" required>
-        <option value="" disabled selected>Choisissez la gravité</option>
-        <option value="Légère">Légère</option>
-        <option value="Modérée">Modérée</option>
-        <option value="Sévère">Sévère</option>
+        <option value="" disabled selected>Choose severity</option>
+        <option value="Légère">Mild</option>
+        <option value="Modérée">Moderate </option>
+        <option value="Sévère">Severe</option>
       </select>
     </div>
 
     <!-- Type de Blessure -->
     <div class="form-group">
-      <label for="typeBlessure">Type de Blessure</label>
+      <label for="typeBlessure">Injury Type</label>
       <input type="text" id="typeBlessure" class="form-control" formControlName="type" placeholder="Entrez le type de blessure" required>
       <div *ngIf="ficheMedicalForm.get('type')?.invalid && ficheMedicalForm.get('type')?.touched" class="text-danger">
-        Ce champ est requis.
+        This field is required.
       </div>
     </div>
 
     <!-- Sélection du joueur -->
     <div class="form-group">
-      <label for="joueur">Joueur</label>
+      <label for="joueur">Player</label>
       <select formControlName="joueurId" required>
         <option value="" disabled selected>Select a player</option>
         <option *ngFor="let player of players" [value]="player.idUser">{{ player.nameUsers }}  {{ player.prenomUser }}</option>

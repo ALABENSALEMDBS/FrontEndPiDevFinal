@@ -35,10 +35,10 @@ export class ListeExerciceRetablissementComponent {
 
 
   supprimerExercice(exercice: ExerciceRetablissements): void {
-    if (confirm("Voulez-vous vraiment supprimer cet exercice ?")) {
+    if (confirm("Do you really want to delete this exercise?")) {
       this.exerciceService.deletexercicebyid(exercice.idExerciceRetablissement).subscribe({
         next: () => {
-          alert('Exercice supprimé avec succès !');
+          //alert('Exercice supprimé avec succès !');
           this.getExercices(); // Mettre à jour la liste
         },
         error: (err) => {

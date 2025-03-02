@@ -47,7 +47,7 @@ export class ListeNourritureComponent {
   }
 
   supprimerNourriture(nourriture: Nouriture): void {
- if (confirm("Voulez-vous vraiment supprimer cette nourriture ?")) {
+ if (confirm("Do you really want to delete this food?")) {
       this.nouritureService.deletNouriturebyid(nourriture.idNourriture).subscribe({
         next: () => {
          // alert('Nourriture supprimée avec succès !');
