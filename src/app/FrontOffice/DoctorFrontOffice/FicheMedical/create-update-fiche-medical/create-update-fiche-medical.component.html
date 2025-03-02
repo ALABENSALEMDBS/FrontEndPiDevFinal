@@ -1,6 +1,7 @@
 
 
 <div class="container">
+  
   <h2 class="form-title">Ajouter une Fiche Médicale</h2>
 
   <form [formGroup]="ficheMedicalForm" (ngSubmit)="addFicheMedicale()" class="custom-form">
@@ -67,8 +68,8 @@
 
     <!-- Boutons -->
      
-    <button type="submit" class="btn btn-primary mt-3"  [disabled]="ficheMedicalForm.invalid"  >Ajouter</button>
-    <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listefiche'">Annuler</button>
+    <button type="submit" class="btn btn-primary mt-3"  [disabled]="ficheMedicalForm.invalid"  > Save</button>
+    <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listefiche'">Cancel</button>
 
   </form>
 

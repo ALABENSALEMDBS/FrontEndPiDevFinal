@@ -2,7 +2,7 @@
     <h2>Liste des Fiches Médicales</h2>
   
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-    <button class="btn btn-primary mt-3" routerLink="/doctor/fichePlayer">Ajouter une Fiche</button>
+    <button class="btn btn-primary mt-3" routerLink="/doctor/fichePlayer">Add Medical Record</button>
 
     <table class="table table-bordered table-striped mt-3">
       <thead>
@@ -25,8 +25,8 @@
           <td>{{ fiche.dateBlessure | date }}</td>
           <td>{{ fiche.gravite }}</td>
           <td>{{ fiche.type }}</td>
-          <td> <button  class="btn btn-warning" (click)="onUpdateFicheMedicaleClicked(fiche)">Edit</button> 
-            <button class="btn btn-danger" (click)="supprimerficheMedical(fiche)">🗑️ Supprimer</button></td>
+          <td> <button  class="btn btn-warning m-2" (click)="onUpdateFicheMedicaleClicked(fiche)">Update</button> 
+            <button class="btn btn-danger" (click)="supprimerficheMedical(fiche)"> Delete</button></td>
          
         </tr>
       </tbody>

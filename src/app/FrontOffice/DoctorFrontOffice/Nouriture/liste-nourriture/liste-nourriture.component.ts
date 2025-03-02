@@ -23,7 +23,9 @@ export class ListeNourritureComponent {
       calories: [null, [Validators.required, Validators.min(0)]]
     });
   }
-
+  goToCreatePage(): void {
+    this.router.navigate(['doctor/createnouriture']);
+  }
   ngOnInit(): void {
     this.chargerNourritures();
   }

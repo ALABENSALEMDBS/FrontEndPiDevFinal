@@ -10,7 +10,7 @@ import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement'
   standalone: false
 })
 export class ListeExerciceRetablissementComponent {
-
+  selectedDescription: string = '';
 
   exercices: ExerciceRetablissements[] = [];
 
@@ -48,4 +48,10 @@ export class ListeExerciceRetablissementComponent {
       });
     }
 
+  
+  }
+  openModal(exercice: any): void {
+    this.selectedDescription = exercice.descriptionExerciceRetablissement;
+    // Ici, ajoutez le code pour ouvrir un modal si nécessaire (par exemple avec Angular Material ou Bootstrap)
+    console.log('Ouverture du modal avec la description :', this.selectedDescription);
   }}

@@ -22,18 +22,18 @@ export class HeaderDoctorFrontComponent {
       const currentUrl = this.router.url;
   
       // Define dynamic titles for each route
-      if (currentUrl.includes('doctor')) {
-        this.pageTitle = 'Welcome Doctor';
-      } else if (currentUrl.includes('listTactic')) {
-        this.pageTitle = 'Management Tactic';
+      if (currentUrl.includes('doctor/Homedoctors')) {
+        this.pageTitle = 'Welcome  Doctor to your Sports Medical Space!';
+      } else if (currentUrl.includes('listenouriture')) {
+        this.pageTitle = 'Healthy Food Management';
       } else if (currentUrl.includes('showFormation')) {
         this.pageTitle = 'Management Formation';
       } else if (currentUrl.includes('ShowSousGroups')) {
         this.pageTitle = 'Management Sub Groups';
-      } else if (currentUrl.includes('showseance')) {
-        this.pageTitle = 'Management Session';
-      } else if (currentUrl.includes('showexercice')) {
-        this.pageTitle = 'Management Exercices';
+      } else if (currentUrl.includes('listeExercicedeRetablissement')) {
+        this.pageTitle = 'Management Recovery Exercises';
+      } else if (currentUrl.includes('listefiche')) {
+        this.pageTitle = 'Management Medical sheet';
       } else {
         this.pageTitle = 'Welcome';
       }

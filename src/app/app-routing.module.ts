@@ -153,7 +153,7 @@ const routes: Routes = [
               component:UpdateExerciceRetablissementComponent
             },
 
-            { path: '', redirectTo: '/doctor/listefiche', pathMatch: 'full' },
+            { path: '', redirectTo: '/doctor/Homedoctors', pathMatch: 'full' },
             {
               path:'createnouriture',
               component:CreateNourritureComponent

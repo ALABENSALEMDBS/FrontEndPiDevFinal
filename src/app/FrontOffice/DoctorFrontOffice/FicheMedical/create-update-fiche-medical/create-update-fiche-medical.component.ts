@@ -49,27 +49,6 @@ export class CreateUpdateFicheMedicalComponent {
     });
   }
 
-
-  
-
-  // addFicheMedicale(): void {
-  //   if (this.ficheMedicalForm.valid) {
-  //     const ficheMedical: FicheMedical = this.ficheMedicalForm.value;
-  //     this.servijoueurServiceced.addFicheMedical(ficheMedical, ficheMedical.joueurId).subscribe(
-  //       (response) => {
-  //         this.successMessage = 'Fiche médicale ajoutée avec succès !';
-  //         this.errorMessage = '';
-  //         this.ficheMedicalForm.reset();
-  //         setTimeout(() => this.router.navigate(['/ShowFicheMedicales']), 2000);
-  //       },
-  //       (error) => {
-  //         this.errorMessage = "Erreur lors de l'ajout de la fiche médicale.";
-  //         this.successMessage = '';
-  //         console.error(error);
-  //       }
-      //);
-    //}
-  //}
   addFicheMedicale(): void {
     const ficheData: FicheMedical = this.ficheMedicalForm.value; // Get form data
     const idPlayer = ficheData.joueurId; // Get player ID from form
@@ -87,6 +66,7 @@ export class CreateUpdateFicheMedicalComponent {
       next: () => { 
         console.log("Fiche médicale ajoutée !");
         this.successMessage = "Fiche médicale ajoutée avec succès !";
+        this.router.navigate(['doctor/listefiche'])
       },
       error: (err) => { 
         console.error("Erreur :", err);

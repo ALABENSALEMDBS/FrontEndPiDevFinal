@@ -1,66 +1,166 @@
-/* Styles généraux */
+/* Global settings */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #fff;
     margin: 0;
     padding: 0;
-    text-align: center;
-    background-color: #f4f4f4;
-    min-height: 100vh; /* Assure que le contenu reste dans la page */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions for background and text color */
 }
 
-/* Conteneur principal */
+/* Container */
 .container {
-    max-width: 900px;
-    width: 100%;
-    margin: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #1a1a1a;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4); /* Soft shadow for a modern feel */
 }
 
-/* Présentation du médecin */
-.presentation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 30px auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+/* Welcome header */
+.welcome-header {
+    text-align: center;
+    padding: 80px 0;
+    animation: fadeIn 1.5s ease-in-out;
+    border-bottom: 4px solid #00cc66; /* Green border */
 }
 
-/* Image principale */
-img {
-    max-width: 100%;
-    height: auto;
+.welcome-header h1 {
+    font-size: 3.6rem;
+    color: #00cc66;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
-/* Sections */
-.football-role, .rehabilitation {
-    background: white;
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: left;
+.welcome-header p {
+    font-size: 1.4rem;
+    color: #ddd;
+    line-height: 1.6;
 }
 
-/* Listes */
+/* Section titles */
+h2 {
+    font-size: 2.5rem;
+    color: #00cc66;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    animation: slideInUp 1.5s ease-in-out;
+    border-bottom: 2px solid #00cc66;
+    padding-bottom: 10px;
+}
+
+/* List styling */
 ul {
-    list-style-type: disc;
-    padding-left: 20px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
 }
 
-/* Exercices */
+ul li {
+    font-size: 1.3rem;
+    margin: 18px 0;
+    padding-left: 45px;
+    position: relative;
+    animation: fadeInUp 1s ease-in-out;
+    color: #aaa;
+}
+
+ul li span {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: #00cc66;
+}
+
+/* Medical file section */
+.medical-file ul li {
+    padding-left: 50px;
+}
+
+/* Rehabilitation exercises section */
 .exercise-list {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 35px;
+    animation: fadeInUp 2s ease-in-out;
 }
+
 .exercise {
-    background: #ececec;
-    padding: 10px;
-    border-radius: 8px;
+    width: 32%;
+    background-color: #1c1c1c;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.exercise h3 {
+    font-size: 1.8rem;
+    color: #00cc66;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.exercise img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.exercise:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7); /* Stronger shadow on hover */
+    background-color: #333; /* Slight background color change on hover */
+}
+
+.exercise img:hover {
+    transform: scale(1.05); /* Slight zoom effect on images */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effect for the whole page */
+body:hover {
+    background-color: #1c1c1c;
+    color: #fff;
 }
