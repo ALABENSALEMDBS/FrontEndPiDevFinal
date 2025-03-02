@@ -1,15 +1,15 @@
 <div class="update-container">
-  <h2>Update Training</h2>
+  <h2>Update Formation</h2>
 
   <form [formGroup]="formationForm" (ngSubmit)="updateFormation()" class="form-card">
     
     <div class="form-group">
-      <label>Training Reference</label>
+      <label>Formation Reference</label>
       <input type="text" formControlName="idFormation" readonly>
     </div>
 
     <div class="form-group">
-      <label>Training Name</label>
+      <label>Formation Name</label>
       <select formControlName="nameFormation">
         <option value="" disabled selected>Choose a format</option>
         <option *ngFor="let option of formationOptions" [value]="option">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-group">
-      <label>Training Description</label>
+      <label>Formation Description</label>
       <textarea formControlName="descriptionFormation"></textarea>
       <div *ngIf="descriptionFormation?.invalid && descriptionFormation?.touched" class="error-message">
         Description required.

@@ -33,7 +33,7 @@ toggleDropdown() {
     } else if (currentUrl.includes('listTactic')) {
       this.pageTitle = 'Management Tactic';
     } else if (currentUrl.includes('showFormation')) {
-      this.pageTitle = 'Management Training';
+      this.pageTitle = 'Management Formation';
     } else if (currentUrl.includes('ShowSousGroups')) {
       this.pageTitle = 'Management Sub Groups';
     } else if (currentUrl.includes('showseance')) {

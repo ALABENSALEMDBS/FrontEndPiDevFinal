@@ -3,12 +3,12 @@
   <button class="close-btn" (click)="avoidAdd()">
     ✖
   </button>
-  <h2>Add a Training</h2>
+  <h2>Add a Formation</h2>
 
   <form [formGroup]="formationForm" (ngSubmit)="addFormation()" class="form-card">
     
     <div class="form-group">
-      <label>Training Name</label>
+      <label>Formation Name</label>
       <select formControlName="nameFormation">
         <option value="" disabled selected>Choose a format</option>
         <option *ngFor="let option of formationOptions" [value]="option">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="form-group">
-      <label>Training Description</label>
+      <label>Formation Description</label>
       <input type="text" formControlName="descriptionFormation">
       <div *ngIf="formationForm.get('descriptionFormation')?.invalid && formationForm.get('descriptionFormation')?.touched" class="error-message">
         Description required.

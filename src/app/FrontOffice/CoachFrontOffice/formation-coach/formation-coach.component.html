@@ -1,12 +1,12 @@
 <div class="container">
   <div class="add-btn-container">
-    <button [routerLink]="['addformation']" class="btn-add">+ Add Training</button>
+    <button [routerLink]="['addformation']" class="btn-add">+ Add Formation</button>
   </div>
  
 
 <router-outlet></router-outlet>
 
-  <h2>Training List</h2>
+  <h2>Formation List</h2>
 
   <div class="card-container">
     <div class="card" *ngFor="let f of formation">
@@ -68,8 +68,8 @@
             </svg>
             Edit
           </button>
-          <div class="action-group">
-            <button class="btn btn-players" (click)="showPlayers(f.idFormation)">
+          <div class="action-group"  (click)="openPlayersPanel(f)">
+            <button class="btn btn-players">
               <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
@@ -78,7 +78,7 @@
               </svg>
               Players
             </button>
-            <button class="btn btn-delete" (click)="openConfirmPopup(f.idFormation)">
+            <button class="btn btn-delete" (click)="openConfirmPopup(f.idFormation); $event.stopPropagation()">
               <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -106,7 +106,7 @@
 <div class="confirm-popup-container" [class.show]="showConfirmPopup">
   <div class="confirm-popup-content">
     <h3>Are you sure?</h3>
-    <p>Do you really want to delete this training? This action is irreversible.</p>
+    <p>Do you really want to delete this Formation? This action is irreversible.</p>
     <div class="popup-actions">
       <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
       <button class="btn-delete" (click)="confirmDelete()">Delete</button>
@@ -118,7 +118,12 @@
 
 
 
-
+<!-- Players Panel -->
+<app-players-formation 
+  [isOpen]="showPlayersPanel"
+  [formation]="selectedFormation"
+  (close)="closePlayersPanel()">
+</app-players-formation>
 
 
 <!--
