@@ -1,0 +1,58 @@
+<div class="rapport-management-container">
+    <!-- Add Rapport Button -->
+    <div class="add-btn-container">
+        <button [routerLink]="['addreports']" class="btn-add"> Add Report
+    
+        </button>
+    </div>
+
+    <router-outlet></router-outlet>
+
+    <!-- Rapport List Header -->
+    <h2>Report List</h2>
+
+    <!-- Rapport Cards -->
+    <div class="card-container">
+        <div class="card" *ngFor="let r of Rapport">
+            <h3>Report ID: {{ r.idRapport }}</h3>
+            <p>Speed: {{ r.speedRapport }}</p>
+            <p>Acceleration: {{ r.accelerationRapport }}</p>
+            <p>Endurance: {{ r.endurance }}</p>
+            <p>Strength: {{ r.strength }}</p>
+            <p>State: {{ r.etatRapport }}</p>
+            <p>Injury: {{ r.blessureRapport }}</p>
+            <div class="card-actions">
+                <button (click)="openConfirmPopup(r.idRapport)" class="btn-delete">
+                    Delete
+                </button>
+                <button class="btn-update" (click)="openPopup(r)">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Report Popup -->
+    
+
+    <!-- Update Popup -->
+    <div class="popup-container" [class.show]="showPopup">
+        <div class="popup-content">
+            <button class="close-btn" (click)="closePopup()">×</button>
+            <app-update-rapport *ngIf="showPopup" [rapportData]="selectedRapport"></app-update-rapport>
+        </div>
+    </div>
+
+    <!-- Confirmation Popup -->
+    <div class="confirm-popup-container" [class.show]="showConfirmPopup">
+        <div class="confirm-popup-content">
+            <h3>Are you sure?</h3>
+            <p>Do you really want to delete this report? This action cannot be undone.</p>
+            <div class="popup-actions">
+                <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
+                <button class="btn-delete" (click)="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+</div>

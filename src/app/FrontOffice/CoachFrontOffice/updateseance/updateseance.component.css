@@ -1,0 +1,96 @@
+:host {
+    display: block; /* Ensure the component takes up space */
+    background-color: #222; /* Dark background for the entire component */
+    color: #fff; /* White text as the default color */
+    padding: 20px;
+    border-radius: 8px;
+    font-family: sans-serif;
+  }
+  
+  .container {
+    background-color: #333; /* Slightly lighter background for the form container */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+  }
+  
+  h2 {
+    color: #eee; /* Light gray for the heading */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc; /* Light gray for labels */
+  }
+  
+  /* Dark theme input fields */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid  #393a3b; /* Darker border */
+    border-radius: 4px;
+    background-color: #444; /* Dark input background */
+    color: #fff; /* White text for input */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+  }
+  
+  .form-control:focus {
+    border-color: #80deea; /* Highlight color on focus (a light blue) */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(128, 222, 234, 0.5); /* Subtle shadow on focus */
+  }
+  
+  /* Dark theme date and time input fix (important!) */
+  input[type="datetime-local"] {
+    color: #fff;  /* Explicitly set text color */
+  }
+  
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Invert the icon for better visibility on dark background */
+  }
+  
+  /* Dark theme buttons */
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: #1976d2; /* Blue */
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0d47a1; /* Darker blue */
+  }
+  
+  .btn-secondary {
+    background-color: #393a3b; /* Gray */
+    color: #fff;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #495057; /* Darker gray */
+  }
+  
+  /* Error message styling */
+  .text-danger {
+    color: #ff6666; /* Light red for error messages */
+    font-size: 0.8em;
+    margin-top: 5px;
+  }
+  
+  
+  

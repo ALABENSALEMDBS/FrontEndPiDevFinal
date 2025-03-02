@@ -1,17 +1,19 @@
 <hr>
-<p>add-tactic works!</p>
-<hr>
 
 <div class="form-container">
+  <button class="close-btn" (click)="avoidAdd()">
+    ✖
+  </button>
+  
     <div class="form-group">
         <label for="nom">Tactic Name :</label>
         <input type="text" id="nom" name="nom" placeholder="Put the Tactic Name"  [(ngModel)]="nameTactic">
-        <p class="description">Veuillez entrer votre nom complet.</p>
+        <p class="description">Please enter the name of the tactic.</p>
     </div>
     <div class="form-group">
         <label for="description">Description :</label>
-        <textarea id="description" name="description" rows="2" placeholder="Entrez une description" [(ngModel)]="descriptionTactic"></textarea>
-        <p class="description">Veuillez entrer une description détaillée.</p>
+        <textarea id="description" name="description" rows="2" placeholder="Put a description" [(ngModel)]="descriptionTactic"></textarea>
+        <p class="description">Please enter a detailed description.</p>
     </div>
   </div>
   
@@ -23,7 +25,7 @@
         <button (click)="stopRecording()" [disabled]="!isRecording">Arrêter l'enregistrement</button>
       </div>
       <div class="point-enregis" *ngIf="isRecording">
-        🔥
+        🔴
       </div>
   
       <button style="background-color: rgb(234, 255, 0); color: black;" (click)="confirmDelete()"> {{ isVideoVisible ? '❌ Delete' : '🎥' }}</button>
@@ -34,7 +36,7 @@
       
   
   <!-- Bouton de sauvegarde de la tactique -->
-  <button class="save-tactic" (click)="saveTactic()">Save Tactic</button>
+  <button class="save-tactic" (click)="saveTactic()" [disabled]="isRecording">Save Tactic</button>
   
   <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
     <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>

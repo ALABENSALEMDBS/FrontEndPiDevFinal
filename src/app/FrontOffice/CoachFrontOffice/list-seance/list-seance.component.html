@@ -1,44 +1,51 @@
-<p>list-seance works!</p>
-<!-- Bouton Ajouter un seance -->
-<div style="margin-bottom: 20px;">
-    <button [routerLink]="['addseance']" class="btn-add">
-      Ajouter une Seances
-    </button>
-  </div>
+<div class="session-management-container">
+    <!-- Add Session Button -->
+    <div class="add-btn-container">
+        <button [routerLink]="['addseance']" class="btn-add">
+            Add Session
+        </button>
+    </div>
 
+    <!-- Session List Header -->
+    <h2>Session List</h2>
 
-<h2>Liste des Seances</h2>
-<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nom du Seance</th>
-        <th>jour du Seance</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let s of seance">
-        <td>{{ s.idSeance }}</td>
-        <td>{{ s.titleSeance }}</td>
-        <td>{{ s.jourSeance | date:'yyyy-MM-dd' }}</td>
-         <td>
-          <button (click)="deleteSeances(s.idSeance)" class="btn-delete">
-            Supprimer
-          </button>
-          <button class="btn btn-success m-3" [routerLink]="['updateseance', s.idSeance]">
-            Update
-          </button>
-         <!-- <button class="btn btn-success m-3" [routerLink]="['update', sg.idSousGroup]">
-            Update
-          </button>
-        </td> -->
-      </tr>
-    </tbody>
-  </table>
-  
+    <!-- Session Cards -->
+    <div class="card-container">
+        <div class="card" *ngFor="let s of seance">
+            <h3>{{ s.titleSeance }}</h3>
+            <p>Date: {{ s.jourSeance | date:'yyyy-MM-dd' }}</p>
+            <div class="card-actions">
 
+                <button (click)="openConfirmPopup(s.idSeance)" class="btn-delete">
+                    Delete
+                </button>
 
+                <button class="btn-update" (click)="openPopup(s)">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
 
-  <router-outlet></router-outlet>
+    <!-- Update Popup -->
+    <div class="popup-container" [class.show]="showPopup">
+        <div class="popup-content">
+            <button class="close-btn" (click)="closePopup()">×</button>
+            <app-updateseance *ngIf="showPopup" [seanceData]="selectedsession"></app-updateseance>
+        </div>
+    </div>
 
+    <!-- Confirmation Popup -->
+    <div class="confirm-popup-container" [class.show]="showConfirmPopup">
+        <div class="confirm-popup-content">
+            <h3>Are you sure?</h3>
+            <p>Do you really want to delete this session? This action cannot be undone.</p>
+            <div class="popup-actions">
+                <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
+                <button class="btn-delete" (click)="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+</div>

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import Konva from 'konva';
 import  RecordRTC from 'recordrtc';
@@ -11,6 +12,9 @@ import { TacticService } from 'src/app/services/serviceCoatch/servicetacticcoatc
     standalone: false
 })
 export class AddTacticComponent implements OnInit {
+  avoidAdd() {
+    this.rout.navigate(['coatch/listTactic']); 
+  }
   successMessage: string = '';
   errorMessage: string = '';
 
@@ -44,7 +48,7 @@ export class AddTacticComponent implements OnInit {
   //canvasTouched: boolean = false;
   isVideoVisible: boolean = false;
 
-  constructor(private tacticservic: TacticService) { }
+  constructor(private tacticservic: TacticService, private rout:Router) { }
 
   ngOnInit(): void {
     this.initializeField();
@@ -280,8 +284,8 @@ export class AddTacticComponent implements OnInit {
                 input.type = 'text';
                 input.value = newText.text();
                 input.style.position = 'absolute';
-                input.style.top = `${textPosition.y + 1000}px`;
-                input.style.left = `${textPosition.x + 490}px`;
+                input.style.top = `${textPosition.y + 1300}px`;
+                input.style.left = `${textPosition.x + 350}px`;
                 input.style.fontSize = '20px';
                 input.style.border = '1px solid black';
                 input.style.padding = '2px';

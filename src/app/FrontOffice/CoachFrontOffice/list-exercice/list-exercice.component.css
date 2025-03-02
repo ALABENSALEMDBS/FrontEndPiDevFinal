@@ -1,43 +1,7 @@
-/* Style du bouton Ajouter un Sous-Groupe */
-.btn-add {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .btn-add:hover {
-    background-color: #45a049;
-  }
-  
-  /* Style du bouton Supprimer */
-  .btn-delete {
-    background-color: red;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-  }
-  
-  .btn-delete:hover {
-    background-color: darkred;
-  }
-  
-  /* Style du bouton Mettre à jour */
-  .btn-update {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .btn-update:hover {
-    background-color: #0056b3;
-  }
-  
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+}

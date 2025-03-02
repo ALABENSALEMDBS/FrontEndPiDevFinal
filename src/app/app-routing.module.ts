@@ -49,9 +49,16 @@ import { CreateNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouri
 import { UpdateNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/update-nourriture/update-nourriture.component';
 import { ListeNourritureComponent } from './FrontOffice/DoctorFrontOffice/Nouriture/liste-nourriture/liste-nourriture.component';
 import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/all-template-player-front/all-template-player-front.component';
+import { VideComponent } from './FrontOffice/CoachFrontOffice/vide/vide.component';
+import { HomeAnalysteComponent } from './FrontOffice/AnalysteFrontOffice/home-analyste/home-analyste.component';
+import { ListRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/list-rapport/list-rapport.component';
+import { AddRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/add-rapport/add-rapport.component';
+import { UpdateRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/update-rapport/update-rapport.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
+  {path:'home',component:HomePageComponent},
 
 
   {
@@ -185,6 +192,8 @@ const routes: Routes = [
       {
         path: 'showFormation', component: FormationCoachComponent,
         children:[
+          { path: '', redirectTo: 'vide', pathMatch: 'full' },
+          {path: 'vide', component: VideComponent },
           {path: 'addformation', component: AddformationComponent },
           {path: 'updateformation/:idFormation', component: UpdateformationComponent },
 
@@ -212,6 +221,8 @@ const routes: Routes = [
       {
         path: 'listTactic', component: ListTacticComponent,
         children:[
+          { path: '', redirectTo: 'vide', pathMatch: 'full' },
+          {path: 'vide', component: VideComponent },
           {path: 'AddTactic', component: AddTacticComponent },
 
         ]
@@ -229,8 +240,18 @@ const routes: Routes = [
   },
   {
     path:'analyste',
-    component:AllTemplateAnalysteFrontComponent
-
+    component:AllTemplateAnalysteFrontComponent,
+    children: [
+      { path: '', redirectTo: 'Homeanalyste', pathMatch: 'full' },
+      { path: 'Homeanalyste', component: HomeAnalysteComponent  },
+      {
+        path: 'Reportshow',
+        component:ListRapportComponent ,
+        children: [
+          { path: 'update/:idRapport', component: UpdateRapportComponent },
+          { path: 'addreports', component: AddRapportComponent },
+        ]
+      }]
   },
 
   {

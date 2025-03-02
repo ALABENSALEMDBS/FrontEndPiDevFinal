@@ -1,27 +1,45 @@
-<div class="container">
-    <h2>Ajouter une seance</h2>
-    
-    <form [formGroup]="seanceform" (ngSubmit)="addSeance()">
+<div class="container seance-form-container dark-mode innovative">
+  <h2>Create a Session</h2>
+
+  <form [formGroup]="seanceform" (ngSubmit)="addSeance()" class="seance-form">
+
       <div class="form-group">
-        <label>Nom du seance</label>
-        <input type="text" class="form-control" formControlName="titleSeance">
-        <div *ngIf="seanceform.get('titleSeance')?.invalid && seanceform.get('titleSeance')?.touched" class="text-danger">
-          Nom requis (min 3 caractères).
-        </div>
+          <label for="titleSeance">Session Title</label>
+          <div class="input-wrapper">
+              <input type="text" class="form-control" id="titleSeance" formControlName="titleSeance"
+                  placeholder="Session Name">
+          </div>
+          <div *ngIf="seanceform.get('titleSeance')?.invalid && seanceform.get('titleSeance')?.touched"
+              class="error-message">
+              Title required (min 3 characters).
+          </div>
       </div>
-  
+
       <div class="form-group">
-        <label>date du seance</label>
-        <input type="date" class="form-control" formControlName="jourSeance">
-        <div *ngIf="seanceform.get('jourSeance')?.invalid && seanceform.get('jourSeance')?.touched" class="text-danger">
-            description requis
-        </div>
+          <label for="jourSeance">Session Date</label>
+          <div class="input-wrapper">
+              <input type="date" class="form-control" id="jourSeance" formControlName="jourSeance">
+          </div>
+          <div *ngIf="seanceform.get('jourSeance')?.invalid && seanceform.get('jourSeance')?.touched"
+              class="error-message">
+              Date required.
+          </div>
       </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="seanceform.invalid">Ajouter</button>
-      <button type="reset" class="btn btn-secondary" >Reset</button>
-    </form>
-  
-    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-  </div>
+
+      <div class="button-group">
+          <button type="submit" class="btn btn-primary create-button" [disabled]="seanceform.invalid">
+              <i class="fas fa-plus-circle"></i> Create Session
+          </button>
+          <button type="reset" class="btn btn-secondary reset-button">
+              <i class="fas fa-undo"></i> Reset
+          </button>
+      </div>
+
+      <div *ngIf="successMessage" class="success-message">
+          <i class="fas fa-check-circle"></i> {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+          <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+      </div>
+  </form>
+</div>

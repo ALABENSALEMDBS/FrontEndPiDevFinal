@@ -1,35 +1,41 @@
-
 <div class="update-container">
-  <h2>Mettre à jour la Formation</h2>
+  <h2>Update Formation</h2>
 
   <form [formGroup]="formationForm" (ngSubmit)="updateFormation()" class="form-card">
     
     <div class="form-group">
-      <label>ID de la Formation</label>
-      <input type="text" class="form-control" formControlName="idFormation" readonly>
+      <label>Formation Reference</label>
+      <input type="text" formControlName="idFormation" readonly>
     </div>
 
     <div class="form-group">
-      <label>Nom de la Formation</label>
-      <input type="text" class="form-control" formControlName="nameFormation">
-      <div *ngIf="nameFormation?.invalid && nameFormation?.touched" class="error-message">
-        Nom requis (min 3 caractères).
+      <label>Formation Name</label>
+      <select formControlName="nameFormation">
+        <option value="" disabled selected>Choose a format</option>
+        <option *ngFor="let option of formationOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+      <div *ngIf="formationForm.get('nameFormation')?.invalid && formationForm.get('nameFormation')?.touched" class="error-message">
+        Selection required.
       </div>
     </div>
 
     <div class="form-group">
-      <label>Description de la Formation</label>
-      <textarea class="form-control" formControlName="descriptionFormation"></textarea>
+      <label>Formation Description</label>
+      <textarea formControlName="descriptionFormation"></textarea>
       <div *ngIf="descriptionFormation?.invalid && descriptionFormation?.touched" class="error-message">
-        Description requise.
+        Description required.
       </div>
     </div>
 
     <div class="btn-group">
       <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">
-        Mettre à jour
+        🔄 Update
       </button>
-      <button type="reset" class="btn btn-secondary">Annuler</button>
+      <button type="reset" class="btn btn-secondary">
+        ❌ Cancel
+      </button>
     </div>
   </form>
 </div>

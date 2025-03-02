@@ -1,0 +1,204 @@
+/* General Dark Theme Styles */
+.horizontal-menu {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Top Navbar */
+.top-navbar {
+    background-color: #333;
+    border-bottom: 1px solid #444;
+}
+
+.navbar-menu-wrapper {
+    padding: 15px; /* Adjust padding */
+}
+
+.navbar-nav .nav-link {
+    color: #ccc; /* Light gray */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #fff; /* White on hover */
+}
+
+.navbar-nav .count-indicator {
+    position: relative;
+    margin-right: 15px;
+}
+
+.navbar-nav .count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 10px;
+    line-height: 15px;
+    color: #fff;
+}
+
+.dropdown-menu {
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+.dropdown-header {
+    color: #999; /* Darker gray */
+}
+
+.dropdown-item {
+    color: #ccc;
+}
+
+.dropdown-item:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+.preview-thumbnail {
+    margin-right: 10px;
+}
+
+.preview-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* Make preview icons white */
+}
+
+/* Dark Theme for notification icons */
+.preview-icon.bg-success {
+    background-color: #5cb85c !important; /* Keep original color */
+}
+
+.preview-icon.bg-warning {
+    background-color: #f0ad4e !important; /* Keep original color */
+}
+
+.preview-icon.bg-info {
+    background-color: #5bc0de !important; /* Keep original color */
+}
+
+.preview-subject {
+    color: #fff;
+}
+
+.font-weight-light {
+    color: #999; /* Darker gray */
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Logo Area */
+.navbar-brand {
+    color: #fff;
+}
+
+.navbar-brand img {
+    filter: brightness(0) invert(1); /* Invert logo color for dark theme */
+}
+
+/* Button Styles */
+.btn-inverse-primary {
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+.btn-inverse-primary:hover {
+    background-color: #555;
+    border-color: #666;
+}
+
+/* Bottom Navbar */
+.bottom-navbar {
+    background-color: #222;
+    border-top: 1px solid #444;
+}
+
+.page-navigation .nav-item .nav-link {
+    color: #ccc;
+}
+
+.page-navigation .nav-item .nav-link:hover {
+    color: #fff;
+    background-color: #333; /* Subtle highlight */
+}
+
+.page-navigation .menu-icon {
+    color: #fff; /* Make menu icons white */
+}
+
+.submenu {
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+.submenu .nav-item a {
+    color: #ccc;
+}
+
+.submenu .nav-item a:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/* Dark mode for button bar */
+.btn {
+    background-color: #444; /* Dark background */
+    color: #fff; /* White text */
+    border: 1px solid #555; /* Darker border */
+}
+
+.btn:hover {
+    background-color: #555; /* Slightly lighter dark background on hover */
+    border-color: #666;
+}
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Example: Bootstrap's primary color */
+    border-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    border-color: #4e555b;
+}
+
+/* Responsive adjustments (optional) */
+@media (max-width: 991px) {
+    .navbar-nav-left {
+        display: none; /* Hide left navbar items on smaller screens */
+    }
+
+    .text-center {
+        text-align: left !important; /* Force logo to left on small screens */
+    }
+}

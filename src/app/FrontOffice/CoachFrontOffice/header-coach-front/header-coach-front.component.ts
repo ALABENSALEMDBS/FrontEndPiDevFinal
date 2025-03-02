@@ -10,6 +10,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeaderCoachFrontComponent {
   pageTitle: string = '';
 
+  isDropdownOpen = false;
+
+toggleDropdown() {
+  this.isDropdownOpen = !this.isDropdownOpen;
+}
+
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -33,7 +39,7 @@ export class HeaderCoachFrontComponent {
     } else if (currentUrl.includes('showseance')) {
       this.pageTitle = 'Management Session';
     } else if (currentUrl.includes('showexercice')) {
-      this.pageTitle = 'Management Exercices';
+      this.pageTitle = 'Management Exercise';
     } else {
       this.pageTitle = 'Welcome';
     }

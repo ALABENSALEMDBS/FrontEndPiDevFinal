@@ -20,20 +20,20 @@
             <div class="ml-auto">
                 <nav class="site-navigation position-relative text-right" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                        <li class="active"><a routerLink="HomeCoach" class="nav-link">Home</a></li>
-                        <li><a routerLink="listTactic" class="nav-link">List Tactic</a></li>
+                        <li ><a routerLink="HomeCoach" class="nav-link">Home</a></li>
+                        <li><a routerLink="listTactic" class="nav-link">Tactic</a></li>
                         <li><a routerLink="showFormation" class="nav-link">Formation</a></li>
-                        <li><a routerLink="ShowSousGroups" class="nav-link">Show Sub Groups</a></li>
-                        <li><a routerLink="showseance" class="nav-link">Show Seance</a></li>
-                        <li><a routerLink="showexercice" class="nav-link">Show Exercice</a></li>
+                        <li><a routerLink="ShowSousGroups" class="nav-link">Sub-Groups</a></li>
+                        <li><a routerLink="showseance" class="nav-link">Session</a></li>
+                        <li><a routerLink="showexercice" class="nav-link">Exercise</a></li>
 
                         <!-- Profil Utilisateur avec Combobox -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="toggleDropdown()">
                                 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profil" class="rounded-circle" width="40" height="40">
                                 <span>Utilisateur</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" routerLink="settings">⚙️ Paramètres</a></li>
                                 <li><a class="dropdown-item text-danger" routerLink="logout">🚪 Déconnexion</a></li>
                             </ul>

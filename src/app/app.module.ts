@@ -71,6 +71,7 @@ import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-mat
 import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 import { FooterHomeComponent } from "./FrontOffice/HomePages/footer-home/footer-home.component";
 import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-home.component";
+import { PlayersFormationComponent } from "./FrontOffice/CoachFrontOffice/players-formation/players-formation.component";
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -228,10 +229,11 @@ import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
-    FooterHomeComponent, 
-    NavbarHomeComponent  
-],
-providers: [provideHttpClient(withInterceptorsFromDi())] })
+//     FormsModule,
+//     FooterHomeComponent, 
+//     NavbarHomeComponent  
+// ],
+// providers: [provideHttpClient(withInterceptorsFromDi())] })
   
+    FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

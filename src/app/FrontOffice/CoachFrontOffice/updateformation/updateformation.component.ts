@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
@@ -11,6 +11,15 @@ import { FormationService } from 'src/app/services/serviceCoatch/serviceformatio
 })
 export class UpdateformationComponent implements OnInit {
 
+  formationOptions = [
+    "3-3-4", "5-2-3", "4-4-2", // vos formations de base
+    "4-3-3", "4-5-1", "3-5-2", "3-4-3", 
+    "4-2-3-1", "5-3-2", "5-4-1", "4-1-4-1", 
+    "4-4-1-1", "4-3-2-1", "3-6-1"
+  ];
+  
+  @Input() formationData: any;  // Ajout de l'Input pour recevoir la formation sélectionnée
+
     idFormation: any;
     formationForm!: FormGroup;
     listFormation: any[] = [];
@@ -20,6 +29,9 @@ export class UpdateformationComponent implements OnInit {
     ngOnInit(): void {
       this.idFormation = this.act.snapshot.params['idFormation'];
 
+      
+        console.error(this.formationData.idFormation);
+      
 
      // Initialisation du formulaire
         this.formationForm = new FormGroup({
@@ -29,7 +41,7 @@ export class UpdateformationComponent implements OnInit {
         });
     
         // Charger les données du sous-groupe à modifier
-        this.servise.getbyidformation(this.idFormation).subscribe((data) => {
+        this.servise.getbyidformation(this.formationData.idFormation).subscribe((data) => {
           this.listFormation = [data];
           this.formationForm.patchValue(this.listFormation[0]);
         });
@@ -45,9 +57,13 @@ export class UpdateformationComponent implements OnInit {
 
     updateFormation() {
       if (this.formationForm.valid) {
-        this.servise.updateformation( this.idFormation,this.formationForm.value).subscribe(() => {
+        this.servise.updateformation( this.formationData.idFormation,this.formationForm.value).subscribe(() => {
           this.formationForm.reset();
-          window.location.reload();
+
+          this.router.navigate(['coatch/showFormation']).then(() => {
+            window.location.reload();  // This will reload the page after navigation
+          });
+
         });
       }
     }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Joueurs } from 'src/core/models/joueur';
+import { Users } from 'src/core/models/Users';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,10 @@ export class JoueurService {
     return this.http.delete<Joueurs[]>("http://localhost:8089/PiDevBackEndProject/Exercices/remove-exercices"+"/"+numeroJoueur)
   }
 
+
+//*************************************************** */
+  getJoueursByIdformation(idFormation:any):Observable<Users[]>{
+    return this.http.get<Users[]>( "http://localhost:8089/PiDevBackEndProject/Formations/retrieve-joueurs/"+idFormation)
+  }
 
 }
