@@ -7,7 +7,8 @@ import { Nouriture } from 'src/core/models/nouriture';
 @Component({
   selector: 'app-liste-nourriture',
   templateUrl: './liste-nourriture.component.html',
-  styleUrls: ['./liste-nourriture.component.css']
+  styleUrls: ['./liste-nourriture.component.css'],
+  standalone: false
 })
 export class ListeNourritureComponent {
 

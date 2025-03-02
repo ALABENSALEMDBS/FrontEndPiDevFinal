@@ -1,0 +1,8 @@
+form {
+    color: black !important; /* Makes text inside labels and buttons black */
+  }
+  
+  input, textarea, select, button {
+    color: black !important; /* Ensures text inside form fields and buttons is black */
+    border: 1px solid black; /* Optional: Makes borders black */
+  }

@@ -9,5 +9,7 @@ export class FicheMedical {
   type!: string; 
   joueurId!: number;
   joueurficheMedicale: any;
+  joueurNom?: string;  // Facultatif
+  joueurPrenom?: string;  // Facultatif
   
   }

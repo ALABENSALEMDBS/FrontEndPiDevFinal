@@ -7,7 +7,8 @@ import { FicheMedical } from 'src/core/models/ficheMedical';
 @Component({
   selector: 'app-liste-fiche-medical',
   templateUrl: './liste-fiche-medical.component.html',
-  styleUrls: ['./liste-fiche-medical.component.css']
+  styleUrls: ['./liste-fiche-medical.component.css'],
+  standalone: false
 })
 export class ListeFicheMedicalComponent {
   fichesMedicales: any[] = [];

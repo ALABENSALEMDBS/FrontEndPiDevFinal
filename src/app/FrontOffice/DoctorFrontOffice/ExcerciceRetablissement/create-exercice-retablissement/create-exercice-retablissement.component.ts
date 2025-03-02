@@ -8,6 +8,7 @@ import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement'
   selector: 'app-create-exercice-retablissement',
   templateUrl: './create-exercice-retablissement.component.html',
   styleUrls: ['./create-exercice-retablissement.component.css']
+  ,standalone: false
 })
 export class CreateExerciceRetablissementComponent {
 

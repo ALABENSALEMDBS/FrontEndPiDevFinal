@@ -6,7 +6,8 @@ import { Nouriture } from 'src/core/models/nouriture';
 @Component({
   selector: 'app-create-nourriture',
   templateUrl: './create-nourriture.component.html',
-  styleUrls: ['./create-nourriture.component.css']
+  styleUrls: ['./create-nourriture.component.css'],
+  standalone: false
 })
 export class CreateNourritureComponent {
 

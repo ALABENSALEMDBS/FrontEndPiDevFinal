@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer-home',
-  imports: [],
+  //imports: [],
   templateUrl: './footer-home.component.html',
   styleUrl: './footer-home.component.css'
 })

@@ -8,7 +8,8 @@ import { Nouriture } from 'src/core/models/nouriture';
 @Component({
   selector: 'app-update-nourriture',
   templateUrl: './update-nourriture.component.html',
-  styleUrls: ['./update-nourriture.component.css']
+  styleUrls: ['./update-nourriture.component.css'],
+  standalone: false
 })
 export class UpdateNourritureComponent implements OnInit {
   

@@ -6,7 +6,8 @@ import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement'
 @Component({
   selector: 'app-liste-exercice-retablissement',
   templateUrl: './liste-exercice-retablissement.component.html',
-  styleUrls: ['./liste-exercice-retablissement.component.css']
+  styleUrls: ['./liste-exercice-retablissement.component.css'],
+  standalone: false
 })
 export class ListeExerciceRetablissementComponent {
 

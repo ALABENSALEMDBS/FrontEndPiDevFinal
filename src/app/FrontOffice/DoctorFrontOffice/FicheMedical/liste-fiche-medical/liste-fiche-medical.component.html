@@ -8,7 +8,7 @@
       <thead>
         <tr>
          
-          <!-- <th>Joueur</th> -->
+          <th>Joueur</th>
           <th>Poids (kg)</th>
           <th>Taille (cm)</th>
           <th>Date de Blessure</th>
@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let fiche of fichesMedicales">
-           <!-- <td>{{ fiche.numeroJoueur }}</td> -->
+           <td>{{ fiche.joueurFullName }}</td>
           <td>{{ fiche.poidsFicheMedicale }}</td>
           <td>{{ fiche.tailleFicheMedicale }}</td>
           <td>{{ fiche.dateBlessure | date }}</td>

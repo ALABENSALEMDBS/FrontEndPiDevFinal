@@ -1,47 +1,8 @@
-/* Style général du formulaire */
-.custom-form {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Titre du formulaire */
-.form-title {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #007bff;
-}
-
-/* Style des champs de saisie et du select */
-.custom-input {
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    padding: 10px;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Effet lors du focus */
-.custom-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-}
-
-/* Style du bouton */
-.custom-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Effet au survol du bouton */
-.custom-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
+form {
+    color: black !important; /* Makes text inside labels and buttons black */
+  }
+  
+  input, textarea, select, button {
+    color: black !important; /* Ensures text inside form fields and buttons is black */
+    border: 1px solid black; /* Optional: Makes borders black */
+  }

@@ -19,7 +19,7 @@
 }
 
 .custom-create-btn:hover {
-    background-color: #0056b3;
+    background-color: #02203f;
     transform: scale(1.05);
 }
 
@@ -28,12 +28,12 @@
     background: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(189, 12, 12, 0.1);
 }
 
 /* Style des en-têtes */
 .custom-table thead {
-    background-color: #343a40;
+    background-color: #0977e6;
     color: white;
     text-align: center;
 }
@@ -61,7 +61,7 @@
 }
 
 .custom-btn-delete:hover {
-    background-color: #c82333;
+    background-color: #055e18;
     transform: scale(1.05);
 }
 

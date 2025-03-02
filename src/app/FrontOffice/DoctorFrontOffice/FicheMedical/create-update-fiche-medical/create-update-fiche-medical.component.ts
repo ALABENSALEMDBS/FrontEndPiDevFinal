@@ -8,7 +8,8 @@ import { Joueur } from 'src/core/models/Joueurs';
 @Component({
   selector: 'app-create-update-fiche-medical',
   templateUrl: './create-update-fiche-medical.component.html',
-  styleUrls: ['./create-update-fiche-medical.component.css']
+  styleUrls: ['./create-update-fiche-medical.component.css'],
+  standalone: false
 })
 export class CreateUpdateFicheMedicalComponent {
 
@@ -37,7 +38,7 @@ export class CreateUpdateFicheMedicalComponent {
   }
 
   loadPlayers(): void {
-    this.servijoueurServiceced.getalljoueur().subscribe({
+    this.servijoueurServiceced.getAllJoueurWithoutFiche().subscribe({
       next: (data) => {
         this.players = data;
         console.log("Joueurs récupérés :", this.players);
@@ -47,6 +48,9 @@ export class CreateUpdateFicheMedicalComponent {
       }
     });
   }
+
+
+  
 
   // addFicheMedicale(): void {
   //   if (this.ficheMedicalForm.valid) {

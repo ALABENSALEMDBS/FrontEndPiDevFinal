@@ -8,7 +8,8 @@ import { Joueur } from 'src/core/models/Joueurs';
 @Component({
   selector: 'app-update-fiche-medicale',
   templateUrl: './update-fiche-medicale.component.html',
-  styleUrls: ['./update-fiche-medicale.component.css']
+  styleUrls: ['./update-fiche-medicale.component.css'],
+  standalone: false
 })
 export class UpdateFicheMedicaleComponent {
 
@@ -61,7 +62,7 @@ export class UpdateFicheMedicaleComponent {
             dateBlessure: [value.dateBlessure, Validators.required],
             gravite: [value.gravite, Validators.required],
             type: [value.type, Validators.required],
-            joueurId: [value.joueurficheMedicale?.idUser, Validators.required]
+            joueurId:[ { value: value.joueurId, disabled: true} , Validators.required]
           });
 
           console.log('ff : ', this.ficheMedicalForm)
@@ -91,7 +92,7 @@ export class UpdateFicheMedicaleComponent {
   updateFicheMedicale(): void {
     if(!this.ficheMedicalForm) return;
 
-    const ficheData: FicheMedical = this.ficheMedicalForm.value; // Get form data
+    const ficheData: FicheMedical = this.ficheMedicalForm.getRawValue(); // Get form data
     const idPlayer = ficheData.joueurId; // Get player ID from form
 
     // Check if player ID is valid

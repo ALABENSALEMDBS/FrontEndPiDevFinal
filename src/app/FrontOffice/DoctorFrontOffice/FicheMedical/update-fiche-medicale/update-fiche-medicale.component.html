@@ -51,18 +51,26 @@
       </div>
   
       <!-- Sélection du joueur -->
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="joueur">Joueur</label>
         <select formControlName="joueurId" required>
           <option value="" disabled selected>Select a player</option>
-          <option *ngFor="let player of players" [value]="player.idUser">{{ player.numeroJoueur }}</option>
+          <option *ngFor="let player of players" [value]="player.idUser">{{ player.nameUsers }}</option>
+        </select>
+      </div> -->
+
+      <div class="form-group">
+        <label for="joueur">Joueur</label>
+        <select formControlName="joueurId">
+          <option value="" disabled selected>Select a player</option>
+          <option *ngFor="let player of players" [value]="player.idUser">{{ player.nameUsers }}</option>
         </select>
       </div>
   
       <!-- Boutons -->
        
-      <button type="submit" class="btn btn-primary mt-3"  [disabled]="ficheMedicalForm.invalid"  >Ajouter</button>
-      <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listefiche'">Annuler</button>
+      <button type="submit" class="btn btn-primary mt-3"  [disabled]="ficheMedicalForm.invalid"  >Enregistrer </button>
+      <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listefiche'">Retour</button>
   
     </form>
   

@@ -7,7 +7,8 @@ import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement'
 @Component({
   selector: 'app-update-exercice-retablissement',
   templateUrl: './update-exercice-retablissement.component.html',
-  styleUrls: ['./update-exercice-retablissement.component.css']
+  styleUrls: ['./update-exercice-retablissement.component.css'],
+  standalone: false
 })
 export class UpdateExerciceRetablissementComponent {
   exerciceForm: FormGroup;

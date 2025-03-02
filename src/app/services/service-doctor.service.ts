@@ -14,6 +14,13 @@ export class ServiceDoctorService {
 
   constructor( private http:HttpClient) { }
 
+  //ubdate creatiche fiche 
+
+  // addFicheMedical(ficheMedical: FicheMedical, name: string, prenom: string): Observable<FicheMedical> {
+  //   return this.http.post<FicheMedical>(`${this.apiUrl}/${name}/${prenom}`, ficheMedical, {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   });
+  // }
   // addFicheMedicalByIdJoueurs(ficheMedicale: FicheMedical): Observable<FicheMedical> {
   //   return this.http.post<FicheMedical>(`${this.apiUrl}/add`, ficheMedicale);
   // }
@@ -31,6 +38,11 @@ export class ServiceDoctorService {
 
 getalljoueur():Observable<Joueur[]>{
   return this.http.get<Joueur[]>(`${this.apiUrl}/joueurs/retrieve-all-joueurs`);
+}
+
+
+getAllJoueurWithoutFiche():Observable<Joueur[]>{
+  return this.http.get<Joueur[]>(`${this.apiUrl}/joueurs/retrieve-all-joueurs-without-fiche`);
 }
   
   getFichesMedicales(): Observable<FicheMedical[]> {

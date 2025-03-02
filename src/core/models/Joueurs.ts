@@ -1,7 +1,7 @@
 import { FicheMedical } from "./ficheMedical";
 
 export class Joueur {
-  idUser!: number;
+    idUser!: number;
     nameUsers!: string;   // Hérité de Users
     prenomUser!: string;  // Hérité de Users
     emailUser!: string;   // Hérité de Users
