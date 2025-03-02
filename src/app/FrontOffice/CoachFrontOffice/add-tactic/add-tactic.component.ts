@@ -284,8 +284,8 @@ export class AddTacticComponent implements OnInit {
                 input.type = 'text';
                 input.value = newText.text();
                 input.style.position = 'absolute';
-                input.style.top = `${textPosition.y + 1000}px`;
-                input.style.left = `${textPosition.x + 490}px`;
+                input.style.top = `${textPosition.y + 1300}px`;
+                input.style.left = `${textPosition.x + 350}px`;
                 input.style.fontSize = '20px';
                 input.style.border = '1px solid black';
                 input.style.padding = '2px';

@@ -18,15 +18,14 @@ export class FormationCoachComponent implements OnInit {
    formation: formation[] = [];
    joueurs: Joueurs[] = [];
 
-   showPopup = false; // Contrôle l'affichage de la popup   h
-   selectedFormation: any = null;                         //h
+   showPopup = false; // Contrôle l'affichage de la popup 
 
   
     constructor(private coatchService: FormationService, private joueurservice:JoueurService) {}
   
 
     successMessage: string = '';
-  errorMessage: string = '';
+    errorMessage: string = '';
 
     ngOnInit(): void {
       this.getFormations();
@@ -94,5 +93,18 @@ export class FormationCoachComponent implements OnInit {
       });
       console.log(`Show players for formation with ID: ${formationId}`);
     }
+
+
+    showPlayersPanel = false
+    selectedFormation: any = null
+    // New methods for players panel
+  openPlayersPanel(formation: any): void {
+    this.selectedFormation = formation
+    this.showPlayersPanel = true
+  }
+
+  closePlayersPanel(): void {
+    this.showPlayersPanel = false
+  }
 
 }
