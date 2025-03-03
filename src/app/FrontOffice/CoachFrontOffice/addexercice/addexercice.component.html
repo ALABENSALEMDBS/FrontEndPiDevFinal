@@ -1,98 +1,55 @@
-<div class="container mt-4">
-    <!-- Carte transparente sombre -->
-    <div class="card shadow-lg p-4" style="max-width: 600px; margin: 0 auto; background-color: rgba(0, 0, 0, 0.7); color: white; backdrop-filter: blur(8px); border-radius: 10px;">
-      <h2 class="text-center" style="font-family: 'Dancing Script', cursive; font-style: italic;">
-        Ajouter un Exercice
-      </h2>
-  
-      <form [formGroup]="exerciceform" (ngSubmit)="addExercice()">
-        <!-- Nom de l'Exercice -->
-        <div class="form-group mb-3">
-          <label for="nameExercice" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Nom de l'Exercice</label>
-          <input
-            type="text"
-            id="nameExercice"
-            class="form-control"
-            formControlName="nameExercice"
-            style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
-          />
-          <div *ngIf="exerciceform.get('nameExercice')?.invalid && exerciceform.get('nameExercice')?.touched" class="text-danger" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;">
-            Nom requis (min 3 caractères).
-          </div>
-        </div>
-  
-        <!-- Description de l'Exercice -->
-        <div class="form-group mb-3">
-          <label for="descriptionExercice" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Description de l'Exercice</label>
-          <textarea
-            id="descriptionExercice"
-            class="form-control"
-            formControlName="descriptionExercice"
-            style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
-          ></textarea>
-          <div *ngIf="exerciceform.get('descriptionExercice')?.invalid && exerciceform.get('descriptionExercice')?.touched" class="text-danger" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;">
-            Description requise.
-          </div>
-        </div>
-  
-  
-        <!-- Vidéo de l'Exercice -->
-        <div class="form-group mb-3">
-          <label for="videoExercice" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Vidéo de l'Exercice (URL)</label>
-          <input
-            type="text"
-            id="videoExercice"
-            class="form-control"
-            formControlName="videoExercice"
-            style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
-          />
-          <div *ngIf="videoExercice?.invalid && videoExercice?.touched" class="text-danger" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;">
-            Vidéo requise et doit être une URL valide (ex : assets/videos/nomvideo.mp4).
-          </div>
-        </div>
-  
-        <!-- Photo de l'Exercice -->
-        <div class="form-group mb-3">
-          <label for="photoExercice" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Photo de l'Exercice</label>
-          <input
-            type="text"
-            id="photoExercice"
-            class="form-control"
-            formControlName="photoExercice"
-            style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
-          />
-          <div *ngIf="photoExercice?.invalid && photoExercice?.touched" class="text-danger" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;">
-            Photo requise et doit être une URL valide d'image (ex : assets/videos/nomimg.jpg).
-          </div>
-        </div>
-  
-  
-        <!-- Boutons d'Action -->
-        <div class="d-flex justify-content-between mt-3">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="exerciceform.invalid"
-            style="background-color: #007bff; border-radius: 5px; font-family: 'Dancing Script', cursive; font-style: italic; color: white; font-size: 1.1em;"
-          >
-            Ajouter
-          </button>
-          <button
-            type="reset"
-            class="btn btn-secondary"
-            style="background-color: #6c757d; border-radius: 5px; font-family: 'Dancing Script', cursive; font-style: italic; color: white; font-size: 1.1em;"
-          >
-            Réinitialiser
-          </button>
-        </div>
-      </form>
-  
-      <!-- Messages de succès / erreur -->
-      <div *ngIf="successMessage" class="alert alert-success mt-3" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;">
-        {{ successMessage }}
-      </div>
-      <div *ngIf="errorMessage" class="alert alert-danger mt-3" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;">
-        {{ errorMessage }}
+<hr>
+<div class="add-container">
+  <button class="close-btn" (click)="avoidAdd()">
+    ✖
+  </button>
+  <h2>Add an Exercise</h2>
+
+  <form [formGroup]="exerciceform" (ngSubmit)="addExercice()" class="form-card">
+
+    <!-- Nom de l'Exercice -->
+    <div class="form-group">
+      <label>Exercise Name</label>
+      <input type="text" formControlName="nameExercice">
+      <div *ngIf="nameExercice?.invalid && nameExercice?.touched" class="error-message">
+        Name required (min 3 characters).
       </div>
     </div>
+
+    <!-- Description de l'Exercice -->
+    <div class="form-group">
+      <label>Description of the Exercise</label>
+      <textarea formControlName="descriptionExercice"></textarea>
+      <div *ngIf="descriptionExercice?.invalid && descriptionExercice?.touched" class="error-message">
+        Description required.
+      </div>
+    </div>
+
+    <!-- Vidéo de l'Exercice -->
+    <div class="form-group">
+      <label>Exercise Video (URL)</label>
+      <input type="text" formControlName="videoExercice">
+      <div *ngIf="videoExercice?.invalid && videoExercice?.touched" class="error-message">
+        Video required and must be a valid URL.
+      </div>
+    </div>
+
+    <!-- Boutons d'Action -->
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" [disabled]="exerciceform.invalid">
+        <i class="fas fa-plus-circle"></i> Add
+      </button>
+      <button type="reset" class="btn btn-secondary">
+        <i class="fas fa-undo"></i> Reset
+      </button>
+    </div>
+  </form>
+
+  <!-- Messages de succès / erreur -->
+  <div *ngIf="successMessage" class="alert alert-success mt-3 fade-in">
+    {{ successMessage }}
   </div>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3 fade-in">
+    {{ errorMessage }}
+  </div>
+</div>

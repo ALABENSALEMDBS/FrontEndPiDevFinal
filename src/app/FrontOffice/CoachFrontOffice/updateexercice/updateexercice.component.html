@@ -1,68 +1,57 @@
-<!-- <p>updateexercice works!</p> -->
-{{ idExercice }}
+<div class="modal-overlay" (click)="closeModal()" *ngIf="isModalOpen"></div>
 
-<div class="container mt-4 p-4" style="background-color: rgba(0, 0, 0, 0.6); border-radius: 15px; color: white; backdrop-filter: blur(10px);">
-  <h2 style="font-family: 'Dancing Script', cursive; font-style: italic; text-align: center;">
-    Mettre à jour l'Exercice
-  </h2>
+<div class="modal-container" *ngIf="isModalOpen">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close-button" (click)="closeModal()">&times;</span>
+    <h2>Update the Exercise: <strong>{{ exerciceform.get('nameExercice')?.value }}</strong></h2>
 
-  <form [formGroup]="exerciceform" (ngSubmit)="updateExercice()">
+    <form [formGroup]="exerciceform" (ngSubmit)="updateExercice()" class="form-card">
 
-    <div class="form-group mb-3">
-      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">ID de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="idExercice"
-             style="border: none; border-radius: 5px;">
-    </div>
+      <!-- <div class="form-group">
+        <label>ID de l'Exercice</label>
+        <input type="text" formControlName="idExercice" readonly>
+      </div> -->
 
-    <div class="form-group mb-3">
-      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Nom de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="nameExercice"
-             style="border: none; border-radius: 5px;">
-      <div *ngIf="nameExercice?.invalid && nameExercice?.touched" class="text-danger">
-        Nom requis (min 3 caractères).
+      <div class="form-group">
+        <label>Exercise Name</label>
+        <input type="text" formControlName="nameExercice">
+        <div *ngIf="nameExercice?.invalid && nameExercice?.touched" class="error-message">
+          Name required (minimum 3 characters).
+        </div>
       </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Description</label>
-      <textarea class="form-control" formControlName="descriptionExercice"
-                style="border: none; border-radius: 5px;"></textarea>
-      <div *ngIf="descriptionExercice?.invalid && descriptionExercice?.touched" class="text-danger">
-        Description requise.
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="descriptionExercice"></textarea>
+        <div *ngIf="descriptionExercice?.invalid && descriptionExercice?.touched" class="error-message">
+          Description required.
+        </div>
       </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Vidéo de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="videoExercice"
-             style="border: none; border-radius: 5px;">
-      <div *ngIf="videoExercice?.invalid && videoExercice?.touched" class="text-danger">
-        URL de la vidéo requise.
+      <div class="form-group">
+        <label>Exercise Video</label>
+        <input type="text" formControlName="videoExercice">
+        <div *ngIf="videoExercice?.invalid && videoExercice?.touched" class="error-message">
+          URL of the required video.
+        </div>
       </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label style="font-family: 'Dancing Script', cursive; font-style: italic;">Photo de l'Exercice</label>
-      <input type="text" class="form-control" formControlName="photoExercice"
-             style="border: none; border-radius: 5px;">
-      <div *ngIf="photoExercice?.invalid && photoExercice?.touched" class="text-danger">
-        URL de la photo requise.
+      <!-- <div class="form-group">
+        <label>Photo de l'Exercice</label>
+        <input type="text" formControlName="photoExercice">
+        <div *ngIf="photoExercice?.invalid && photoExercice?.touched" class="error-message">
+          URL de la photo requise.
+        </div>
+      </div> -->
+
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary" [disabled]="exerciceform.invalid">
+          ✏️ Update
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="goToShowExercices()">
+          ❌ Cancel
+        </button>
       </div>
-    </div>
-
-    <div class="text-center">
-      <button type="submit" class="btn m-2"
-              style="background-color: #28a745; color: white; border-radius: 10px; font-family: 'Dancing Script', cursive; font-style: italic;"
-              [disabled]="exerciceform.invalid">
-        Mettre à jour
-      </button>
-      <button type="button" class="btn m-2"
-      style="background-color: #6c757d; color: white; border-radius: 10px; font-family: 'Dancing Script', cursive; font-style: italic;"
-      routerLink="/coatch/showexercice">
-        Annuler
-      </button>
-
-
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

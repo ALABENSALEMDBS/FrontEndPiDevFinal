@@ -40,3 +40,105 @@
 .btn-update:hover {
   background-color: #0056b3;
 }
+
+
+.sous-group-card {
+  position: relative;
+  width: 300px;
+  padding: 20px;
+  background-image: url('/assets/images/images4.png'); /* Assure-toi que le chemin est bon */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Assure que le texte est bien lisible */
+.sous-group-card h3,
+.sous-group-card p,
+.sous-group-card button {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+
+
+
+
+
+
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background: #1a1a1a;
+  padding: 10px 0;
+}
+
+.carousel-track {
+  display: flex;
+  animation: scroll 10s linear infinite;
+}
+
+.carousel-track img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: 0 10px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-track img:hover {
+  transform: scale(1.1);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.carousel-container {
+  width: 100%; /* Assure que la barre prend toute la largeur */
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background: #1a1a1a;
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 10px;
+  animation: scroll 50s linear infinite;
+  align-items: center; /* Centre les images verticalement */
+  padding-left: 0; /* Enlève le padding à gauche */
+  margin-left: -5px; /* Ajuste la marge pour enlever l’espace */
+}
+
+.carousel-track img {
+  width: 120px; /* Ajuste la taille des images */
+  height: 80px;
+  object-fit: cover;
+  margin: 0; /* Supprime tout espace inutile */
+  padding: 0;
+}
+
+/* Animation continue sans rupture */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+

@@ -1,75 +1,53 @@
-<div class="container mt-4">
-  <!-- Carte transparente sombre -->
-  <div class="card shadow-lg p-4" style="max-width: 600px; margin: 0 auto; background-color: rgba(0, 0, 0, 0.7); color: white;">
-    <h2 class="text-center" style="font-family: 'Dancing Script', cursive; font-style: italic;">
-      Ajouter un Sous-Groupe
-    </h2>
+<hr>
+<div class="add-container">
+  <button class="close-btn" (click)="avoidAdd()">
+    ✖
+  </button>
+  <h2>Add a Subgroup</h2>
 
-    <form [formGroup]="sousGroupForm" (ngSubmit)="addSousGroup()">
-      <!-- Nom du Sous-Groupe -->
-      <div class="form-group mb-3">
-        <label for="nameSousGroup" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Nom du Sous-Groupe</label>
-        <input
-          type="text"
-          id="nameSousGroup"
-          class="form-control"
-          formControlName="nameSousGroup"
-          style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
-        />
-        <div
-          *ngIf="nameSousGroup?.invalid && nameSousGroup?.touched"
-          class="text-danger"
-          style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;"
-        >
-          Nom requis (min 3 caractères).
-        </div>
+  <form [formGroup]="sousGroupForm" (ngSubmit)="addSousGroup()" class="form-card">
+
+    <div class="form-group">
+      <label>Subgroup Name</label>
+      <input type="text" formControlName="nameSousGroup">
+      <div *ngIf="sousGroupForm.get('nameSousGroup')?.invalid && sousGroupForm.get('nameSousGroup')?.touched" class="error-message">
+        Name required (min 3 characters).
       </div>
-
-      <!-- Nombre de Joueurs -->
-      <div class="form-group mb-3">
-        <label for="nbrJoueurSousGroup" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1.1em;">Nombre de Joueurs</label>
-        <input
-          type="number"
-          id="nbrJoueurSousGroup"
-          class="form-control"
-          formControlName="nbrJoueurSousGroup"
-          style="border: 1px solid #ccc; border-radius: 8px; background-color: rgba(255, 255, 255, 0.8); color: black; font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;"
-        />
-        <div
-          *ngIf="nbrJoueurSousGroup?.invalid && nbrJoueurSousGroup?.touched"
-          class="text-danger"
-          style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 0.9em;"
-        >
-          Nombre strictement positif (au moins 1 joueur).
-        </div>
-      </div>
-
-      <!-- Boutons d'Action -->
-      <div class="d-flex justify-content-between mt-3">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="sousGroupForm.invalid"
-          style="background-color: #007bff; border-radius: 5px; font-family: 'Dancing Script', cursive; font-style: italic; color: white; font-size: 1.1em;"
-        >
-          Ajouter
-        </button>
-        <button
-          type="reset"
-          class="btn btn-secondary"
-          style="background-color: #6c757d; border-radius: 5px; font-family: 'Dancing Script', cursive; font-style: italic; color: white; font-size: 1.1em;"
-        >
-          Reset
-        </button>
-      </div>
-    </form>
-
-    <!-- Messages de succès / erreur -->
-    <div *ngIf="successMessage" class="alert alert-success mt-3" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;">
-      {{ successMessage }}
     </div>
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3" style="font-family: 'Dancing Script', cursive; font-style: italic; font-size: 1em;">
-      {{ errorMessage }}
+
+    <div class="form-group">
+      <label>Number of Players</label>
+      <input type="number" formControlName="nbrJoueurSousGroup">
+      <div *ngIf="sousGroupForm.get('nbrJoueurSousGroup')?.invalid && sousGroupForm.get('nbrJoueurSousGroup')?.touched" class="error-message">
+        Positive number required (at least 1 player).
+      </div>
     </div>
+
+    <div *ngFor="let i of playersArray">
+      <div class="form-group">
+        <label>Player {{ i + 1 }} First Name</label>
+        <input type="text" formControlName="playerFirstName{{ i }}">
+      </div>
+      <div class="form-group">
+        <label>Player {{ i + 1 }} Last Name</label>
+        <input type="text" formControlName="playerLastName{{ i }}">
+      </div>
+    </div>
+
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" [disabled]="sousGroupForm.invalid"
+      [ngClass]="{'btn-primary:disabled': sousGroupForm.invalid}">
+      <i class="fas fa-plus-circle"></i> Add
+      </button>
+      <button type="reset" class="btn btn-secondary"> <i class="fas fa-undo"></i> Reset</button>
+    </div>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success mt-3 fade-in">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3 fade-in">
+    {{ errorMessage }}
   </div>
 </div>

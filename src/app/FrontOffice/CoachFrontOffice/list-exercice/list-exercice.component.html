@@ -1,60 +1,46 @@
-<!-- <p>list-seance works!</p> -->
-
 <div class="container-fluid p-4">
-  <h2 style="font-family: 'Dancing Script', cursive; font-style: italic; text-align: center; color: white;">
-    Liste des Exercices
+  <h2 style="text-align: center; margin-bottom: 20px;">
+    List of Exercises
   </h2>
+
   <!-- Bouton Ajouter un Exercice -->
-  <div class="text-center mb-4">
-    <button [routerLink]="['addexercice']" class="btn btn-primary"
-            style="background-color: #007bff; border-radius: 8px; font-family: 'Dancing Script', cursive; font-style: italic; color: white;">
-      Ajouter un Exercice
+  <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <button [routerLink]="['addexercice']"
+            style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
+      <i class="fas fa-plus"></i> Add an Exercise
     </button>
   </div>
 
-  <!-- Liste des Exercices en Cards pleine largeur -->
-  <div class="row g-4">
-    <div class="col-12 col-md-6 col-lg-4" *ngFor="let e of exercice">
-      <div class="card h-100 shadow-lg card-hover"
-           style="background-color: rgba(0, 0, 0, 0.75); color: white; border: none; border-radius: 15px;">
-        <!-- Image de l'Exercice -->
-        <img [src]="e.photoExercice" class="card-img-top"
-             style="border-top-left-radius: 15px; border-top-right-radius: 15px; max-height: 200px; object-fit: cover;">
+  <!-- Liste des Exercices en Cards -->
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    <div *ngFor="let e of exercice" class="sous-group-card"
+         style="width: 300px; padding: 20px; background: rgba(255, 255, 255, 0.726); backdrop-filter: blur(8px); color: black; text-align: center; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+      <h3>{{ e.nameExercice }}</h3>
+      <p>Description : {{ e.descriptionExercice }}</p>
 
-        <div class="card-body">
-          <!-- Nom de l'Exercice -->
-          <h3 class="card-title"
-              style="font-family: 'Dancing Script', cursive; font-style: italic;">
-            {{ e.nameExercice }}
-          </h3>
+      <!-- Vidéo YouTube alignée -->
+      <div class="video-container" *ngIf="e.videoExercice" style="width: 100%; display: flex; justify-content: center;">
+        <iframe
+          [src]="getYoutubeEmbedUrl(e.videoExercice)"
+          width="100%"
+          height="180"
+          frameborder="0"
+          allowfullscreen
+          style="border-radius: 10px; max-width: 100%; object-fit: cover;">
+        </iframe>
+      </div>
 
-          <!-- Description de l'Exercice -->
-          <p class="card-text"
-             style="font-family: 'Dancing Script', cursive; font-style: italic;">
-            {{ e.descriptionExercice }}
-          </p>
+      <!-- Boutons d'Actions -->
+      <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+        <button (click)="deleteExercices(e.idExercice)"
+                style="background: transparent; color: #dc3545; border: 2px solid #dc3545; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+          <i class="fas fa-trash"></i> DELETE
+        </button>
 
-          <!-- Vidéo Exercice (optionnel) -->
-          <div *ngIf="e.videoExercice">
-            <video controls style="width: 100%; border-radius: 10px; margin-top: 10px;">
-              <source [src]="e.videoExercice" type="video/mp4">
-              Votre navigateur ne supporte pas la vidéo.
-            </video>
-          </div>
-        </div>
-
-        <!-- Boutons d'Actions -->
-        <div class="card-footer text-center"
-             style="background-color: transparent; border-top: 1px solid rgba(255, 255, 255, 0.2);">
-          <button (click)="deleteExercices(e.idExercice)" class="btn btn-danger m-2"
-                  style="font-family: 'Dancing Script', cursive; font-style: italic; border-radius: 5px;">
-            Supprimer
-          </button>
-          <button class="btn btn-success m-2" [routerLink]="['updateexercice', e.idExercice]"
-                  style="font-family: 'Dancing Script', cursive; font-style: italic; border-radius: 5px;">
-            Modifier
-          </button>
-        </div>
+        <button [routerLink]="['updateexercice', e.idExercice]"
+                style="background: transparent; color: #0a7941; border: 2px solid #0a7941; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+          <i class="fas fa-edit"></i> Update
+        </button>
       </div>
     </div>
   </div>
