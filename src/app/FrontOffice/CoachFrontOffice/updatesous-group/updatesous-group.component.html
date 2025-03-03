@@ -1,58 +1,43 @@
-<!-- <p>updatesous-group works!</p> -->
-{{idSousGroup}}
-<div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
-  <div style="width: 400px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); padding: 30px;
-              border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); color: white;
-              font-family: 'Dancing Script', cursive;">
-    <h2 style="text-align: center; margin-bottom: 20px;">Mettre à jour le Sous-Groupe</h2>
+<div class="modal-overlay" (click)="closeModal()" *ngIf="isModalOpen"></div>
 
-    <form [formGroup]="sousGroupForm" (ngSubmit)="updateSousGroup()">
+<div class="modal-container" *ngIf="isModalOpen">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close-button" (click)="closeModal()">&times;</span>
+        <!-- 🎯 Titre dynamique avec le nom du sous-groupe -->
+    <h2>Update Sous-Groupe: <strong>{{ sousGroupForm.get('nameSousGroup')?.value }}</strong></h2>
 
-      <div class="form-group" style="margin-bottom: 20px;">
-        <label>ID du Sous-Groupe</label>
-        <input type="text" class="form-control" formControlName="idSousGroup"
-               style="width: 100%; padding: 10px; border-radius: 5px; border: none;
-                      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">
+
+    <form [formGroup]="sousGroupForm" (ngSubmit)="updateSousGroup()" class="form-card">
+
+      <div class="form-group">
+        <label>Group Reference</label>
+        <input type="text" formControlName="idSousGroup" readonly>
       </div>
 
-      <div class="form-group" style="margin-bottom: 20px;">
-        <label>Nom du Sous-Groupe</label>
-        <input type="text" class="form-control" formControlName="nameSousGroup"
-               style="width: 100%; padding: 10px; border-radius: 5px; border: none;
-                      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">
-        <div *ngIf="nameSousGroup?.invalid && nameSousGroup?.touched"
-             style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
-          Nom requis (min 3 caractères).
+      <div class="form-group">
+        <label>Group Name</label>
+        <input type="text" formControlName="nameSousGroup">
+        <div *ngIf="nameSousGroup?.invalid && nameSousGroup?.touched" class="error-message">
+          Name required (min 3 characters).
         </div>
       </div>
 
-      <div class="form-group" style="margin-bottom: 20px;">
-        <label>Nombre de Joueurs</label>
-        <input type="number" class="form-control" formControlName="nbrJoueurSousGroup"
-               style="width: 100%; padding: 10px; border-radius: 5px; border: none;
-                      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">
-        <div *ngIf="nbrJoueurSousGroup?.invalid && nbrJoueurSousGroup?.touched"
-             style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
-          Entre 1 et 50 joueurs.
+      <div class="form-group">
+        <label>Number of Players</label>
+        <input type="number" formControlName="nbrJoueurSousGroup" min="1" max="50">
+        <div *ngIf="nbrJoueurSousGroup?.invalid && nbrJoueurSousGroup?.touched" class="error-message">
+          Must be between 1 and 50.
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" (click)="updateSousGroup()"
-              [disabled]="sousGroupForm.invalid"
-              style="width: 100%; padding: 10px; background-color: #28a745; color: white;
-                     border: none; border-radius: 5px; cursor: pointer; font-size: 18px;">
-        Mettre à jour
-      </button>
-
-      <button type="button"
-      class="btn btn-secondary"
-      (click)="goToShowSousGroups()"
-      style="width: 100%; padding: 10px; background-color: #95a5a6; color: white;
-             border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; font-size: 18px;">
-Annuler
-</button>
-
-
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary" [disabled]="sousGroupForm.invalid">
+          ✏️ Update
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="goToShowSousGroups()">
+          ❌ Cancel
+        </button>
+      </div>
     </form>
   </div>
 </div>

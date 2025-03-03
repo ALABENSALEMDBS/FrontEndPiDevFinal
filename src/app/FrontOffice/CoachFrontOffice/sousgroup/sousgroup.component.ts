@@ -11,6 +11,18 @@ import { sousgroup } from 'src/core/models/sousgroup';
 export class SousgroupComponent implements OnInit {
   sousGroupes: sousgroup[] = [];
   showOutlet: boolean = false;
+  images: string[] = [
+    'assets/images/images.png',
+    'assets/images/images1.jpeg',
+    'assets/images/images2.png',
+    'assets/images/images3.png',
+    'assets/images/images4.png',
+    'assets/images/images5.jpg',
+    'assets/images/images6png.png',
+    'assets/images/images7.png',
+    'assets/images/images8.png'
+  ];
+
 
   constructor(private coatchService: SousgroupeService) {}
 
@@ -45,5 +57,23 @@ export class SousgroupComponent implements OnInit {
     toggleRouterOutlet() {
       this.showOutlet = !this.showOutlet;
     }
-    
+
+    joueursSousGroupe: any[] = [];
+selectedSousGroupId: number | null = null;
+
+showPlayers(idSousGroup: number): void {
+  if (this.selectedSousGroupId === idSousGroup) {
+    this.selectedSousGroupId = null;
+    this.joueursSousGroupe = [];
+    return;
+  }
+
+  this.selectedSousGroupId = idSousGroup;
+
+  this.coatchService.getPlayersBySousGroup(idSousGroup).subscribe(data => {
+    this.joueursSousGroupe = data.joueurs;
+  });
+}
+
+
 }

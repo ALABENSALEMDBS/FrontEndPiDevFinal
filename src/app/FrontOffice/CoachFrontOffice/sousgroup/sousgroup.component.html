@@ -1,44 +1,71 @@
-<!-- <p>sousgroup works!</p> -->
-
-<h2 style="text-align: center; margin-bottom: 20px; font-family: 'Dancing Script', cursive; color: #fff;">
-  Liste des Sous-Groupes
+<h2 style="text-align: center; margin-bottom: 20px;">
+  List of Subgroups
 </h2>
 
 <!-- Bouton Ajouter un Sous-Groupe -->
-<div style="text-align: center; margin-bottom: 20px;">
+<div style="display: flex; justify-content: center; margin-bottom: 20px;">
   <button [routerLink]="['addsousgroup']"
-          style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-family: 'Dancing Script', cursive;">
-    Ajouter un Sous-Groupe
+          style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
+    <i class="fas fa-plus"></i> Add A Subgroup
   </button>
+</div>
+
+<div class="carousel-container">
+  <div class="carousel-track">
+    <img *ngFor="let img of images.concat(images)" [src]="img" alt="Legend">
+    <img src="assets/images/images.png" alt="Legend">
+    <img src="assets/images/images1.jpeg" alt="Legend">
+    <img src="assets/images/images2.png" alt="Legend">
+    <img src="assets/images/images3.png" alt="Legend">
+    <img src="assets/images/images4.png" alt="Legend">
+    <img src="assets/images/images5.jpg" alt="Legend">
+    <img src="assets/images/images6png.png" alt="Legend">
+    <img src="assets/images/images7.png" alt="Legend">
+    <img src="assets/images/images8.png" alt="Legend">
+  </div>
 </div>
 
 <!-- Liste des Cartes Sous-Groupes -->
 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-  <div *ngFor="let sg of sousGroupes"
-       style="width: 300px; border-radius: 10px; padding: 20px; background: rgba(0, 0, 0, 0.6);
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px);
-              color: white; font-family: 'Dancing Script', cursive; text-align: center;">
-
+  <div *ngFor="let sg of sousGroupes"class="sous-group-card"
+       style="width: 300px; padding: 20px; background: rgba(255, 255, 255, 0.726); backdrop-filter: blur(8px); color: black; text-align: center; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
     <h3>{{ sg.nameSousGroup }}</h3>
-    <p>Nombre de Joueurs : {{ sg.nbrJoueurSousGroup }}</p>
+    <p>Number Of Players : {{ sg.nbrJoueurSousGroup }}</p>
 
     <!-- Boutons d'Action -->
-    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-      <button (click)="deleteSousGroup(sg.idSousGroup)"
-              style="background-color: #dc3545; color: white; border: none; padding: 5px 10px;
-                     border-radius: 5px; cursor: pointer; font-family: 'Dancing Script', cursive;">
-        Supprimer
-      </button>
-      <button [routerLink]="['update', sg.idSousGroup]"
-              style="background-color: #007bff; color: white; border: none; padding: 5px 10px;
-                     border-radius: 5px; cursor: pointer; font-family: 'Dancing Script', cursive;">
-        Update
-      </button>
-    </div>
-  </div>
+    <!-- Boutons d'Action avec Icônes -->
+<!-- Boutons d'Action avec Icônes et Bordure Colorée -->
+<div style="display: flex; justify-content: space-between; margin-top: 15px;">
+  <button (click)="deleteSousGroup(sg.idSousGroup)"
+          style="background: transparent; color: #dc3545; border: 2px solid #dc3545; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+    <i class="fas fa-trash"></i> DELETE
+  </button>
+
+  <button [routerLink]="['update', sg.idSousGroup]"
+          style="background: transparent; color: #0a7941; border: 2px solid #0a7941; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+    <i class="fas fa-edit"></i> Update
+  </button>
 </div>
 
 
+<button (click)="showPlayers(sg.idSousGroup)"
+        style="background: transparent; color: #007bff; border: 2px solid #007bff; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+  <i class="fas fa-users"></i> Players
+</button>
+
+<!-- Liste des joueurs affichée uniquement si sélectionnée -->
+<div *ngIf="selectedSousGroupId === sg.idSousGroup">
+  <h4>Players:</h4>
+  <ul>
+    <li *ngFor="let joueur of joueursSousGroupe">
+      {{ joueur.nom }} {{ joueur.prenom }}
+    </li>
+  </ul>
+</div>
+
+
+  </div>
+</div>
 
 <!-- Ajout du router-outlet ici -->
 <router-outlet></router-outlet>

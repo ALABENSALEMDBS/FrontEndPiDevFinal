@@ -1,7 +1,100 @@
-.card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.video-thumbnail {
+  position: relative;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
 }
-.card-hover:hover {
-  transform: scale(1.05);
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+
+.video-preview {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
 }
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 50%;
+}
+
+/* Fenêtre de vidéo en plein écran */
+.fullscreen-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.video-wrapper {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.fullscreen-video iframe {
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.fullscreen-video:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.fullscreen-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Agrandir la vidéo avec une marge */
+.video-wrapper {
+  background: black;
+  padding: 15px;
+  border-radius: 15px;
+  max-width: 95%;
+  max-height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-video iframe {
+  width: 90vw;  /* Largeur 90% de l'écran */
+  height: 80vh; /* Hauteur 80% de l'écran */
+  border-radius: 10px;
+}
+.sous-group-card {
+  transition: transform 0.5s;
+  perspective: 1000px;
+}
+
+.sous-group-card:hover {
+  transform: rotateY(30deg);
+}
+
+
+

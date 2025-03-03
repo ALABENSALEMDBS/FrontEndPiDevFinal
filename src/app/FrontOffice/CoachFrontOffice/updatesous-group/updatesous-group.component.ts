@@ -14,6 +14,7 @@ export class UpdatesousGroupComponent implements OnInit {
   idSousGroup: any;
   sousGroupForm!: FormGroup;
   listSousGroup: any[] = [];
+  isModalOpen = true;
 
   constructor(private act: ActivatedRoute, private sousGrpService: SousgroupeService, private router: Router) { }
 
@@ -29,8 +30,10 @@ export class UpdatesousGroupComponent implements OnInit {
 
     // Charger les données du sous-groupe à modifier
     this.sousGrpService.getbyidsousgroup(this.idSousGroup).subscribe((data) => {
+      console.log("Données récupérées :", data);
       this.listSousGroup = [data];  // On met les données récupérées dans le tableau
       this.sousGroupForm.patchValue(this.listSousGroup[0]);  // Remplir le formulaire avec les données récupérées
+
     });
   }
 
@@ -42,16 +45,51 @@ export class UpdatesousGroupComponent implements OnInit {
     return this.sousGroupForm.get('nbrJoueurSousGroup');
   }
 
+  // updateSousGroup() {
+  //   if (this.sousGroupForm.valid) {
+  //     this.sousGrpService.updatesousgroup( this.idSousGroup,this.sousGroupForm.value).subscribe(() => {
+  //       this.sousGroupForm.reset();
+  //       this.closeModal();
+
+  //       this.router.navigate(['/coatch/ShowSousGroups']).then(() => {
+  //         window.location.reload();  // This will reload the page after navigation
+  //       });
+  //       this.router.navigate(['/coatch/ShowSousGroups']).then(() => {
+  //         console.log("Navigation réussie !");
+  //       }).catch(err => console.error("Erreur de navigation :", err));
+  //     });
+  //   }
+  // }
+  // goToShowSousGroups() {
+  //   this.router.navigate(['/coatch/ShowSousGroups']);
+  // }
+
+
   updateSousGroup() {
     if (this.sousGroupForm.valid) {
-      this.sousGrpService.updatesousgroup( this.idSousGroup,this.sousGroupForm.value).subscribe(() => {
+      this.sousGrpService.updatesousgroup(this.idSousGroup, this.sousGroupForm.value).subscribe(() => {
         this.sousGroupForm.reset();
-        window.location.reload();
+        this.closeModal();  // Ferme la modale avant de naviguer
+
+        // Navigation vers la page des sous-groupes après la mise à jour
+        setTimeout(() => {
+          this.router.navigateByUrl('/coatch/ShowSousGroups');
+        }, 200);  // Délai de 200ms pour s'assurer que la mise à jour est terminée
       });
     }
   }
+
   goToShowSousGroups() {
-    this.router.navigate(['/coatch/ShowSousGroups']);
+    this.router.navigate(['/coatch/ShowSousGroups']);  // Redirige vers la page des sous-groupes
+    this.closeModal();  // Ferme la modale si elle est ouverte
   }
+
+   closeModal() {
+     this.isModalOpen = false;
+     if (!this.sousGroupForm.dirty) {
+      this.router.navigate(['/coatch/ShowSousGroups']);
+    }
+   }
+
 
 }

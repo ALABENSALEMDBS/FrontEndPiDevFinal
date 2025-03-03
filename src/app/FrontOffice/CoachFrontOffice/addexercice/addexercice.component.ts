@@ -21,12 +21,12 @@ export class AddexerciceComponent {
       descriptionExercice: new FormControl('', [Validators.required]),
       videoExercice: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^https?:\/\/.*\.mp4$/) // Validation de l'URL de la vidéo (ex: https://exemple.com/nom.mp4)
+        // Validators.pattern(/^https?:\/\/.*\.mp4$/) // Validation de l'URL de la vidéo (ex: https://exemple.com/nom.mp4)
       ]),
-      photoExercice: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/) // Validation de l'URL de la photo (png, jpg, jpeg, gif)
-      ])
+      // photoExercice: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/) // Validation de l'URL de la photo (png, jpg, jpeg, gif)
+      // ])
     });
   }
 
@@ -60,7 +60,12 @@ export class AddexerciceComponent {
     return this.exerciceform.get('videoExercice');
   }
 
-  get photoExercice() {
-    return this.exerciceform.get('photoExercice');
+  // get photoExercice() {
+  //   return this.exerciceform.get('photoExercice');
+  // }
+
+  avoidAdd() {
+    this.rout.navigate(['/coatch/showexercice']); // Changez '/listexercie' selon votre route réelle
   }
+
 }

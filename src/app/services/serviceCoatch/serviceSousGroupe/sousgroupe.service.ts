@@ -13,28 +13,32 @@ export class SousgroupeService {
    private apiUrlDelete='http://localhost:8089/PiDevBackEndProject/sousGroupes/remove-sousGroupes';
    private apiUrlUpDate='http://localhost:8089/PiDevBackEndProject/sousGroupes/modify-sousGroupes';
    private apiUrlGetById='http://localhost:8089/PiDevBackEndProject/sousGroupes/retrieve-sousGroupes';
- 
- 
+
    getAllSousGroupes(): Observable<sousgroup[]> {
      return this.http.get<sousgroup[]>(this.apiUrl);
    }
- 
+
    delsousGroup(id:any):Observable<sousgroup[]>{ // ce quoi l'erreue da NullInjector Error dans Angular
- 
+
      return this.http.delete<sousgroup[]>(this.apiUrlDelete+"/"+id)
- 
+
   }
- 
+
   updatesousgroup(id:any,res:sousgroup):Observable<sousgroup[]>{
    return this.http.put<sousgroup[]>(this.apiUrlUpDate +'/'+id,res)
  }
- 
- 
+
+
  getbyidsousgroup(idSousGroup:any):Observable<sousgroup[]>{
    return this.http.get<sousgroup[]>(this.apiUrlGetById+'/'+idSousGroup)
  }
- 
+
  addsousgroup(sg:sousgroup):Observable<sousgroup[]>{
    return this.http.post<sousgroup[]>("http://localhost:8089/PiDevBackEndProject/sousGroupes/add-sousGroupes",sg)
  }
+
+ getPlayersBySousGroup(idSousGroup: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrlGetById}/${idSousGroup}`);
+}
+
 }
