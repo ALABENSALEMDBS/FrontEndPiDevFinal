@@ -1,9 +1,7 @@
 <hr>
 <div class="add-container">
-  <button class="close-btn" (click)="avoidAdd()">
-    ✖
-  </button>
-  <h2>Add a Formation.</h2>
+  <button class="close-btn" (click)="avoidAdd()">✖</button>
+  <h2>Add a Formation</h2>
 
   <form [formGroup]="formationForm" (ngSubmit)="addFormation()" class="form-card">
     
@@ -16,17 +14,24 @@
         </option>
       </select>
       <div *ngIf="formationForm.get('nameFormation')?.invalid && formationForm.get('nameFormation')?.touched" class="error-message">
-        Selection required.
+        <span *ngIf="formationForm.get('nameFormation')?.errors?.['required']">Selection required.</span>
+        <span *ngIf="formationForm.get('nameFormation')?.errors?.['minlength']">Minimum 3 characters.</span>
+        <span *ngIf="formationForm.get('nameFormation')?.errors?.['pattern']">Must start with a letter.</span>
       </div>
+      <span *ngIf="formationForm.get('nameFormation')?.valid" class="valid-message">✅</span>
     </div>
-
+    
     <div class="form-group">
       <label>Formation Description</label>
       <input type="text" formControlName="descriptionFormation">
       <div *ngIf="formationForm.get('descriptionFormation')?.invalid && formationForm.get('descriptionFormation')?.touched" class="error-message">
-        Description required.
+        <span *ngIf="formationForm.get('descriptionFormation')?.errors?.['required']">Description required.</span>
+        <span *ngIf="formationForm.get('descriptionFormation')?.errors?.['minlength']">Minimum 10 characters.</span>
+        <span *ngIf="formationForm.get('descriptionFormation')?.errors?.['pattern']">Must start with a letter.</span>
       </div>
+      <span *ngIf="formationForm.get('descriptionFormation')?.valid" class="valid-message">✅</span>
     </div>
+    
 
     <div class="btn-group">
       <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">

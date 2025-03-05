@@ -25,7 +25,7 @@ export class AddformationComponent {
         // Initialisation manuelle du FormGroup
         this.formationForm = new FormGroup({
           nameFormation: new FormControl('', [Validators.required, Validators.minLength(3)]),
-          descriptionFormation: new FormControl('', [Validators.required,])
+          descriptionFormation: new FormControl('', [Validators.required,Validators.minLength(10),Validators.pattern(/^[A-Za-z].*$/)])
         });
       }
 

@@ -32,6 +32,11 @@ export class FormationService {
   }
 
 
+  private apiUrl = 'http://localhost:8089/PiDevBackEndProject/Formations/affecter-JoueurFormation';
 
- 
+ affecterjoueurAformation(numeroJoueur: any, idFormation: any): Observable<formation[]> {
+  const url = `${this.apiUrl}/${numeroJoueur}/${idFormation}`;
+
+  return this.http.post<formation[]>(url, {});
+}
 }

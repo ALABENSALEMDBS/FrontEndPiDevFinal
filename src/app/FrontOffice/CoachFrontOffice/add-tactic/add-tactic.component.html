@@ -5,30 +5,55 @@
     ✖
   </button>
   
-    <div class="form-group">
-        <label for="nom">Tactic Name :</label>
-        <input type="text" id="nom" name="nom" placeholder="Put the Tactic Name"  [(ngModel)]="nameTactic">
-        <p class="description">Please enter the name of the tactic.</p>
-    </div>
-    <div class="form-group">
-        <label for="description">Description :</label>
-        <textarea id="description" name="description" rows="2" placeholder="Put a description" [(ngModel)]="descriptionTactic"></textarea>
-        <p class="description">Please enter a detailed description.</p>
+  <div class="form-group">
+    <label for="nom">Tactic Name:</label>
+    <input 
+      type="text" 
+      id="nom" 
+      name="nom" 
+      placeholder="Enter the Tactic Name" 
+      [(ngModel)]="nameTactic"
+      required
+      minlength="3"
+      #nameInput="ngModel">
+    <!-- <p class="description">Please enter the name of the tactic (minimum 3 characters).</p> -->
+    <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-message">
+      <div *ngIf="nameInput.errors?.['required']">Tactic name is required.</div>
+      <div *ngIf="nameInput.errors?.['minlength']">Tactic name must be at least 3 characters long.</div>
     </div>
   </div>
+  
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <textarea 
+      id="description" 
+      name="description" 
+      rows="2" 
+      placeholder="Enter a description" 
+      [(ngModel)]="descriptionTactic"
+      required
+      minlength="10"
+      #descInput="ngModel"></textarea>
+    <!-- <p class="description">Please enter a detailed description (minimum 10 characters).</p> -->
+    <div *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)" class="error-message">
+      <div *ngIf="descInput.errors?.['required']">Description is required.</div>
+      <div *ngIf="descInput.errors?.['minlength']">Description must be at least 10 characters long.</div>
+    </div>
+  </div>
+</div>
   
   <div class="Butt-DA" [hidden]="!isTacticVisible()">
     
       <!-- Bouton pour démarrer et arrêter l'enregistrement -->
       <div class="controls">
-        <button (click)="startRecording()" [disabled]="isRecording">Démarrer l'enregistrement</button>
-        <button (click)="stopRecording()" [disabled]="!isRecording">Arrêter l'enregistrement</button>
+        <button (click)="startRecording()" [disabled]="isRecording"><i class="icon">▶️</i> Start Recording</button>
+        <button (click)="stopRecording()" [disabled]="!isRecording"><i class="icon">⏸️</i> Stop Recording</button>
       </div>
       <div class="point-enregis" *ngIf="isRecording">
         🔴
       </div>
   
-      <button style="background-color: rgb(234, 255, 0); color: black;" (click)="confirmDelete()"> {{ isVideoVisible ? '❌ Delete' : '🎥' }}</button>
+      <button style="background-color: rgb(234, 255, 0); color: black;" (click)="confirmDelete()"> {{ isVideoVisible ? '❌ hidden' : '🎥' }}</button>
   
       <div *ngIf="isVideoVisible">
         <video #videoPlayer controls ></video>
