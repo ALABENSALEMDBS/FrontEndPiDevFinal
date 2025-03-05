@@ -40,4 +40,9 @@ export class JoueurService {
     return this.http.get<Users[]>( "http://localhost:8089/PiDevBackEndProject/Formations/retrieve-joueurs/"+idFormation)
   }
 
+  getAllJoueursALA():Observable<Joueurs[]>{
+    return this.http.get<Joueurs[]>("http://localhost:8089/PiDevBackEndProject/joueurs/retrieve-all-joueurs");
+  }
+
+
 }

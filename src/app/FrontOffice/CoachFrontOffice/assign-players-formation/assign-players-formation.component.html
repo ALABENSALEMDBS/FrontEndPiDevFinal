@@ -1,0 +1,99 @@
+<div class="players-container">
+    <div class="header">
+      <h1>Player List To Assign</h1>
+      <div class="actions">
+        <div class="view-toggle">
+          <button 
+            [class.active]="viewMode === 'card'" 
+            (click)="toggleViewMode('card')" 
+            title="Card View">
+            <i class="view-icon">📱</i>
+          </button>
+          <button 
+            [class.active]="viewMode === 'list'" 
+            (click)="toggleViewMode('list')" 
+            title="List View">
+            <i class="view-icon">📋</i>
+          </button>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="Search for a player..." #searchInput (input)="searchPlayers(searchInput.value)">
+          <i class="search-icon">🔍</i>
+        </div>
+      </div>
+    </div>
+  
+    <div class="players-content">
+      <div *ngIf="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Loading players...</p>
+      </div>
+  
+      <div *ngIf="!loading && filteredJoueurs.length === 0" class="no-players">
+        <p>No players found</p>
+      </div>
+  
+      <!-- Card View -->
+      <div *ngIf="!loading && filteredJoueurs.length > 0 && viewMode === 'card'" class="players-grid">
+        <div class="player-card" *ngFor="let player of paginatedJoueurs">
+          <div class="player-photo">
+            <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">
+          </div>
+          <div class="player-info">
+            <h3>{{player.nameUsers}} {{player.prenomUser}}</h3>
+            <p class="position">{{player.posteJoueur}}</p>
+            <div class="player-details">
+              <p><strong>Number:</strong> {{player.numeroJoueur}}</p>
+              <p><strong>Email:</strong> {{player.emailUser}}</p>
+              <p><strong>Phone:</strong> {{player.telephoneUser}}</p>
+              <div class="contract-info">
+                <p><strong>Contract:</strong> 
+                  <span>From {{player.debutContratJoueur | date:'MM/dd/yyyy'}} to {{player.finContratJoueur | date:'MM/dd/yyyy'}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- List View -->
+      <div *ngIf="!loading && filteredJoueurs.length > 0 && viewMode === 'list'" class="players-list">
+        <table>
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Number</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Contract</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let player of paginatedJoueurs">
+              <td class="player-avatar">
+                <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">
+              </td>
+              <td>{{player.nameUsers}} {{player.prenomUser}}</td>
+              <td><span class="position-badge">{{player.posteJoueur}}</span></td>
+              <td>{{player.numeroJoueur}}</td>
+              <td>{{player.emailUser}}</td>
+              <td>{{player.telephoneUser}}</td>
+              <td>{{player.debutContratJoueur | date:'MM/dd/yyyy'}} - {{player.finContratJoueur | date:'MM/dd/yyyy'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">Previous</button>
+      <span *ngFor="let page of getPageNumbers()" 
+            [class.active]="page === currentPage"
+            (click)="changePage(page)">
+        {{page}}
+      </span>
+      <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">Next</button>
+    </div>
+  </div>

@@ -1,10 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AssignPlayersFormationComponent } from "../assign-players-formation/assign-players-formation.component";
 
 @Component({
   selector: 'app-players-formation',
-  imports: [CommonModule],
+  imports: [CommonModule, AssignPlayersFormationComponent],
   templateUrl: './players-formation.component.html',
   styleUrl: './players-formation.component.css',
   animations: [
@@ -27,7 +28,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   ],
 })
 export class PlayersFormationComponent {
+  showPopup = false;
 
+  isAssignOpen = false; // Contrôle l'affichage du composant Assign Players
 
   @Input() isOpen = false
   @Input() formation: any
@@ -35,5 +38,31 @@ export class PlayersFormationComponent {
 
   closePanel(): void {
     this.close.emit()
+    this.isOpen=false;
+    this.isAssignOpen = false; // Fermer également assign
+
   }
+
+
+  assignPlayer(idFormation: number)
+{
+  console.log("Assign player to formation:", this.formation?.nameFormation)
+  this.showPopup = true;
+  this.isAssignOpen = true;
+
+  // Example implementation:
+  // this.dialog.open(AssignPlayerDialogComponent, {
+  //   data: { formationId: this.formation?.id }
+  // });
+}
+
+openPanel() {
+  this.isOpen = true;
+}
+
+closeAssignPanel() {
+  this.isAssignOpen = false;
+  this.showPopup = false;
+
+}
 }

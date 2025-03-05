@@ -498,7 +498,7 @@ export class AddTacticComponent implements OnInit {
 
 //****************************************************************************************** */
       confirmDelete() {
-        if (this.isVideoVisible && confirm("Voulez-vous vraiment supprimer la vidéo ?")) {
+        if (this.isVideoVisible ) {   //&& confirm("Voulez-vous vraiment supprimer la vidéo ?")
           this.isVideoVisible = false;
         } else if (!this.isVideoVisible) {
           this.isVideoVisible = true;
@@ -509,9 +509,10 @@ export class AddTacticComponent implements OnInit {
 
 
 
-  isTacticVisible(): boolean {
-    return this.nameTactic.trim() !== '' && this.descriptionTactic.trim() !== '';
-  }
+isTacticVisible(): boolean {
+  return this.nameTactic.trim().length >= 3 && this.descriptionTactic.trim().length >= 10;
+}
+
 
   uploadError: string | null = null;
   uploadResponse: any;
