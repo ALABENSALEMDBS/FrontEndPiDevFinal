@@ -438,3 +438,18 @@
     width: 18px;
     height: 18px;
   }
+
+
+  .warning-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    gap: 16px;
+  }
+  
+  .warning-container h6 {
+    margin: 0;
+    font-size: 0.875rem; /* Equivalent to 14px */
+  }
+  

@@ -1,7 +1,13 @@
 <div class="players-container">
     <div class="header">
-      <h1>Player List To Assign</h1>
-      <div class="actions">
+      <h1>Player List To Assign At This Formation: <span style="color: red; text-decoration: underline;">{{formation?.nameFormation}}</span></h1>
+    
+    <!-- Added a flex container for the h6 elements -->
+    <div class="warning-container">
+      <h6 style="color: rgb(250, 8, 8);">The checkboxes that are disabled mean that the players are already assigned to the formation.</h6>
+    </div>
+
+    <div class="actions">
         <div class="view-toggle">
           <button 
             [class.active]="viewMode === 'card'" 
@@ -22,7 +28,8 @@
         </div>
       </div>
     </div>
-  
+    <h6 style="color: rgb(250, 8, 8);">Or you reached the limit (11 players)</h6>
+
     <div class="players-content">
       <div *ngIf="loading" class="loading">
         <div class="spinner"></div>
@@ -39,8 +46,9 @@
           <div class="player-checkbox">
             <input type="checkbox" 
                    [checked]="isPlayerSelected(player.idUser)"
-                   (change)="togglePlayerSelection(player.idUser)">
-          </div>
+                   (change)="togglePlayerSelection(player.idUser)"
+                   [disabled]="!isPlayerSelected(player.idUser) && (formation?.joueurs?.length + selectedPlayers.length >= 11 || isPlayerInFormation(player.idUser))">
+                  </div>
           <div class="player-photo">
             <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">
           </div>
@@ -81,7 +89,8 @@
               <td>
                 <input type="checkbox" 
                        [checked]="isPlayerSelected(player.idUser)"
-                       (change)="togglePlayerSelection(player.idUser)">
+                       (change)="togglePlayerSelection(player.idUser)"
+                       [disabled]="!isPlayerSelected(player.idUser) && (formation?.joueurs?.length + selectedPlayers.length >= 11 || isPlayerInFormation(player.idUser))">
               </td>
               <td class="player-avatar">
                 <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JoueurService } from 'src/app/services/serviceAdminClub/serviceJoueur/joueur.service';
+import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 import { Joueurs } from 'src/core/models/joueur';
 
 @Component({
@@ -11,6 +12,10 @@ import { Joueurs } from 'src/core/models/joueur';
   styleUrl: './assign-players-formation.component.css'
 })
 export class AssignPlayersFormationComponent implements OnInit {
+  @Input() formation: any
+
+  successMessage: string = '';
+    errorMessage: string = '';
 
   selectedPlayers: number[] = []; // Nouveau tableau pour stocker les IDs des joueurs sélectionnés
   filteredJoueurs: Joueurs[] = [];
@@ -21,11 +26,11 @@ export class AssignPlayersFormationComponent implements OnInit {
   
   // Pagination
   currentPage: number = 1;
-  itemsPerPage: number = 6;
+  itemsPerPage: number = 8;
   totalPages: number = 1;
   joueurs: Joueurs[] = [];
 
-  constructor(private serv: JoueurService, private rout: Router) {}
+  constructor(private serv: JoueurService,private affecService: FormationService , private rout: Router) {}
 
   ngOnInit(): void {
     this.getJoueurs();
@@ -109,7 +114,25 @@ export class AssignPlayersFormationComponent implements OnInit {
 
 
   assignSelectedPlayers(): void {
-    console.log('Assigner les joueurs avec les IDs:', this.selectedPlayers);
-    // Ajoutez ici la logique pour assigner les joueurs sélectionnés
+    console.log('Assigner les joueurs avec les IDs:', this.selectedPlayers , 'de la formation', this.formation.idFormation);
+    this.affecService.affecterjoueursAformation( this.formation.idFormation, this.selectedPlayers).subscribe({
+      next: () => {
+        this.successMessage = 'Players assigned with success !';
+        this.errorMessage = '';
+        window.location.reload();
+      },
+      error: () => {
+        this.errorMessage = 'Error when assigned ';
+        this.successMessage = '';
+      }
+    });
   }
+
+
+
+  isPlayerInFormation(playerId: number): boolean {
+    return this.formation?.joueurs?.some((j: { idUser: number }) => j.idUser === playerId);
+  }
+  
+  
 }
