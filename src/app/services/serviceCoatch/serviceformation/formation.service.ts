@@ -32,11 +32,16 @@ export class FormationService {
   }
 
 
-  private apiUrl = 'http://localhost:8089/PiDevBackEndProject/Formations/affecter-JoueurFormation';
+  private apiUrl = 'http://localhost:8089/PiDevBackEndProject/Formations/affecter-joueursAFormation';
 
- affecterjoueurAformation(numeroJoueur: any, idFormation: any): Observable<formation[]> {
-  const url = `${this.apiUrl}/${numeroJoueur}/${idFormation}`;
+affecterjoueursAformation( idFormation: any, numeroJoueur: any[]): Observable<any[]> {
+  const url = `${this.apiUrl}/${idFormation}`;
 
-  return this.http.post<formation[]>(url, {});
+  return this.http.post<any[]>(url, numeroJoueur);
+}
+
+
+dessaffecterJoueurAFormation(idFormation:number, idJoueur:number):Observable<any[]>{
+  return this.http.post<any[]>("http://localhost:8089/PiDevBackEndProject/Formations/desaffecterJoueurAFormation/"+idFormation+'/'+idJoueur,null);
 }
 }

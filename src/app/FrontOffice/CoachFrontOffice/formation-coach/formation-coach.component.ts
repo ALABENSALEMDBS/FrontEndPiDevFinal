@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JoueurService } from 'src/app/services/serviceAdminClub/serviceJoueur/joueur.service';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 import { formation } from 'src/core/models/formation';
@@ -12,7 +12,9 @@ import { Joueurs } from 'src/core/models/joueur';
     standalone: false
 })
 export class FormationCoachComponent implements OnInit {
-
+  showMessage = false
+  message = ""
+  messageType: "success" | "error" = "success"
 
 
    formation: formation[] = [];
@@ -21,7 +23,7 @@ export class FormationCoachComponent implements OnInit {
    showPopup = false; // Contrôle l'affichage de la popup 
 
   
-    constructor(private coatchService: FormationService, private joueurservice:JoueurService) {}
+    constructor(private coatchService: FormationService, private joueurservice:JoueurService, private route: ActivatedRoute, private router: Router) {}
   
 
     successMessage: string = '';
@@ -30,7 +32,9 @@ export class FormationCoachComponent implements OnInit {
     ngOnInit(): void {
       this.getFormations();
     }
-  
+
+
+
     getFormations(): void {
       this.coatchService.getAllFormation().subscribe(data => {
         this.formation = data;
