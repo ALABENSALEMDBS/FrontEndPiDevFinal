@@ -153,12 +153,13 @@
   /* Players grid (Card View) */
   .players-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
   }
   
   /* Player card */
   .player-card {
+    position: relative;
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
@@ -174,7 +175,7 @@
   }
   
   .player-photo {
-    height: 200px;
+    height: 150px;
     overflow: hidden;
     background-color: #f5f5f5;
   }
@@ -413,4 +414,27 @@
     .view-toggle {
       align-self: center;
     }
+  }
+
+
+
+
+
+  /* Style pour la case à cocher dans la vue en cartes */
+.player-checkbox {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+  }
+  
+  .player-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Style pour la case à cocher dans la vue en liste */
+  .players-list td input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
   }
