@@ -11,6 +11,8 @@ import { Joueurs } from 'src/core/models/joueur';
   styleUrl: './assign-players-formation.component.css'
 })
 export class AssignPlayersFormationComponent implements OnInit {
+
+  selectedPlayers: number[] = []; // Nouveau tableau pour stocker les IDs des joueurs sélectionnés
   filteredJoueurs: Joueurs[] = [];
   loading: boolean = true;
   
@@ -85,5 +87,29 @@ export class AssignPlayersFormationComponent implements OnInit {
   // Toggle view mode between card and list
   toggleViewMode(mode: 'card' | 'list'): void {
     this.viewMode = mode;
+  }
+
+
+
+
+  togglePlayerSelection(playerId: number): void {
+    const index = this.selectedPlayers.indexOf(playerId);
+    if (index > -1) {
+      this.selectedPlayers.splice(index, 1); // Retirer l'ID si déjà présent
+    } else {
+      this.selectedPlayers.push(playerId); // Ajouter l'ID s'il n'est pas présent
+    }
+    console.log('Joueurs sélectionnés:', this.selectedPlayers);
+  }
+
+  isPlayerSelected(playerId: number): boolean {
+    return this.selectedPlayers.includes(playerId);
+  }
+
+
+
+  assignSelectedPlayers(): void {
+    console.log('Assigner les joueurs avec les IDs:', this.selectedPlayers);
+    // Ajoutez ici la logique pour assigner les joueurs sélectionnés
   }
 }

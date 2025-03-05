@@ -36,6 +36,11 @@
       <!-- Card View -->
       <div *ngIf="!loading && filteredJoueurs.length > 0 && viewMode === 'card'" class="players-grid">
         <div class="player-card" *ngFor="let player of paginatedJoueurs">
+          <div class="player-checkbox">
+            <input type="checkbox" 
+                   [checked]="isPlayerSelected(player.idUser)"
+                   (change)="togglePlayerSelection(player.idUser)">
+          </div>
           <div class="player-photo">
             <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">
           </div>
@@ -61,6 +66,7 @@
         <table>
           <thead>
             <tr>
+              <th>Select</th>
               <th>Photo</th>
               <th>Name</th>
               <th>Position</th>
@@ -72,6 +78,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let player of paginatedJoueurs">
+              <td>
+                <input type="checkbox" 
+                       [checked]="isPlayerSelected(player.idUser)"
+                       (change)="togglePlayerSelection(player.idUser)">
+              </td>
               <td class="player-avatar">
                 <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">
               </td>
@@ -95,5 +106,11 @@
         {{page}}
       </span>
       <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">Next</button>
+    </div>
+  
+    <div class="assign-action">
+      <button (click)="assignSelectedPlayers()" [disabled]="selectedPlayers.length === 0" class="assign-button">
+        Assigner les joueurs sélectionnés ({{selectedPlayers.length}})
+      </button>
     </div>
   </div>
