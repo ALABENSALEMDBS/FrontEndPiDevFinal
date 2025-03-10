@@ -1,3 +1,5 @@
+import { Rapport } from "./rapport";
+
 export class Joueurs {
 
   idUser!: number;
@@ -10,4 +12,6 @@ export class Joueurs {
     numeroJoueur!: number;
     debutContratJoueur!: Date;
     finContratJoueur!: Date;
+    rapport!: Rapport | null;
+
 }

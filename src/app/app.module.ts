@@ -204,7 +204,7 @@ import { PlayersFormationComponent } from "./FrontOffice/CoachFrontOffice/player
     CreateNourritureComponent,
     ListeNourritureComponent,
     AddformationComponent,
-    ListSeanceComponent,
+    
     AddseanceComponent,
     AddexerciceComponent,
     ListExerciceComponent,

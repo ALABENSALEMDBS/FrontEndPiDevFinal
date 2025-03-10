@@ -1,51 +1,47 @@
-<div class="session-management-container">
-    <!-- Add Session Button -->
-    <div class="add-btn-container">
-        <button [routerLink]="['addseance']" class="btn-add">
-            Add Session
-        </button>
-    </div>
+<h2 class="page-title">Seance Management</h2>
+  
+<div style="margin-top: 20px; margin-bottom: 30px;">
+  <button [routerLink]="['addseance']" class="btn btn-primary">
+    Add Seance
+  </button>
+</div>
 
-    <!-- Session List Header -->
-    <h2>Session List</h2>
-
-    <!-- Session Cards -->
-    <div class="card-container">
-        <div class="card" *ngFor="let s of seance">
-            <h3>{{ s.titleSeance }}</h3>
-            <p>Date: {{ s.jourSeance | date:'yyyy-MM-dd' }}</p>
-            <div class="card-actions">
-
-                <button (click)="openConfirmPopup(s.idSeance)" class="btn-delete">
-                    Delete
-                </button>
-
-                <button class="btn-update" (click)="openPopup(s)">
-                    Update
-                </button>
-            </div>
+<router-outlet></router-outlet>
+<br>
+<h4 class="card-title">List of Seances</h4>
+<br>
+<div class="row">
+  <div class="col-md-4" *ngFor="let seance of seance">
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5>{{ seance.titleSeance }}</h5>
+      </div>
+      <div class="card-body">
+        <p><strong>Day:</strong> {{ seance.jourSeance }}</p>
+        <p><strong>Start Time:</strong> {{ seance.heureDebut }}</p>
+        <p><strong>End Time:</strong> {{ seance.heureFin }}</p>
+        <p><strong>Location:</strong> {{ seance.location }}</p>
+       
+        <div class="btn-group">
+          <button class="btn btn-danger" (click)="deleteseance(seance.idSeance)">Delete</button>
+          <button class="btn btn-success" [routerLink]="['updateseance', seance.idSeance]">Edit</button>
+          <button class="btn btn-info" (click)="openCalendarPanel(seance)">
+            <i class="fas fa-calendar-alt"></i> Calendar
+          </button>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- Update Popup -->
-    <div class="popup-container" [class.show]="showPopup">
-        <div class="popup-content">
-            <button class="close-btn" (click)="closePopup()">×</button>
-            <app-updateseance *ngIf="showPopup" [seanceData]="selectedsession"></app-updateseance>
-        </div>
-    </div>
-
-    <!-- Confirmation Popup -->
-    <div class="confirm-popup-container" [class.show]="showConfirmPopup">
-        <div class="confirm-popup-content">
-            <h3>Are you sure?</h3>
-            <p>Do you really want to delete this session? This action cannot be undone.</p>
-            <div class="popup-actions">
-                <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
-                <button class="btn-delete" (click)="confirmDelete()">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <router-outlet></router-outlet>
+<!-- Calendar Side Panel -->
+<div class="side-panel-overlay" [class.active]="isCalendarPanelOpen" (click)="closeCalendarPanel()"></div>
+<div class="vertical-calendar-panel" [class.open]="isCalendarPanelOpen">
+  <div class="panel-toggle" (click)="toggleCalendarPanel()">
+    <i class="fas" [class.fa-chevron-left]="isCalendarPanelOpen" [class.fa-chevron-right]="!isCalendarPanelOpen"></i>
+  </div>
+  <div class="panel-content">
+    <!-- Include the SeanceCalenderComponent here -->
+    <app-seance-calender *ngIf="isCalendarPanelOpen" [seance]="selectedSeance"></app-seance-calender>
+  </div>
 </div>

@@ -16,6 +16,7 @@ export class AddRapportComponent {
   errorMessage: string = '';
   sections: string[] = ["performance", "strength", "agility", "state"]
   currentSection = "performance"
+  showForm: boolean = true;  // Déclare cette variable
 
 
   etatOptions = [
@@ -29,6 +30,7 @@ export class AddRapportComponent {
   constructor(private rapportService: RapportService, private rout: Router) {
     // Initialisation sans `titleSeance` et `jourSeance`
     this.rapportForm = new FormGroup({
+      numeroJoueur: new FormControl('', [Validators.required]),  // Ajout du champ numeroJoueur
       speedRapport: new FormControl('', [Validators.required]),
       accelerationRapport: new FormControl('', [Validators.required]),
       endurance: new FormControl('', [Validators.required]),
@@ -48,25 +50,15 @@ export class AddRapportComponent {
       etatRapport: new FormControl('', [Validators.required]),
       blessureRapport: new FormControl('', [Validators.required]),
     });
+    
   }
   setCurrentSection(section: string): void {
     this.currentSection = section
   }
 
-  nextSection(): void {
-    const currentIndex = this.sections.indexOf(this.currentSection)
-    if (currentIndex < this.sections.length - 1) {
-      this.currentSection = this.sections[currentIndex + 1]
-    }
-  }
+ 
 
-  // Move to the previous section
-  prevSection(): void {
-    const currentIndex = this.sections.indexOf(this.currentSection)
-    if (currentIndex > 0) {
-      this.currentSection = this.sections[currentIndex - 1]
-    }
-  }
+  
 
   // Calculate progress percentage
   getProgressPercentage(): number {
@@ -76,28 +68,97 @@ export class AddRapportComponent {
 
 
   addRapport() {
-          if (this.rapportForm.valid) {
-            this.rapportService.addRapport(this.rapportForm.value).subscribe({
-              next: () => {
-                const navigationExtras: NavigationExtras = {
-                  state: { successMessage: 'Formation ajoutée avec succès !' }
-                };
-                this.rout.navigate(['analyste/Reportshow'], navigationExtras).then(() => {
-                  window.location.reload();  // This will reload the page
-                });
-              },
-              error: () => {
-                const navigationExtras: NavigationExtras = {
-                  state: { errorMessage: 'Erreur lors de l’ajout de la formation.' }
-                };
-                this.rout.navigate(['analyste/Reportshow'], navigationExtras).then(() => {
-                  window.location.reload();  // This will reload the page
-                });
-              }
-            });
-          }
+    if (this.rapportForm.valid) {
+      const numeroJoueur = this.rapportForm.value.numeroJoueur; // Récupère le numéro du joueur depuis le formulaire
+  
+      // Appel du service pour ajouter le rapport avec le numéro de joueur
+      this.rapportService.addRapport(this.rapportForm.value, numeroJoueur).subscribe({
+        next: () => {
+          const navigationExtras: NavigationExtras = {
+            state: { successMessage: 'Rapport ajouté avec succès !' }
+          };
+  
+          // Cacher le formulaire après l'ajout
+          this.showForm = false;
+  
+          // Navigation vers la page des rapports sans recharger la page
+          this.rout.navigate(['analyste/Reportshow'], navigationExtras);
+  
+          // Attendre un court instant puis rafraîchir la page
+          setTimeout(() => {
+            window.location.reload();
+          }, 500); // Attendre 500ms avant de recharger
+        },
+        error: () => {
+          const navigationExtras: NavigationExtras = {
+            state: { errorMessage: 'Erreur lors de l’ajout du rapport.' }
+          };
+  
+          // Navigation vers la page des rapports sans recharger la page
+          this.rout.navigate(['analyste/Reportshow'], navigationExtras);
+  
+          // Optionnel : Recharger la page aussi en cas d'erreur
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
         }
-        avoidAdd() {
-          this.rout.navigate(['analyste/Reportshow']); // Changez '/listformation' selon votre route réelle
-        }
+      });
+    }
+  }
+  
+  
+  nextSection(): void {
+    switch (this.currentSection) {
+      case "performance":
+        this.currentSection = "strength"
+        break
+      case "strength":
+        this.currentSection = "agility"
+        break
+      case "agility":
+        this.currentSection = "state"
+        break
+    }
+  }
+
+  prevSection(): void {
+    switch (this.currentSection) {
+      case "strength":
+        this.currentSection = "performance"
+        break
+      case "agility":
+        this.currentSection = "strength"
+        break
+      case "state":
+        this.currentSection = "agility"
+        break
+    }
+  }
+
+  goToSection(section: string): void {
+    this.currentSection = section
+  }
+
+  // Progress bar calculation
+  
+
+  // Status class methods
+  getStatusClass(status: string): string {
+    if (status === "Active") return "status-active"
+    if (status === "Inactive") return "status-inactive"
+    return ""
+  }
+
+  getInjuryClass(injury: string): string {
+    if (injury === "None") return "injury-none"
+    if (injury === "Minor") return "injury-minor"
+    if (injury === "Major") return "injury-major"
+    return ""
+  }
+
+  
+  avoidAdd() {
+    this.rout.navigate(['analyste/Reportshow']); // Navigation vers la page de rapports
+  }
+  
 }

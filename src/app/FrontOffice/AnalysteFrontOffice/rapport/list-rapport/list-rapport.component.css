@@ -1,92 +1,53 @@
-/* Main Container */
-.rapport-management-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #333;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-}
-
-/* Header Styles */
-h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 2rem 0;
-  color: #ffffff;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-h2::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(to right, #6366f1, #8b5cf6);
-  border-radius: 2px;
+/* Card Container Styles */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
 }
 
 /* Add Button Container */
 .add-btn-container {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #0e1731 0%, #1a2747 100%);
 }
 
-/* Add Button */
 .btn-add {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
-  border: none;
+  background: linear-gradient(135deg, #f9c933 0%, #f39c12 100%);
+  color: #0e1731;
+  font-weight: 700;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.btn-add::before {
-  content: "+";
-  font-size: 1.2rem;
-  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
 }
 
 .btn-add:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
 
-.btn-add:active {
-  transform: translateY(0);
-}
-
-/* Card Container */
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-/* Card Styles */
+/* FIFA/FC25 Style Player Card */
 .card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
+  background: linear-gradient(135deg, #080f4c 0%, #01268d 100%);
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .card::before {
@@ -94,82 +55,161 @@ h2::after {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, #6366f1, #8b5cf6);
-  opacity: 0.7;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+  background-size: 10px 10px;
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Card Content */
-.card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #2d3748;
+/* Player Info Section */
+.player-info {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  background-image: url("https://img.freepik.com/free-photo/futuristic-soccer-field-illustration_23-2151539714.jpg?t=st=1741308211~exp=1741311811~hmac=f5bb557988c6caaabc152627d401a9801028aff38bf8cad53f661dbd640be0b4&w=1380");
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
 }
 
-.card p {
+/* Add a dark overlay to make text readable on any background */
+.player-info::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+  pointer-events: none;
+}
+
+.player-info img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #856400;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.player-info h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
   margin: 0.5rem 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.player-info p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  z-index: 1;
+}
+
+/* Report Card Section */
+.report-card {
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 12px 12px;
+  flex-grow: 1;
+}
+
+.report-card h4 {
   font-size: 0.95rem;
-  color: #4a5568;
+  color: #f9c933;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.report-card p {
   display: flex;
   justify-content: space-between;
+  margin: 0.5rem 0;
+  font-size: 0.85rem;
+  position: relative;
+  padding-right: 45px;
 }
 
-.card p::after {
+.report-card p strong {
+  color: #f9c933;
+}
+
+/* FIFA-style stat bars */
+.report-card p::after {
   content: "";
-  flex-grow: 1;
-  border-bottom: 1px dashed #e2e8f0;
-  margin: 0 0.5rem;
-  transform: translateY(-0.5rem);
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f9c933 0%, #f39c12 100%);
+  width: calc(var(--stat-value, 50) * 1%);
+  max-width: 100%;
+  border-radius: 3px;
 }
 
 /* Card Actions */
 .card-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Button Styles */
-.btn-delete,
-.btn-update {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.btn-update,
+.btn-delete {
+  padding: 0.5rem 0.75rem;
   border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-size: 0.75rem;
 }
 
 .btn-update {
-  background-color: #ebf5ff;
-  color: #3182ce;
-  border: 1px solid #bee3f8;
-}
-
-.btn-update:hover {
-  background-color: #bee3f8;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
 }
 
 .btn-delete {
-  background-color: #fff5f5;
-  color: #e53e3e;
-  border: 1px solid #fed7d7;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
 }
 
+.btn-update:hover,
 .btn-delete:hover {
-  background-color: #fed7d7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Popup Container */
+/* Popup Styles */
 .popup-container,
 .confirm-popup-container {
   position: fixed;
@@ -177,14 +217,14 @@ h2::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .popup-container.show,
@@ -193,124 +233,162 @@ h2::after {
   visibility: visible;
 }
 
-/* Popup Content */
 .popup-content,
 .confirm-popup-content {
-  background: white;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1.5rem;
   width: 90%;
-  max-width: 500px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 450px;
+  max-height: 80vh;
+  overflow-y: auto;
   position: relative;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  color: white;
+  animation: popup-appear 0.3s ease-out;
 }
 
-.popup-container.show .popup-content,
-.confirm-popup-container.show .confirm-popup-content {
-  transform: translateY(0);
+@keyframes popup-appear {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-/* Close Button */
 .close-btn {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.75rem;
+  right: 0.75rem;
   background: none;
   border: none;
-  font-size: 1.5rem;
-  color: #a0aec0;
+  color: white;
+  font-size: 1.25rem;
   cursor: pointer;
-  transition: color 0.2s ease;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  transition: background 0.2s ease;
 }
 
 .close-btn:hover {
-  color: #4a5568;
-}
-
-/* Confirmation Popup */
-.confirm-popup-content h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #2d3748;
-}
-
-.confirm-popup-content p {
-  margin-bottom: 1.5rem;
-  color: #4a5568;
-}
-
-.popup-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-
-.btn-cancel {
-  background-color: #edf2f7;
-  color: #4a5568;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-cancel:hover {
-  background-color: #e2e8f0;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .card-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: 1rem;
+    gap: 1rem;
   }
 
-  .popup-content,
-  .confirm-popup-content {
-    width: 95%;
-    padding: 1.5rem;
+  .card {
+    max-width: 250px;
+  }
+
+  .player-info {
+    padding: 1rem;
+  }
+
+  .player-info img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .player-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .report-card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .card {
+    max-width: 220px;
+  }
+
+  .player-info img {
+    width: 70px;
+    height: 70px;
   }
 
   .add-btn-container {
-    justify-content: center;
+    padding: 1rem;
+  }
+
+  .btn-add {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
   }
 }
 
-/* Animation for new cards */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+.btn-player {
+  background: linear-gradient(135deg, #f9c933 0%, #f39c12 100%);
+  color: #0e1731;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-player:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #fad364 0%, #f5b041 100%);
+}
+
+.btn-player:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-player:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 201, 51, 0.5);
+}
+
+/* Optional: Add an icon to the button */
+.btn-player::before {
+  content: "\1F3C8"; /* Soccer ball emoji */
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .btn-player {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
   }
 }
 
-.card {
-  animation: fadeIn 0.5s ease forwards;
+@media (max-width: 480px) {
+  .btn-player {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
 }
 
-/* Staggered animation for multiple cards */
-.card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.card:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.card:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.card:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.card:nth-child(5) {
-  animation-delay: 0.5s;
-}
-.card:nth-child(6) {
-  animation-delay: 0.6s;
-}

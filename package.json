@@ -22,6 +22,7 @@
     "bootstrap": "^5.3.3",
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
+    "jspdf": "^3.0.0",
     "konva": "^9.3.18",
     "ngx-owl-carousel-o": "^19.0.0",
     "projet-sport": "file:",
