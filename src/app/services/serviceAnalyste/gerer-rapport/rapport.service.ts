@@ -20,8 +20,8 @@ export class RapportService {
   }
   
   
-  addRapport(f: Rapport, numeroJoueur: any):Observable<Rapport[]>{
-    return this.http.post<Rapport[]>("http://localhost:8089/PiDevBackEndProject/rapports/add-rapports",f)
+  addRapport(rapport: Rapport, numeroJoueur: number):Observable<Rapport[]>{
+    return this.http.post<Rapport[]>("http://localhost:8089/PiDevBackEndProject/rapports/addRapports"+'/'+numeroJoueur,rapport)
   }
   
   
