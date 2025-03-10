@@ -93,7 +93,7 @@ export class FormationCoachComponent implements OnInit {
     
     showPlayers(formationId: number): void {
       this.joueurservice.getJoueursByIdformation(formationId).subscribe(data => {
-        this.joueurs = data;
+        this.joueurs = data as Joueurs[];
       });
       console.log(`Show players for formation with ID: ${formationId}`);
     }

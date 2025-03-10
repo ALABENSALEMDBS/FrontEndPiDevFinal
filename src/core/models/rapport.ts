@@ -1,3 +1,5 @@
+import { Joueurs } from "./joueur";
+
 export class Rapport {
     idRapport!: number;             // Unique identifier (int)
     speedRapport!: number;          // Speed report
@@ -21,4 +23,6 @@ export class Rapport {
 
     etatRapport!: string;           // State of the report (string)
     blessureRapport!: string;       // Injury report (string)
+    joueur!: Joueurs; // Assurez-vous que cette propriété existe
+
 }

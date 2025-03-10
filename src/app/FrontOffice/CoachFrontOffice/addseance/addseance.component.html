@@ -1,45 +1,119 @@
-<div class="container seance-form-container dark-mode innovative">
-  <h2>Create a Session</h2>
-
-  <form [formGroup]="seanceform" (ngSubmit)="addSeance()" class="seance-form">
-
-      <div class="form-group">
-          <label for="titleSeance">Session Title</label>
-          <div class="input-wrapper">
-              <input type="text" class="form-control" id="titleSeance" formControlName="titleSeance"
-                  placeholder="Session Name">
+<div class="add-seance-container">
+    <hr>
+    <div class="add-container">
+      <button class="close-btn" (click)="avoidAdd()">✖</button>
+      <h2>Ajouter une Séance</h2>
+  
+      <form [formGroup]="seanceForm" (ngSubmit)="addSeance()" class="form-card">
+        <!-- Tab Navigation -->
+        <div class="form-tabs">
+          <button type="button" class="form-tab" [class.active]="currentSection === 'details'" (click)="setCurrentSection('details')">Détails</button>
+          <button type="button" class="form-tab" [class.active]="currentSection === 'schedule'" (click)="setCurrentSection('schedule')">Horaire</button>
+          <button type="button" class="form-tab" [class.active]="currentSection === 'location'" (click)="setCurrentSection('location')">Emplacement</button>
+          <button type="button" class="form-tab" [class.active]="currentSection === 'intensity'" (click)="setCurrentSection('intensity')">Intensité</button>
+        </div>
+  
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width]="getProgressPercentage() + '%'"></div>
+        </div>
+  
+        <!-- Séance Details -->
+        <div class="form-section" [class.active]="currentSection === 'details'">
+          <h3>Détails de la Séance</h3>
+          <div class="form-group">
+            <label for="titleSeance">Titre de la Séance:</label>
+            <input type="text" id="titleSeance" formControlName="titleSeance" required>
+            <div *ngIf="seanceForm.get('titleSeance')?.invalid && (seanceForm.get('titleSeance')?.dirty || seanceForm.get('titleSeance')?.touched)" class="error-message">
+              Le titre est requis.
+            </div>
           </div>
-          <div *ngIf="seanceform.get('titleSeance')?.invalid && seanceform.get('titleSeance')?.touched"
-              class="error-message">
-              Title required (min 3 characters).
+  
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description"></textarea>
           </div>
-      </div>
-
-      <div class="form-group">
-          <label for="jourSeance">Session Date</label>
-          <div class="input-wrapper">
-              <input type="date" class="form-control" id="jourSeance" formControlName="jourSeance">
+  
+          <div class="form-navigation">
+            <div></div> <!-- Empty div for spacing -->
+            <button type="button" class="nav-button next" (click)="nextSection()">Suivant <span>→</span></button>
           </div>
-          <div *ngIf="seanceform.get('jourSeance')?.invalid && seanceform.get('jourSeance')?.touched"
-              class="error-message">
-              Date required.
+        </div>
+  
+        <!-- Séance Schedule -->
+        <div class="form-section" [class.active]="currentSection === 'schedule'">
+          <h3>Horaire</h3>
+          <div class="form-group">
+            <label for="jourSeance">Jour:</label>
+            <input type="date" id="jourSeance" formControlName="jourSeance" required>
+            <div *ngIf="seanceForm.get('jourSeance')?.invalid && (seanceForm.get('jourSeance')?.dirty || seanceForm.get('jourSeance')?.touched)" class="error-message">
+              Le jour est requis.
+            </div>
           </div>
-      </div>
-
-      <div class="button-group">
-          <button type="submit" class="btn btn-primary create-button" [disabled]="seanceform.invalid">
-              <i class="fas fa-plus-circle"></i> Create Session
-          </button>
-          <button type="reset" class="btn btn-secondary reset-button">
-              <i class="fas fa-undo"></i> Reset
-          </button>
-      </div>
-
+  
+          <div class="form-group">
+            <label for="heureDebut">Heure de Début:</label>
+            <input type="time" id="heureDebut" formControlName="heureDebut" required>
+            <div *ngIf="seanceForm.get('heureDebut')?.invalid && (seanceForm.get('heureDebut')?.dirty || seanceForm.get('heureDebut')?.touched)" class="error-message">
+              L'heure de début est requise.
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="heureFin">Heure de Fin:</label>
+            <input type="time" id="heureFin" formControlName="heureFin" required>
+            <div *ngIf="seanceForm.get('heureFin')?.invalid && (seanceForm.get('heureFin')?.dirty || seanceForm.get('heureFin')?.touched)" class="error-message">
+              L'heure de fin est requise.
+            </div>
+          </div>
+  
+          <div class="form-navigation">
+            <button type="button" class="nav-button" (click)="prevSection()">← Précédent</button>
+            <button type="button" class="nav-button next" (click)="nextSection()">Suivant →</button>
+          </div>
+        </div>
+  
+        <!-- Location -->
+        <div class="form-section" [class.active]="currentSection === 'location'">
+          <h3>Emplacement</h3>
+          <div class="form-group">
+            <label for="location">Emplacement:</label>
+            <input type="text" id="location" formControlName="location" required>
+            <div *ngIf="seanceForm.get('location')?.invalid && (seanceForm.get('location')?.dirty || seanceForm.get('location')?.touched)" class="error-message">
+              L'emplacement est requis.
+            </div>
+          </div>
+  
+          <div class="form-navigation">
+            <button type="button" class="nav-button" (click)="prevSection()">← Précédent</button>
+            <button type="button" class="nav-button next" (click)="nextSection()">Suivant →</button>
+          </div>
+        </div>
+  
+        <!-- Intensity -->
+        <div class="form-section" [class.active]="currentSection === 'intensity'">
+          <h3>Intensité</h3>
+          <div class="form-group">
+            <label for="intensityLevel">Niveau d'Intensité:</label>
+            <input type="number" id="intensityLevel" formControlName="intensityLevel" min="1" max="10" required>
+            <div *ngIf="seanceForm.get('intensityLevel')?.invalid && (seanceForm.get('intensityLevel')?.dirty || seanceForm.get('intensityLevel')?.touched)" class="error-message">
+              Le niveau d'intensité est requis.
+            </div>
+          </div>
+  
+          <div class="form-navigation">
+            <button type="button" class="nav-button" (click)="prevSection()">← Précédent</button>
+            <button type="submit" [disabled]="seanceForm.invalid" class="nav-button submit">Ajouter la Séance</button>
+          </div>
+        </div>
+      </form>
+  
       <div *ngIf="successMessage" class="success-message">
-          <i class="fas fa-check-circle"></i> {{ successMessage }}
+        {{ successMessage }}
       </div>
       <div *ngIf="errorMessage" class="error-message">
-          <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+        {{ errorMessage }}
       </div>
-  </form>
-</div>
+    </div>
+  </div>
+  

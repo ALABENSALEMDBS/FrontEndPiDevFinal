@@ -203,7 +203,7 @@ import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-
     CreateNourritureComponent,
     ListeNourritureComponent,
     AddformationComponent,
-    ListSeanceComponent,
+    
     AddseanceComponent,
     AddexerciceComponent,
     ListExerciceComponent,

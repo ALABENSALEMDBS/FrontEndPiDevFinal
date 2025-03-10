@@ -1,74 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
 import { seance } from 'src/core/models/seance';
+import { SeanceCalenderComponent } from '../seance-calender/seance-calender.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+// Import the SeanceCalenderComponent
 
 @Component({
-    selector: 'app-list-seance',
-    templateUrl: './list-seance.component.html',
-    styleUrls: ['./list-seance.component.css'],
-    standalone: false
+  selector: 'app-list-seance',
+  imports : [RouterLink,RouterOutlet,CommonModule,SeanceCalenderComponent],
+  templateUrl: './list-seance.component.html',
+  styleUrls: ['./list-seance.component.css'],
+  standalone: true
 })
 export class ListSeanceComponent implements OnInit {
+  seance: seance[] = [];
+  isCalendarPanelOpen = false;
+  selectedSeance: seance | null = null;
 
-  showPopup = false; // Contrôle l'affichage de la popup   h
-  selectedsession: any = null;  
-  
-     seance: seance[] = [];
-    
-      constructor(private coatchService: SeanceService) {}
-    
-      ngOnInit(): void {
-        this.getSeances();
-      }
-    
-      getSeances(): void {
-        this.coatchService.getAllSeances().subscribe(data => {
-          this.seance = data;
-        });
-      }
-      openPopup(seance: any) {
-        this.selectedsession = seance;
-        this.showPopup = true;
-      }
-    
-      closePopup() {
-        this.showPopup = false;
-      }
-  
-  
-  
-  
-  
-      showConfirmPopup = false;
-      sessionIdToDelete: number | null = null;
-    
-      // Fonction pour ouvrir le popup de confirmation
-      openConfirmPopup(id: number) {
-        this.sessionIdToDelete = id;
-        this.showConfirmPopup = true;
-      }
-    
-      // Fonction pour fermer le popup
-      closeConfirmPopup() {
-        this.showConfirmPopup = false;
-        this.sessionIdToDelete = null;
-      }
-    
-      // Confirmer la suppression
-      confirmDelete() {
-        if (this.sessionIdToDelete !== null) {
-          this.deleteSeances(this.sessionIdToDelete);
-          this.closeConfirmPopup();
-        }
-      }
-  
-      deleteSeances(id:any){
-        this.coatchService.delSeances(id).subscribe(()=>{
-          console.log("deleted session !!!!")
-          window.location.reload()
-        })
-      }
-  
+  constructor(private SeanceService: SeanceService) {}
+
+  ngOnInit(): void {
+    this.SeanceService.getAllSeances().subscribe((data) => {
+      this.seance = data;
+    });
   }
-  
 
+  deleteseance(id: number): void {
+    this.SeanceService.delSeances(id).subscribe(() => {
+      console.log("deleted exercices !!!!");
+      window.location.reload();
+    });
+  }
+
+  // Updated to specifically handle calendar panel
+  toggleCalendarPanel(): void {
+    this.isCalendarPanelOpen = !this.isCalendarPanelOpen;
+  }
+
+  openCalendarPanel(seance?: seance): void {
+    this.isCalendarPanelOpen = true;
+    this.selectedSeance = seance || null;
+  }
+
+  closeCalendarPanel(): void {
+    this.isCalendarPanelOpen = false;
+  }
+}

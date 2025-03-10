@@ -1,87 +1,140 @@
 <div class="update-rapport-container">
-    <h2>Update Report</h2>
-  
-    <form [formGroup]="rapportForm" (ngSubmit)="updateRapport()">
+  <header class="form-header">
+    <h2>Player Performance Report</h2>
+    <div class="form-icon">🏆</div>
+  </header>
+
+  <form [formGroup]="rapportForm" (ngSubmit)="updateRapport()">
+    <div class="progress-container">
       <div class="progress-bar">
         <div class="progress" [style.width.%]="getProgressPercentage()"></div>
       </div>
-  
-      <div *ngIf="currentSection === 'performance'">
-        <h3>Performance</h3>
-        <label>Speed:</label>
-        <input formControlName="speedRapport" type="text" />
-        
-        <label>Acceleration:</label>
-        <input formControlName="accelerationRapport" type="text" />
-        
-        <label>Endurance:</label>
-        <input formControlName="endurance" type="text" />
+      <div class="progress-steps">
+        <span class="step" [class.active]="currentSection === 'performance'">1</span>
+        <span class="step" [class.active]="currentSection === 'strength'">2</span>
+        <span class="step" [class.active]="currentSection === 'agility'">3</span>
+        <span class="step" [class.active]="currentSection === 'state'">4</span>
       </div>
-  
-      <div *ngIf="currentSection === 'strength'">
-        <h3>Strength</h3>
-        <label>Muscular Endurance:</label>
-        <input formControlName="muscularEndurance" type="text" />
-        
-        <label>Aerobic Capacity:</label>
-        <input formControlName="aerobicCapacity" type="text" />
-        
-        <label>Anaerobic Capacity:</label>
-        <input formControlName="anaerobicCapacity" type="text" />
-        
-        <label>Strength:</label>
-        <input formControlName="strength" type="text" />
-        
-        <label>Power:</label>
-        <input formControlName="power" type="text" />
-        
-        <label>Explosiveness:</label>
-        <input formControlName="explosiveness" type="text" />
+    </div>
+
+    <div class="form-section" *ngIf="currentSection === 'performance'">
+      <h3>Performance Metrics <span class="section-icon">⚡</span></h3>
+      <div class="form-group">
+        <label for="speedRapport">Speed:</label>
+        <input id="speedRapport" formControlName="speedRapport" type="text" placeholder="Enter speed value" />
       </div>
-  
-      <div *ngIf="currentSection === 'agility'">
-        <h3>Agility</h3>
-        <label>Agility:</label>
-        <input formControlName="agility" type="text" />
-        
-        <label>Balance:</label>
-        <input formControlName="balance" type="text" />
-        
-        <label>Coordination:</label>
-        <input formControlName="coordination" type="text" />
-        
-        <label>Reaction Time:</label>
-        <input formControlName="reactionTime" type="text" />
-        
-        <label>Reactivity:</label>
-        <input formControlName="reactivity" type="text" />
-        
-        <label>Vertical Jump:</label>
-        <input formControlName="verticalJump" type="text" />
-        
-        <label>Horizontal Jump:</label>
-        <input formControlName="horizontalJump" type="text" />
+      
+      <div class="form-group">
+        <label for="accelerationRapport">Acceleration:</label>
+        <input id="accelerationRapport" formControlName="accelerationRapport" type="text" placeholder="Enter acceleration value" />
       </div>
-  
-      <div *ngIf="currentSection === 'state'">
-        <h3>State</h3>
-        <label>Report State:</label>
-        <select formControlName="etatRapport">
+      
+      <div class="form-group">
+        <label for="endurance">Endurance:</label>
+        <input id="endurance" formControlName="endurance" type="text" placeholder="Enter endurance value" />
+      </div>
+    </div>
+
+    <div class="form-section" *ngIf="currentSection === 'strength'">
+      <h3>Strength Assessment <span class="section-icon">💪</span></h3>
+      <div class="form-group">
+        <label for="muscularEndurance">Muscular Endurance:</label>
+        <input id="muscularEndurance" formControlName="muscularEndurance" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="aerobicCapacity">Aerobic Capacity:</label>
+        <input id="aerobicCapacity" formControlName="aerobicCapacity" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="anaerobicCapacity">Anaerobic Capacity:</label>
+        <input id="anaerobicCapacity" formControlName="anaerobicCapacity" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="strength">Strength:</label>
+        <input id="strength" formControlName="strength" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="power">Power:</label>
+        <input id="power" formControlName="power" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="explosiveness">Explosiveness:</label>
+        <input id="explosiveness" formControlName="explosiveness" type="text" placeholder="Enter value" />
+      </div>
+    </div>
+
+    <div class="form-section" *ngIf="currentSection === 'agility'">
+      <h3>Agility & Coordination <span class="section-icon">🏃</span></h3>
+      <div class="form-group">
+        <label for="agility">Agility:</label>
+        <input id="agility" formControlName="agility" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="balance">Balance:</label>
+        <input id="balance" formControlName="balance" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="coordination">Coordination:</label>
+        <input id="coordination" formControlName="coordination" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="reactionTime">Reaction Time:</label>
+        <input id="reactionTime" formControlName="reactionTime" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="reactivity">Reactivity:</label>
+        <input id="reactivity" formControlName="reactivity" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="verticalJump">Vertical Jump:</label>
+        <input id="verticalJump" formControlName="verticalJump" type="text" placeholder="Enter value" />
+      </div>
+      
+      <div class="form-group">
+        <label for="horizontalJump">Horizontal Jump:</label>
+        <input id="horizontalJump" formControlName="horizontalJump" type="text" placeholder="Enter value" />
+      </div>
+    </div>
+
+    <div class="form-section" *ngIf="currentSection === 'state'">
+      <h3>Player Status <span class="section-icon">🏥</span></h3>
+      <div class="form-group">
+        <label for="etatRapport">Report State:</label>
+        <select id="etatRapport" formControlName="etatRapport" class="status-select">
+          <option value="" disabled selected>Select status</option>
           <option *ngFor="let option of etatOptions" [value]="option">{{ option }}</option>
         </select>
-        
-        <label>Injury Level:</label>
-        <select formControlName="blessureRapport">
+      </div>
+      
+      <div class="form-group">
+        <label for="blessureRapport">Injury Level:</label>
+        <select id="blessureRapport" formControlName="blessureRapport" class="injury-select">
+          <option value="" disabled selected>Select injury level</option>
           <option *ngFor="let option of blessureOptions" [value]="option">{{ option }}</option>
         </select>
       </div>
-  
-      <div class="button-container">
-        <button type="button" (click)="prevSection()" [disabled]="currentSection === 'performance'">Previous</button>
-        <button type="button" (click)="nextSection()" [disabled]="currentSection === 'state'">Next</button>
-        <button type="submit" [disabled]="!rapportForm.valid">Update</button>
-      </div>
-    </form>
-  </div>
-  
- 
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn-previous" (click)="prevSection()" [disabled]="currentSection === 'performance'">
+        <span class="btn-icon">◀</span> Previous
+      </button>
+      <button type="button" class="btn-next" (click)="nextSection()" *ngIf="currentSection !== 'state'">
+        Next <span class="btn-icon">▶</span>
+      </button>
+      <button type="submit" class="btn-submit" [disabled]="!rapportForm.valid" *ngIf="currentSection === 'state'">
+        Update Report <span class="btn-icon">✓</span>
+      </button>
+    </div>
+  </form>
+</div>
