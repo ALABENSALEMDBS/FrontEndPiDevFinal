@@ -106,6 +106,7 @@ export class UpdateRapportComponent implements OnInit {
     if (this.rapportForm.valid) {
       this.service.updateRapport(this.rapportData.idRapport, this.rapportForm.value).subscribe(() => {
         this.rapportForm.reset();
+        window.location.reload();
         this.router.navigate(['analyste/Reportshow']);
       });
     }

@@ -1,238 +1,492 @@
-<div class="add-rapport-container">
-  <hr>
-  <div class="add-container">
-    <button class="close-btn" (click)="avoidAdd()">
-      ✖
-    </button>
-    <h2>Add a Report</h2>
-  
-    <form [formGroup]="rapportForm" (ngSubmit)="addRapport()" class="form-card">
-      <!-- Tab Navigation -->
-      <div class="form-tabs">
-        <button type="button" class="form-tab" [class.active]="currentSection === 'performance'" (click)="setCurrentSection('performance')">Performance Metrics</button>
-        <button type="button" class="form-tab" [class.active]="currentSection === 'strength'" (click)="setCurrentSection('strength')">Strength and Power</button>
-        <button type="button" class="form-tab" [class.active]="currentSection === 'agility'" (click)="setCurrentSection('agility')">Agility and Coordination</button>
-        <button type="button" class="form-tab" [class.active]="currentSection === 'state'" (click)="setCurrentSection('state')">State and Injury</button>
+<div class="report-form-container">
+  <div class="form-header">
+    <h2>Ajouter un Rapport de Performance</h2>
+    <button class="close-btn" (click)="avoidAdd()" aria-label="Fermer">✖</button>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-steps">
+      <div class="step" [class.active]="currentSection === 'performance'" (click)="goToSection('performance')">
+        <div class="step-icon">⚡</div>
+        <span>Performance</span>
       </div>
-      
-      <!-- Progress Bar -->
-      <div class="progress-bar">
-        <div class="progress-fill" [style.width]="getProgressPercentage() + '%'"></div>
+      <div class="step" [class.active]="currentSection === 'strength'" (click)="goToSection('strength')">
+        <div class="step-icon">💪</div>
+        <span>Force</span>
       </div>
-      
-      <!-- Performance Metrics -->
-      <div class="form-section" [class.active]="currentSection === 'performance'">
-        <h3>Performance Metrics</h3>
-        <div class="form-group">
-          <label for="speedRapport">Speed:</label>
-          <input type="number" id="speedRapport" formControlName="speedRapport" required>
-          <div *ngIf="rapportForm.get('speedRapport')?.invalid && (rapportForm.get('speedRapport')?.dirty || rapportForm.get('speedRapport')?.touched)" class="error-message">
-            Speed is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="accelerationRapport">Acceleration:</label>
-          <input type="number" id="accelerationRapport" formControlName="accelerationRapport" required>
-          <div *ngIf="rapportForm.get('accelerationRapport')?.invalid && (rapportForm.get('accelerationRapport')?.dirty || rapportForm.get('accelerationRapport')?.touched)" class="error-message">
-            Acceleration is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="endurance">Endurance:</label>
-          <input type="number" id="endurance" formControlName="endurance" required>
-          <div *ngIf="rapportForm.get('endurance')?.invalid && (rapportForm.get('endurance')?.dirty || rapportForm.get('endurance')?.touched)" class="error-message">
-            Endurance is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="muscularEndurance">Muscular Endurance:</label>
-          <input type="number" id="muscularEndurance" formControlName="muscularEndurance" required>
-          <div *ngIf="rapportForm.get('muscularEndurance')?.invalid && (rapportForm.get('muscularEndurance')?.dirty || rapportForm.get('muscularEndurance')?.touched)" class="error-message">
-            Muscular Endurance is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="aerobicCapacity">Aerobic Capacity:</label>
-          <input type="number" id="aerobicCapacity" formControlName="aerobicCapacity" required>
-          <div *ngIf="rapportForm.get('aerobicCapacity')?.invalid && (rapportForm.get('aerobicCapacity')?.dirty || rapportForm.get('aerobicCapacity')?.touched)" class="error-message">
-            Aerobic Capacity is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="anaerobicCapacity">Anaerobic Capacity:</label>
-          <input type="number" id="anaerobicCapacity" formControlName="anaerobicCapacity" required>
-          <div *ngIf="rapportForm.get('anaerobicCapacity')?.invalid && (rapportForm.get('anaerobicCapacity')?.dirty || rapportForm.get('anaerobicCapacity')?.touched)" class="error-message">
-            Anaerobic Capacity is required.
-          </div>
-        </div>
-        
-        <div class="form-navigation">
-          <div></div> <!-- Empty div for spacing -->
-          <button type="button" class="nav-button next" (click)="nextSection()">
-            Next <span>→</span>
-          </button>
-        </div>
+      <div class="step" [class.active]="currentSection === 'agility'" (click)="goToSection('agility')">
+        <div class="step-icon">🏃</div>
+        <span>Agilité</span>
       </div>
-  
-      <!-- Strength and Power -->
-      <div class="form-section" [class.active]="currentSection === 'strength'">
-        <h3>Strength and Power</h3>
-        <div class="form-group">
-          <label for="strength">Strength:</label>
-          <input type="number" id="strength" formControlName="strength" required>
-          <div *ngIf="rapportForm.get('strength')?.invalid && (rapportForm.get('strength')?.dirty || rapportForm.get('strength')?.touched)" class="error-message">
-            Strength is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="power">Power:</label>
-          <input type="number" id="power" formControlName="power" required>
-          <div *ngIf="rapportForm.get('power')?.invalid && (rapportForm.get('power')?.dirty || rapportForm.get('power')?.touched)" class="error-message">
-            Power is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="explosiveness">Explosiveness:</label>
-          <input type="number" id="explosiveness" formControlName="explosiveness" required>
-          <div *ngIf="rapportForm.get('explosiveness')?.invalid && (rapportForm.get('explosiveness')?.dirty || rapportForm.get('explosiveness')?.touched)" class="error-message">
-            Explosiveness is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="verticalJump">Vertical Jump:</label>
-          <input type="number" id="verticalJump" formControlName="verticalJump" required>
-          <div *ngIf="rapportForm.get('verticalJump')?.invalid && (rapportForm.get('verticalJump')?.dirty || rapportForm.get('verticalJump')?.touched)" class="error-message">
-            Vertical Jump is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="horizontalJump">Horizontal Jump:</label>
-          <input type="number" id="horizontalJump" formControlName="horizontalJump" required>
-          <div *ngIf="rapportForm.get('horizontalJump')?.invalid && (rapportForm.get('horizontalJump')?.dirty || rapportForm.get('horizontalJump')?.touched)" class="error-message">
-            Horizontal Jump is required.
-          </div>
-        </div>
-        
-        <div class="form-navigation">
-          <button type="button" class="nav-button" (click)="prevSection()">
-            <span>←</span> Previous
-          </button>
-          <button type="button" class="nav-button next" (click)="nextSection()">
-            Next <span>→</span>
-          </button>
-        </div>
+      <div class="step" [class.active]="currentSection === 'state'" (click)="goToSection('state')">
+        <div class="step-icon">🏥</div>
+        <span>État</span>
       </div>
-  
-      <!-- Agility, Balance, Coordination, Reaction Time, Reactivity -->
-      <div class="form-section" [class.active]="currentSection === 'agility'">
-        <h3>Agility and Coordination</h3>
-  
-        <div class="form-group">
-          <label for="agility">Agility:</label>
-          <input type="number" id="agility" formControlName="agility" required>
-          <div *ngIf="rapportForm.get('agility')?.invalid && (rapportForm.get('agility')?.dirty || rapportForm.get('agility')?.touched)" class="error-message">
-            Agility is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="balance">Balance:</label>
-          <input type="number" id="balance" formControlName="balance" required>
-          <div *ngIf="rapportForm.get('balance')?.invalid && (rapportForm.get('balance')?.dirty || rapportForm.get('balance')?.touched)" class="error-message">
-            Balance is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="coordination">Coordination:</label>
-          <input type="number" id="coordination" formControlName="coordination" required>
-          <div *ngIf="rapportForm.get('coordination')?.invalid && (rapportForm.get('coordination')?.dirty || rapportForm.get('coordination')?.touched)" class="error-message">
-            Coordination is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="reactionTime">Reaction Time:</label>
-          <input type="number" id="reactionTime" formControlName="reactionTime" required>
-          <div *ngIf="rapportForm.get('reactionTime')?.invalid && (rapportForm.get('reactionTime')?.dirty || rapportForm.get('reactionTime')?.touched)" class="error-message">
-            Reaction Time is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="reactivity">Reactivity:</label>
-          <input type="number" id="reactivity" formControlName="reactivity" required>
-          <div *ngIf="rapportForm.get('reactivity')?.invalid && (rapportForm.get('reactivity')?.dirty || rapportForm.get('reactivity')?.touched)" class="error-message">
-            Reactivity is required.
-          </div>
-        </div>
-        
-        <div class="form-navigation">
-          <button type="button" class="nav-button" (click)="prevSection()">
-            <span>←</span> Previous
-          </button>
-          <button type="button" class="nav-button next" (click)="nextSection()">
-            Next <span>→</span>
-          </button>
-        </div>
-      </div>
-  
-      <!-- State and Injury -->
-      <div class="form-section" [class.active]="currentSection === 'state'">
-        <h3>State and Injury</h3>
-  
-        <div class="form-group">
-          <label for="etatRapport">State:</label>
-          <select formControlName="etatRapport">
-            <option value="" disabled selected>State</option>
-            <option *ngFor="let option of etatOptions" [value]="option">
-              {{ option }}
-            </option>
-          </select>
-          <div *ngIf="rapportForm.get('etatRapport')?.invalid && (rapportForm.get('etatRapport')?.dirty || rapportForm.get('etatRapport')?.touched)" class="error-message">
-            State is required.
-          </div>
-        </div>
-  
-        <div class="form-group">
-          <label for="blessureRapport">Injury:</label>
-          <select formControlName="blessureRapport">
-            <option value="" disabled selected>Injury</option>
-            <option *ngFor="let option of blessureOptions" [value]="option">
-              {{ option }}
-            </option>
-          </select>          
-          <div *ngIf="rapportForm.get('blessureRapport')?.invalid && (rapportForm.get('blessureRapport')?.dirty || rapportForm.get('blessureRapport')?.touched)" class="error-message">
-            Injury is required.
-          </div>
-        </div>
-        
-        <div class="form-navigation">
-          <button type="button" class="nav-button" (click)="prevSection()">
-            <span>←</span> Previous
-          </button>
-          <button type="submit" [disabled]="rapportForm.invalid" class="nav-button submit">
-            Submit Report
-          </button>
-        </div>
-      </div>
-    </form>
-  
-    <div *ngIf="successMessage" class="success-message">
-      {{ successMessage }}
     </div>
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+    <div class="progress-bar-container">
+      <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
     </div>
   </div>
+
+  <form [formGroup]="rapportForm" (ngSubmit)="addRapport()">
+    <!-- Player Selection -->
+    <div class="player-selection">
+      <div class="form-group">
+        <label for="numeroJoueur">Numéro du Joueur</label>
+        <input 
+          id="numeroJoueur" 
+          formControlName="numeroJoueur" 
+          type="number" 
+          class="form-control" 
+          placeholder="Entrez le numéro du joueur" 
+          required 
+        />
+      </div>
+    </div>
+
+    <!-- Performance Section -->
+    <div *ngIf="currentSection === 'performance'" class="form-section">
+      <h3>Performance <span class="section-badge">1/4</span></h3>
+      
+      <div class="stats-grid">
+        <div class="form-group">
+          <label for="speedRapport">Vitesse</label>
+          <div class="stat-input-container">
+            <input 
+              id="speedRapport" 
+              formControlName="speedRapport" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('speedRapport')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('speedRapport')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('speedRapport')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="accelerationRapport">Accélération</label>
+          <div class="stat-input-container">
+            <input 
+              id="accelerationRapport" 
+              formControlName="accelerationRapport" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('accelerationRapport')?.value">
+              {{ rapportForm.get('accelerationRapport')?.value }}
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('accelerationRapport')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('accelerationRapport')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endurance">Endurance</label>
+          <div class="stat-input-container">
+            <input 
+              id="endurance" 
+              formControlName="endurance" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('endurance')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('endurance')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('endurance')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="muscularEndurance">Endurance Musculaire</label>
+          <div class="stat-input-container">
+            <input 
+              id="muscularEndurance" 
+              formControlName="muscularEndurance" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('muscularEndurance')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('muscularEndurance')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('muscularEndurance')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="aerobicCapacity">Capacité Aérobique</label>
+          <div class="stat-input-container">
+            <input 
+              id="aerobicCapacity" 
+              formControlName="aerobicCapacity" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('aerobicCapacity')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('aerobicCapacity')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('aerobicCapacity')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="anaerobicCapacity">Capacité Anaérobique</label>
+          <div class="stat-input-container">
+            <input 
+              id="anaerobicCapacity" 
+              formControlName="anaerobicCapacity" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('anaerobicCapacity')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('anaerobicCapacity')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('anaerobicCapacity')?.value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strength Section -->
+    <div *ngIf="currentSection === 'strength'" class="form-section">
+      <h3>Force <span class="section-badge">2/4</span></h3>
+      
+      <div class="stats-grid">
+        <div class="form-group">
+          <label for="strength">Force</label>
+          <div class="stat-input-container">
+            <input 
+              id="strength" 
+              formControlName="strength" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('strength')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('strength')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('strength')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="power">Puissance</label>
+          <div class="stat-input-container">
+            <input 
+              id="power" 
+              formControlName="power" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('power')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('power')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('power')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="explosiveness">Explosivité</label>
+          <div class="stat-input-container">
+            <input 
+              id="explosiveness" 
+              formControlName="explosiveness" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('explosiveness')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('explosiveness')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('explosiveness')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="verticalJump">Saut Vertical</label>
+          <div class="stat-input-container">
+            <input 
+              id="verticalJump" 
+              formControlName="verticalJump" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('verticalJump')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('verticalJump')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('verticalJump')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="horizontalJump">Saut Horizontal</label>
+          <div class="stat-input-container">
+            <input 
+              id="horizontalJump" 
+              formControlName="horizontalJump" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('horizontalJump')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('horizontalJump')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('horizontalJump')?.value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agility Section -->
+    <div *ngIf="currentSection === 'agility'" class="form-section">
+      <h3>Agilité <span class="section-badge">3/4</span></h3>
+      
+      <div class="stats-grid">
+        <div class="form-group">
+          <label for="agility">Agilité</label>
+          <div class="stat-input-container">
+            <input 
+              id="agility" 
+              formControlName="agility" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('agility')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('agility')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('agility')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="balance">Équilibre</label>
+          <div class="stat-input-container">
+            <input 
+              id="balance" 
+              formControlName="balance" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('balance')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('balance')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('balance')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="coordination">Coordination</label>
+          <div class="stat-input-container">
+            <input 
+              id="coordination" 
+              formControlName="coordination" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('coordination')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('coordination')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('coordination')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reactionTime">Temps de Réaction</label>
+          <div class="stat-input-container">
+            <input 
+              id="reactionTime" 
+              formControlName="reactionTime" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('reactionTime')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('reactionTime')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('reactionTime')?.value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reactivity">Réactivité</label>
+          <div class="stat-input-container">
+            <input 
+              id="reactivity" 
+              formControlName="reactivity" 
+              type="number" 
+              class="form-control" 
+              min="0" 
+              max="100" 
+              placeholder="0-100" 
+              required 
+            />
+            <div class="stat-value" *ngIf="rapportForm.get('reactivity')?.value">
+            </div>
+          </div>
+          <div class="stat-bar" *ngIf="rapportForm.get('reactivity')?.value">
+            <div class="stat-fill" [style.width.%]="rapportForm.get('reactivity')?.value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- State Section -->
+    <div *ngIf="currentSection === 'state'" class="form-section">
+      <h3>État <span class="section-badge">4/4</span></h3>
+      
+      <div class="stats-grid">
+        <div class="form-group status-group">
+          <label for="etatRapport">État du Joueur</label>
+          <select 
+            id="etatRapport" 
+            formControlName="etatRapport" 
+            class="form-control status-select" 
+            required
+          >
+            <option value="" disabled selected>Sélectionnez un état</option>
+            <option *ngFor="let etat of etatOptions" [value]="etat" [ngClass]="getStatusClass(etat)">
+              {{ etat }}
+            </option>
+          </select>
+          <div class="status-indicator" *ngIf="rapportForm.get('etatRapport')?.value" 
+               [class]="getStatusClass(rapportForm.get('etatRapport')?.value)">
+            {{ rapportForm.get('etatRapport')?.value }}
+          </div>
+        </div>
+
+        <div class="form-group status-group">
+          <label for="blessureRapport">Niveau de Blessure</label>
+          <select 
+            id="blessureRapport" 
+            formControlName="blessureRapport" 
+            class="form-control injury-select" 
+            required
+          >
+            <option value="" disabled selected>Sélectionnez un niveau</option>
+            <option *ngFor="let blessure of blessureOptions" [value]="blessure" [ngClass]="getInjuryClass(blessure)">
+              {{ blessure }}
+            </option>
+          </select>
+          <div class="status-indicator" *ngIf="rapportForm.get('blessureRapport')?.value" 
+               [class]="getInjuryClass(rapportForm.get('blessureRapport')?.value)">
+            {{ rapportForm.get('blessureRapport')?.value }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="form-navigation">
+      <button 
+        type="button" 
+        class="btn btn-previous" 
+        (click)="prevSection()" 
+        [disabled]="currentSection === 'performance'"
+      >
+        <span class="btn-icon">◀</span> Précédent
+      </button>
+      
+      <button 
+        *ngIf="currentSection === 'state'" 
+        type="submit" 
+        class="btn btn-submit" 
+        [disabled]="!rapportForm.valid"
+      >
+        Valider <span class="btn-icon">⚽</span>
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    <div class="alert-icon">✓</div>
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    <div class="alert-icon">⚠</div>
+    {{ errorMessage }}
+  </div>
 </div>
+
+<!-- Add floating next button for quick navigation -->
+<button 
+  *ngIf="currentSection !== 'state'" 
+  class="floating-next" 
+  (click)="nextSection()" 
+  title="Section suivante"
+>
+  <span class="btn-icon">▶</span>
+</button>
 

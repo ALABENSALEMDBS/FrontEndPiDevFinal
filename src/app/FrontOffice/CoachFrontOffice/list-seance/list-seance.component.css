@@ -1,259 +1,451 @@
-/* Style du bouton Ajouter un Sous-Groupe */
-.btn-add {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .btn-add:hover {
-    background-color: #45a049;
-  }
-  
-  /* Style du bouton Supprimer */
-  .btn-delete {
-    background-color: red;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-  }
-  
-  .btn-delete:hover {
-    background-color: darkred;
-  }
-  
-  /* Style du bouton Mettre à jour */
-  .btn-update {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .btn-update:hover {
-    background-color: #0056b3;
-  }
-  
-
-  .session-management-container {
-    color: #fff; /* White text */
-    padding: 20px;
-    border-radius: 8px;
-    font-family: sans-serif;
-}
-
-/* Add Session Button */
-.add-btn-container {
-    margin-bottom: 20px;
-    text-align: right; /* Align to the right */
-}
-
-.btn-add {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.btn-add:hover {
-    background-color: #367c39; /* Darker green on hover */
-}
-
-
-/* Session List Header */
-.session-management-container h2 {
-    color: #eee; /* Light gray for the title */
-    margin-bottom: 20px;
-    text-align: center;
-
-}
-
-/* Session Cards */
-.card-container {
+.calendar-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.card {
-    background-color: #444; /* Darker card background */
-    border-radius: 8px;
-    padding: 15px;
-    width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-}
-
-.card h3 {
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-.card p {
-    color: #ccc; /* Light gray for paragraph text */
-    margin-bottom: 10px;
-}
-
-.card-actions {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 15px;
-}
-
-.btn-delete, .btn-update {
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-delete {
-    background-color: #d32f2f; /* Red */
-}
-
-.btn-delete:hover {
-    background-color: #9a0007; /* Darker red */
-}
-
-.btn-update {
-    background-color: #1976d2; /* Blue */
-}
-
-.btn-update:hover {
-    background-color: #0d47a1; /* Darker blue */
-}
-
-/* Update Popup */
-.popup-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    flex-direction: column;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it's on top */
-}
-
-.popup-container.show {
+    padding: 25px;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    overflow-y: auto;
+  }
+  
+  .calendar-header {
     display: flex;
-}
-
-.popup-content {
-    background-color: #333; /* Dark popup background */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  
+  .calendar-header h4 {
+    margin: 0;
+    font-weight: 600;
+    color: #1a5d1a;
+    font-size: 1.4rem;
+  }
+  
+  .calendar-header button {
+    background-color: white;
+    color: #1a5d1a;
+    border: 2px solid #1a5d1a;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .calendar-header button:hover {
+    background-color: #1a5d1a;
+    color: white;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3);
+  }
+  
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .weekday {
+    padding: 5px;
+    font-size: 0.9rem;
+    color: #1a5d1a;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-day {
+    aspect-ratio: 1;
+    padding: 5px;
+    border: 1px solid #eee;
     border-radius: 8px;
-    padding: 20px;
-    width: 80%; /* Adjust as needed */
-    max-width: 600px;
-    position: relative; /* For close button positioning */
-}
-
-.close-btn {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .calendar-day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .day-number {
+    font-size: 12px;
+    font-weight: 500;
+    color: #444;
+  }
+  
+  .other-month {
+    color: #adb5bd;
+    background-color: #f8f9fa;
+    opacity: 0.7;
+  }
+  
+  .today {
+    background-color: #e9f5ff;
+    font-weight: bold;
+    border: 2px solid #0c3ddd;
+  }
+  
+  .has-seance {
+    border: 2px solid #1a5d1a;
+  }
+  
+  .selected {
+    background: linear-gradient(135deg, #0c3ddd, #0f40e0);
+    color: white;
+    box-shadow: 0 4px 10px rgba(12, 61, 221, 0.3);
+  }
+  
+  .selected:hover {
+    background: linear-gradient(135deg, #0c3ddd, #0f40e0);
+  }
+  
+  .day-events {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Confirmation Popup */
-.confirm-popup-container {
-    position: fixed;
-    top: 0;
+    bottom: 2px;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
+    right: 0;
+    display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 1001; /* Ensure it's above update popup if both are triggered */
-}
-
-.confirm-popup-container.show {
-    display: flex;
-}
-
-.confirm-popup-content {
-    background-color: #333;
-    border-radius: 8px;
-    padding: 20px;
-    width: 80%;
-    max-width: 400px;
-    text-align: center;
-}
-
-.confirm-popup-content h3 {
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-.confirm-popup-content p {
-    color: #ccc;
-    margin-bottom: 20px;
-}
-
-.popup-actions {
-    display: flex;
-    justify-content: space-around;
-}
-
-.btn-cancel {
-    background-color: #6c757d; /* Gray */
-    border: none;
+  }
+  
+  .event-count {
+    background-color: #e53935;
     color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(229, 57, 53, 0.3);
+  }
+  
+  .seance-details {
+    margin-top: 20px;
+    padding: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    background-color: rgb(132, 132, 132);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .seance-details h5 {
+    background: linear-gradient(135deg, #0c3ddd, #0f40e0);
+    color: white;
+    padding: 15px 20px;
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail-card {
+    padding: 20px;
+    background-color: rgb(92, 92, 92);
+  }
+  
+  .detail-card h6 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #1a5d1a;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  .detail-card p {
+    margin-bottom: 12px;
+    color: #444;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .detail-card p strong {
+    color: #1a5d1a;
+    font-weight: 600;
+    margin-right: 8px;
+    min-width: 80px;
     display: inline-block;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  }
+  
+  .action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  
+  .action-buttons button.btn-primary {
+    background: linear-gradient(135deg, #1142a4, #1250cd);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.3);
+    transition: all 0.3s ease;
+    color: white;
+  }
+  
+  .action-buttons button.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.4);
+    background: linear-gradient(135deg, #0c3ddd, #0f40e0);
+  }
+  
+  .action-buttons button.btn-outline-secondary {
+    background-color: white;
+    color: #1a5d1a;
+    border: 2px solid #1a5d1a;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .action-buttons button.btn-outline-secondary:hover {
+    background-color: #1a5d1a;
+    color: white;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3);
+  }
+  
+  .no-seance {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 16px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.95rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .upcoming-seances {
+    margin-top: 25px;
+  }
+  
+  .upcoming-seances h5 {
+    color: #1a5d1a;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .upcoming-seances h5:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #0c3ddd, #0f40e0);
+    border-radius: 2px;
+  }
+  
+  .seance-list {
+    max-height: 250px;
+    overflow-y: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    background-color: white;
+  }
+  
+  .seance-item {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .seance-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .seance-item:last-child {
+    border-bottom: none;
+  }
+  
+  .seance-date {
+    min-width: 60px;
+    font-weight: 600;
+    color: #1a5d1a;
+    font-size: 0.9rem;
+  }
+  
+  .seance-info {
+    flex: 1;
+  }
+  
+  .seance-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 5px;
+  }
+  
+  .seance-time {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+  
+  .no-upcoming {
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+  
+  /* Animation for calendar elements */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .calendar-container > * {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  .calendar-container > *:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .calendar-container > *:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  
+  .calendar-container > *:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+  
+  .calendar-container > *:nth-child(5) {
+    animation-delay: 0.4s;
+  }
+  .side-panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.btn-cancel:hover {
-    background-color: #495057; /* Darker gray */
+.side-panel-overlay.active {
+  visibility: visible;
+  opacity: 1;
 }
 
-
-/*  General Dark Theme Adjustments (optional, adjust to your preference) */
-
-a {
-    color: #80deea; /* Lighter blue for links */
+/* Vertical Calendar Panel */
+.vertical-calendar-panel {
+  position: fixed;
+  top: 0;
+  right: -450px; /* Start off-screen */
+  width: 450px;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a5d6a7' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
-a:hover {
-    color: #b2ebf2;
+.vertical-calendar-panel.open {
+  right: 0;
 }
 
-/* Ensure router-outlet content also inherits the dark theme */
-router-outlet + * {
-    background-color: #333;
-    color: #fff;
+/* Toggle button on the side of the panel */
+.panel-toggle {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  width: 40px;
+  height: 80px;
+  background: linear-gradient(135deg, #0c3ddd, #0f40e0);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px 0 0 8px;
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.panel-toggle:hover {
+  background: linear-gradient(135deg, #0a32b8, #0d37c7);
+  width: 45px;
+}
+
+.panel-toggle i {
+  font-size: 1.5rem;
+}
+
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+/* Calendar toggle button in main view */
+.calendar-toggle-btn {
+  background: linear-gradient(135deg, #1142a4, #1250cd);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(26, 93, 26, 0.3);
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  color: white;
+}
+
+.calendar-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 93, 26, 0.4);
+  background: linear-gradient(135deg, #0c3ddd, #0f40e0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .vertical-calendar-panel {
+    width: 100%;
+    right: -100%;
+  }
+  
+  .panel-toggle {
+    display: none; /* Hide the toggle on mobile */
+  }
 }

@@ -1,58 +1,73 @@
-<div class="rapport-management-container">
-    <!-- Add Rapport Button -->
-    <div class="add-btn-container">
-        <button [routerLink]="['addreports']" class="btn-add"> Add Report
-    
-        </button>
-    </div>
-
-    <router-outlet></router-outlet>
-
-    <!-- Rapport List Header -->
-    <h2>Report List</h2>
-
-    <!-- Rapport Cards -->
+<div class="add-btn-container">
+    <button [routerLink]="['addreports']" class="btn-add">Ajouter un Rapport</button>
+  </div>
+  
+  <router-outlet></router-outlet>
+  <br>
+  
+  <div class="container">
+    <!-- Liste des joueurs -->
     <div class="card-container">
-        <div class="card" *ngFor="let r of Rapport">
-            <h3>Report ID: {{ r.idRapport }}</h3>
-            <p>Speed: {{ r.speedRapport }}</p>
-            <p>Acceleration: {{ r.accelerationRapport }}</p>
-            <p>Endurance: {{ r.endurance }}</p>
-            <p>Strength: {{ r.strength }}</p>
-            <p>State: {{ r.etatRapport }}</p>
-            <p>Injury: {{ r.blessureRapport }}</p>
-            <div class="card-actions">
-                <button (click)="openConfirmPopup(r.idRapport)" class="btn-delete">
-                    Delete
-                </button>
-                <button class="btn-update" (click)="openPopup(r)">
-                    Update
-                </button>
-            </div>
+      <div class="card" *ngFor="let joueur of Joueurs">
+        
+        <!-- Infos du joueur -->
+        <div class="player-info">
+          <img [src]="joueur.photoUser || 'assets/default-avatar.png'" alt="Photo du Joueur">
+          <h3>{{ joueur.nameUsers }} {{ joueur.prenomUser }}</h3>
+          <p><strong>Position :</strong> {{ joueur.posteJoueur }}</p>
+          <p><strong>Numéro :</strong> {{ joueur.numeroJoueur }}</p>
+          <p><strong>Contrat :</strong> {{ joueur.debutContratJoueur | date }} - {{ joueur.finContratJoueur | date }}</p>
+        </div>
+  
+        <!-- Bouton pour afficher les détails du joueur -->
+        <button class="btn-player" (click)="openPlayersPanel(joueur)">Player</button>
+  
+        <!-- Affichage du rapport -->
+        <div *ngIf="joueur.rapport; else noReport" class="report-card">
+          <p><strong>Vitesse :</strong> {{ joueur.rapport.speedRapport }}</p>
+          <p><strong>Accélération :</strong> {{ joueur.rapport.accelerationRapport }}</p>
+          <p><strong>Endurance :</strong> {{ joueur.rapport.endurance }}</p>
+          <p><strong>Force :</strong> {{ joueur.rapport.strength }}</p>
+          <p><strong>État :</strong> {{ joueur.rapport.etatRapport }}</p>
+          <p><strong>Blessure :</strong> {{ joueur.rapport.blessureRapport }}</p>
+  
+          <div class="card-actions">
+              <button class="btn-update" (click)="openPopup(joueur.rapport)">Modifier</button>
+              <button class="btn-delete" (click)="openConfirmPopup(joueur.rapport.idRapport)">Supprimer</button>
+          </div>
+        </div>
+  
+        <!-- Message si aucun rapport n'est disponible -->
+        <ng-template #noReport>
+          <p class="no-report">Aucun rapport disponible</p>
+        </ng-template>
+      </div>
+    </div>
+  
+    <!-- Panneau latéral pour afficher les détails du joueur -->
+    <div class="player-details-panel" [class.show]="selectedPlayer">
+      <app-player-rapport-details *ngIf="selectedPlayer" [joueur]="selectedPlayer"></app-player-rapport-details>
+      <button *ngIf="showPlayersPanel" class="close-btn" (click)="closePlayersPanel()">×</button>
+    </div>
+  </div>
+  
+  <!-- Pop-up de modification -->
+  <div class="popup-container" [class.show]="showPopup">
+    <div class="popup-content">
+        <button class="close-btn" (click)="closePopup()">×</button>
+        <app-update-rapport *ngIf="showPopup" [rapportData]="selectedRapport"></app-update-rapport>
+    </div>
+  </div>
+  
+  <!-- Pop-up de confirmation -->
+  <div class="confirm-popup-container" [class.show]="showConfirmPopup">
+    <div class="confirm-popup-content">
+        <h3>Êtes-vous sûr ?</h3>
+        <p>Voulez-vous vraiment supprimer ce rapport ? Cette action est irréversible.</p>
+        <div class="popup-actions">
+            <button class="btn-cancel" (click)="closeConfirmPopup()">Annuler</button>
+            <button class="btn-delete" (click)="confirmDelete()">Supprimer</button>
         </div>
     </div>
-
-    <!-- Add Report Popup -->
-    
-
-    <!-- Update Popup -->
-    <div class="popup-container" [class.show]="showPopup">
-        <div class="popup-content">
-            <button class="close-btn" (click)="closePopup()">×</button>
-            <app-update-rapport *ngIf="showPopup" [rapportData]="selectedRapport"></app-update-rapport>
-        </div>
-    </div>
-
-    <!-- Confirmation Popup -->
-    <div class="confirm-popup-container" [class.show]="showConfirmPopup">
-        <div class="confirm-popup-content">
-            <h3>Are you sure?</h3>
-            <p>Do you really want to delete this report? This action cannot be undone.</p>
-            <div class="popup-actions">
-                <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
-                <button class="btn-delete" (click)="confirmDelete()">Delete</button>
-            </div>
-        </div>
-    </div>
-
-</div>
+  </div>
+  

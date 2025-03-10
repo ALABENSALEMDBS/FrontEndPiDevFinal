@@ -1,0 +1,237 @@
+<div class="calendar-container">
+    <!-- Calendar Header -->
+    <div class="calendar-header">
+      <button class="btn btn-sm btn-outline-secondary" (click)="previousMonth()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <h4>{{ currentMonth }} {{ currentYear }}</h4>
+      <button class="btn btn-sm btn-outline-secondary" (click)="nextMonth()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  
+    <!-- Weekday Headers -->
+    <div class="weekdays">
+      <div class="weekday">Sun</div>
+      <div class="weekday">Mon</div>
+      <div class="weekday">Tue</div>
+      <div class="weekday">Wed</div>
+      <div class="weekday">Thu</div>
+      <div class="weekday">Fri</div>
+      <div class="weekday">Sat</div>
+    </div>
+  
+    <!-- Calendar Days -->
+    <div class="calendar-grid">
+      <div 
+        *ngFor="let day of calendarDays" 
+        class="calendar-day" 
+        [class.other-month]="!day.isCurrentMonth"
+        [class.today]="day.isToday"
+        [class.has-seance]="day.hasSeance"
+        [class.selected]="day.isSelected"
+        (click)="selectDay(day)">
+        <div class="day-number">{{ day.date.getDate() }}</div>
+        <div class="day-events" *ngIf="day.hasSeance">
+          <div class="event-count">{{ day.seances.length }}</div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- CRUD Buttons -->
+    <div class="action-bar">
+      <button class="btn btn-success" (click)="openAddForm()">
+        <i class="fas fa-plus"></i> Add New Seance
+      </button>
+    </div>
+  
+    <!-- Seance Form (Add/Edit) -->
+    <div class="seance-form-container" *ngIf="showForm">
+      <div class="form-header">
+        <h5>{{ isEditing ? 'Edit Seance' : 'Add New Seance' }}</h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="closeForm()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form [formGroup]="seanceForm" (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="titleSeance">Title</label>
+          <input type="text" id="titleSeance" formControlName="titleSeance" class="form-control" required>
+          <div class="invalid-feedback" *ngIf="seanceForm.get('titleSeance')?.invalid && seanceForm.get('titleSeance')?.touched">
+            Title is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="jourSeance">Date</label>
+          <input type="date" id="jourSeance" formControlName="jourSeance" class="form-control" required>
+          <div class="invalid-feedback" *ngIf="seanceForm.get('jourSeance')?.invalid && seanceForm.get('jourSeance')?.touched">
+            Date is required
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="heureDebut">Start Time</label>
+            <input type="time" id="heureDebut" formControlName="heureDebut" class="form-control" required>
+            <div class="invalid-feedback" *ngIf="seanceForm.get('heureDebut')?.invalid && seanceForm.get('heureDebut')?.touched">
+              Start time is required
+            </div>
+          </div>
+          
+          <div class="form-group col-md-6">
+            <label for="heureFin">End Time</label>
+            <input type="time" id="heureFin" formControlName="heureFin" class="form-control" required>
+            <div class="invalid-feedback" *ngIf="seanceForm.get('heureFin')?.invalid && seanceForm.get('heureFin')?.touched">
+              End time is required
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="typeSeance">Session Type</label>
+          <select id="typeSeance" formControlName="typeSeance" class="form-control" required>
+            <option value="">Select a type</option>
+            <option value="Group">Group</option>
+            <option value="Individual">Individual</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Seminar">Seminar</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="seanceForm.get('typeSeance')?.invalid && seanceForm.get('typeSeance')?.touched">
+            Session type is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" formControlName="location" class="form-control" required>
+          <div class="invalid-feedback" *ngIf="seanceForm.get('location')?.invalid && seanceForm.get('location')?.touched">
+            Location is required
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="durationMinutes">Duration (minutes)</label>
+            <input type="number" id="durationMinutes" formControlName="durationMinutes" class="form-control" min="1" required>
+            <div class="invalid-feedback" *ngIf="seanceForm.get('durationMinutes')?.invalid && seanceForm.get('durationMinutes')?.touched">
+              Valid duration is required
+            </div>
+          </div>
+          
+          <div class="form-group col-md-6">
+            <label for="intensityLevel">Intensity Level (1-5)</label>
+            <input type="number" id="intensityLevel" formControlName="intensityLevel" class="form-control" min="1" max="5" required>
+            <div class="invalid-feedback" *ngIf="seanceForm.get('intensityLevel')?.invalid && seanceForm.get('intensityLevel')?.touched">
+              Intensity must be between 1 and 5
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" formControlName="description" class="form-control" rows="3"></textarea>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="seanceForm.invalid">
+            {{ isEditing ? 'Update' : 'Save' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  
+    <!-- Day Seances Modal -->
+    <div class="day-seances-modal" *ngIf="showSeanceDetails && selectedDaySeances.length > 0">
+      <div class="modal-header">
+        <h5>Seances for {{ selectedDaySeances.length > 0 ? (selectedDaySeances[0].jourSeance | date:'fullDate') : '' }}</h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="closeSeanceDetails()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="seance-list">
+          <div class="seance-item" *ngFor="let daySeance of selectedDaySeances" 
+               [class.active]="seance?.idSeance === daySeance.idSeance"
+               (click)="selectSeance(daySeance.idSeance)">
+            <div class="seance-time">{{ daySeance.heureDebut }} - {{ daySeance.heureFin }}</div>
+            <div class="seance-title">{{ daySeance.titleSeance }}</div>
+            <div class="seance-type">{{ daySeance.typeSeance }}</div>
+          </div>
+        </div>
+        
+        <!-- Selected Seance Details -->
+        <div class="seance-details" *ngIf="seance">
+          <h6>{{ seance.titleSeance }}</h6>
+          <p><strong>Time:</strong> {{ seance.heureDebut }} - {{ seance.heureFin }}</p>
+          <p><strong>Type:</strong> {{ seance.typeSeance }}</p>
+          <p><strong>Location:</strong> {{ seance.location }}</p>
+          <p><strong>Duration:</strong> {{ seance.durationMinutes }} minutes</p>
+          <p><strong>Intensity:</strong> {{ seance.intensityLevel }}/5</p>
+          
+          <p *ngIf="seance.description"><strong>Description:</strong> {{ seance.description }}</p>
+          
+          <div class="action-buttons">
+                    
+            <!-- Changed to use openConfirmPopup instead of deleteSeance -->
+            <button class="btn btn-sm btn-danger" (click)="openConfirmPopup(seance.idSeance)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- No Seance Selected Message -->
+    <div class="no-seance" *ngIf="!seance && !showForm && !showSeanceDetails">
+      <p>Select a day with seances to view details or add a new seance.</p>
+    </div>
+  
+    <!-- Upcoming Seances -->
+    <div class="upcoming-seances">
+      <h5>Upcoming Seances</h5>
+      <div class="seance-list">
+        <div class="seance-item" *ngFor="let upcomingSeance of upcomingSeances">
+          <div class="seance-date">{{ upcomingSeance.jourSeance | date:'MMM d' }}</div>
+          <div class="seance-info">
+            <div class="seance-title">{{ upcomingSeance.titleSeance }}</div>
+            <div class="seance-time">{{ upcomingSeance.heureDebut }} - {{ upcomingSeance.heureFin }}</div>
+            <div class="seance-location">{{ upcomingSeance.location }}</div>
+          </div>
+          <div class="seance-actions">
+            <button class="btn btn-sm btn-outline-primary" (click)="openEditForm(upcomingSeance)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <!-- Changed to use openConfirmPopup instead of deleteSeance -->
+            <button class="btn btn-sm btn-outline-danger" (click)="openConfirmPopup(upcomingSeance.idSeance)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <div class="no-upcoming" *ngIf="!upcomingSeances?.length">
+          No upcoming seances scheduled.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Confirmation Popup - Moved to the end of the container -->
+    <div class="confirm-popup-overlay" *ngIf="showConfirmPopup">
+      <div class="confirm-popup">
+        <div class="confirm-popup-header">
+          <h5 class="confirm-popup-title">Delete Seance</h5>
+          <button class="confirm-popup-close" (click)="closeConfirmPopup()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="confirm-popup-body">
+          <p class="confirm-popup-message">Are you sure you want to delete this seance? This action cannot be undone.</p>
+        </div>
+        <div class="confirm-popup-footer">
+          <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
+          <button class="btn-confirm-delete" (click)="confirmDelete()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
