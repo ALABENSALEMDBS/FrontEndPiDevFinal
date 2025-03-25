@@ -50,7 +50,7 @@ export class PlayersFormationComponent {
     this.close.emit()
     this.isOpen=false;
     this.isAssignOpen = false; // Fermer également assign
-    window.location.reload()
+   // window.location.reload()
   }
 
 

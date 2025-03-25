@@ -370,9 +370,10 @@ h2 {
 
 /* Effet d'attention quand aucun joueur */
 .no-players {
-  color: red !important;
+  color: rgb(249, 247, 247) !important;
   font-weight: bold;
   animation: blink 1s infinite alternate;
+  background-color: #c62828;
 }
 
 @keyframes blink {
@@ -382,9 +383,10 @@ h2 {
 
 /* Effet d'attention pour 1 seul joueur */
 .single-player {
-  color: #ffcc00 !important;
+  color: #ffffff !important;
   font-weight: bold;
   animation: pulse 1.5s infinite;
+  background-color: orange;
 }
 
 @keyframes pulse {

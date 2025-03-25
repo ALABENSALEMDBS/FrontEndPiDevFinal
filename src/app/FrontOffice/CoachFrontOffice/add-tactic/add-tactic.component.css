@@ -8,56 +8,377 @@
   --warning-color: #f39c12;
 }
 
+/* ************************************************ */
+
+
+
+
+
+
+/* Innovative Angular Form Styling - Alternative Design */
+
 .form-container {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-radius: 1rem;
   position: relative;
+  max-width: 550px;
+  margin: 2px auto;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  height: 100%;
+  width: 100%;
+
 }
+
+/* Decorative elements */
+.form-container::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 200px;
+  height: 200px;
+  background-color: #5465b7;
+  opacity: 0.2;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+
+
+
+.form-container::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 160px;
+  height: 160px;
+  background-color: #f59e0b;
+  opacity: 0.1;
+  border-radius: 50%;
+  z-index: 0;
+}
+
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
   border: none;
-  font-size: 20px;
-  color: #999;
+  font-size: 1.25rem;
+  color: #016bff;
   cursor: pointer;
-  transition: color 0.3s ease;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
 }
 
 .close-btn:hover {
-  color: #333;
+  background-color: rgba(241, 245, 249, 0.8);
+  transform: rotate(90deg);
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.9rem;
+  letter-spacing: 0.025em;
+  transition: all 0.2s ease;
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
+  padding: 0.875rem 1.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  color: #334155;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-.form-group .description {
-  font-size: 12px;
-  color: #777;
-  margin-top: 4px;
+.form-group input:hover,
+.form-group textarea:hover,
+.form-group select:hover {
+  border-color: #a5b4fc;
 }
 
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder,
+.form-group select::placeholder {
+  color: #64748b;
+  opacity: 0.7;
+}
+
+/* Custom select styling */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  background-size: 1rem;
+  padding-right: 3rem;
+}
+
+/* Error message styling */
+.error-message {
+  margin-top: 0.5rem;
+  color: #ef4444;
+  font-size: 0.8rem;
+  font-weight: 500;
+  animation: slideUp 0.3s ease forwards;
+  transform-origin: top left;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Input validation states */
+.ng-touched.ng-invalid {
+  border-color: #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.02) !important;
+}
+
+.ng-touched.ng-valid {
+  border-color: #22c55e !important;
+  background-color: rgba(34, 197, 94, 0.02) !important;
+}
+
+/* Focus within effect for form groups */
+.form-group:focus-within label {
+  color: #6366f1;
+  transform: translateY(-2px);
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .form-container {
+    padding: 1.75rem;
+    margin: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* Optional: Animated label effect */
+.form-group.animated-label {
+  position: relative;
+}
+
+.form-group.animated-label label {
+  position: absolute;
+  top: 0.875rem;
+  left: 1.25rem;
+  background-color: #ffffff;
+  padding: 0 0.5rem;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.form-group.animated-label input:focus ~ label,
+.form-group.animated-label input:not(:placeholder-shown) ~ label,
+.form-group.animated-label textarea:focus ~ label,
+.form-group.animated-label textarea:not(:placeholder-shown) ~ label,
+.form-group.animated-label select:focus ~ label,
+.form-group.animated-label select:not(:placeholder-shown) ~ label {
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  color: #6366f1;
+  font-weight: 600;
+}
+
+/* Optional: Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .form-container {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
+
+  .form-group label {
+    color: #e2e8f0;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+  }
+
+  .form-container::before,
+  .form-container::after {
+    opacity: 0.05;
+  }
+
+  .close-btn {
+    color: #94a3b8;
+  }
+
+  .close-btn:hover {
+    background-color: rgba(30, 41, 59, 0.8);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder,
+  .form-group select::placeholder {
+    color: #94a3b8;
+    opacity: 0.5;
+  }
+
+  .form-group.animated-label label {
+    background-color: #1e293b;
+    color: #94a3b8;
+  }
+
+  .ng-touched.ng-invalid {
+    background-color: rgba(239, 68, 68, 0.05) !important;
+  }
+
+  .ng-touched.ng-valid {
+    background-color: rgba(34, 197, 94, 0.05) !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Alternative: Animated Floating Label Variant 
+   To use this style, add the class "animated-label" to your form-group divs */
+
+.form-container {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(51, 65, 85, 0.08), 0 8px 10px -6px rgba(51, 65, 85, 0.08);
+  padding: 2.5rem;
+  position: relative;
+  max-width: 550px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.form-group.animated-label {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.form-group.animated-label input,
+.form-group.animated-label textarea,
+.form-group.animated-label select {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background-color: transparent;
+  color: #334155;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group.animated-label label {
+  position: absolute;
+  top: 1rem;
+  left: 1.25rem;
+  color: #64748b;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  background-color: transparent;
+  padding: 0 0.25rem;
+}
+
+.form-group.animated-label input:focus,
+.form-group.animated-label textarea:focus,
+.form-group.animated-label select:focus,
+.form-group.animated-label input:not(:placeholder-shown),
+.form-group.animated-label textarea:not(:placeholder-shown),
+.form-group.animated-label select:not(:placeholder-shown) {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.form-group.animated-label input:focus ~ label,
+.form-group.animated-label textarea:focus ~ label,
+.form-group.animated-label select:focus ~ label,
+.form-group.animated-label input:not(:placeholder-shown) ~ label,
+.form-group.animated-label textarea:not(:placeholder-shown) ~ label,
+.form-group.animated-label select:not(:placeholder-shown) ~ label {
+  top: 0.5rem;
+  font-size: 0.7rem;
+  color: #6366f1;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.form-group.animated-label input::placeholder,
+.form-group.animated-label textarea::placeholder {
+  color: transparent;
+}
+
+.form-group.animated-label input:focus::placeholder,
+.form-group.animated-label textarea:focus::placeholder {
+  color: #64748b;
+  opacity: 0.5;
+}
+
+
+
+
+/* ************************************************* */
 .Butt-DA {
   background-color: #f8f9fa;
   border-radius: 8px;
@@ -304,3 +625,8 @@ video {
   font-size: 12px;
   margin-top: 5px;
 }
+
+
+
+
+/* ************************************************************* */
