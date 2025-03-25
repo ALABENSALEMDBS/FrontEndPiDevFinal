@@ -46,10 +46,10 @@
             </svg>
             <span class="player-count gradient-text">
               <span 
-                class="count-badge" 
+                class="count-badge"  
                 [ngClass]="{
                   'no-players': f.joueurs?.length === 0, 
-                  'single-player': f.joueurs?.length === 1
+                  'single-player': f.joueurs?.length != 11 && f.joueurs?.length != 0
                 }">
                 {{ f.joueurs?.length }}
               </span>

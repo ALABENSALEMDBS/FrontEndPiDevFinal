@@ -40,6 +40,22 @@
       <div *ngIf="descInput.errors?.['minlength']">Description must be at least 10 characters long.</div>
     </div>
   </div>
+
+
+
+  <div class="form-group">
+    <label for="formation">Select a Formation:</label>
+    <select id="formation" name="formation" [(ngModel)]="selectedFormationId" (change)="onFormationChange()" required  >
+      <option value="" disabled selected>-- Choose a Formation --</option>
+
+      <option *ngFor="let formation of listformationCompatible" [value]="formation.idFormation">
+        {{ formation.nameFormation }}
+      </option>
+    </select>
+  </div>
+
+
+
 </div>
   
   <div class="Butt-DA" [hidden]="!isTacticVisible()">

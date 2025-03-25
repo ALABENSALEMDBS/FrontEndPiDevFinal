@@ -44,4 +44,16 @@ affecterjoueursAformation( idFormation: any, numeroJoueur: any[]): Observable<an
 dessaffecterJoueurAFormation(idFormation:number, idJoueur:number):Observable<any[]>{
   return this.http.post<any[]>("http://localhost:8089/PiDevBackEndProject/Formations/desaffecterJoueurAFormation/"+idFormation+'/'+idJoueur,null);
 }
+
+
+
+
+
+
+
+
+getCompatibleFormation(): Observable<formation[]> {
+  return this.http.get<formation[]>("http://localhost:8089/PiDevBackEndProject/Formations/compatible-formations");
+}
+
 }

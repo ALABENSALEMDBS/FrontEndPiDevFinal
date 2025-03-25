@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import Konva from 'konva';
 import  RecordRTC from 'recordrtc';
+import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 import { TacticService } from 'src/app/services/serviceCoatch/servicetacticcoatch/tactic.service';
+import { formation } from 'src/core/models/formation';
 
 @Component({
     selector: 'app-add-tactic',
@@ -48,10 +50,27 @@ export class AddTacticComponent implements OnInit {
   //canvasTouched: boolean = false;
   isVideoVisible: boolean = false;
 
-  constructor(private tacticservic: TacticService, private rout:Router) { }
+    listformationCompatible: formation[] = [];
+    selectedFormationId: any | null = null; // Stocke la formation sélectionnée
+
+  constructor(private tacticservic: TacticService, private rout:Router, private formationservice: FormationService) { }
 
   ngOnInit(): void {
     this.initializeField();
+    this.getFormationsCompatible();
+
+  }
+
+  getFormationsCompatible(): void {
+    this.formationservice.getCompatibleFormation().subscribe(data => {
+      this.listformationCompatible = data;
+      console.log("Liste des formations compatibles :", this.listformationCompatible);
+
+    });
+  }
+
+  onFormationChange(): void {
+    console.log("Formation sélectionnée:", this.selectedFormationId);
   }
 
 
@@ -510,7 +529,7 @@ export class AddTacticComponent implements OnInit {
 
 
 isTacticVisible(): boolean {
-  return this.nameTactic.trim().length >= 3 && this.descriptionTactic.trim().length >= 10;
+  return this.nameTactic.trim().length >= 3 && this.descriptionTactic.trim().length >= 10 &&  this.selectedFormationId !== null;
 }
 
 
@@ -583,7 +602,7 @@ isTacticVisible(): boolean {
           videoTactic: videoUrl, // Stocke null si aucune vidéo
       };
 
-      this.tacticservic.addtactic(tactic).subscribe({
+      this.tacticservic.addtacticandAssignedFormation(tactic,this.selectedFormationId!).subscribe({
           next: (response) => {
               console.log('Tactic added successfully:', response);
               window.location.reload();

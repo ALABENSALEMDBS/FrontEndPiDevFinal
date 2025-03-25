@@ -22,15 +22,16 @@ export class TacticService {
       return this.http.delete<tactic[]>("http://localhost:8089/PiDevBackEndProject/tactics/remove-tactics/"+id)
    }
 
-  
-  // getbyidsousgroup(idSousGroup:any):Observable<sousgroup[]>{
-  //   return this.http.get<sousgroup[]>(this.apiUrlGetById+'/'+idSousGroup)
-  // }
+
   
   addtactic(tac:tactic):Observable<tactic[]>{
     return this.http.post<tactic[]>("http://localhost:8089/PiDevBackEndProject/tactics/add-tactics",tac)
   }
 
+
+  addtacticandAssignedFormation(tac:tactic , idFormation:number):Observable<tactic[]>{
+    return this.http.post<tactic[]>("http://localhost:8089/PiDevBackEndProject/tactics/add-tactic-affecterFormation/"+idFormation, tac)
+  }
 
 
 
@@ -39,4 +40,5 @@ export class TacticService {
     formData.append('file', file, file.name);  // 'file' must match @RequestParam name on backend
     return this.http.post(`${this.baseUrl}/upload`, formData); //, { headers });
   }
+
 }
