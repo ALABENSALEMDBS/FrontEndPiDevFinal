@@ -23,16 +23,19 @@
       </div>
     </div>
 
-    <div *ngFor="let i of playersArray">
-      <div class="form-group">
-        <label>Player {{ i + 1 }} First Name</label>
-        <input type="text" formControlName="playerFirstName{{ i }}">
-      </div>
-      <div class="form-group">
-        <label>Player {{ i + 1 }} Last Name</label>
-        <input type="text" formControlName="playerLastName{{ i }}">
-      </div>
-    </div>
+<div *ngFor="let i of playersArray">
+  <div class="form-group">
+    <label>Player {{ i + 1 }} Name</label>
+    <input #filterInput type="text" formControlName="playerName{{ i }}"
+           (input)="filterPlayers(filterInput.value, i)">
+    <ul *ngIf="filteredPlayers[i]?.length">
+      <li *ngFor="let player of filteredPlayers[i]" (click)="selectPlayer(player, i)">
+        {{ player }}
+      </li>
+    </ul>
+  </div>
+</div>
+
 
 
     <div class="btn-group">

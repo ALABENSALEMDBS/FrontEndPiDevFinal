@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGroupe/sousgroupe.service';
+import { Joueurs } from 'src/core/models/joueur';
 
 @Component({
     selector: 'app-addsousgroup',
@@ -9,11 +10,16 @@ import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGro
     styleUrls: ['./addsousgroup.component.css'],
     standalone: false
 })
-export class AddsousgroupComponent {
+export class AddsousgroupComponent implements OnInit{
   sousGroupForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
   playersArray: number[] = [];
+  filteredItems: string[] = [];
+  players: string[] = [];
+  //filteredPlayers: string[] = [];
+  filteredPlayers: string[][] = [];
+
 
   constructor(private sousGroupService: SousgroupeService,private rout:Router) {
     // Initialisation manuelle du FormGroup
@@ -33,10 +39,21 @@ export class AddsousgroupComponent {
       });
       joueurs: new FormArray([]) // Tableau dynamique des joueurs
   }
+  ngOnInit(): void {
+    //this.filteredPlayers = [...this.players];
+    this.getAllPlayers();
+  }
 
   get joueursArray(): FormArray {
     return this.sousGroupForm.get('joueurs') as FormArray;
   }
+
+  getAllPlayers(): void {
+    this.sousGroupService.getalljoueur().subscribe(data => {
+      data.forEach(item => this.players.push(item.nameUsers));
+    });
+  }
+
 
 
   onNbrJoueurChange(): void {
@@ -44,7 +61,7 @@ export class AddsousgroupComponent {
     this.updateJoueursArray(nbrJoueur);
   }
 
-    updateJoueursArray(nbrJoueur: number): void {
+  updateJoueursArray(nbrJoueur: number): void {
     const joueursArray = this.joueursArray;
     joueursArray.clear(); // Supprimer les anciens champs
 
@@ -56,11 +73,29 @@ export class AddsousgroupComponent {
     }
   }
 
+
+  // filterPlayers(filterValue: string): void {
+  //   this.filteredPlayers = this.players.filter(player =>
+  //     player.toLowerCase().startsWith(filterValue.toLowerCase())
+  //   );
+  // }
+
+  filterPlayers(filterValue: string, index: number): void {
+    this.filteredPlayers[index] = this.players.filter(player =>
+      player.toLowerCase().startsWith(filterValue.toLowerCase())
+    );
+  }
+
+  selectPlayer(playerName: string, index: number): void {
+    this.sousGroupForm.get(`playerName${index}`)?.setValue(playerName);
+    this.filteredPlayers[index] = []; // Cache la liste après sélection
+  }
+
+
   updatePlayerFields(nbrJoueur: number) {
     this.playersArray = Array.from({ length: nbrJoueur }, (_, i) => i);
     this.playersArray.forEach(i => {
-      this.sousGroupForm.addControl(`playerFirstName${i}`, new FormControl('', Validators.required));
-      this.sousGroupForm.addControl(`playerLastName${i}`, new FormControl('', Validators.required));
+      this.sousGroupForm.addControl(`playerName${i}`, new FormControl('', Validators.required));
     });
   }
   // cancel() {
@@ -124,4 +159,5 @@ export class AddsousgroupComponent {
   avoidAdd() {
     this.rout.navigate(['/coatch/ShowSousGroups']); // Changez '/listsousgroup' selon votre route réelle
   }
+
 }

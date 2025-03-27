@@ -2,6 +2,9 @@
   List of Subgroups
 </h2>
 
+<!-- Ajout du router-outlet ici -->
+<router-outlet></router-outlet>
+
 <!-- Bouton Ajouter un Sous-Groupe -->
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
   <button [routerLink]="['addsousgroup']"
@@ -53,19 +56,29 @@
   <i class="fas fa-users"></i> Players
 </button>
 
+
+
 <!-- Liste des joueurs affichée uniquement si sélectionnée -->
 <div *ngIf="selectedSousGroupId === sg.idSousGroup">
-  <h4>Players:</h4>
-  <ul>
-    <li *ngFor="let joueur of joueursSousGroupe">
-      {{ joueur.nom }} {{ joueur.prenom }}
+  <h4 style="color: black;">Players:</h4>
+  <ul style="padding: 0; list-style-type: none;">
+    <li *ngFor="let joueur of joueursSousGroupe"
+        style="color: black; background-color: #f8f9fa; padding: 5px; margin: 2px 0; border-radius: 5px;">
+        <ul>
+          <li *ngFor="let joueur of joueursSousGroupe">
+            {{ joueur.nameUsers }} {{ joueur.prenomUser }}
+          </li>
+        </ul>
+
+
     </li>
   </ul>
 </div>
 
 
+
+
   </div>
 </div>
 
-<!-- Ajout du router-outlet ici -->
-<router-outlet></router-outlet>
+
