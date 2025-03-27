@@ -71,9 +71,17 @@ showPlayers(idSousGroup: number): void {
   this.selectedSousGroupId = idSousGroup;
 
   this.coatchService.getPlayersBySousGroup(idSousGroup).subscribe(data => {
-    this.joueursSousGroupe = data.joueurs;
+    console.log("Données reçues de l'API :", data);
+    this.joueursSousGroupe = data.joueurs || [];
+
+    // Vérifier si `joueursSousGroupe` contient bien des joueurs
+    console.log("Joueurs stockés :", this.joueursSousGroupe);
   });
 }
+
+
+
+
 
 
 }

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Joueurs } from 'src/core/models/joueur';
+//import { Joueur } from 'src/core/models/Joueurs';
 import { sousgroup } from 'src/core/models/sousgroup';
 
 @Injectable({
@@ -36,6 +38,10 @@ export class SousgroupeService {
  addsousgroup(sg:sousgroup):Observable<sousgroup[]>{
    return this.http.post<sousgroup[]>("http://localhost:8089/PiDevBackEndProject/sousGroupes/add-sousGroupes",sg)
  }
+getalljoueur():Observable<Joueurs[]>{
+  return this.http.get<Joueurs[]>("http://localhost:8089/PiDevBackEndProject/joueurs/retrieve-joueurs-Withoutsousgroups");
+}
+
 
  getPlayersBySousGroup(idSousGroup: number): Observable<any> {
   return this.http.get<any>(`${this.apiUrlGetById}/${idSousGroup}`);

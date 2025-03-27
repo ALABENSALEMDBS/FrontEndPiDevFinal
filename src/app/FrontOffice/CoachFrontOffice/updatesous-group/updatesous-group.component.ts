@@ -74,6 +74,8 @@ export class UpdatesousGroupComponent implements OnInit {
         // Navigation vers la page des sous-groupes après la mise à jour
         setTimeout(() => {
           this.router.navigateByUrl('/coatch/ShowSousGroups');
+          window.location.reload();  // Recharger la page pour voir les mises à jour
+
         }, 200);  // Délai de 200ms pour s'assurer que la mise à jour est terminée
       });
     }
