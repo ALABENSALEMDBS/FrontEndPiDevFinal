@@ -344,6 +344,12 @@
   .player-actions {
     margin-left: auto;
   }
+  .player-statistique {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
   
   .remove-btn {
     background-color: #f44336;
@@ -368,6 +374,29 @@
     height: 16px;
   }
   
+
+  .statistique-btn {
+    background-color: #f1a40a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+  }
+
+  .statistique-btn:hover {
+    background-color: #c49e06;
+  }
+  
+  .statistique-btn .icon {
+    width: 16px;
+    height: 16px;
+  }
 
 
  
