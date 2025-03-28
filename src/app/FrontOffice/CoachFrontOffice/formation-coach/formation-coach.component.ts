@@ -49,10 +49,14 @@ export class FormationCoachComponent implements OnInit {
     openPopup(formation: any) {
       this.selectedFormation = formation;
       this.showPopup = true;
+      document.documentElement.style.overflow = 'hidden'; // Bloquer le scroll
+
     }
   
     closePopup() {
       this.showPopup = false;
+      document.documentElement.style.overflow = ''; // Rétablir le scroll
+
     }
 
 
@@ -63,12 +67,16 @@ export class FormationCoachComponent implements OnInit {
     openConfirmPopup(id: number) {
       this.formationIdToDelete = id;
       this.showConfirmPopup = true;
+      document.documentElement.style.overflow = 'hidden'; // Bloquer le scroll
+
     }
   
     // Fonction pour fermer le popup
     closeConfirmPopup() {
       this.showConfirmPopup = false;
       this.formationIdToDelete = null;
+      document.documentElement.style.overflow = ''; // Rétablir le scroll
+
     }
   
     // Confirmer la suppression
@@ -104,11 +112,15 @@ export class FormationCoachComponent implements OnInit {
     // New methods for players panel
   openPlayersPanel(formation: any): void {
     this.selectedFormation = formation
-    this.showPlayersPanel = true
+    this.showPlayersPanel = true;
+    document.documentElement.style.overflow = 'hidden'; // Bloquer le scroll
+
   }
 
   closePlayersPanel(): void {
-    this.showPlayersPanel = false
+    this.showPlayersPanel = false;
+    document.documentElement.style.overflow = ''; // Rétablir le scroll
+
   }
 
 }
