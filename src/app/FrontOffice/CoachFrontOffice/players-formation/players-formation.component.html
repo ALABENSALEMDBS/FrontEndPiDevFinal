@@ -65,7 +65,7 @@
           </div>
 
           <div class="player-statistique">
-            <button class="statistique-btn">
+            <button class="statistique-btn"   (click)="showStatistic(player?.numeroJoueur, player?.nameUsers)">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                 <line x1="4" y1="20" x2="4" y2="10"></line>
                 <line x1="10" y1="20" x2="10" y2="4"></line>
@@ -74,7 +74,6 @@
             </svg>
             Statistic
             </button>
-
           </div>
 
 
@@ -98,3 +97,46 @@
           [formation]="selectedFormation">
     </app-assign-players-formation>
   </div>
+
+
+
+
+
+
+
+
+
+  <!-- Modal -->
+<!-- <div *ngIf="isModalOpenStatistic" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Statistiques du joueur {{numeroPlayer}}</h2>
+    <p>Détails des statistiques ici...</p>
+    <button (click)="closeModalStatistic()">Fermer</button>
+  </div>
+</div> -->
+
+
+
+<!-- Modal -->
+<div *ngIf="isModalOpenStatistic" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeModalStatistic()">✖</button>
+    <h2>Statistiques du joueur {{ nameUsers }}</h2>
+
+    <div *ngIf="statistiques.length > 0; else noData" class="stats-container">
+      <div *ngFor="let stat of statistiques" class="stat-card">
+        <!-- <h3>Match #{{ stat.idStatistiqueIndiv }}</h3> -->
+        <p>⚽ <strong>Buts :</strong> {{ stat.buts }}</p>
+        <p>🎯 <strong>Passes :</strong> {{ stat.passesDecisives }}</p>
+        <p>🎯 <strong>Tirs cadrés :</strong> {{ stat.tirsCadres }}</p>
+        <p>🔥 <strong>Dribbles réussis :</strong> {{ stat.dribblesReussis }}</p>
+        <p>🛡️ <strong>Tacles :</strong> {{ stat.tacles }}</p>
+        <p>📏 <strong>Distance parcourue :</strong> {{ stat.distanceParcourue }} km</p>
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <p class="no-data">Aucune statistique trouvée.</p>
+    </ng-template>
+  </div>
+</div>
