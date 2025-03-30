@@ -10,7 +10,6 @@ export class StatisindivService {
 
   constructor(private http:HttpClient) { }
 
-  //http://localhost:8089/PiDevBackEndProject/statistiqueIndiv/getStatistiqueIndivByJoueurNumero/{{numeroJoueur}}
 
   getStatIndivByNumeroJoueur( numerojoueur: number): Observable<StatistiqueIndiv[]> {
       return this.http.get<StatistiqueIndiv[]>("http://localhost:8089/PiDevBackEndProject/statistiqueIndiv/getStatistiqueIndivByJoueurNumero/"+numerojoueur);

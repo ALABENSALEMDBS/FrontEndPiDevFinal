@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AssignPlayersFormationComponent } from "../assign-players-formation/assign-players-formation.component";
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
+import { StatistiqueIndiv } from 'src/core/models/StatistiqueIndiv';
+import { StatisindivService } from 'src/app/services/serviceAnalyste/statistique-indiv/statisindiv.service';
 
 @Component({
   selector: 'app-players-formation',
@@ -30,7 +32,7 @@ import { FormationService } from 'src/app/services/serviceCoatch/serviceformatio
 })
 export class PlayersFormationComponent {
 
-  constructor(private serF:FormationService){}
+  constructor(private serF:FormationService, private statistiqueService: StatisindivService){}
     successMessage: string = '';
     errorMessage: string = '';
     showSuccessMessage: boolean = false
@@ -97,4 +99,47 @@ removePlayerFromFormation(formationId: number, playerId: number)
 
 
 
+
+
+
+
+isModalOpenStatistic = false;
+ numeroPlayer:number=0;
+ nameUsers:string='';
+  showStatistic(numeroJoueur: number, nameUsers:string): void {
+    this.isModalOpenStatistic = true;
+    console.log("Statistique du joueur :", numeroJoueur);
+    console.log(numeroJoueur);
+    this.numeroPlayer=numeroJoueur;
+    this.nameUsers=nameUsers;
+
+    this.showStatisticdunjoueur(numeroJoueur);
+  }
+
+ 
+
+
+
+  statistiques: StatistiqueIndiv[] = [];
+
+  showStatisticdunjoueur(numeroJoueur: number | undefined): void {
+    if (numeroJoueur !== undefined) {
+      this.statistiqueService.getStatIndivByNumeroJoueur(numeroJoueur).subscribe(
+        (data) => {
+          this.statistiques = data;
+          this.isModalOpenStatistic = true;
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des statistiques:', error);
+        }
+      );
+    }
+  }
+
+
+
+  closeModalStatistic(): void {
+    this.isModalOpenStatistic = false;
+    this.statistiques = []; // Réinitialisation de la liste des statistiques
+  }
 }
