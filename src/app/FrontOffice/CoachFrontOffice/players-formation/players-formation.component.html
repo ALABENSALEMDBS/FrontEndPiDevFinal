@@ -106,6 +106,71 @@
 
 
 
+
+
+<!-- Modal for Player Statistics -->
+<div *ngIf="isModalOpenStatistic" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btnM" (click)="closeModalStatistic()">✖</button>
+    <h2>Statistiques de {{ nameUsers }}</h2>
+
+    <div *ngIf="statistiques.length > 0; else noData">
+      <!-- Navigation des catégories -->
+      <div class="chart-tabs">
+        <button 
+          *ngFor="let category of categories" 
+          [class.active]="selectedCategory === category.id"
+          (click)="changeCategory(category.id)">
+          {{ category.name }}
+        </button>
+      </div>
+
+      <!-- Conteneur principal des graphiques -->
+      <div class="charts-container">
+        <!-- Graphique principal -->
+        <div class="main-chart">
+          <canvas baseChart
+            [data]="chartData"
+            [options]="chartOptions"
+            [type]="chartType">
+          </canvas>
+        </div>
+
+        <!-- Statistiques clés -->
+        <div class="key-stats">
+          <div class="stat-card" *ngFor="let stat of keyStats">
+            <div class="stat-value" [style.color]="stat.color">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Détails des statistiques -->
+      <div class="stats-details">
+        <div class="stat-item" *ngFor="let stat of detailedStats">
+          <div class="stat-label">{{ stat.label }}</div>
+          <div class="stat-bar-container">
+            <div class="stat-bar" [style.width.%]="stat.percentage" [style.background-color]="stat.color"></div>
+            <span class="stat-value">{{ stat.value }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <div class="no-data-container">
+        <div class="no-data-icon">📊</div>
+        <p class="no-data">Aucune statistique disponible pour ce joueur.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+
+
+
+
+
   <!-- Modal -->
 <!-- <div *ngIf="isModalOpenStatistic" class="modal-overlay">
   <div class="modal-content">
@@ -118,14 +183,13 @@
 
 
 <!-- Modal -->
-<div *ngIf="isModalOpenStatistic" class="modal-overlay">
+<!-- <div *ngIf="isModalOpenStatistic" class="modal-overlay">
   <div class="modal-content">
     <button class="close-btn" (click)="closeModalStatistic()">✖</button>
     <h2>Statistiques du joueur {{ nameUsers }}</h2>
 
     <div *ngIf="statistiques.length > 0; else noData" class="stats-container">
       <div *ngFor="let stat of statistiques" class="stat-card">
-        <!-- <h3>Match #{{ stat.idStatistiqueIndiv }}</h3> -->
         <p>⚽ <strong>Buts :</strong> {{ stat.buts }}</p>
         <p>🎯 <strong>Passes :</strong> {{ stat.passesDecisives }}</p>
         <p>🎯 <strong>Tirs cadrés :</strong> {{ stat.tirsCadres }}</p>
@@ -139,4 +203,4 @@
       <p class="no-data">Aucune statistique trouvée.</p>
     </ng-template>
   </div>
-</div>
+</div> -->

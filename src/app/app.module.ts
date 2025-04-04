@@ -71,6 +71,7 @@ import { UpdateformationComponent } from './FrontOffice/CoachFrontOffice/updatef
 import { UpdateseanceComponent } from './FrontOffice/CoachFrontOffice/updateseance/updateseance.component';
 import { FooterHomeComponent } from "./FrontOffice/HomePages/footer-home/footer-home.component";
 import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-home.component";
+import { NgChartsModule } from 'ng2-charts';
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -228,6 +229,7 @@ import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    NgChartsModule,
 //     FormsModule,
 //     FooterHomeComponent, 
 //     NavbarHomeComponent  
