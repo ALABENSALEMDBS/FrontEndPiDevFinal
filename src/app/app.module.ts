@@ -72,6 +72,8 @@ import { UpdateseanceComponent } from './FrontOffice/CoachFrontOffice/updatesean
 import { FooterHomeComponent } from "./FrontOffice/HomePages/footer-home/footer-home.component";
 import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-home.component";
 import { NgChartsModule } from 'ng2-charts';
+import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
+import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -204,7 +206,7 @@ import { NgChartsModule } from 'ng2-charts';
     CreateNourritureComponent,
     ListeNourritureComponent,
     AddformationComponent,
-    
+
     AddseanceComponent,
     AddexerciceComponent,
     ListExerciceComponent,
@@ -230,11 +232,12 @@ import { NgChartsModule } from 'ng2-charts';
     AppRoutingModule,
     ReactiveFormsModule,
     NgChartsModule,
+    ChatComponent,
 //     FormsModule,
-//     FooterHomeComponent, 
-//     NavbarHomeComponent  
+//     FooterHomeComponent,
+//     NavbarHomeComponent
 // ],
 // providers: [provideHttpClient(withInterceptorsFromDi())] })
-  
-    FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
+
+    FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

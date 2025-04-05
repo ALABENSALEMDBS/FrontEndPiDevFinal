@@ -9,6 +9,7 @@ import { sousgroup } from 'src/core/models/sousgroup';
     standalone: false
 })
 export class SousgroupComponent implements OnInit {
+  selectedChatId: number | null = null;
   sousGroupes: sousgroup[] = [];
   showOutlet: boolean = false;
   images: string[] = [
@@ -79,6 +80,9 @@ showPlayers(idSousGroup: number): void {
   });
 }
 
+openChat(idSousGroup: number) {
+  this.selectedChatId = idSousGroup;
+}
 
 
 
