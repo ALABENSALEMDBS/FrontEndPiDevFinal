@@ -57,6 +57,8 @@ import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-mat
 import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 import { FooterHomeComponent } from "./FrontOffice/HomePages/footer-home/footer-home.component";
 import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-home.component";
+import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
+import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -107,8 +109,10 @@ import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-
         ListMatchComponent,
         UpdateMatchComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent],
+    imports: [BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule, FooterHomeComponent, NavbarHomeComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
+    ChatComponent,
+    FormsModule, FooterHomeComponent, NavbarHomeComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

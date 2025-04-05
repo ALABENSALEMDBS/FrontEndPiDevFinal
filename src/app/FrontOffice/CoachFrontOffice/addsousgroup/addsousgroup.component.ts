@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 import { SousgroupeService } from 'src/app/services/serviceCoatch/serviceSousGroupe/sousgroupe.service';
 import { Joueurs } from 'src/core/models/joueur';
+import { sousgroup } from 'src/core/models/sousgroup';
 
 @Component({
     selector: 'app-addsousgroup',
@@ -11,12 +12,15 @@ import { Joueurs } from 'src/core/models/joueur';
     standalone: false
 })
 export class AddsousgroupComponent implements OnInit{
+  sg: sousgroup = new sousgroup();
   sousGroupForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
   playersArray: number[] = [];
   filteredItems: string[] = [];
   players: string[] = [];
+  playersObject: Joueurs[] = [];
+  filteredPlayersObject: Joueurs[] = [];
   //filteredPlayers: string[] = [];
   filteredPlayers: string[][] = [];
 
@@ -50,7 +54,11 @@ export class AddsousgroupComponent implements OnInit{
 
   getAllPlayers(): void {
     this.sousGroupService.getalljoueur().subscribe(data => {
-      data.forEach(item => this.players.push(item.nameUsers));
+
+      data.forEach(item =>{
+        this.players.push(item.nameUsers)
+        this.playersObject.push(item)
+      });
     });
   }
 
@@ -89,6 +97,11 @@ export class AddsousgroupComponent implements OnInit{
   selectPlayer(playerName: string, index: number): void {
     this.sousGroupForm.get(`playerName${index}`)?.setValue(playerName);
     this.filteredPlayers[index] = []; // Cache la liste après sélection
+    for (var j of this.playersObject) {
+      if(j.nameUsers == playerName){
+        this.filteredPlayersObject.push(j)
+      }
+    }
   }
 
 
@@ -106,7 +119,10 @@ export class AddsousgroupComponent implements OnInit{
 
   addSousGroup() {
     if (this.sousGroupForm.valid) {
-      this.sousGroupService.addsousgroup(this.sousGroupForm.value).subscribe({
+      this.sg!.nameSousGroup=this.sousGroupForm.controls['nameSousGroup'].value;
+      this.sg!.nbrJoueurSousGroup=this.sousGroupForm.controls['nbrJoueurSousGroup'].value;
+      this.sg!.joueurs=this.filteredPlayersObject;
+      this.sousGroupService.addsousgroup(this.sg).subscribe({
         next: () => {
           const navigationExtras: NavigationExtras = {
             state: { successMessage: 'Sub-group added successfully!' }

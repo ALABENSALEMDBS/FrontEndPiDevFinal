@@ -50,6 +50,19 @@
   </button>
 </div>
 
+<button (click)="openChat(sg.idSousGroup)"
+        style="background: transparent; color: #17a2b8; border: 2px solid #17a2b8; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+  <i class="fas fa-comments"></i> Rejoindre la Discussion
+</button>
+
+<!-- Affichage du chat si le sous-groupe est sélectionné -->
+<!-- <div *ngIf="selectedChatId === sg.idSousGroup">
+  <app-chat [idSousGroup]="sg.idSousGroup"></app-chat>
+</div> -->
+<div *ngIf="selectedChatId === sg.idSousGroup">
+  <app-chat></app-chat>
+</div>
+
 
 <button (click)="showPlayers(sg.idSousGroup)"
         style="background: transparent; color: #007bff; border: 2px solid #007bff; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
