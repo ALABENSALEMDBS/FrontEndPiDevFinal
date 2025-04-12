@@ -7,6 +7,18 @@ import { Component, EventEmitter, Output } from '@angular/core';
     standalone: false
 })
 export class HeaderBackComponent {
+
+  isDropdownOpen = false;
+
+
+
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+
+
   onMenuItemClick(event: any): void {
     console.log('uu ', event)
     const element = document.querySelector('.dropdown-menu.dropdown-menu-end');

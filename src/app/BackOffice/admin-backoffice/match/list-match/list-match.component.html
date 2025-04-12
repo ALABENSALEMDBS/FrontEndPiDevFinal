@@ -1,1 +1,89 @@
-<p>list-match works!</p>
+<div class="container">
+    <h2 style="text-align: center; margin-bottom: 20px;">Liste des Matchs</h2>
+  
+    <!-- Bouton Ajouter un Match -->
+    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+      <button [routerLink]="['addmatch']"
+              style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-plus"></i> Ajouter un Match
+      </button>
+    </div>
+  
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+      <div *ngFor="let m of match" class="card"
+           style="width: 300px; padding: 20px; background: rgba(255, 255, 255, 0.726); backdrop-filter: blur(8px); color: black; text-align: center; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+        <h3>Match</h3>
+        <!-- <img class="card-img-top" style="width:100%; height: 100%;object-fit: cover;" [src]="'data:image/jpeg;base64,'+m.displayPicture" alt="Title">
+        <p><strong>Résultat:</strong> {{ m.resultatMatch }}</p>
+        <p><strong>Date:</strong> {{ m.dateMatch }}</p>
+        <p><strong>Lieu:</strong> {{ m.lieuMatch }}</p>
+        <p><strong>Status:</strong> {{ m.statusMatch }}</p>
+        <p><strong>Type:</strong> {{ m.typeMatch }}</p>
+        <p><strong>Arbitre:</strong> {{ m.arbitre }}</p>
+        <p><strong>Club 1:</strong> {{m.club1.nameClub}}</p>
+        <img [src]="'data:image/jpeg;base64,'+m.club1.logo">
+        <p><strong>Club 2:</strong> {{m.club2.nameClub}}</p>
+        <img [src]="'data:image/jpeg;base64,'+m.club2.logo">
+
+
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+          <button (click)="deleteMatchs(m.idMatch)"
+                  style="background: transparent; color: #dc3545; border: 2px solid #dc3545; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+            <i class="fas fa-trash"></i> Supprimer
+          </button>
+  
+          <button [routerLink]="['update', m.idMatch]"
+                  style="background: transparent; color: #0a7941; border: 2px solid #0a7941; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+            <i class="fas fa-edit"></i> Update
+          </button>
+        </div> -->
+
+
+
+
+
+
+
+        <img class="card-img-top" style="width: 100%; height: 100%; object-fit: cover;" 
+       [src]="'data:image/jpeg;base64,'+m.displayPicture" alt="Title">
+  
+  <div class="card-body">
+    <p><strong>Résultat:</strong> {{ m.resultatMatch }}</p>
+    <p><strong>Date:</strong> {{ m.dateMatch }}</p>
+    <p><strong>Lieu:</strong> {{ m.lieuMatch }}</p>
+    <p><strong>Status:</strong> {{ m.statusMatch }}</p>
+    <p><strong>Type:</strong> {{ m.typeMatch }}</p>
+    <p><strong>Arbitre:</strong> {{ m.arbitre }}</p>
+    <p><strong>Club 1:</strong> {{m.club1.nameClub}}</p>
+    <p><strong>Club 2:</strong> {{m.club2.nameClub}}</p>
+
+
+   
+    <div class="d-flex align-items-center justify-content-between border p-2">
+      <div class="text-center">
+        <img [src]="'data:image/jpeg;base64,'+m.club1.logo" class="rounded-circle" 
+             style="width: 50px; height: 50px; object-fit: cover;">
+        <p class="m-0"><strong>{{ m.club1.nameClub }}</strong></p>
+      </div>
+      <span class="fw-bold">VS</span>
+      <div class="text-center">
+        <img [src]="'data:image/jpeg;base64,'+m.club2.logo" class="rounded-circle" 
+             style="width: 50px; height: 50px; object-fit: cover;">
+        <p class="m-0"><strong>{{ m.club2.nameClub }}</strong></p>
+      </div>
+    </div>
+  </div>
+
+  
+  
+  
+    <!-- Message si aucun match trouvé -->
+    <div *ngIf="match.length === 0" class="no-data" style="text-align: center; margin-top: 20px;">
+      Aucun match trouvé.
+    </div>
+  </div>
+  
+  <router-outlet></router-outlet>
+  
