@@ -112,7 +112,7 @@
 <div *ngIf="isModalOpenStatistic" class="modal-overlay">
   <div class="modal-content">
     <button class="close-btnM" (click)="closeModalStatistic()">✖</button>
-    <h2>Statistiques de {{ nameUsers }}</h2>
+    <h2>Statistics of {{ nameUsers }}</h2>
 
     <div *ngIf="statistiques.length > 0; else noData">
       <!-- Navigation des catégories -->
@@ -160,7 +160,7 @@
     <ng-template #noData>
       <div class="no-data-container">
         <div class="no-data-icon">📊</div>
-        <p class="no-data">Aucune statistique disponible pour ce joueur.</p>
+        <p class="no-data">No statistics available for this player.</p>
       </div>
     </ng-template>
   </div>
