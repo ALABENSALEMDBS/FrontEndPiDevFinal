@@ -126,19 +126,20 @@ export class PlayersFormationComponent {
   }
 
   barChartLabels: string[] = [
-    "Buts",
-    "Passes Décisives",
-    "Tirs",
-    "Dribbles Réussis",
-    "Tacles",
-    "Tirs Cadrés",
-    "Passes Réussies",
-    "Duels Gagnés",
-    "Fautes Commises",
-    "Cartons Jaunes",
-    "Cartons Rouges",
+    "Goals",
+    "Assists",
+    "Shots",
+    "Successful Dribbles",
+    "Tackles",
+    "Shots on Target",
+    "Successful Passes",
+    "Duels Won",
+    "Fouls Committed",
+    "Yellow Cards",
+    "Red Cards",
     "Distance (km)",
-  ]
+  ];
+  
 
   barChartData: ChartData = {
     labels: this.barChartLabels,
@@ -167,10 +168,11 @@ export class PlayersFormationComponent {
   // Category definitions
   categories = [
     { id: "offensive", name: "Offensive", active: true },
-    { id: "defensive", name: "Défensive", active: false },
-    { id: "technique", name: "Technique", active: false },
+    { id: "defensive", name: "Defensive", active: false },
+    { id: "technical", name: "Technical", active: false },
     { id: "discipline", name: "Discipline", active: false },
-  ]
+  ];
+  
 
   // Stat colors
   statColors = {
@@ -247,7 +249,7 @@ export class PlayersFormationComponent {
           if (this.statistiques.length > 0) {
             this.updateKeyStats()
             this.updateChartData(this.selectedCategory)
-            this.updateDetailedStats()
+            // this.updateDetailedStats()
           }
         },
         (error) => {
@@ -266,9 +268,9 @@ export class PlayersFormationComponent {
       const butsEfficacite = stats.tirs > 0 ? Math.round((stats.buts / stats.tirs) * 100) : 0
 
       this.keyStats = [
-        { label: "Buts", value: stats.buts || 0, color: this.statColors.buts, icon: "⚽" },
-        { label: "Passes D.", value: stats.passesDecisives || 0, color: this.statColors.passesDecisives, icon: "👟" },
-        { label: "Précision", value: `${tirsPrecision}%`, color: this.statColors.tirsCadres, icon: "🎯" },
+        { label: "Goals", value: stats.buts || 0, color: this.statColors.buts, icon: "⚽" },
+        { label: "Assists", value: stats.passesDecisives || 0, color: this.statColors.passesDecisives, icon: "👟" },
+        { label: "Accuracy", value: `${tirsPrecision}%`, color: this.statColors.tirsCadres, icon: "🎯" },
         {
           label: "Distance",
           value: `${stats.distanceParcourue || 0} km`,
@@ -279,128 +281,128 @@ export class PlayersFormationComponent {
     }
   }
 
-  updateDetailedStats(): void {
-    if (this.statistiques.length > 0) {
-      const stats = this.statistiques[0]
-      const maxValues = {
-        buts: 20,
-        passesDecisives: 15,
-        tirs: 100,
-        dribblesReussis: 80,
-        passesReussies: 500,
-        duelsGagnes: 100,
-        tacles: 50,
-        fautesCommises: 30,
-        cartonsJaunes: 10,
-        cartonsRouges: 3,
-      }
+  // updateDetailedStats(): void {
+  //   if (this.statistiques.length > 0) {
+  //     const stats = this.statistiques[0]
+  //     const maxValues = {
+  //       buts: 20,
+  //       passesDecisives: 15,
+  //       tirs: 100,
+  //       dribblesReussis: 80,
+  //       passesReussies: 500,
+  //       duelsGagnes: 100,
+  //       tacles: 50,
+  //       fautesCommises: 30,
+  //       cartonsJaunes: 10,
+  //       cartonsRouges: 3,
+  //     }
 
-      // Create detailed stats based on current category
-      switch (this.selectedCategory) {
-        case "offensive":
-          this.detailedStats = [
-            {
-              label: "Buts",
-              value: stats.buts || 0,
-              percentage: Math.min(((stats.buts || 0) / maxValues.buts) * 100, 100),
-              color: this.statColors.buts,
-            },
-            {
-              label: "Passes Décisives",
-              value: stats.passesDecisives || 0,
-              percentage: Math.min(((stats.passesDecisives || 0) / maxValues.passesDecisives) * 100, 100),
-              color: this.statColors.passesDecisives,
-            },
-            {
-              label: "Tirs",
-              value: stats.tirs || 0,
-              percentage: Math.min(((stats.tirs || 0) / maxValues.tirs) * 100, 100),
-              color: this.statColors.tirs,
-            },
-            {
-              label: "Tirs Cadrés",
-              value: stats.tirsCadres || 0,
-              percentage: stats.tirs > 0 ? Math.min(((stats.tirsCadres || 0) / stats.tirs) * 100, 100) : 0,
-              color: this.statColors.tirsCadres,
-            },
-          ]
-          break
-        case "defensive":
-          this.detailedStats = [
-            {
-              label: "Tacles",
-              value: stats.tacles || 0,
-              percentage: Math.min(((stats.tacles || 0) / maxValues.tacles) * 100, 100),
-              color: this.statColors.tacles,
-            },
-            {
-              label: "Duels Gagnés",
-              value: stats.duelsGagnes || 0,
-              percentage: Math.min(((stats.duelsGagnes || 0) / maxValues.duelsGagnes) * 100, 100),
-              color: this.statColors.duelsGagnes,
-            },
-            {
-              label: "Fautes Commises",
-              value: stats.fautesCommises || 0,
-              percentage: Math.min(((stats.fautesCommises || 0) / maxValues.fautesCommises) * 100, 100),
-              color: this.statColors.fautesCommises,
-            },
-          ]
-          break
-        case "technique":
-          this.detailedStats = [
-            {
-              label: "Passes Réussies",
-              value: stats.passesReussies || 0,
-              percentage: Math.min(((stats.passesReussies || 0) / maxValues.passesReussies) * 100, 100),
-              color: this.statColors.passesReussies,
-            },
-            {
-              label: "Dribbles Réussis",
-              value: stats.dribblesReussis || 0,
-              percentage: Math.min(((stats.dribblesReussis || 0) / maxValues.dribblesReussis) * 100, 100),
-              color: this.statColors.dribblesReussis,
-            },
-            {
-              label: "Vitesse",
-              value: stats.vitesseStatistiqueIndiv || 0,
-              percentage: Math.min(((stats.vitesseStatistiqueIndiv || 0) / 40) * 100, 100), // Assuming max speed is 40 km/h
-              color: this.statColors.vitesse,
-            },
+  //     // Create detailed stats based on current category
+  //     switch (this.selectedCategory) {
+  //       case "offensive":
+  //         this.detailedStats = [
+  //           {
+  //             label: "Buts",
+  //             value: stats.buts || 0,
+  //             percentage: Math.min(((stats.buts || 0) / maxValues.buts) * 100, 100),
+  //             color: this.statColors.buts,
+  //           },
+  //           {
+  //             label: "Passes Décisives",
+  //             value: stats.passesDecisives || 0,
+  //             percentage: Math.min(((stats.passesDecisives || 0) / maxValues.passesDecisives) * 100, 100),
+  //             color: this.statColors.passesDecisives,
+  //           },
+  //           {
+  //             label: "Tirs",
+  //             value: stats.tirs || 0,
+  //             percentage: Math.min(((stats.tirs || 0) / maxValues.tirs) * 100, 100),
+  //             color: this.statColors.tirs,
+  //           },
+  //           {
+  //             label: "Tirs Cadrés",
+  //             value: stats.tirsCadres || 0,
+  //             percentage: stats.tirs > 0 ? Math.min(((stats.tirsCadres || 0) / stats.tirs) * 100, 100) : 0,
+  //             color: this.statColors.tirsCadres,
+  //           },
+  //         ]
+  //         break
+  //       case "defensive":
+  //         this.detailedStats = [
+  //           {
+  //             label: "Tacles",
+  //             value: stats.tacles || 0,
+  //             percentage: Math.min(((stats.tacles || 0) / maxValues.tacles) * 100, 100),
+  //             color: this.statColors.tacles,
+  //           },
+  //           {
+  //             label: "Duels Gagnés",
+  //             value: stats.duelsGagnes || 0,
+  //             percentage: Math.min(((stats.duelsGagnes || 0) / maxValues.duelsGagnes) * 100, 100),
+  //             color: this.statColors.duelsGagnes,
+  //           },
+  //           {
+  //             label: "Fautes Commises",
+  //             value: stats.fautesCommises || 0,
+  //             percentage: Math.min(((stats.fautesCommises || 0) / maxValues.fautesCommises) * 100, 100),
+  //             color: this.statColors.fautesCommises,
+  //           },
+  //         ]
+  //         break
+  //       case "technique":
+  //         this.detailedStats = [
+  //           {
+  //             label: "Passes Réussies",
+  //             value: stats.passesReussies || 0,
+  //             percentage: Math.min(((stats.passesReussies || 0) / maxValues.passesReussies) * 100, 100),
+  //             color: this.statColors.passesReussies,
+  //           },
+  //           {
+  //             label: "Dribbles Réussis",
+  //             value: stats.dribblesReussis || 0,
+  //             percentage: Math.min(((stats.dribblesReussis || 0) / maxValues.dribblesReussis) * 100, 100),
+  //             color: this.statColors.dribblesReussis,
+  //           },
+  //           {
+  //             label: "Vitesse",
+  //             value: stats.vitesseStatistiqueIndiv || 0,
+  //             percentage: Math.min(((stats.vitesseStatistiqueIndiv || 0) / 40) * 100, 100), // Assuming max speed is 40 km/h
+  //             color: this.statColors.vitesse,
+  //           },
             
-          ]
-          break
-        case "discipline":
-          this.detailedStats = [
-            {
-              label: "Cartons Jaunes",
-              value: stats.cartonsJaunes || 0,
-              percentage: Math.min(((stats.cartonsJaunes || 0) / maxValues.cartonsJaunes) * 100, 100),
-              color: this.statColors.cartonsJaunes,
-            },
-            {
-              label: "Cartons Rouges",
-              value: stats.cartonsRouges || 0,
-              percentage: Math.min(((stats.cartonsRouges || 0) / maxValues.cartonsRouges) * 100, 100),
-              color: this.statColors.cartonsRouges,
-            },
-            {
-              label: "Fautes Commises",
-              value: stats.fautesCommises || 0,
-              percentage: Math.min(((stats.fautesCommises || 0) / maxValues.fautesCommises) * 100, 100),
-              color: this.statColors.fautesCommises,
-            },
-          ]
-          break
-      }
-    }
-  }
+  //         ]
+  //         break
+  //       case "discipline":
+  //         this.detailedStats = [
+  //           {
+  //             label: "Cartons Jaunes",
+  //             value: stats.cartonsJaunes || 0,
+  //             percentage: Math.min(((stats.cartonsJaunes || 0) / maxValues.cartonsJaunes) * 100, 100),
+  //             color: this.statColors.cartonsJaunes,
+  //           },
+  //           {
+  //             label: "Cartons Rouges",
+  //             value: stats.cartonsRouges || 0,
+  //             percentage: Math.min(((stats.cartonsRouges || 0) / maxValues.cartonsRouges) * 100, 100),
+  //             color: this.statColors.cartonsRouges,
+  //           },
+  //           {
+  //             label: "Fautes Commises",
+  //             value: stats.fautesCommises || 0,
+  //             percentage: Math.min(((stats.fautesCommises || 0) / maxValues.fautesCommises) * 100, 100),
+  //             color: this.statColors.fautesCommises,
+  //           },
+  //         ]
+  //         break
+  //     }
+  //   }
+  // }
 
   changeCategory(categoryId: string): void {
     this.selectedCategory = categoryId
     this.categories.forEach((cat) => (cat.active = cat.id === categoryId))
     this.updateChartData(categoryId)
-    this.updateDetailedStats()
+    // this.updateDetailedStats()
   }
 
   updateChartData(category: string): void {
@@ -415,7 +417,7 @@ export class PlayersFormationComponent {
       case "defensive":
         this.updateDefensiveChart(stats)
         break
-      case "technique":
+      case "technical":
         this.updateTechniqueChart(stats)
         break
       case "discipline":
@@ -435,7 +437,7 @@ export class PlayersFormationComponent {
     this.currentChartType = "bar"
 
     this.barChartData = {
-      labels: ["Buts", "Passes Décisives", "Tirs", "Tirs Cadrés", "Dribbles Réussis"],
+      labels: ["Goals", "Assists", "Shots", "Shots on Target", "Successful Dribbles"],
       datasets: [
         {
           data: [
@@ -445,7 +447,7 @@ export class PlayersFormationComponent {
             stats.tirsCadres || 0,
             stats.dribblesReussis || 0,
           ],
-          label: "Statistiques Offensives",
+          label: "Statistics Offensives",
           backgroundColor: [
             this.statColors.buts,
             this.statColors.passesDecisives,
@@ -475,7 +477,7 @@ export class PlayersFormationComponent {
     this.currentChartType = "polarArea"
 
     this.barChartData = {
-      labels: ["Tacles", "Duels Gagnés", "Fautes Commises"],
+      labels: ["Tackles", "Duels Won", "Fouls Committed"],
       datasets: [
         {
           data: [stats.tacles || 0, stats.duelsGagnes || 0, stats.fautesCommises || 0],
@@ -522,7 +524,7 @@ export class PlayersFormationComponent {
     }
 
     this.barChartData = {
-      labels: ["Buts", "Passes Décisives", "Tirs", "Dribbles Réussis", "Passes Réussies", "Duels Gagnés"],
+      labels: ["Goals", "Assists", "Shots", "Successful Dribbles", "Successful Passes", "Duels Won"],
       datasets: [
         {
           data: [
@@ -539,7 +541,7 @@ export class PlayersFormationComponent {
             stats.duelsGagnes,
             // normalizedValues.duelsGagnes,
           ],
-          label: "Compétences Techniques",
+          label: "Technical Skills",
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgb(54, 162, 235)",
         },
@@ -572,7 +574,7 @@ export class PlayersFormationComponent {
     this.currentChartType = "doughnut"
 
     this.barChartData = {
-      labels: ["Cartons Jaunes", "Cartons Rouges", "Fautes Commises"],
+      labels: ["Yellow Cards", "Red Cards", "Fouls Committed"],
       datasets: [
         {
           data: [stats.cartonsJaunes || 0, stats.cartonsRouges || 0, stats.fautesCommises || 0],
