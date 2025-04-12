@@ -1,0 +1,60 @@
+/* Partie 1 : Fond et couleur */
+.content-wrapper {
+    background-color: #343a40; /* Couleur de fond Bootstrap bg-dark */
+    color: white; /* Couleur du texte */
+  }
+  /* Dark background for all sections */
+.bg-light {
+    background-color: #333 !important; /* Dark background */
+    color: white !important; /* Ensure text is white */
+}
+
+/* Title section */
+.title-section h2 {
+    color: white; /* White color for title text */
+}
+
+/* Widget VS (match details) */
+.widget-vs {
+    background-color: #444; /* Darker background for the widget */
+    color: white; /* Ensure text is white */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Teams' logo section */
+.widget-vs .team-1, .widget-vs .team-2 {
+    color: white; /* White text for teams */
+}
+
+/* VS section */
+.widget-vs .vs span {
+    color: white; /* White text for "VS" */
+}
+
+/* Widget content (match date, location, etc.) */
+.widget-vs-contents h4, .widget-vs-contents p {
+    color: white; /* White text for headings and paragraphs */
+}
+
+/* Links (e.g., "New Euro Arena") */
+.text-primary {
+    color: #fff !important; /* Ensure links are white */
+}
+
+/* Optional: Adjust hover effects for dark background */
+.widget-vs:hover {
+    background-color: #555; /* Slightly lighter background on hover */
+}
+
+/* Optional: Adjust button color if any (in case you have buttons inside) */
+.btn-primary {
+    background-color: #dc3545; /* Red background */
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #c82333; /* Darker red on hover */
+    border-color: #bd2130;
+}

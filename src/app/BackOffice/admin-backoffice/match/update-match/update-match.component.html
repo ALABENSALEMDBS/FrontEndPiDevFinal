@@ -1,1 +1,96 @@
-<p>update-match works!</p>
+<div class="update-match-container">
+    <h2>Modifier le match</h2>
+  
+    <!-- Display success or error messages -->
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Match update form -->
+    <form [formGroup]="matchForm" (ngSubmit)="updateMatch()">
+      <div class="form-group">
+        <label for="resultatMatch">Résultat du match</label>
+        <input type="text" id="resultatMatch" formControlName="resultatMatch" class="form-control" />
+        <div *ngIf="resultatMatch?.invalid && resultatMatch?.touched" class="text-danger">
+          Résultat est requis.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="dateMatch">Date du match</label>
+        <input type="date" id="dateMatch" formControlName="dateMatch" class="form-control" />
+        <div *ngIf="dateMatch?.invalid && dateMatch?.touched" class="text-danger">
+          La date est requise.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="lieuMatch">Lieu du match</label>
+        <input type="text" id="lieuMatch" formControlName="lieuMatch" class="form-control" />
+        <div *ngIf="lieuMatch?.invalid && lieuMatch?.touched" class="text-danger">
+          Lieu est requis.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="statusMatch">Statut du match</label>
+        <select id="statusMatch" formControlName="statusMatch" class="form-control">
+          <option value="">Sélectionnez un statut</option>
+          <option value="planned">Planifié</option>
+          <option value="completed">Terminé</option>
+          <option value="canceled">Annulé</option>
+        </select>
+        <div *ngIf="statusMatch?.invalid && statusMatch?.touched" class="text-danger">
+          Statut est requis.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="typeMatch">Type de match</label>
+        <select id="typeMatch" formControlName="typeMatch" class="form-control">
+          <option value="">Sélectionnez un type</option>
+          <option value="friendly">Amical</option>
+          <option value="competitive">Compétitif</option>
+        </select>
+        <div *ngIf="typeMatch?.invalid && typeMatch?.touched" class="text-danger">
+          Type de match est requis.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="arbitre">Arbitre</label>
+        <input type="text" id="arbitre" formControlName="arbitre" class="form-control" />
+        <div *ngIf="arbitre?.invalid && arbitre?.touched" class="text-danger">
+          L'arbitre est requis.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="equipe1">Équipe 1</label>
+        <select id="equipe1" formControlName="equipe1" class="form-control">
+          <option value="">Sélectionnez une équipe</option>
+          <option *ngFor="let team of teams" [value]="team">{{ team }}</option>
+        </select>
+        <div *ngIf="equipe1?.invalid && equipe1?.touched" class="text-danger">
+          Équipe 1 est requise.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="equipe2">Équipe 2</label>
+        <select id="equipe2" formControlName="equipe2" class="form-control">
+          <option value="">Sélectionnez une équipe</option>
+          <option *ngFor="let team of teams" [value]="team">{{ team }}</option>
+        </select>
+        <div *ngIf="equipe2?.invalid && equipe2?.touched" class="text-danger">
+          Équipe 2 est requise.
+        </div>
+      </div>
+  
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary" [disabled]="matchForm.invalid">Mettre à jour le match</button>
+    </form>
+  </div>
