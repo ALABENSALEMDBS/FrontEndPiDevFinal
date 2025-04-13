@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './update-match.component.html',
   styleUrls: ['./update-match.component.css'],
-  standalone: true
+  //standalone: true
 })
 export class UpdateMatchComponent implements OnInit {
   @Input() matchData: any;  // Input to receive the match data
