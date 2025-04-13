@@ -68,6 +68,7 @@ const routes: Routes = [
   {path:'blog',component:BlogPageComponent},
   {path:'matches',component:MatchesPageComponent},
 
+  
   {
     path: 'superadmin',
     component: AllTemplateBackComponent,
