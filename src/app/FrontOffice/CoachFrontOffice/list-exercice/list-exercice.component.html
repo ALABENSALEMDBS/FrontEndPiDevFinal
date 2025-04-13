@@ -11,6 +11,20 @@
       <i class="fas fa-plus"></i> Add an Exercise
     </button>
   </div>
+ <!-- Meteo-->
+  <div *ngIf="weather" class="weather-card glass">
+    <div class="weather-header">
+      <div class="weather-icon">
+        <img [src]="getWeatherIcon(weather.description)" alt="weather icon" />
+
+      </div>
+      <h3>Météo à {{ weather.city }}</h3>
+    </div>
+    <div class="weather-details">
+      <p><span class="label">🌡 Température :</span> {{ weather.temperature }}°C</p>
+      <p><span class="label">🌤 Description :</span> {{ weather.description }}</p>
+    </div>
+  </div>
 
   <!-- Liste des Exercices en Cards -->
   <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
