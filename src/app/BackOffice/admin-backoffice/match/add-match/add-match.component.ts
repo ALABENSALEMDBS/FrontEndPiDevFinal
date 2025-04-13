@@ -89,8 +89,6 @@ export class AddMatchComponent {
     ) {}
 
 
-
-
   matchData = {
     resultatMatch: '',
     dateMatch: '',
