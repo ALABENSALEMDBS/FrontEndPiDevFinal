@@ -54,12 +54,19 @@ import { HomeAnalysteComponent } from './FrontOffice/AnalysteFrontOffice/home-an
 import { ListRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/list-rapport/list-rapport.component';
 import { AddRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/add-rapport/add-rapport.component';
 import { UpdateRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/update-rapport/update-rapport.component';
+import { ContactPageComponent } from './FrontOffice/HomePages/contact-page/contact-page.component';
+import { PlayerPageComponent } from './FrontOffice/HomePages/player-page/player-page.component';
+import { BlogPageComponent } from './FrontOffice/HomePages/blog-page/blog-page.component';
+import { MatchesPageComponent } from './FrontOffice/HomePages/matches-page/matches-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   {path:'home',component:HomePageComponent},
-
+  {path:'contact',component:ContactPageComponent},
+  {path:'player',component:PlayerPageComponent},
+  {path:'blog',component:BlogPageComponent},
+  {path:'matches',component:MatchesPageComponent},
 
   {
     path: 'superadmin',

@@ -1,0 +1,64 @@
+/* Partie 1 : Fond et couleur */
+.content-wrapper {
+    background-color: #343a40; /* Couleur de fond Bootstrap bg-dark */
+    color: white; /* Couleur du texte */
+  }
+  /* General styles for form inputs */
+.black-input, .black-textarea {
+    color: black !important; /* Text color */
+    background-color: #f8f9fa; /* Light background for inputs */
+    border: 1px solid #ccc; /* Light border */
+    padding: 10px; /* Padding for better spacing */
+    font-size: 16px; /* Larger font for easier readability */
+    border-radius: 4px; /* Rounded corners */
+    width: 100%; /* Full width for inputs */
+    box-sizing: border-box; /* Make sure padding doesn't affect width */
+}
+
+/* Focus styles for input fields */
+.black-input:focus, .black-textarea:focus {
+    border-color: #dc3545; /* Red border when focused */
+    outline: none; /* Remove default outline */
+    background-color: #fff; /* Change background to white */
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #dc3545; /* Red background */
+    border-color: #dc3545; /* Red border */
+    color: #fff; /* White text */
+    padding: 12px 20px; /* Larger padding for better click area */
+    font-size: 18px; /* Bigger font */
+    font-weight: bold; /* Bold text */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer on hover */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+}
+
+/* Button hover styles */
+.btn-primary:hover {
+    background-color: #c82333; /* Darker red on hover */
+    border-color: #bd2130; /* Darker red border on hover */
+}
+
+/* Optional: Styles for form labels and other text */
+label {
+    font-weight: bold; /* Make label text bold */
+    color: #333; /* Dark text color for labels */
+}
+
+/* Style for textarea */
+.black-textarea {
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Form wrapper styles */
+.form-group {
+    margin-bottom: 20px; /* Space between each form group */
+}
+
+/* Optional: Adjust the form container width */
+.site-section {
+    max-width: 800px;
+    margin: 0 auto; /* Center the form */
+}
