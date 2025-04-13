@@ -88,6 +88,7 @@ export class AddMatchComponent {
       private clubsService: ClubsService // Inject ClubsService
     ) {}
 
+
   matchData = {
     resultatMatch: '',
     dateMatch: '',
@@ -109,6 +110,7 @@ export class AddMatchComponent {
  
 
 
+  aa: string[]=[];
 
   teams: string[] = [];
   
