@@ -222,9 +222,9 @@ import { WebsocketService } from './services/serviceCoatch/services/websocket.se
     ListTournoiComponent,
     AddTournoiComponent,
     UpdateTournoiComponent,
-    AddMatchComponent,
-    ListMatchComponent,
-    UpdateMatchComponent,
+    // AddMatchComponent,
+    // ListMatchComponent,
+    // UpdateMatchComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
