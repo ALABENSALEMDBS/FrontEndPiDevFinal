@@ -88,7 +88,6 @@ export class AddMatchComponent {
       private clubsService: ClubsService // Inject ClubsService
     ) {}
 
-
   matchData = {
     resultatMatch: '',
     dateMatch: '',
