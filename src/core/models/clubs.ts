@@ -1,5 +1,5 @@
 export class Clubs {
-    idCLubs!: number;
+    idClub!: number;
     nameClub!: string;
     emailClub!: string;
     adressClub!: string;

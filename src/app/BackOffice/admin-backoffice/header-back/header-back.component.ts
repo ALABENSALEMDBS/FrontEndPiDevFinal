@@ -10,12 +10,16 @@ export class HeaderBackComponent {
 
   isDropdownOpen = false;
 
+    //constructor(private keycloakService: KeycloakService/*, private router: Router*/) {}
+  
 
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    }
 
-
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
+  // logout() {
+  //   this.keycloakService.logout();
+  // }
 
 
 

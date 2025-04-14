@@ -70,7 +70,7 @@ import { Clubs } from '../../../../../core/models/clubs';
 
 @Component({
   selector: 'app-add-match',
-  //standalone: true,
+  standalone: true,
   templateUrl: './add-match.component.html',
   styleUrls: ['./add-match.component.css'],
   imports: [CommonModule, FormsModule, HttpClientModule]
@@ -87,6 +87,8 @@ export class AddMatchComponent {
       private matchService: MatchService,
       private clubsService: ClubsService // Inject ClubsService
     ) {}
+
+
 
 
   matchData = {
@@ -110,7 +112,6 @@ export class AddMatchComponent {
  
 
 
-  aa: string[]=[];
 
   teams: string[] = [];
   

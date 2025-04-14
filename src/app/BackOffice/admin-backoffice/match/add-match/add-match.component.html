@@ -203,233 +203,232 @@
 
 <form (ngSubmit)="onSubmit(addMatchForm)" #addMatchForm="ngForm" class="container mt-4">
 
-    <div class="card p-4">
-      <h3 class="card-title mb-4 text-center">Match Form</h3>
-  
-      <!-- Resultat Match -->
-      <div class="mb-3">
-        <label for="resultatMatch" class="form-label">Resultat Match:</label>
-        <input
-          type="text"
-          id="resultatMatch"
-          name="resultatMatch"
-          [(ngModel)]="matchData.resultatMatch"
-          required
-          class="form-control"
-          #resultatMatch="ngModel"
-        />
-        <div *ngIf="resultatMatch.invalid && (resultatMatch.dirty || resultatMatch.touched)" class="text-danger mt-2">
-          <div *ngIf="resultatMatch.errors?.['required']">Resultat Match is required.</div>
-        </div>
-      </div>
-  
-      <!-- Date Match -->
-      <div class="mb-3">
-        <label for="dateMatch" class="form-label">Date Match:</label>
-        <input
-          type="date"
-          id="dateMatch"
-          name="dateMatch"
-          [(ngModel)]="matchData.dateMatch"
-          required
-          class="form-control"
-          #dateMatch="ngModel"
-        />
-        <div *ngIf="dateMatch.invalid && (dateMatch.dirty || dateMatch.touched)" class="text-danger mt-2">
-          <div *ngIf="dateMatch.errors?.['required']">Date Match is required.</div>
-        </div>
-      </div>
-  
-      <!-- Lieu Match -->
-      <div class="mb-3">
-        <label for="lieuMatch" class="form-label">Lieu Match:</label>
-        <input
-          type="text"
-          id="lieuMatch"
-          name="lieuMatch"
-          [(ngModel)]="matchData.lieuMatch"
-          required
-          class="form-control"
-          #lieuMatch="ngModel"
-        />
-        <div *ngIf="lieuMatch.invalid && (lieuMatch.dirty || lieuMatch.touched)" class="text-danger mt-2">
-          <div *ngIf="lieuMatch.errors?.['required']">Lieu Match is required.</div>
-        </div>
-      </div>
-  
-      <!-- Status Match -->
-      <div class="mb-3">
-        <label for="statusMatch" class="form-label">Status Match:</label>
-        <input
-          type="text"
-          id="statusMatch"
-          name="statusMatch"
-          [(ngModel)]="matchData.statusMatch"
-          required
-          class="form-control"
-          #statusMatch="ngModel"
-        />
-        <div *ngIf="statusMatch.invalid && (statusMatch.dirty || statusMatch.touched)" class="text-danger mt-2">
-          <div *ngIf="statusMatch.errors?.['required']">Status Match is required.</div>
-        </div>
-      </div>
-  
-      <!-- Type Match -->
-      <div class="mb-3">
-        <label for="typeMatch" class="form-label">Type Match:</label>
-        <input
-          type="text"
-          id="typeMatch"
-          name="typeMatch"
-          [(ngModel)]="matchData.typeMatch"
-          required
-          class="form-control"
-          #typeMatch="ngModel"
-        />
-        <div *ngIf="typeMatch.invalid && (typeMatch.dirty || typeMatch.touched)" class="text-danger mt-2">
-          <div *ngIf="typeMatch.errors?.['required']">Type Match is required.</div>
-        </div>
-      </div>
-  
-      <!-- Arbitre -->
-      <div class="mb-3">
-        <label for="arbitre" class="form-label">Arbitre:</label>
-        <input
-          type="text"
-          id="arbitre"
-          name="arbitre"
-          [(ngModel)]="matchData.arbitre"
-          required
-          class="form-control"
-          #arbitre="ngModel"
-        />
-        <div *ngIf="arbitre.invalid && (arbitre.dirty || arbitre.touched)" class="text-danger mt-2">
-          <div *ngIf="arbitre.errors?.['required']">Arbitre is required.</div>
-        </div>
-      </div>
-  
-      <!-- Equipe 1 -->
-      <!-- <div class="mb-3">
-        <label for="equipe1" class="form-label">Equipe 1:</label>
-        <select
-          id="equipe1"
-          name="equipe1"
-          [(ngModel)]="matchData.equipe1"
-          required
-          class="form-control"
-          #equipe1="ngModel"
-        >
-          <option value="" disabled selected>Select a team</option>
-          <option *ngFor="let team of teams" [value]="team">{{ team }}</option>
-        </select>
-    
-        <div *ngIf="equipe1.invalid && (equipe1.dirty || equipe1.touched)" class="text-danger mt-2">
-          <div *ngIf="equipe1.errors?.['required']">Equipe 1 is required.</div>
-        </div>
-      </div> -->
-  
-  
-  
-      <!-- <div class="mb-3">
-        <label for="equipe1" class="form-label">Equipe 1:</label>
-        <select
-          id="equipe1"
-          name="equipe1"
-          [(ngModel)]="matchData.equipe1"
-          required
-          class="form-control"
-          #equipe1="ngModel"
-        >
-          <option value="" disabled selected>Select a team</option>
-          <option *ngFor="let team of teams" [ngValue]="team">
-            <img [src]="team.logo" alt="{{ team.name }}" style="width: 30px; height: 30px; margin-right: 10px;" />
-            {{ team.name }}
-          </option>
-        </select>
-      
-        <div *ngIf="equipe1.invalid && (equipe1.dirty || equipe1.touched)" class="text-danger mt-2">
-          <div *ngIf="equipe1.errors?.['required']">Equipe 1 is required.</div>
-        </div>
-      </div>  -->
-      
-    
-  
-  
-      
-  
-      <!-- <label for="equipe1">Equipe 1</label>
-      <select 
-        id="equipe1" 
-        name="equipe1" 
-        [(ngModel)]="matchData.equipe1" 
-        required 
-        class="form-control">
-        
-        <option value="" disabled selected>Select a team</option>
-        <option *ngFor="let team of teams" [ngValue]="team">{{ team }}</option>
-      
-      </select> -->
-  
-  
-      <!-- Equipe 1 -->
-      <label for="equipe1">Equipe 1</label>
-  <select 
-    id="equipe1" 
-    name="equipe1" 
-    [(ngModel)]="matchData.equipe1" 
-    required 
-    class="form-control">
-    <option value="" disabled selected>Select a team</option>
-    <option *ngFor="let team of clubs" [ngValue]="team">{{ team }}</option>
-  </select>
-  
-  
-  
-   <!-- Equipe 2 -->
-   <label for="equipe2">Equipe 2</label>
-   <select 
-     id="equipe2" 
-     name="equipe2" 
-     [(ngModel)]="matchData.equipe2" 
-     required 
-     class="form-control">
-     <option value="" disabled selected>Select a team</option>
-     <option *ngFor="let team of clubs" [ngValue]="team">{{ team }}</option>
-   </select>
-   
-      
-      
-  
-  
-  
-  
-      <!-- Equipe 2 -->
-      <!-- <div class="mb-3">
-        <label for="equipe2" class="form-label">Equipe 2:</label>
-        <input
-          type="text"
-          id="equipe2"
-          name="equipe2"
-          [(ngModel)]="matchData.equipe2"
-          required
-          class="form-control"
-          #equipe2="ngModel"
-        />
-        <div *ngIf="equipe2.invalid && (equipe2.dirty || equipe2.touched)" class="text-danger mt-2">
-          <div *ngIf="equipe2.errors?.['required']">Equipe 2 is required.</div>
-        </div>
-      </div> -->
-  
-      <!-- File Upload -->
-      <div class="mb-3">
-        <label for="file" class="form-label">Upload File:</label>
-        <input type="file" id="file" class="form-control" (change)="onFileSelected($event)" />
-      </div>
-  
-      <!-- Submit Button -->
-      <div class="d-flex justify-content-center">
-        <button type="submit" [disabled]="addMatchForm.invalid" class="btn btn-primary">Submit</button>
+  <div class="card p-4">
+    <h3 class="card-title mb-4 text-center">Match Form</h3>
+
+    <!-- Resultat Match -->
+    <div class="mb-3">
+      <label for="resultatMatch" class="form-label">Resultat Match:</label>
+      <input
+        type="text"
+        id="resultatMatch"
+        name="resultatMatch"
+        [(ngModel)]="matchData.resultatMatch"
+        required
+        class="form-control"
+        #resultatMatch="ngModel"
+      />
+      <div *ngIf="resultatMatch.invalid && (resultatMatch.dirty || resultatMatch.touched)" class="text-danger mt-2">
+        <div *ngIf="resultatMatch.errors?.['required']">Resultat Match is required.</div>
       </div>
     </div>
-  </form>
+
+    <!-- Date Match -->
+    <div class="mb-3">
+      <label for="dateMatch" class="form-label">Date Match:</label>
+      <input
+        type="date"
+        id="dateMatch"
+        name="dateMatch"
+        [(ngModel)]="matchData.dateMatch"
+        required
+        class="form-control"
+        #dateMatch="ngModel"
+      />
+      <div *ngIf="dateMatch.invalid && (dateMatch.dirty || dateMatch.touched)" class="text-danger mt-2">
+        <div *ngIf="dateMatch.errors?.['required']">Date Match is required.</div>
+      </div>
+    </div>
+
+    <!-- Lieu Match -->
+    <div class="mb-3">
+      <label for="lieuMatch" class="form-label">Lieu Match:</label>
+      <input
+        type="text"
+        id="lieuMatch"
+        name="lieuMatch"
+        [(ngModel)]="matchData.lieuMatch"
+        required
+        class="form-control"
+        #lieuMatch="ngModel"
+      />
+      <div *ngIf="lieuMatch.invalid && (lieuMatch.dirty || lieuMatch.touched)" class="text-danger mt-2">
+        <div *ngIf="lieuMatch.errors?.['required']">Lieu Match is required.</div>
+      </div>
+    </div>
+
+    <!-- Status Match -->
+    <div class="mb-3">
+      <label for="statusMatch" class="form-label">Status Match:</label>
+      <input
+        type="text"
+        id="statusMatch"
+        name="statusMatch"
+        [(ngModel)]="matchData.statusMatch"
+        required
+        class="form-control"
+        #statusMatch="ngModel"
+      />
+      <div *ngIf="statusMatch.invalid && (statusMatch.dirty || statusMatch.touched)" class="text-danger mt-2">
+        <div *ngIf="statusMatch.errors?.['required']">Status Match is required.</div>
+      </div>
+    </div>
+
+    <!-- Type Match -->
+    <div class="mb-3">
+      <label for="typeMatch" class="form-label">Type Match:</label>
+      <input
+        type="text"
+        id="typeMatch"
+        name="typeMatch"
+        [(ngModel)]="matchData.typeMatch"
+        required
+        class="form-control"
+        #typeMatch="ngModel"
+      />
+      <div *ngIf="typeMatch.invalid && (typeMatch.dirty || typeMatch.touched)" class="text-danger mt-2">
+        <div *ngIf="typeMatch.errors?.['required']">Type Match is required.</div>
+      </div>
+    </div>
+
+    <!-- Arbitre -->
+    <div class="mb-3">
+      <label for="arbitre" class="form-label">Arbitre:</label>
+      <input
+        type="text"
+        id="arbitre"
+        name="arbitre"
+        [(ngModel)]="matchData.arbitre"
+        required
+        class="form-control"
+        #arbitre="ngModel"
+      />
+      <div *ngIf="arbitre.invalid && (arbitre.dirty || arbitre.touched)" class="text-danger mt-2">
+        <div *ngIf="arbitre.errors?.['required']">Arbitre is required.</div>
+      </div>
+    </div>
+
+    <!-- Equipe 1 -->
+    <!-- <div class="mb-3">
+      <label for="equipe1" class="form-label">Equipe 1:</label>
+      <select
+        id="equipe1"
+        name="equipe1"
+        [(ngModel)]="matchData.equipe1"
+        required
+        class="form-control"
+        #equipe1="ngModel"
+      >
+        <option value="" disabled selected>Select a team</option>
+        <option *ngFor="let team of teams" [value]="team">{{ team }}</option>
+      </select>
   
+      <div *ngIf="equipe1.invalid && (equipe1.dirty || equipe1.touched)" class="text-danger mt-2">
+        <div *ngIf="equipe1.errors?.['required']">Equipe 1 is required.</div>
+      </div>
+    </div> -->
+
+
+
+    <!-- <div class="mb-3">
+      <label for="equipe1" class="form-label">Equipe 1:</label>
+      <select
+        id="equipe1"
+        name="equipe1"
+        [(ngModel)]="matchData.equipe1"
+        required
+        class="form-control"
+        #equipe1="ngModel"
+      >
+        <option value="" disabled selected>Select a team</option>
+        <option *ngFor="let team of teams" [ngValue]="team">
+          <img [src]="team.logo" alt="{{ team.name }}" style="width: 30px; height: 30px; margin-right: 10px;" />
+          {{ team.name }}
+        </option>
+      </select>
+    
+      <div *ngIf="equipe1.invalid && (equipe1.dirty || equipe1.touched)" class="text-danger mt-2">
+        <div *ngIf="equipe1.errors?.['required']">Equipe 1 is required.</div>
+      </div>
+    </div>  -->
+    
+  
+
+
+    
+
+    <!-- <label for="equipe1">Equipe 1</label>
+    <select 
+      id="equipe1" 
+      name="equipe1" 
+      [(ngModel)]="matchData.equipe1" 
+      required 
+      class="form-control">
+      
+      <option value="" disabled selected>Select a team</option>
+      <option *ngFor="let team of teams" [ngValue]="team">{{ team }}</option>
+    
+    </select> -->
+
+
+    <!-- Equipe 1 -->
+    <label for="equipe1">Equipe 1</label>
+<select 
+  id="equipe1" 
+  name="equipe1" 
+  [(ngModel)]="matchData.equipe1" 
+  required 
+  class="form-control">
+  <option value="" disabled selected>Select a team</option>
+  <option *ngFor="let team of clubs" [ngValue]="team">{{ team }}</option>
+</select>
+
+
+
+ <!-- Equipe 2 -->
+ <label for="equipe2">Equipe 2</label>
+ <select 
+   id="equipe2" 
+   name="equipe2" 
+   [(ngModel)]="matchData.equipe2" 
+   required 
+   class="form-control">
+   <option value="" disabled selected>Select a team</option>
+   <option *ngFor="let team of clubs" [ngValue]="team">{{ team }}</option>
+ </select>
+ 
+    
+    
+
+
+
+
+    <!-- Equipe 2 -->
+    <!-- <div class="mb-3">
+      <label for="equipe2" class="form-label">Equipe 2:</label>
+      <input
+        type="text"
+        id="equipe2"
+        name="equipe2"
+        [(ngModel)]="matchData.equipe2"
+        required
+        class="form-control"
+        #equipe2="ngModel"
+      />
+      <div *ngIf="equipe2.invalid && (equipe2.dirty || equipe2.touched)" class="text-danger mt-2">
+        <div *ngIf="equipe2.errors?.['required']">Equipe 2 is required.</div>
+      </div>
+    </div> -->
+
+    <!-- File Upload -->
+    <div class="mb-3">
+      <label for="file" class="form-label">Upload File:</label>
+      <input type="file" id="file" class="form-control" (change)="onFileSelected($event)" />
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-flex justify-content-center">
+      <button type="submit" [disabled]="addMatchForm.invalid" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
