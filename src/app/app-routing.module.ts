@@ -58,6 +58,9 @@ import { ContactPageComponent } from './FrontOffice/HomePages/contact-page/conta
 import { PlayerPageComponent } from './FrontOffice/HomePages/player-page/player-page.component';
 import { BlogPageComponent } from './FrontOffice/HomePages/blog-page/blog-page.component';
 import { MatchesPageComponent } from './FrontOffice/HomePages/matches-page/matches-page.component';
+import { ListClubsComponent } from './BackOffice/admin-backoffice/clubs/list-clubs/list-clubs.component';
+import { UpdateClubsComponent } from './BackOffice/admin-backoffice/clubs/update-clubs/update-clubs.component';
+import { AddClubsComponent } from './BackOffice/admin-backoffice/clubs/add-clubs/add-clubs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -68,31 +71,43 @@ const routes: Routes = [
   {path:'blog',component:BlogPageComponent},
   {path:'matches',component:MatchesPageComponent},
 
-  
-  {
-    path: 'superadmin',
-    component: AllTemplateBackComponent,
-    children:[
-      { path: '', redirectTo: 'HomeAccueilsuperadmin', pathMatch: 'full' },
-      {path:'HomeAccueilsuperadmin',component: AccueilComponent},
-      {
-        path: 'showtournoi',
-        component: ListTournoiComponent,
-        children: [
-          { path: 'update/:idTournoi', component: UpdateTournoiComponent },
-          { path: 'addtournoi', component: AddTournoiComponent },
-        ]
-      },
-      {
-        path: 'showmatch',
-        component: ListMatchComponent,
-        children: [
-          { path: 'update/:idMatch', component: UpdateMatchComponent },
-          { path: 'addmatch', component: AddMatchComponent },
-        ]
-      },
-    ]
-  },
+
+{
+      path: 'superadmin',
+      component: AllTemplateBackComponent,
+      children:[
+        { path: '', redirectTo: 'HomeAccueilsuperadmin', pathMatch: 'full' },
+        { path:'HomeAccueilsuperadmin',component: AccueilComponent},
+        {
+          path: 'showtournoi',
+          component: ListTournoiComponent,
+          children: [
+            { path: 'update/:idTournoi', component: UpdateTournoiComponent },
+            { path: 'addtournoi', component: AddTournoiComponent },
+          ]
+        },
+        {
+          path: 'showmatch',
+          component: ListMatchComponent,
+          children: [
+            { path: 'update/:idMatch', component: UpdateMatchComponent },
+            { path: 'addmatch', component: AddMatchComponent },
+            //{ path: 'listMatch', component: ListMatchComponent },  
+          ]
+        },
+
+
+        {
+          path: 'showclubs',
+          component: ListClubsComponent,
+          children: [
+            { path: 'update/:idClubs', component: UpdateClubsComponent },
+            { path: 'addclubs', component: AddClubsComponent },
+            //{ path: 'listMatch', component: ListMatchComponent },  
+          ]
+        },
+      ]
+    },
 
   {
     path: 'clubadmin',

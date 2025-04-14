@@ -1,1 +1,47 @@
-<p>list-clubs works!</p>
+<div class="container" style="color: black;">
+  <h2 style="text-align: center; margin-bottom: 20px;">Liste des Clubs</h2>
+
+  <!-- Liste des Cartes Clubs -->
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    <div *ngFor="let club of clubs" class="card"
+         style="width: 300px; padding: 20px; background: rgba(255, 255, 255, 0.726); backdrop-filter: blur(8px); color: black; text-align: center; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+      <h3>{{ club.nameClub }}</h3>
+      <img class="card-img-top" style="width:100%; height: 100%; object-fit: cover;" [src]="'data:image/jpeg;base64,'+club.logo" alt="Logo">
+      <p><strong>Email:</strong> {{ club.emailClub }}</p>
+      <p><strong>Adresse:</strong> {{ club.adressClub }}</p>
+      <p><strong>Date de création:</strong> {{ club.dateClub }}</p>
+      <p><strong>Licence:</strong> {{ club.licenceClub }}</p>
+
+      <!-- Boutons d'Action -->
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+        <button (click)="deleteClub(club.idClub)"
+                style="background: transparent; color: #dc3545; border: 2px solid #dc3545; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+
+        <button [routerLink]="['update', club.idClub]"
+                style="background: transparent; color: #0a7941; border: 2px solid #0a7941; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucun club trouvé -->
+  <div *ngIf="clubs.length === 0" class="no-data" style="text-align: center; margin-top: 20px;">
+    Aucun club trouvé.
+  </div>
+
+  <br><br>
+
+  <!-- Bouton Ajouter un Club -->
+  <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <button [routerLink]="['addclubs']"
+            style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
+      <i class="fas fa-plus"></i> Ajouter un Club
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

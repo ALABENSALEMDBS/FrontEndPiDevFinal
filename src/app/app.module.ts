@@ -30,6 +30,10 @@ import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice
 import { FooterPlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/footer-player-front/footer-player-front.component';
 import { HeaderPlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/header-player-front/header-player-front.component';
 
+//import { HeaderBackComponent } from './BackOffice/admin-backoffice/header-back/header-back.component';
+
+
+
 //import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 import { CreateUpdateFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/create-update-fiche-medical/create-update-fiche-medical.component';
 import { ListeFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/liste-fiche-medical/liste-fiche-medical.component';
