@@ -264,6 +264,7 @@ export class AddMatchComponent implements OnInit {
     }
   }
 
+  
   onClub2Change(): void {
     const club1Value = this.f["club1"].value;
     const club2Value = this.f["club2"].value;
