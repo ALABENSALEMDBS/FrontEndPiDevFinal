@@ -1,4 +1,4 @@
-/* Main container styling */
+/* 
 .add-container {
     background: linear-gradient(145deg, #ffffff, #f5f7fa);
     border-radius: 16px;
@@ -16,7 +16,7 @@
     transform: translateY(-5px);
   }
   
-  /* Close button styling */
+
   .close-btn {
     position: absolute;
     top: 15px;
@@ -41,7 +41,7 @@
     transform: rotate(90deg);
   }
   
-  /* Heading styling */
+ 
   h2 {
     color: #2c3e50;
     margin-bottom: 1.5rem;
@@ -61,14 +61,14 @@
     border-radius: 3px;
   }
   
-  /* Form card styling */
+
   .form-card {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
   
-  /* Form group styling */
+
   .form-group {
     display: flex;
     flex-direction: column;
@@ -81,7 +81,7 @@
     font-size: 0.9rem;
   }
   
-  /* Input and select styling */
+ 
   .form-group input {
     padding: 0.75rem 1rem;
     border: 1px solid #e2e8f0;
@@ -102,7 +102,7 @@
     color: #94a3b8;
   }
   
-  /* Error message styling */
+  
   .error-message {
     color: #ef4444;
     font-size: 0.8rem;
@@ -117,14 +117,14 @@
     margin-right: 5px;
   }
   
-  /* Button group styling */
+
   .btn-group {
     display: flex;
     gap: 1rem;
     margin-top: 0.5rem;
   }
   
-  /* Button styling */
+
   .btn {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -139,14 +139,14 @@
     flex: 1;
   }
 
-  /* Styling for the form labels */
+
 .form-label {
-  color: black !important; /* Ensure labels are black */
+  color: black !important; 
 }
 
-/* Styling for the input fields */
+
 .form-control {
-  color: black !important; /* Ensure input text is black */
+  color: black !important; 
 }
 
   
@@ -177,7 +177,7 @@
     color: #1e293b;
   }
   
-  /* Alert styling */
+ 
   .alert {
     padding: 1rem;
     border-radius: 8px;
@@ -199,7 +199,7 @@
     border-left: 4px solid #ef4444;
   }
   
-  /* Animation for alerts */
+
   .fade-in {
     animation: fadeIn 0.5s ease;
   }
@@ -215,7 +215,7 @@
     }
   }
   
-  /* Responsive adjustments */
+
   @media (max-width: 576px) {
     .add-container {
         padding: 1.5rem;
@@ -230,4 +230,24 @@
     h2 {
         font-size: 1.5rem;
     }
+  } */
+
+
+
+
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+  
+  .card-header {
+    font-weight: 500;
+  }
+  
+  .form-label {
+    font-weight: 500;
+  }
+  
+  .invalid-feedback {
+    display: block;
+  }
+  
