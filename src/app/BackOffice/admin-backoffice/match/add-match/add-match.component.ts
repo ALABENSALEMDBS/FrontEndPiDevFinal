@@ -1,245 +1,267 @@
-// import { Component } from '@angular/core';
-// import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-// import { Router } from '@angular/router';
-// import { MatchService } from '../../../../services/serviceSuperAdmin/servicegerermatch/match.service';
-// import { CommonModule } from '@angular/common';
+// import { Component, OnInit } from "@angular/core"
+// import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+// import { Router } from "@angular/router"
+// import { CommonModule } from "@angular/common"
+// import { ClubsService } from "src/app/services/serviceSuperAdmin/servicegererclubs/clubs.service"
+// import { MatchService } from "src/app/services/serviceSuperAdmin/servicegerermatch/match.service"
+// import { Clubs } from "src/core/models/clubs"
+// import { Match } from "src/core/models/match"
+// //import { Match } from "src/core/models/match"
 
 // @Component({
-//   selector: 'app-add-match',
+//   selector: "app-add-match",
+//   templateUrl: "./add-match.component.html",
+//   styleUrls: ["./add-match.component.css"],
 //   standalone: true,
-//   imports: [ReactiveFormsModule, FormsModule,CommonModule],
-//   templateUrl: './add-match.component.html',
-//   styleUrls: ['./add-match.component.css']
+//   imports: [CommonModule, ReactiveFormsModule],
 // })
-// export class AddMatchComponent {
-//   matchForm: FormGroup;
-//   successMessage: string = '';
-//   errorMessage: string = '';
-//   teams: string[] = ['Team A', 'Team B', 'Team C', 'Team D']; // Exemple de liste d'équipes
+// export class AddMatchComponent implements OnInit {
+//   matchForm!: FormGroup
+//   clubs: Clubs[] = []
+//   submitted = false
+//   loading = false
+//   error = ""
 
-//   constructor(private matchService: MatchService, private router: Router) {
-//     this.matchForm = new FormGroup({
-//       resultatMatch: new FormControl('', [Validators.required]),
-//       dateMatch: new FormControl('', [Validators.required]),
-//       lieuMatch: new FormControl('', [Validators.required]),
-//       statusMatch: new FormControl('', [Validators.required]),
-//       typeMatch: new FormControl('', [Validators.required]),
-//       arbitre: new FormControl('', [Validators.required]),
-//       equipe1: new FormControl('', [Validators.required]),
-//       equipe2: new FormControl('', [Validators.required]),
-//     });
+//   // Dropdown options
+//   statusOptions = ["Scheduled", "In Progress", "Completed", "Postponed", "Cancelled"]
+//   typeOptions = ["Friendly", "League", "Cup", "Championship", "Playoff"]
+
+//   constructor(
+//     private formBuilder: FormBuilder,
+//     private matchService: MatchService,
+//     private router: Router,
+//     private clubsService: ClubsService
+//   ) {}
+
+//   ngOnInit(): void {
+//     this.initForm()
+//     this.loadClubs()
 //   }
 
-//   addMatch() {
-//     if (this.matchForm.valid) {
-//       this.matchService.addMatchs(this.matchForm.value).subscribe({
-//         next: () => {
-//           this.successMessage = 'Match ajouté avec succès !';
-//           this.errorMessage = '';
-//           //this.matchForm.reset();
-//           //window.location.reload();
-//           this.router.navigate(['/showmatch']);
-//           //window.scrollTo({ top: 0, behavior: 'smooth' });
-//         },
-//         error: () => {
-//           this.errorMessage = 'Erreur lors de l’ajout du match.';
-//           this.successMessage = '';
-//         }
-//       });
+//   initForm(): void {
+//     this.matchForm = this.formBuilder.group({
+//       dateMatch: ["", Validators.required],
+//       lieuMatch: ["", Validators.required],
+//       statusMatch: ["Scheduled", Validators.required],
+//       typeMatch: ["", Validators.required],
+//       arbitre: ["", Validators.required],
+//       club1: ["", Validators.required],
+//       club2: ["", Validators.required],
+//     })
+//   }
+
+//   loadClubs(): void {
+//     this.clubsService.getAllClubs().subscribe({
+//       next: (data) => {
+//         this.clubs = data
+//       },
+//       error: (err) => {
+//         this.error = "Failed to load clubs. Please try again."
+//         console.error(err)
+//       },
+//     })
+//   }
+
+//   get f() {
+//     return this.matchForm.controls
+//   }
+
+//   onSubmit(): void {
+//     this.submitted = true
+
+//     if (this.matchForm.invalid) return
+
+//     this.loading = true
+
+//     const club1 = this.clubs.find((club) => club.idClub == this.f["club1"].value)
+//     const club2 = this.clubs.find((club) => club.idClub == this.f["club2"].value)
+
+//     if (!club1 || !club2 || club1.idClub === club2.idClub) {
+//       this.error = "Please select two different valid clubs."
+//       this.loading = false
+//       return
+//     }
+
+//     const match: Match = {
+//       idMatch: 0, // Backend will assign
+//       resultatMatch: "",
+//       dateMatch: this.f["dateMatch"].value,
+//       lieuMatch: this.f["lieuMatch"].value,
+//       statusMatch: this.f["statusMatch"].value,
+//       typeMatch: this.f["typeMatch"].value,
+//       arbitre: this.f["arbitre"].value,
+//       club1: club1,
+//       club2: club2,
+//     }
+
+//     this.matchService.createMatch(match).subscribe({
+//       next: () => {
+//         this.loading = false
+//         this.router.navigate(["/matches"])
+//       },
+//       error: (err) => {
+//         this.loading = false
+//         this.error = "Failed to create match. Please try again."
+//         console.error(err)
+//       },
+//     })
+//   }
+//   // Prevent same club selection
+//   onClub1Change(): void {
+//     if (this.f["club1"].value === this.f["club2"].value) {
+//       this.f["club2"].setValue("")
 //     }
 //   }
 
-
-
-
-
-
-  
-//   avoidAdd() {
-//     this.router.navigate(['superadmin/showmatch']); // Changez '/listsousgroup' selon votre route réelle
+//   onClub2Change(): void {
+//     if (this.f["club2"].value === this.f["club1"].value) {
+//       this.f["club1"].setValue("")
+//     }
 //   }
 // }
 
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';  // Import NgForm here
-import { MatchService } from '../../../../services/serviceSuperAdmin/servicegerermatch/match.service';
-import { HttpClientModule } from '@angular/common/http';
-import { ClubsService } from '../../../../services/serviceSuperAdmin/servicegererclubs/clubs.service';
-import { Clubs } from '../../../../../core/models/clubs';
+
+import { Component, OnInit } from "@angular/core"
+import { CommonModule } from "@angular/common"
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import { ActivatedRoute, Router } from "@angular/router"
+import { Clubs } from "src/core/models/clubs"
+import { Match } from "src/core/models/match"
+import { MatchService } from "src/app/services/serviceSuperAdmin/servicegerermatch/match.service"
+import { ClubsService } from "src/app/services/serviceSuperAdmin/servicegererclubs/clubs.service"
 
 @Component({
-  selector: 'app-add-match',
+  selector: "app-add-match",
   standalone: true,
-  templateUrl: './add-match.component.html',
-  styleUrls: ['./add-match.component.css'],
-  imports: [CommonModule, FormsModule, HttpClientModule]
+  templateUrl: "./add-match.component.html",
+  styleUrls: ["./add-match.component.css"],
+  imports: [CommonModule, ReactiveFormsModule],
 })
-export class AddMatchComponent {
+export class AddMatchComponent implements OnInit {
+  matchForm!: FormGroup
+  clubs: Clubs[] = []
+  submitted = false
+  loading = false
+  error = ""
 
+  // Match status options
+  statusOptions = ["Scheduled", "In Progress", "Completed", "Postponed", "Cancelled"]
 
+  // Match type options
+  typeOptions = ["Friendly", "League", "Cup", "Championship", "Playoff"]
 
-
-    //teams: { name: string, logo: string }[] = []; // Array to store team names and logos
-    selectedFile: File | null = null;
-
-    constructor(
-      private matchService: MatchService,
-      private clubsService: ClubsService // Inject ClubsService
-    ) {}
-
-
-
-
-  matchData = {
-    resultatMatch: '',
-    dateMatch: '',
-    lieuMatch: '',
-    statusMatch: '',
-    typeMatch: '',
-    arbitre: '',
-    equipe1: '',
-    equipe2: '',
-    club1: null,
-    club2: null,
-  };
-
-  //teams: string[] = ['Team A', 'Team B', 'Team C', 'Team D']; 
-
-  
-
-
- 
-
-
-
-  teams: string[] = [];
-  
-
-
-
-  // selectedFile: File | null = null;
-
-  // constructor(private matchService: MatchService , private clubsService : ClubsService) {}
-
-
-
-  // ngOnInit(): void {
-  //   // Fetch the clubs and set the team names
-  //   this.clubsService.getAllClubs().subscribe(
-  //     (clubs: Clubs[]) => {
-  //       this.teams = clubs.map(club => club.nameClub); // Map club names to the teams array
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching clubs:', error);
-  //     }
-  //   );
-  // }
-  clubs : string[] = [];
-
-
-  /*ngOnInit(): void {
-    this.clubsService.getAllClubs().subscribe(
-      (clubs: Clubs[]) => {
-        this.teams = clubs.map(club => club.nameClub); // Extract only club names
-      },
-      error => console.error('Error fetching clubs:', error)
-    );
-    console.log('taaaaaaaabl'+this.teams)
-  }*/
-
+  constructor(
+    private formBuilder: FormBuilder,
+    private matchService: MatchService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private clubService : ClubsService
+  ) {}
 
   ngOnInit(): void {
-    this.getClubs()
-    console.log(this.clubs)
-    console.log("elista"+this.clubs)
+    this.initForm()
+    this.loadClubs()
   }
 
+  initForm(): void {
+    this.matchForm = this.formBuilder.group({
+      dateMatch: ["", Validators.required],
+      lieuMatch: ["", Validators.required],
+      statusMatch: ["Scheduled", Validators.required],
+      typeMatch: ["", Validators.required],
+      arbitre: ["", Validators.required],
+      club1: ["", Validators.required],
+      club2: ["", Validators.required],
+    })
+  }
 
-  // getClubs() {
-  //   this.clubsService.getAllClubs().subscribe(
-  //     (clubs) => {
-  //       console.log(clubs); // This will print the fetched clubs
-  //     },
-  //     (error) => {
-  //       console.error("Error fetching clubs:", error);
-  //     }
-  //   );
-  // }
-
-
-
-  getClubs(): void {
-    this.clubsService.getAllClubs().subscribe(
-      (clubs: Clubs[]) => {
-        this.clubs = clubs.map((club) => club.nameClub); // Extract only club names
-        console.log(this.clubs); // Log the names to check
+  loadClubs(): void {
+    this.clubService.getAllClubs().subscribe({
+      next: (data) => {
+        this.clubs = data
       },
-      (error) => {
-        console.error('Error fetching clubs:', error);
-      }
-    );
+      error: (err) => {
+        this.error = "Failed to load clubs. Please try again."
+        console.error(err)
+      },
+    })
   }
 
-
-  
-
-
-
-  // getClubs(): void {
-  //   this.clubsService.getAllClubs().subscribe(data => {
-  //     this.clubss = data;
-  //     console.log(this.clubss);
-  //   });
-  // }
-
-
-
-
-  
-
-
-
-
-
-
-
-  // ngOnInit(): void {
-  //   this.clubsService.getAllClubs().subscribe(
-  //     (clubs: Clubs[]) => {
-  //       this.teams = clubs.map(club => club.emailClub); // Extract only the names
-  //     },
-  //     error => console.error('Error fetching clubs:', error)
-  //   ); 
-  // }
-  
-
-
-
-
-  // Handle file input change
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  // Convenience getter for easy access to form fields
+  get f() {
+    return this.matchForm.controls
   }
 
+  onSubmit(): void {
+    this.submitted = true
 
-
-
-
-  // Handle form submission
-  onSubmit(form: NgForm) {  // Pass the whole form here
-    if (form.valid && this.selectedFile) {
-      // Call the service method to send the data and file to the backend
-      this.matchService.createMatch(this.matchData, this.selectedFile).subscribe(
-        (response) => {
-          console.log('Match saved successfully', response);
-        },
-        (error) => {
-          console.error('Error saving match', error);
-        }
-      );
-    } else {
-      console.error('Form is not valid or no file selected!');
+    // Stop here if form is invalid
+    if (this.matchForm.invalid) {
+      return
     }
+
+    this.loading = true
+
+    // Find the selected clubs by their IDs
+    const club1 = this.clubs.find((club) => club.idClub === this.f["club1"].value)
+    const club2 = this.clubs.find((club) => club.idClub === this.f["club2"].value)
+
+    
+    if (!club1 || !club2) {
+      this.error = "Please select valid clubs"
+      this.loading = false
+      return
+    }
+
+    // Create match object
+    const match: Match = {
+      idMatch: 0, // This will be assigned by the backend
+      resultatMatch: "", // Initially empty
+      dateMatch: this.f["dateMatch"].value,
+      lieuMatch: this.f["lieuMatch"].value,
+      statusMatch: this.f["statusMatch"].value,
+      typeMatch: this.f["typeMatch"].value,
+      arbitre: this.f["arbitre"].value,
+      goals1: null,
+      goals2: null,
+      club1: club1,
+      club2: club2,
+    }
+
+    this.matchService.createMatch(match).subscribe({
+      next: () => {
+        this.loading = false
+        // Navigate back to the list
+        this.router.navigate(["../"], { relativeTo: this.route })
+      },
+      error: (err) => {
+        this.loading = false
+        this.error = "Failed to create match. Please try again."
+        console.error(err)
+      },
+    })
+  }
+
+  // Prevent selecting the same club for both teams
+  onClub1Change(): void {
+    const club1Value = this.f["club1"].value
+    const club2Value = this.f["club2"].value
+
+    if (club1Value && club1Value === club2Value) {
+      this.f["club2"].setValue("")
+    }
+  }
+
+  onClub2Change(): void {
+    const club1Value = this.f["club1"].value
+    const club2Value = this.f["club2"].value
+
+    if (club2Value && club1Value === club2Value) {
+      this.f["club1"].setValue("")
+    }
+  }
+
+  cancel(): void {
+    this.router.navigate(["../"], { relativeTo: this.route })
   }
 }

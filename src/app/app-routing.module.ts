@@ -61,6 +61,7 @@ import { MatchesPageComponent } from './FrontOffice/HomePages/matches-page/match
 import { ListClubsComponent } from './BackOffice/admin-backoffice/clubs/list-clubs/list-clubs.component';
 import { UpdateClubsComponent } from './BackOffice/admin-backoffice/clubs/update-clubs/update-clubs.component';
 import { AddClubsComponent } from './BackOffice/admin-backoffice/clubs/add-clubs/add-clubs.component';
+import { UpdateGoalsComponent } from './BackOffice/admin-backoffice/match/update-goals/update-goals.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -92,6 +93,7 @@ const routes: Routes = [
           children: [
             { path: 'update/:idMatch', component: UpdateMatchComponent },
             { path: 'addmatch', component: AddMatchComponent },
+            { path: 'update-goals/:idMatch', component: UpdateGoalsComponent }, // Add this line
             //{ path: 'listMatch', component: ListMatchComponent },  
           ]
         },
@@ -101,7 +103,7 @@ const routes: Routes = [
           path: 'showclubs',
           component: ListClubsComponent,
           children: [
-            { path: 'update/:idClubs', component: UpdateClubsComponent },
+            { path: 'update/:idClub', component: UpdateClubsComponent },
             { path: 'addclubs', component: AddClubsComponent },
             //{ path: 'listMatch', component: ListMatchComponent },  
           ]
