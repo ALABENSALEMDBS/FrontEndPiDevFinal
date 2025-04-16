@@ -1,12 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { StatisindivService } from 'src/app/services/serviceAnalyste/statistique-indiv/statisindiv.service';
 import { FormationService } from 'src/app/services/serviceCoatch/serviceformation/formation.service';
 import { StatistiqueIndiv } from 'src/core/models/StatistiqueIndiv';
 import { AssignPlayersFormationComponent } from "../assign-players-formation/assign-players-formation.component";
+import { JoueurService } from 'src/app/services/serviceAdminClub/serviceJoueur/joueur.service';
 
 
 @Component({
@@ -33,9 +34,14 @@ import { AssignPlayersFormationComponent } from "../assign-players-formation/ass
     ]),
   ],
 })
-export class PlayersFormationComponent {
+export class PlayersFormationComponent implements OnInit {
 
-  constructor(private serF:FormationService, private statistiqueService: StatisindivService){}
+  constructor(private serF:FormationService, private statistiqueService: StatisindivService, private joueurService: JoueurService){}
+  ngOnInit(): void {
+    this.joueurService.getAllJoueurs().subscribe(joueurs => {
+      console.log('Données des joueurs:', joueurs);
+    });
+    }
     successMessage: string = '';
     errorMessage: string = '';
     showSuccessMessage: boolean = false
@@ -195,6 +201,7 @@ export class PlayersFormationComponent {
     this.close.emit()
     this.isOpen = false
     this.isAssignOpen = false
+    location.reload()
   }
 
   assignPlayer(idFormation: number) {
@@ -209,6 +216,7 @@ export class PlayersFormationComponent {
   }
 
   closeAssignPanel() {
+    
     this.isAssignOpen = false
     this.showPopup = false
   }
@@ -606,5 +614,32 @@ export class PlayersFormationComponent {
     this.isModalOpenStatistic = false
     this.statistiques = [] // Reset statistics list
   }
+
+
+
+  refreshPlayers(): void {
+    this.joueurService.getAllJoueurs().subscribe({
+      next: (players) => {
+        this.formation.joueurs = players;
+      },
+      error: (err) => {
+        console.error("Erreur lors du chargement des joueurs :", err);
+      }
+    });
+  }
+  
+  maketito(idj: number): void {
+    this.joueurService.maketitulaire(idj).subscribe({
+      next: (updatedPlayer) => {
+        console.log("Joueur mis à jour :", updatedPlayer);
+        this.refreshPlayers(); // ✅ Recharge les données après mise à jour
+      },
+      error: (err) => {
+        console.error("Erreur lors de la mise à jour du joueur :", err);
+      }
+    });
+  }
+  
+  
 }
 

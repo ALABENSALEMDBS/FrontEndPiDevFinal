@@ -13,5 +13,6 @@ export class Joueurs {
     debutContratJoueur!: Date;
     finContratJoueur!: Date;
     rapport!: Rapport | null;
+    tituliare!: boolean;
 
 }
