@@ -62,6 +62,11 @@ import { ListClubsComponent } from './BackOffice/admin-backoffice/clubs/list-clu
 import { UpdateClubsComponent } from './BackOffice/admin-backoffice/clubs/update-clubs/update-clubs.component';
 import { AddClubsComponent } from './BackOffice/admin-backoffice/clubs/add-clubs/add-clubs.component';
 import { UpdateGoalsComponent } from './BackOffice/admin-backoffice/match/update-goals/update-goals.component';
+import { AddCompetitionComponent } from './BackOffice/admin-backoffice/Competition/add-competition/add-competition.component';
+import { UpdateCompetitionComponent } from './BackOffice/admin-backoffice/Competition/update-competition/update-competition.component';
+import { CompetitionClubsComponent } from './BackOffice/admin-backoffice/Competition/competition-clubs/competition-clubs.component';
+import { ListCompetitionComponent } from './BackOffice/admin-backoffice/Competition/list-competition/list-competition.component';
+import { CompetitionMatchesComponent } from './BackOffice/admin-backoffice/Competition/competition-matches/competition-matches.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -100,12 +105,13 @@ const routes: Routes = [
 
         {
           path: 'showcompetition',
-          component: ListMatchComponent,
+          component: ListCompetitionComponent,
           children: [
-            //{ path: 'update/:idMatch', component: UpdateMatchComponent },
-            //{ path: 'addmatch', component: AddMatchComponent },
-            //{ path: 'update-goals/:idMatch', component: UpdateGoalsComponent }, // Add this line
-            //{ path: 'listMatch', component: ListMatchComponent },  
+            { path: 'add', component: AddCompetitionComponent },
+            { path: 'update/:id', component: UpdateCompetitionComponent },
+            { path: 'matches/:id', component: CompetitionMatchesComponent }, // Add this line
+            { path: 'clubs/:id', component: CompetitionClubsComponent }, 
+            { path: 'addmatch', component: AddMatchComponent }, 
           ]
         },
 
