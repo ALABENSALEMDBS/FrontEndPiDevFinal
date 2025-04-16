@@ -250,4 +250,11 @@
   .invalid-feedback {
     display: block;
   }
+
+
+  /* Ensuring input text color is black */
+input.form-control, select.form-select {
+  color: black !important;
+}
+
   
