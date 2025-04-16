@@ -98,6 +98,17 @@ const routes: Routes = [
           ]
         },
 
+        {
+          path: 'showcompetition',
+          component: ListMatchComponent,
+          children: [
+            //{ path: 'update/:idMatch', component: UpdateMatchComponent },
+            //{ path: 'addmatch', component: AddMatchComponent },
+            //{ path: 'update-goals/:idMatch', component: UpdateGoalsComponent }, // Add this line
+            //{ path: 'listMatch', component: ListMatchComponent },  
+          ]
+        },
+
 
         {
           path: 'showclubs',
@@ -108,6 +119,8 @@ const routes: Routes = [
             //{ path: 'listMatch', component: ListMatchComponent },  
           ]
         },
+
+
       ]
     },
 

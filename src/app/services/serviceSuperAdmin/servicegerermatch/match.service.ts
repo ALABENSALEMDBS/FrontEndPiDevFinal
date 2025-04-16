@@ -146,4 +146,39 @@ export class MatchService {
   getNotYetPlayedMatches(): Observable<Match[]> {
     return this.http.get<Match[]>(`${this.baseUrl}/notYedPlayedMatchs`)
   }
+
+
+
+
+
+    // Regular update goals method
+    /*updateGoals(matchId: number, goals1: number, goals2: number): Observable<Match> {
+      return this.http.put<Match>(`${this.baseUrl}/updateGoals/${matchId}/${goals1}/${goals2}`, {})
+    }*/
+  
+    // Method to update goals from a score sheet image
+    updateGoalsFromSheet(matchId: number, formData: FormData): Observable<Match> {
+      return this.http.patch<Match>(`${this.baseUrl}/goalsFromSheet/${matchId}`, formData)
+    }
+
+
+
+
+//   getImgToString(formData: FormData)
+// {
+//   return this.http.post<string>(`${this.baseUrl}/ImgToString`, formData, {
+//     responseType: 'text' as 'json'
+//   });
+// }
+
+
+
+
+
+// Method to update goals from a score sheet image
+// updateGoalsFromSheet(matchId: number, formData: FormData)
+// {
+//   return this.http.put<Match>(`${this.baseUrl}/updateGoalsFromSheet/${matchId}`, formData);
+// }
+
 }
