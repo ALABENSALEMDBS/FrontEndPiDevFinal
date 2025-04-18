@@ -86,6 +86,7 @@ export class UpdateGoalsComponent implements OnInit {
     const goals1 = this.f['goals1'].value;
     const goals2 = this.f['goals2'].value;
 
+    
     this.matchService.updateGoals(this.matchId, goals1, goals2).subscribe({
       next: () => {
         this.loading = false;
