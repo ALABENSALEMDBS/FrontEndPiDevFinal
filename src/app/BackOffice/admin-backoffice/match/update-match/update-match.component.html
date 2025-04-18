@@ -1,173 +1,164 @@
-   <div class="container-fluid p-4">
-    <div class="card">
-      <div class="card-header bg-primary text-white">
-        <h2>Update Match</h2>
-      </div>
-      <div class="card-body">
-        <!-- Loading spinner -->
-        <div *ngIf="loadingData" class="text-center my-5">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-  
-        <!-- Error message -->
-        <div *ngIf="error" class="alert alert-danger">
-          {{ error }}
-        </div>
-  
-        <form *ngIf="!loadingData" [formGroup]="matchForm" (ngSubmit)="onSubmit()">
-          <!-- Date and Location Row -->
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="dateMatch" class="form-label">Match Date</label>
-              <input 
-                type="datetime-local" 
-                id="dateMatch" 
-                formControlName="dateMatch" 
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f['dateMatch'].errors }"
-              >
-              <div *ngIf="submitted && f['dateMatch'].errors" class="invalid-feedback">
-                <div *ngIf="f['dateMatch'].errors['required']">Match date is required</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="lieuMatch" class="form-label">Match Location</label>
-              <input 
-                type="text" 
-                id="lieuMatch" 
-                formControlName="lieuMatch" 
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f['lieuMatch'].errors }"
-              >
-              <div *ngIf="submitted && f['lieuMatch'].errors" class="invalid-feedback">
-                <div *ngIf="f['lieuMatch'].errors['required']">Match location is required</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Status and Type Row -->
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="statusMatch" class="form-label">Match Status</label>
-              <select 
-                id="statusMatch" 
-                formControlName="statusMatch" 
-                class="form-select"
-                [ngClass]="{ 'is-invalid': submitted && f['statusMatch'].errors }"
-              >
-                <option value="" disabled>Select match status</option>
-                <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
-              </select>
-              <div *ngIf="submitted && f['statusMatch'].errors" class="invalid-feedback">
-                <div *ngIf="f['statusMatch'].errors['required']">Match status is required</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="typeMatch" class="form-label">Match Type</label>
-              <select 
-                id="typeMatch" 
-                formControlName="typeMatch" 
-                class="form-select"
-                [ngClass]="{ 'is-invalid': submitted && f['typeMatch'].errors }"
-              >
-                <option value="" disabled>Select match type</option>
-                <option *ngFor="let type of typeOptions" [value]="type">{{ type }}</option>
-              </select>
-              <div *ngIf="submitted && f['typeMatch'].errors" class="invalid-feedback">
-                <div *ngIf="f['typeMatch'].errors['required']">Match type is required</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Referee -->
-          <div class="row mb-3">
-            <div class="col-md-12">
-              <label for="arbitre" class="form-label">Referee</label>
-              <input 
-                type="text" 
-                id="arbitre" 
-                formControlName="arbitre" 
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f['arbitre'].errors }"
-              >
-              <div *ngIf="submitted && f['arbitre'].errors" class="invalid-feedback">
-                <div *ngIf="f['arbitre'].errors['required']">Referee name is required</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Clubs Row -->
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="club1" class="form-label">Home Team</label>
-              <select 
-                id="club1" 
-                formControlName="club1" 
-                class="form-select"
-                [ngClass]="{ 'is-invalid': submitted && f['club1'].errors }"
-                (change)="onClub1Change()"
-              >
-                <option value="" disabled>Select home team</option>
-                <option *ngFor="let club of clubs" [value]="club.idClub">{{ club.nameClub }}</option>
-              </select>
-              <div *ngIf="submitted && f['club1'].errors" class="invalid-feedback">
-                <div *ngIf="f['club1'].errors['required']">Home team is required</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="club2" class="form-label">Away Team</label>
-              <select 
-                id="club2" 
-                formControlName="club2" 
-                class="form-select"
-                [ngClass]="{ 'is-invalid': submitted && f['club2'].errors }"
-                (change)="onClub2Change()"
-              >
-                <option value="" disabled>Select away team</option>
-                <option *ngFor="let club of clubs" [value]="club.idClub">{{ club.nameClub }}</option>
-              </select>
-              <div *ngIf="submitted && f['club2'].errors" class="invalid-feedback">
-                <div *ngIf="f['club2'].errors['required']">Away team is required</div>
-              </div>
-            </div>
-          </div>
-  
-          <!-- Goals Row -->
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="goals1" class="form-label">Home Team Goals</label>
-              <input 
-                type="number" 
-                id="goals1" 
-                formControlName="goals1" 
-                class="form-control"
-                min="0"
-              >
-            </div>
-            <div class="col-md-6">
-              <label for="goals2" class="form-label">Away Team Goals</label>
-              <input 
-                type="number" 
-                id="goals2" 
-                formControlName="goals2" 
-                class="form-control"
-                min="0"
-              >
-            </div>
-          </div>
-          
-          <!-- Submit button -->
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()">Cancel</button>
-            <button type="submit" class="btn btn-primary" [disabled]="loading">
-              <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-              Update Match
-            </button>
-          </div>
-        </form>
-      </div>
+<style>
+  input, select {
+    color: black;
+  }
+</style>
+
+<div class="container-fluid p-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h2>Update Match</h2>
     </div>
-  </div>
-  
+    <div class="card-body">
+      <div *ngIf="loadingData" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <form *ngIf="!loadingData" [formGroup]="matchForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="dateMatch" class="form-label">Match Date</label>
+            <input
+              type="datetime-local"
+              id="dateMatch"
+              formControlName="dateMatch"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['dateMatch'].errors }"
+            />
+            <div *ngIf="submitted && f['dateMatch'].errors" class="invalid-feedback">
+              Match date is required
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="lieuMatch" class="form-label">Match Location</label>
+            <input
+              type="text"
+              id="lieuMatch"
+              formControlName="lieuMatch"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['lieuMatch'].errors }"
+            />
+            <div *ngIf="submitted && f['lieuMatch'].errors" class="invalid-feedback">
+              Match location is required
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="statusMatch" class="form-label">Match Status</label>
+            <select
+              id="statusMatch"
+              formControlName="statusMatch"
+              class="form-select"
+              [ngClass]="{ 'is-invalid': submitted && f['statusMatch'].errors }"
+            >
+              <option value="" disabled>Select match status</option>
+              <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+            </select>
+            <div *ngIf="submitted && f['statusMatch'].errors" class="invalid-feedback">
+              Match status is required
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="typeMatch" class="form-label">Match Type</label>
+            <select
+              id="typeMatch"
+              formControlName="typeMatch"
+              class="form-select"
+              [ngClass]="{ 'is-invalid': submitted && f['typeMatch'].errors }"
+            >
+              <option value="" disabled>Select match type</option>
+              <option *ngFor="let type of typeOptions" [value]="type">{{ type }}</option>
+            </select>
+            <div *ngIf="submitted && f['typeMatch'].errors" class="invalid-feedback">
+              Match type is required
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label for="arbitre" class="form-label">Referee</label>
+            <input
+              type="text"
+              id="arbitre"
+              formControlName="arbitre"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['arbitre'].errors }"
+            />
+            <div *ngIf="submitted && f['arbitre'].errors" class="invalid-feedback">
+              Referee name is required
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="club1" class="form-label">Home Team</label>
+            <div class="input-group">
+              <select
+                id="club1"
+                formControlName="club1"
+                class="form-select"
+              >
+                <option *ngFor="let club of clubs" [value]="club.idClub">{{ club.nameClub }}</option>
+              </select>
+              <span class="input-group-text bg-warning text-dark">Cannot Change</span>
+            </div>
+            <small class="text-muted">Home team cannot be changed</small>
+          </div>
+
+          <div class="col-md-6">
+            <label for="club2" class="form-label">Away Team</label>
+            <div class="input-group">
+              <select
+                id="club2"
+                formControlName="club2"
+                class="form-select"
+              >
+                <option *ngFor="let club of clubs" [value]="club.idClub">{{ club.nameClub }}</option>
+              </select>
+              <span class="input-group-text bg-warning text-dark">Cannot Change</span>
+            </div>
+            <small class="text-muted">Away team cannot be changed</small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="goals1" class="form-label">Home Team Goals</label>
+            <input type="number" id="goals1" formControlName="goals1" class="form-control" min="0" />
+          </div>
+          <div class="col-md-6">
+            <label for="goals2" class="form-label">Away Team Goals</label>
+            <input type="number" id="goals2" formControlName="goals2" class="form-control" min="0" />
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary me-2" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            {{ loading ? "Updating..." : "Update Match" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div> 
+</div>
+<style>
+  input, select {
+    color: black !important;
+  }
+  input::placeholder {
+    color: black !important;
+  }
+</style>

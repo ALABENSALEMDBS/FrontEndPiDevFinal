@@ -4,7 +4,7 @@ import { AccueilComponent } from './BackOffice/admin-backoffice/accueil/accueil.
 import { AllTemplateBackComponent } from './BackOffice/admin-backoffice/all-template-back/all-template-back.component';
 import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match/add-match.component';
 import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
-import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
+//import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
 import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
 import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
@@ -67,6 +67,9 @@ import { UpdateCompetitionComponent } from './BackOffice/admin-backoffice/Compet
 import { CompetitionClubsComponent } from './BackOffice/admin-backoffice/Competition/competition-clubs/competition-clubs.component';
 import { ListCompetitionComponent } from './BackOffice/admin-backoffice/Competition/list-competition/list-competition.component';
 import { CompetitionMatchesComponent } from './BackOffice/admin-backoffice/Competition/competition-matches/competition-matches.component';
+import { UpdateCompetitionMatchComponent } from './BackOffice/admin-backoffice/Competition/update-competition-match/update-competition-match.component';
+import { UpdateCompetitionGoalsComponent } from './BackOffice/admin-backoffice/Competition/update-competition-goals/update-competition-goals.component';
+import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -111,7 +114,9 @@ const routes: Routes = [
             { path: 'update/:id', component: UpdateCompetitionComponent },
             { path: 'matches/:id', component: CompetitionMatchesComponent }, // Add this line
             { path: 'clubs/:id', component: CompetitionClubsComponent }, 
-            { path: 'addmatch', component: AddMatchComponent }, 
+            { path: 'addmatch', component: AddMatchComponent },
+            { path: "update-match/:competitionId/:matchId", component: UpdateCompetitionMatchComponent},
+            { path: "update-goals/:competitionId/:matchId", component: UpdateCompetitionGoalsComponent}
           ]
         },
 
