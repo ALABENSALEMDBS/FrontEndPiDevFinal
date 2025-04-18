@@ -118,6 +118,7 @@ export class AddMatchComponent implements OnInit {
         this.loading = false;
         // Reload the match data after creation
         this.loadMatches();  // Add a method to reload matches
+        window.location.reload()
         this.router.navigate(["../"], { relativeTo: this.route });
       },
       error: (err) => {
