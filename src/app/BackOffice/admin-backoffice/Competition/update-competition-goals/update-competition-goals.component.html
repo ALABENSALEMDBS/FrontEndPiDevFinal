@@ -1,4 +1,4 @@
-<div class="container-fluid p-4">
+<!-- <div class="container-fluid p-4">
     <div class="card">
       <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
         <h2>Update Match Score for {{ competition?.nameCompetition }}</h2>
@@ -7,14 +7,12 @@
         </button>
       </div>
       <div class="card-body">
-        <!-- Loading spinner -->
         <div *ngIf="loadingData" class="text-center my-5">
           <div class="spinner-border text-success" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
   
-        <!-- Error message -->
         <div *ngIf="error" class="alert alert-danger">
           {{ error }}
         </div>
@@ -29,7 +27,6 @@
             </div>
           </div>
   
-          <!-- Image Upload Section -->
           <div class="mb-4">
             <div class="card">
               <div class="card-header bg-light">
@@ -68,7 +65,6 @@
           <form [formGroup]="goalsForm" (ngSubmit)="onSubmit()">
             <div class="row justify-content-center mb-4">
               <div class="col-md-5 text-center">
-                <!-- Club logo -->
                 <div class="mb-3">
                   <img 
                     [src]="match.club1?.logo || '/placeholder.svg?height=80&width=80'" 
@@ -95,7 +91,6 @@
                 <span class="fs-1 fw-bold">-</span>
               </div>
               <div class="col-md-5 text-center">
-                <!-- Club logo -->
                 <div class="mb-3">
                   <img 
                     [src]="match.club2?.logo || '/placeholder.svg?height=80&width=80'" 
@@ -120,7 +115,6 @@
               </div>
             </div>
             
-            <!-- Submit button -->
             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
               <button type="button" class="btn btn-secondary me-md-2" (click)="goBack()">Cancel</button>
               <button type="submit" class="btn btn-success" [disabled]="loading">
@@ -133,4 +127,141 @@
       </div>
     </div>
   </div>
+   -->
+
+
+
+   <div class="container-fluid p-4">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h2>Update Match Goals for {{ competition?.nameCompetition }}</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loadingData" class="text-center my-5">
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
   
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+  
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+  
+        <div *ngIf="!loadingData" class="mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center">Match Details</h5>
+              <div class="d-flex justify-content-between align-items-center my-3">
+                <div class="text-center">
+                  <h6>{{ match?.club1?.nameClub }}</h6>
+                  <img 
+                    [src]="match?.club1?.logo" 
+                    [alt]="match?.club1?.nameClub" 
+                    class="mb-2" 
+                    style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;"
+                  >
+                </div>
+                <div class="text-center">
+                  <h1>VS</h1>
+                </div>
+                <div class="text-center">
+                  <h6>{{ match?.club2?.nameClub }}</h6>
+                  <img 
+                    [src]="match?.club2?.logo" 
+                    [alt]="match?.club2?.nameClub" 
+                    class="mb-2" 
+                    style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;"
+                  >
+                </div>
+              </div>
+              <div class="text-center">
+                <p><strong>Date:</strong> {{ match?.dateMatch | date:'medium' }}</p>
+                <p><strong>Location:</strong> {{ match?.lieuMatch }}</p>
+                <p><strong>Referee:</strong> {{ match?.arbitre }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <form *ngIf="!loadingData" [formGroup]="goalsForm" (ngSubmit)="onSubmit()">
+          <div class="row mb-3">
+            <div class="col-md-5">
+              <label for="goals1" class="form-label">{{ match?.club1?.nameClub }} Goals</label>
+              <input 
+                type="number" 
+                id="goals1" 
+                formControlName="goals1" 
+                class="form-control" 
+                min="0"
+                [ngClass]="{ 'is-invalid': submitted && f['goals1'].errors }"
+              />
+              <div *ngIf="submitted && f['goals1'].errors" class="invalid-feedback">
+                <div *ngIf="f['goals1'].errors['required']">Goals are required</div>
+                <div *ngIf="f['goals1'].errors['min']">Goals cannot be negative</div>
+              </div>
+            </div>
+            
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+              <h3 class="mb-0">-</h3>
+            </div>
+            
+            <div class="col-md-5">
+              <label for="goals2" class="form-label">{{ match?.club2?.nameClub }} Goals</label>
+              <input 
+                type="number" 
+                id="goals2" 
+                formControlName="goals2" 
+                class="form-control" 
+                min="0"
+                [ngClass]="{ 'is-invalid': submitted && f['goals2'].errors }"
+              />
+              <div *ngIf="submitted && f['goals2'].errors" class="invalid-feedback">
+                <div *ngIf="f['goals2'].errors['required']">Goals are required</div>
+                <div *ngIf="f['goals2'].errors['min']">Goals cannot be negative</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="statusMatch" class="form-label">Match Status</label>
+              <select
+                id="statusMatch"
+                formControlName="statusMatch"
+                class="form-select"
+                [ngClass]="{ 'is-invalid': submitted && f['statusMatch'].errors }"
+              >
+                <option value="Completed">Completed</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Postponed">Postponed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <div *ngIf="submitted && f['statusMatch'].errors" class="invalid-feedback">
+                Match status is required
+              </div>
+            </div>
+          </div>
+  
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-success" [disabled]="loading">
+              {{ loading ? "Updating..." : "Update Goals" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    input, select {
+      color: black !important;
+    }
+    input::placeholder {
+      color: black !important;
+    }
+  </style>
