@@ -90,6 +90,9 @@ export class UpdateGoalsComponent implements OnInit {
       next: () => {
         this.loading = false;
         this.router.navigate(['../../'], { relativeTo: this.route });
+        this.cancel()
+        window.location.reload()
+        //this.cancel()
       },
       error: (err) => {
         this.loading = false;
