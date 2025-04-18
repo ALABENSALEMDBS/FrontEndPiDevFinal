@@ -1,6 +1,7 @@
 // import { Clubs } from "./clubs";
 
 import { Clubs } from "./clubs"
+import { Competition } from "./competition"
 
 // export class Match {
 //   idMatch!: number;
@@ -37,6 +38,7 @@ export class Match {
   goals1!: number | null
   goals2!: number | null
 
+  competition!: Competition | null;  
   club1!: Clubs
   club2!: Clubs
 }
