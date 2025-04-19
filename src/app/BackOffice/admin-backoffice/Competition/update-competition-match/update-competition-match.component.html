@@ -180,7 +180,7 @@
    <div class="container-fluid p-4">
     <div class="card">
       <div class="card-header bg-success text-white">
-        <h2>Update Match for {{ competition?.nameCompetition }}</h2>
+        <h2>Update Match for {{competition?.nameCompetition }}</h2>
       </div>
       <div class="card-body">
         <div *ngIf="loadingData" class="text-center my-5">
@@ -189,9 +189,9 @@
           </div>
         </div>
   
-        <div *ngIf="error" class="alert alert-danger">
+        <!-- <div *ngIf="error" class="alert alert-danger">
           {{ error }}
-        </div>
+        </div> -->
   
         <div *ngIf="successMessage" class="alert alert-success">
           {{ successMessage }}
