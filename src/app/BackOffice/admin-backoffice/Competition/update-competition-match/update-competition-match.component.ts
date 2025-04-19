@@ -245,7 +245,7 @@ export class UpdateCompetitionMatchComponent implements OnInit {
         this.loadParticipatingClubs();
       },
       error: (err) => {
-        this.error = "Failed to load competition details.";
+        //this.error = "Failed to load competition details.";
         console.error(err);
       },
     });
@@ -272,7 +272,7 @@ export class UpdateCompetitionMatchComponent implements OnInit {
         this.loadingData = false;
       },
       error: (err) => {
-        this.error = "Failed to load match details. Please try again.";
+        //this.error = "Failed to load match details. Please try again.";
         console.error(err);
         this.loadingData = false;
       },

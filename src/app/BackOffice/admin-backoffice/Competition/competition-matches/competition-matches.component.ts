@@ -139,7 +139,11 @@ export class CompetitionMatchesComponent implements OnInit {
         this.competition = data
       },
       error: (err) => {
-        this.error = "Failed to load competition details."
+
+
+
+
+        this.error = "The Matchs' details aren't all completed. "
         console.error(err)
       },
     })
