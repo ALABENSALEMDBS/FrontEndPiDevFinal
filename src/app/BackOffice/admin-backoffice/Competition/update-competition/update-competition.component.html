@@ -19,8 +19,7 @@
         </div>
   
         <form *ngIf="!loadingData" [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
-          
-            <!-- Competition Name -->
+          <!-- Competition Name -->
           <div class="mb-3">
             <label for="nameCompetition" class="form-label">Competition Name</label>
             <input 
@@ -52,38 +51,32 @@
             </div>
           </div>
           
-          <!-- Participating Clubs -->
+          <!-- Participating Clubs (Read-only) -->
           <div class="mb-3">
             <label class="form-label">Participating Clubs</label>
             <div class="card">
               <div class="card-body">
+                <div class="alert alert-warning">
+                  <i class="bi bi-info-circle"></i> 
+                  Participating clubs cannot be modified after competition creation.
+                </div>
+                
                 <div class="row">
-                  <div *ngFor="let club of clubs" class="col-md-4 mb-2">
-                    <div class="form-check">
-                      <input 
-                        class="form-check-input" 
-                        type="checkbox" 
-                        [id]="'club' + club.idClub" 
-                        [value]="club.idClub" 
-                        [checked]="isClubSelected(club.idClub)"
-                        (change)="onClubSelectionChange(club.idClub, $event)"
-                      >
-                      <label class="form-check-label" [for]="'club' + club.idClub">
+                  <div *ngFor="let club of participatingClubs" class="col-md-4 mb-3">
+                    <div class="card">
+                      <div class="card-body p-2">
                         <div class="d-flex align-items-center">
                           <img 
                             [src]="club.logo" 
                             [alt]="club.nameClub" 
                             class="me-2" 
-                            style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
+                            style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;"
                           >
-                          {{ club.nameClub }}
+                          <span>{{ club.nameClub }}</span>
                         </div>
-                      </label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div *ngIf="submitted && selectedClubs.length < 2" class="text-danger mt-2">
-                  At least 2 clubs must be selected for a competition
                 </div>
               </div>
             </div>
