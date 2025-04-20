@@ -74,6 +74,7 @@ import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-
 import { NgChartsModule } from 'ng2-charts';
 import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
+import { ChartsdoctorComponent } from "./BackOffice/admin-club-backoffice/chartsdoctor/chartsdoctor.component";
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -225,6 +226,7 @@ import { WebsocketService } from './services/serviceCoatch/services/websocket.se
     AddMatchComponent,
     ListMatchComponent,
     UpdateMatchComponent,
+    
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -233,11 +235,13 @@ import { WebsocketService } from './services/serviceCoatch/services/websocket.se
     ReactiveFormsModule,
     NgChartsModule,
     ChatComponent,
-//     FormsModule,
-//     FooterHomeComponent,
-//     NavbarHomeComponent
-// ],
-// providers: [provideHttpClient(withInterceptorsFromDi())] })
-
-    FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
+    //     FormsModule,
+    //     FooterHomeComponent,
+    //     NavbarHomeComponent
+    // ],
+    // providers: [provideHttpClient(withInterceptorsFromDi())] })
+    FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent,
+    ChartsdoctorComponent,
+    
+], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

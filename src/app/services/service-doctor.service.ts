@@ -28,10 +28,11 @@ export class ServiceDoctorService {
   //   return this.http.post<FicheMedical>(`${this.apiUrl}/FicheMedicales/addfichebyplayer/${idPlayer}`, ficheMedical);
   // }
   
-  addFicheMedical(ficheMedical: FicheMedical, idPlayer: number): Observable<FicheMedical> {
-       return this.http.post<FicheMedical>(`${this.apiUrl}/FicheMedicales/add-FicheMedicales/${idPlayer}`, ficheMedical);
-     }
+  addFicheMedical(ficheMedical: FicheMedical, idPlayer: number,idExerciceRetablissement:number): Observable<FicheMedical> {
+    return this.http.post<FicheMedical>(`${this.apiUrl}/FicheMedicales/add-FicheMedicales/${idPlayer}/${idExerciceRetablissement}`, ficheMedical); }
 
+
+    
      updateFicheMedical(ficheMedical: FicheMedical): Observable<FicheMedical> {
           return this.http.put<FicheMedical>(`${this.apiUrl}/FicheMedicales/modify-ficheMedicales`, ficheMedical);
         }
@@ -129,5 +130,22 @@ updateNourritures(nouriture: Nouriture): Observable<Nouriture> {
   return this.http.put<Nouriture>(`${this.apiUrl}/Nouriture/modify-nouriture`, nouriture);
 }
 
+//uploade-file-exerciceretablissement
+// upload CSV file
+uploadExerciceFile(file: File): Observable<string> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return this.http.post(`${this.apiUrl}/files/upload`, formData, {
+    responseType: 'text' // pour retourner juste un message
+  });
+}
+
+
+//chartjs pourcentage de gravite player 
+getGraviteStatsByPlayer(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/FicheMedicales/count-by-gravite`);
+  
+}
 
 }

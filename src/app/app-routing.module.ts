@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccueilComponent } from './BackOffice/admin-backoffice/accueil/accueil.component';
@@ -54,6 +55,9 @@ import { HomeAnalysteComponent } from './FrontOffice/AnalysteFrontOffice/home-an
 import { ListRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/list-rapport/list-rapport.component';
 import { AddRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/add-rapport/add-rapport.component';
 import { UpdateRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/update-rapport/update-rapport.component';
+import { UploadExerciceComponent } from './FrontOffice/DoctorFrontOffice/upload-exercice/upload-exercice.component';
+import { ChartsdoctorComponent } from './BackOffice/admin-club-backoffice/chartsdoctor/chartsdoctor.component';
+import { CalanderDoctorComponent } from './FrontOffice/DoctorFrontOffice/calander-doctor/calander-doctor.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -92,6 +96,7 @@ const routes: Routes = [
     children:[
       { path: '', redirectTo: 'HomeAccueilclubadmin', pathMatch: 'full' },
       {path:'HomeAccueilclubadmin',component: AcceuilAdminClubComponent},
+      {path:"chartblesseure",component:ChartsdoctorComponent}
 
     ]
   },
@@ -169,7 +174,15 @@ const routes: Routes = [
               component:ListeNourritureComponent
 
             }
-
+            ,{
+              path:'uploadexercice',
+              component:UploadExerciceComponent
+            }
+            ,
+            {
+              path:'clanderdoctor',
+              component:CalanderDoctorComponent
+            }
 
             
     ]
