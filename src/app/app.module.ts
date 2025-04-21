@@ -61,6 +61,7 @@ import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.componen
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
 import { LiveStreamComponent } from './FrontOffice/CoachFrontOffice/live-stream/live-stream.component';
 import { VideoListComponent } from './FrontOffice/CoachFrontOffice/video-list/video-list.component';
+import { VideoCommentComponent } from './FrontOffice/CoachFrontOffice/video-comment/video-comment.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -118,5 +119,6 @@ import { VideoListComponent } from './FrontOffice/CoachFrontOffice/video-list/vi
     ChatComponent,
     LiveStreamComponent,
     VideoListComponent,
+    VideoCommentComponent,
     FormsModule, FooterHomeComponent, NavbarHomeComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
