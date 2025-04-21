@@ -124,6 +124,15 @@ export class ListExerciceComponent {
 
 
 
+  getSafeVideoUrl(url: string): SafeResourceUrl {
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+      const videoId = this.extractYoutubeVideoId(url);
+      return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`);
+    } else {
+      // Fichier local
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+  }
 
 
   }

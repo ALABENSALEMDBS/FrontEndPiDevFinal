@@ -1,0 +1,23 @@
+<!-- <p>video-comment works!</p> -->
+
+
+<div class="comment-section">
+  <h3>Commentaires</h3>
+
+  <div *ngFor="let comment of comments" class="comment">
+    <div class="avatar">{{ comment.username[0] | uppercase }}</div>
+    <div class="content">
+      <div class="meta">
+        <span class="username">{{ comment.username }}</span>
+        <span class="timestamp">{{ comment.timestamp | date:'short' }}</span>
+      </div>
+      <p class="text">{{ comment.content }}</p>
+    </div>
+  </div>
+
+  <div class="new-comment">
+    <input class="input" [(ngModel)]="newComment" placeholder="Ajouter un commentaire..." />
+    <button class="send-btn" (click)="send()">Envoyer</button>
+  </div>
+</div>
+

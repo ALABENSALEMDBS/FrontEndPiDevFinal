@@ -1,0 +1,18 @@
+<!-- <p>video-list works!</p> -->
+
+
+
+
+<div class="video-list">
+  <h2>📼 Recorded Streams</h2>
+  <div *ngFor="let video of videos">
+    <div class="video-item">
+      <!-- Vidéo -->
+      <video [src]="getVideoUrl(video)" controls></video>
+
+      <!-- Espace de commentaires pour chaque vidéo -->
+      <app-video-comment [videoId]="video"></app-video-comment>
+    </div>
+  </div>
+</div>
+
