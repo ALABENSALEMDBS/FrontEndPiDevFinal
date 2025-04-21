@@ -1,0 +1,10 @@
+<!-- <p>live-stream works!</p> -->
+ 
+<div class="container">
+  <video autoplay playsinline controls width="400"></video>
+  <br />
+  <button (click)="startStream()" [disabled]="isRecording">🎥 Start Live</button>
+  <button (click)="stopStream()" [disabled]="!isRecording">🛑 Stop & Save</button>
+</div>
+
+

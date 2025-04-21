@@ -59,6 +59,8 @@ import { FooterHomeComponent } from "./FrontOffice/HomePages/footer-home/footer-
 import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-home.component";
 import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
+import { LiveStreamComponent } from './FrontOffice/CoachFrontOffice/live-stream/live-stream.component';
+import { VideoListComponent } from './FrontOffice/CoachFrontOffice/video-list/video-list.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -114,5 +116,7 @@ import { WebsocketService } from './services/serviceCoatch/services/websocket.se
     AppRoutingModule,
     ReactiveFormsModule,
     ChatComponent,
+    LiveStreamComponent,
+    VideoListComponent,
     FormsModule, FooterHomeComponent, NavbarHomeComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

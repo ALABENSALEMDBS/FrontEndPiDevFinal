@@ -1,0 +1,9 @@
+<!-- <p>video-list works!</p> -->
+
+<div class="video-list">
+  <h2>📼 Recorded Streams</h2>
+  <div *ngFor="let video of videos">
+    <video [src]="getVideoUrl(video)" controls width="400"></video>
+  </div>
+</div>
+
