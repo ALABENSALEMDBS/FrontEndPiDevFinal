@@ -123,7 +123,7 @@ export class AddMatchComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false;
-        this.error = "Failed to create match. Please try again.";
+        this.error = "Check the date , the club can play only one game in 3 days.";
         console.error(err);
       },
     });

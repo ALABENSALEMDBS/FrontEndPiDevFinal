@@ -129,7 +129,7 @@
         
         <!-- Submit button -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button type="button" class="btn btn-secondary me-md-2" routerLink="/matches">Cancel</button>
+          <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()" routerLink="/matches">Cancel</button>
           <button type="submit" class="btn btn-primary" [disabled]="loading">
             <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
             Save Match

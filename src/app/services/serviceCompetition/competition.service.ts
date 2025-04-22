@@ -38,9 +38,21 @@ export class CompetitionService {
   }
 
   // Update competition
-  updateCompetition(competition: Competition): Observable<Competition> {
-    return this.http.put<Competition>(`${this.apiUrl}/modify-club`, competition)
+  // updateCompetition(competition: Competition): Observable<Competition> {
+  //   return this.http.put<Competition>(`${this.apiUrl}/modify-club`, competition)
+  // }
+
+  updateCompetition(id: number,competition: Competition): Observable<Competition> {
+    return this.http.put<Competition>(`${this.apiUrl}/modify-competition/${id}`, competition)
   }
+
+
+
+  /*updateMatch(id: number, match: Match): Observable<Match> {
+    return this.http.put<Match>(`${this.baseUrl}/modify-matchs/${id}`, match)
+  }*/
+
+
 
   // Delete competition
   deleteCompetition(id: number): Observable<void> {
