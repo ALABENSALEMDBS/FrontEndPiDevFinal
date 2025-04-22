@@ -17,6 +17,9 @@ export class ListeExerciceRetablissementComponent {
 viewMode: string = 'table'; 
   exercices: ExerciceRetablissements[] = [];
 
+  showConfirmPopup: boolean = false;
+exerciceToDelete: ExerciceRetablissements | null = null;
+
   constructor(private exerciceService: ServiceDoctorService , private router:Router) {}
   ngOnInit(): void {
     this.getExercices();
@@ -37,12 +40,35 @@ viewMode: string = 'table';
   }
 
 
+  // supprimerExercice(exercice: ExerciceRetablissements): void {
+  //   if (confirm("Do you really want to delete this exercise?")) {
+  //     this.exerciceService.deletexercicebyid(exercice.idExerciceRetablissement).subscribe({
+  //       next: () => {
+  //         //alert('Exercice supprimé avec succès !');
+  //         this.getExercices(); // Mettre à jour la liste
+  //       },
+  //       error: (err) => {
+  //         console.error('Erreur lors de la suppression :', err);
+  //         alert('Erreur lors de la suppression de l’exercice.');
+  //       }
+  //     });
+  //   }
+
+  
+  // }
+
+  //update delete
   supprimerExercice(exercice: ExerciceRetablissements): void {
-    if (confirm("Do you really want to delete this exercise?")) {
-      this.exerciceService.deletexercicebyid(exercice.idExerciceRetablissement).subscribe({
+    this.exerciceToDelete = exercice;
+    this.showConfirmPopup = true;
+  }
+
+  confirmDelete(): void {
+    if (this.exerciceToDelete) {
+      this.exerciceService.deletexercicebyid(this.exerciceToDelete.idExerciceRetablissement).subscribe({
         next: () => {
-          //alert('Exercice supprimé avec succès !');
-          this.getExercices(); // Mettre à jour la liste
+          this.getExercices(); // actualiser la liste
+          this.closeConfirmPopup();
         },
         error: (err) => {
           console.error('Erreur lors de la suppression :', err);
@@ -50,9 +76,16 @@ viewMode: string = 'table';
         }
       });
     }
-
-  
   }
+  
+  closeConfirmPopup(): void {
+    this.showConfirmPopup = false;
+    this.exerciceToDelete = null;
+  }
+
+  //determinate modifier delete 
+
+
   openModal(exercice: any): void {
     this.selectedDescription = exercice.descriptionExerciceRetablissement;
     // Ici, ajoutez le code pour ouvrir un modal si nécessaire (par exemple avec Angular Material ou Bootstrap)
@@ -208,7 +241,7 @@ onUpload(): void {
   }
 
 }
-//upload essay
+
 
 
 

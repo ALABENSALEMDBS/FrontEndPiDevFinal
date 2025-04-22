@@ -34,7 +34,8 @@
           <td>{{ exercice.dureeExercice || 'Non spécifié' }}</td>
           <td>{{ exercice.niveauDifficulte || 'Non spécifié' }}</td>
           <td>
-            <button class="btn btn-warning m-2" [routerLink]="['/doctor/updateexercice', exercice.idExerciceRetablissement]">✏️ Modifier</button>
+            <button class="btn btn-warning m-2" [routerLink]="['/doctor/updateexercice', 
+            exercice.idExerciceRetablissement]">✏️ Modifier</button>
             <button class="btn btn-danger" (click)="supprimerExercice(exercice)">🗑️ Supprimer</button>
           </td>
         </tr>
@@ -73,6 +74,17 @@
         <input type="file" (change)="onFileSelected($event)" accept=".csv" />
         <button class="btn btn-primary mt-2" (click)="onUpload()">Envoyer</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-popup-container" [class.show]="showConfirmPopup">
+  <div class="confirm-popup-content">
+    <h3>Êtes-vous sûr ?</h3>
+    <p>Voulez-vous vraiment supprimer cet exercice ? Cette action est irréversible.</p>
+    <div class="popup-actions mt-3">
+      <button class="btn btn-secondary me-2" (click)="closeConfirmPopup()">Annuler</button>
+      <button class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
     </div>
   </div>
 </div>
