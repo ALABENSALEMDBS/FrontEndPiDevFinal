@@ -67,7 +67,7 @@
   <label for="joueur">Exercice retablissement</label>
   <select formControlName="idExerciceRetablissement" required>
     <option value="" disabled selected>Select a Exercice</option>
-    <option *ngFor="let exerciceretablissement of exercice" [value]="exerciceretablissement.idExerciceRetablissement">{{ exerciceretablissement.nomExerciceRetablissement }}  {{ exerciceretablissement.descriptionExerciceRetablissement }}</option>
+    <option *ngFor="let exerciceretablissement of exercice" [value]="exerciceretablissement.idExerciceRetablissement">{{ exerciceretablissement.nomExerciceRetablissement }}  {{ exerciceretablissement.descriptionExerciceRetablissement}}</option>
   </select>
 </div>
 

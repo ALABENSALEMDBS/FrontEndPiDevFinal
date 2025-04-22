@@ -1,1 +1,56 @@
-<p>calander-doctor works!</p>
+
+<div class="calendar-wrapper">
+  <!-- En-tête du calendrier -->
+  <div class="calendar-header">
+    <h2>🗓️ Calendrier des Consultations</h2>
+    <p>Visualisez et organisez les consultations de manière intuitive.</p>
+    <!-- Bouton pour ajouter une consultation -->
+    <button (click)="formVisible = true" class="add-button">Ajouter une consultation</button>
+  </div>
+
+  <!-- Section contenant le calendrier et le bouton d'ajout -->
+  <div class="calendar-card">
+    <!-- Affichage du calendrier -->
+    <full-calendar #calendarRef [options]="calendarOptions"></full-calendar>
+  </div>
+
+  <!-- Fenêtre modale qui contient le formulaire -->
+  <div *ngIf="formVisible" class="modal-overlay">
+    <div class="modal-content">
+      <!-- Bouton pour fermer la modale -->
+      <button (click)="formVisible = false" class="close-button">X</button>
+
+      <!-- Formulaire de consultation -->
+      <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()" class="form-container">
+        <label for="joueurId">Joueur</label>
+        <select formControlName="idUser" id="joueurId">
+          <option value="" disabled>-- Sélectionnez un joueur --</option>
+          <option *ngFor="let joueur of joueurs" [value]="joueur.idUser">
+            {{ joueur.nameUsers }}
+          </option>
+        </select>
+        <div *ngIf="consultationForm.get('joueurId')?.touched && consultationForm.get('joueurId')?.invalid" class="error">
+          ⚠️ Veuillez sélectionner un joueur.
+        </div>
+
+        <label for="dateConsultation">Date de consultation</label>
+        <input type="datetime-local" formControlName="dateConsultation" id="dateConsultation" [value]="consultationForm.get('dateConsultation')?.value || ''" />
+        <div *ngIf="consultationForm.get('dateConsultation')?.touched && consultationForm.get('dateConsultation')?.invalid" class="error">
+          ⚠️ Date requise.
+        </div>
+
+        <label for="description">Description</label>
+        <textarea formControlName="description" id="description" placeholder="Ajouter une description..."></textarea>
+
+        <div *ngIf="consultationForm.get('description')?.touched && consultationForm.get('description')?.invalid" class="error">
+          ⚠️ La description est requise.
+        </div>
+
+        <button type="submit" [disabled]="consultationForm.invalid || isLoading">
+          Ajouter
+          <span *ngIf="isLoading" class="spinner"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

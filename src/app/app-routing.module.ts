@@ -58,6 +58,8 @@ import { UpdateRapportComponent } from './FrontOffice/AnalysteFrontOffice/rappor
 import { UploadExerciceComponent } from './FrontOffice/DoctorFrontOffice/upload-exercice/upload-exercice.component';
 import { ChartsdoctorComponent } from './BackOffice/admin-club-backoffice/chartsdoctor/chartsdoctor.component';
 import { CalanderDoctorComponent } from './FrontOffice/DoctorFrontOffice/calander-doctor/calander-doctor.component';
+import { AddConsultationComponent } from './FrontOffice/DoctorFrontOffice/add-consultation/add-consultation.component';
+import { DoctorplayerchartComponent } from './FrontOffice/DoctorFrontOffice/doctorplayerchart/doctorplayerchart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -182,6 +184,14 @@ const routes: Routes = [
             {
               path:'clanderdoctor',
               component:CalanderDoctorComponent
+            },
+            {
+              path:'consultation',
+              component:AddConsultationComponent
+            },
+            {
+              path:'chartddoctor',
+              component:DoctorplayerchartComponent
             }
 
             

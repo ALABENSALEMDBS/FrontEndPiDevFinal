@@ -75,6 +75,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
 import { ChartsdoctorComponent } from "./BackOffice/admin-club-backoffice/chartsdoctor/chartsdoctor.component";
+import { DoctorplayerchartComponent } from './FrontOffice/DoctorFrontOffice/doctorplayerchart/doctorplayerchart.component';
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -227,6 +228,7 @@ import { ChartsdoctorComponent } from "./BackOffice/admin-club-backoffice/charts
     ListMatchComponent,
     UpdateMatchComponent,
     
+    
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -241,7 +243,8 @@ import { ChartsdoctorComponent } from "./BackOffice/admin-club-backoffice/charts
     // ],
     // providers: [provideHttpClient(withInterceptorsFromDi())] })
     FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent,
-    ChartsdoctorComponent,
+    ChartsdoctorComponent,DoctorplayerchartComponent,
+    
     
 ], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

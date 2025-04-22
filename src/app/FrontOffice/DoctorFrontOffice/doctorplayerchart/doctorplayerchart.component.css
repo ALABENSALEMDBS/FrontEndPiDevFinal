@@ -1,0 +1,39 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 🚀 Remplir la hauteur de l'écran */
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+    color: #fdfdfd; /* Couleur du texte */
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 600;
+    background-color: #0f0331; /* Bleu du fond */
+    padding: 0.5rem 1rem; /* Espacement autour du texte */
+    border-radius: 8px; /* Coins arrondis */
+    border: 2px solid #043466; /* Bordure bleue plus foncée */
+  }
+  
+  
+  canvas {
+    width: 100%;
+    max-width: 500px; /* Taille max */
+    height: 300px; /* Donne une hauteur fixe pour une meilleure visibilité */
+    max-height: 500px; /* Assure une hauteur maximale */
+    aspect-ratio: 1 / 1; /* Rendre le graphique carré */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  canvas:hover {
+    transform: scale(1.03);
+  }
+  

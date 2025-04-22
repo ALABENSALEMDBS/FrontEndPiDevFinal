@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Consultation } from 'src/core/models/Consultation';
 import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement';
 import { FicheMedical } from 'src/core/models/ficheMedical';
 import { Joueur } from 'src/core/models/Joueurs';
@@ -148,4 +149,18 @@ getGraviteStatsByPlayer(): Observable<any[]> {
   
 }
 
+//consultation
+addConsultation(consultation: Consultation): Observable<Consultation> {
+  return this.http.post<Consultation>(`${this.apiUrl}/consultation/add`, consultation);
 }
+
+getAllConsultations(): Observable<Consultation[]> {
+  return this.http.get<Consultation[]>(`${this.apiUrl}/consultation/all`);
+}
+updateConsultation(consultation: Consultation): Observable<Consultation> {
+  return this.http.put<Consultation>(
+    `${this.apiUrl}/consultation/update/${consultation.id}`,
+    consultation
+  );
+
+}}
