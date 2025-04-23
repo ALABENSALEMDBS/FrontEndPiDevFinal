@@ -33,6 +33,8 @@ export class LiveStreamComponent {
 
     const stream = (document.querySelector('video')!.srcObject as MediaStream);
     stream.getTracks().forEach(track => track.stop());
+    window.location.reload();
+
   }
 
   uploadVideo() {
