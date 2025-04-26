@@ -57,11 +57,14 @@ import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-mat
 import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 import { FooterHomeComponent } from "./FrontOffice/HomePages/footer-home/footer-home.component";
 import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-home.component";
+import { NgChartsModule } from 'ng2-charts';
 import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
 import { LiveStreamComponent } from './FrontOffice/CoachFrontOffice/live-stream/live-stream.component';
 import { VideoListComponent } from './FrontOffice/CoachFrontOffice/video-list/video-list.component';
 import { VideoCommentComponent } from './FrontOffice/CoachFrontOffice/video-comment/video-comment.component';
+import { CommentStatsComponent } from './FrontOffice/CoachFrontOffice/comment-stats/comment-stats.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -111,14 +114,22 @@ import { VideoCommentComponent } from './FrontOffice/CoachFrontOffice/video-comm
         AddMatchComponent,
         ListMatchComponent,
         UpdateMatchComponent,
+
+
     ],
     bootstrap: [AppComponent],
     imports: [BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    CommonModule,
+    NgChartsModule,
+    NgChartsModule,
     ChatComponent,
     LiveStreamComponent,
     VideoListComponent,
     VideoCommentComponent,
-    FormsModule, FooterHomeComponent, NavbarHomeComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
+    CommentStatsComponent,
+    FormsModule, FooterHomeComponent, NavbarHomeComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())]
+
+  })
 export class AppModule { }

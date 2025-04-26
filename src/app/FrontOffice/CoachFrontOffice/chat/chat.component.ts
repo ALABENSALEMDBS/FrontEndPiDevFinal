@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { WebsocketService } from 'src/app/services/serviceCoatch/services/websocket.service';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -21,21 +22,37 @@ export class ChatComponent implements OnInit {
   connectingMessage = 'Connecting...';  // Message to show while connecting
   //private messageSubscription!: Subscription;
 
-  constructor(private websocketService: WebsocketService) {
+  constructor(private websocketService: WebsocketService, private http: HttpClient) {
     console.log('ChatComponent constructor called');
   }
 
   ngOnInit(): void {
     console.log('ChatComponent ngOnInit called');
-
-     // Subscribe to messages observable to receive messages from the WebSocket service
-     this.websocketService.messages$.subscribe(message => {
+    this.http.get<any[]>('http://localhost:8089/PiDevBackEndProject/api/chat/messages')
+    .subscribe(data => {
+      this.messages = data;
+    });
+    this.websocketService.messages$.subscribe(message => {
       if (message) {
-        // Log and add the received message to the array of messages
-        console.log(`Message received from ${message.sender}: ${message.content}`);
         this.messages.push(message);
       }
     });
+
+    // this.websocketService.connectionStatus$.subscribe(connected => {
+    //   this.isConnected = connected;
+    //   if (connected) {
+    //     this.connectingMessage = '';
+    //   }
+    // });
+
+     // Subscribe to messages observable to receive messages from the WebSocket service
+    //  this.websocketService.messages$.subscribe(message => {
+    //   if (message) {
+    //     // Log and add the received message to the array of messages
+    //     console.log(`Message received from ${message.sender}: ${message.content}`);
+    //     this.messages.push(message);
+    //   }
+    // });
         // Subscribe to connection status observable to monitor connection status
         this.websocketService.connectionStatus$.subscribe(connected => {
           this.isConnected = connected;  // Update the connection status

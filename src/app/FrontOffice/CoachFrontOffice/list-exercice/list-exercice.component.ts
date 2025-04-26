@@ -134,5 +134,12 @@ export class ListExerciceComponent {
     }
   }
 
+  statsPanelOpen = false;  // ajoute cette propriété
+
+toggleStatsPanel() {
+  this.statsPanelOpen = !this.statsPanelOpen;
+}
+
+
 
   }
