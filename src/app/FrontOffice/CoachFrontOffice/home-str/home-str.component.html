@@ -1,0 +1,35 @@
+<!-- <p>home-str works!</p> -->
+
+
+<div class="home-container">
+  <section class="create-room-section">
+      <h2>Créer un nouveau live stream</h2>
+      <form [formGroup]="createRoomForm" (ngSubmit)="createRoom()">
+          <div class="form-group">
+              <label for="roomName">Nom du stream</label>
+              <input type="text" id="roomName" formControlName="roomName" placeholder="Entrez un nom pour votre stream">
+              <div *ngIf="createRoomForm.get('roomName')?.invalid && createRoomForm.get('roomName')?.touched" class="error-message">
+                  <span *ngIf="createRoomForm.get('roomName')?.errors?.['required']">Le nom est requis</span>
+                  <span *ngIf="createRoomForm.get('roomName')?.errors?.['minlength']">Le nom doit contenir au moins 3 caractères</span>
+              </div>
+          </div>
+          <button type="submit" [disabled]="createRoomForm.invalid">Démarrer un nouveau live</button>
+      </form>
+  </section>
+
+  <section class="active-rooms-section">
+      <h2>Live streams actifs</h2>
+      <div *ngIf="rooms.length === 0" class="no-rooms-message">
+          Aucun live stream actif pour le moment
+      </div>
+      <div class="rooms-list">
+          <div *ngFor="let room of rooms" class="room-card">
+              <h3>{{ room.name }}</h3>
+              <p>Créé le: {{ room.createdAt | date:'medium' }}</p>
+              <button (click)="joinRoom(room.id)">Rejoindre</button>
+          </div>
+      </div>
+  </section>
+</div>
+
+

@@ -37,6 +37,9 @@ import { HomeAnalysteComponent } from './FrontOffice/AnalysteFrontOffice/home-an
 import { ListRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/list-rapport/list-rapport.component';
 import { AddRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/add-rapport/add-rapport.component';
 import { UpdateRapportComponent } from './FrontOffice/AnalysteFrontOffice/rapport/update-rapport/update-rapport.component';
+import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster/broadcaster.component';
+import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
+import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -148,8 +151,9 @@ const routes: Routes = [
       {
         path: 'showexercice', component: ListExerciceComponent,
         children:[
-          {path: 'addexercice', component: AddexerciceComponent },
-          {path: 'updateexercice/:idExercice', component: UpdateexerciceComponent },
+          { path: 'addexercice', component: AddexerciceComponent },
+          { path: 'updateexercice/:idExercice', component: UpdateexerciceComponent },
+          { path: 'homeStr', component: HomeStrComponent },
 
         ]
       },
@@ -187,6 +191,8 @@ const routes: Routes = [
         ]
       }]
   },
+  { path: 'broadcast/:roomId', component: BroadcasterComponent },
+  { path: 'view/:roomId', component: ViewerComponent },
 
   {
     path:'home',

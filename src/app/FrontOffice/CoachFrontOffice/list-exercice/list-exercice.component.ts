@@ -17,6 +17,7 @@ export class ListExerciceComponent {
  selectedVideo: SafeResourceUrl | null = null;
  weather: WeatherResponse | null = null;
  forecastData: any[] = [];
+ liveStreamVisible: boolean = false;
 
 
       constructor(private coatchService: ExerciceService, private sanitizer: DomSanitizer,private weatherService: WeatherService ) {}
@@ -140,6 +141,9 @@ toggleStatsPanel() {
   this.statsPanelOpen = !this.statsPanelOpen;
 }
 
+toggleLiveStream() {
+  this.liveStreamVisible = !this.liveStreamVisible;
+}
 
 
   }
