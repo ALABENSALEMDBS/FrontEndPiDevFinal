@@ -70,6 +70,9 @@ import { CompetitionMatchesComponent } from './BackOffice/admin-backoffice/Compe
 import { UpdateCompetitionMatchComponent } from './BackOffice/admin-backoffice/Competition/update-competition-match/update-competition-match.component';
 import { UpdateCompetitionGoalsComponent } from './BackOffice/admin-backoffice/Competition/update-competition-goals/update-competition-goals.component';
 import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
+import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster/broadcaster.component';
+import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
+import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -102,7 +105,7 @@ const routes: Routes = [
             { path: 'update/:idMatch', component: UpdateMatchComponent },
             { path: 'addmatch', component: AddMatchComponent },
             { path: 'update-goals/:idMatch', component: UpdateGoalsComponent }, // Add this line
-            //{ path: 'listMatch', component: ListMatchComponent },  
+            //{ path: 'listMatch', component: ListMatchComponent },
           ]
         },
 
@@ -113,7 +116,7 @@ const routes: Routes = [
             { path: 'add', component: AddCompetitionComponent },
             { path: 'update/:id', component: UpdateCompetitionComponent },
             { path: 'matches/:id', component: CompetitionMatchesComponent }, // Add this line
-            { path: 'clubs/:id', component: CompetitionClubsComponent }, 
+            { path: 'clubs/:id', component: CompetitionClubsComponent },
             { path: 'addmatch', component: AddMatchComponent },
             { path: "update-match/:competitionId/:matchId", component: UpdateCompetitionMatchComponent},
             { path: "update-goals/:competitionId/:matchId", component: UpdateCompetitionGoalsComponent}
@@ -127,7 +130,7 @@ const routes: Routes = [
           children: [
             { path: 'update/:idClub', component: UpdateClubsComponent },
             { path: 'addclubs', component: AddClubsComponent },
-            //{ path: 'listMatch', component: ListMatchComponent },  
+            //{ path: 'listMatch', component: ListMatchComponent },
           ]
         },
 
@@ -185,9 +188,9 @@ const routes: Routes = [
             {
               path:'listefiche',
               component:ListeFicheMedicalComponent
-              
+
             },
-            
+
             {
               path:'listeExercicedeRetablissement',
               component:ListeExerciceRetablissementComponent
@@ -220,7 +223,7 @@ const routes: Routes = [
             }
 
 
-            
+
     ]
   },
   {
@@ -261,8 +264,9 @@ const routes: Routes = [
       {
         path: 'showexercice', component: ListExerciceComponent,
         children:[
-          {path: 'addexercice', component: AddexerciceComponent },
-          {path: 'updateexercice/:idExercice', component: UpdateexerciceComponent },
+          { path: 'addexercice', component: AddexerciceComponent },
+          { path: 'updateexercice/:idExercice', component: UpdateexerciceComponent },
+          { path: 'homeStr', component: HomeStrComponent },
 
         ]
       },
@@ -302,6 +306,8 @@ const routes: Routes = [
         ]
       }]
   },
+  { path: 'broadcast/:roomId', component: BroadcasterComponent },
+  { path: 'view/:roomId', component: ViewerComponent },
 
   {
     path:'home',

@@ -3,6 +3,12 @@
     List of Exercises
   </h2>
 
+  <button [routerLink]="['homeStr']" (click)="toggleLiveStream()"
+  style="background: transparent; color: #007bff; border: 2px solid #007bff; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
+  <i class="fas fa-video"></i> Live Stream
+</button>
+
+
   <router-outlet></router-outlet>
   <!-- Bouton Ajouter un Exercice -->
   <div style="display: flex; justify-content: center; margin-bottom: 20px;">
@@ -10,6 +16,10 @@
             style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
       <i class="fas fa-plus"></i> Add an Exercise
     </button>
+
+
+<!-- Le reste de ton HTML -->
+
   </div>
  <!-- Meteo-->
   <div *ngIf="weather" class="weather-card glass">
@@ -60,16 +70,32 @@
     </div>
   </div>
 
-            <!-- Section d'enregistrement du live stream -->
-            <div class="live-stream-section">
-              <h2>🎥 Live Stream</h2>
-              <app-live-stream></app-live-stream>
-            </div>
+
 
             <!-- Section des vidéos enregistrées -->
             <div class="video-list-section mt-4">
               <app-video-list></app-video-list>
             </div>
+                        <!-- Bouton pour ouvrir le panel -->
+        <div style="text-align: center; margin: 20px;">
+          <button (click)="toggleStatsPanel()"
+                  style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+            Show Statistique
+          </button>
+        </div>
+
+        <!-- Slide-in Panel -->
+        <div class="stats-panel" [class.open]="statsPanelOpen">
+          <div class="panel-header">
+            <h3>Show Statistique :</h3>
+            <button (click)="toggleStatsPanel()" style="background: transparent; border:#28a745; font-size: 20px; cursor: pointer;">&times;</button>
+          </div>
+          <app-comment-stats *ngIf="statsPanelOpen"></app-comment-stats>
+        </div>
+          <!-- HomeStr affiché dynamiquement -->
+  <div *ngIf="liveStreamVisible" style="margin-top: 30px;">
+    <app-home-str></app-home-str>
+  </div>
 
 </div>
 

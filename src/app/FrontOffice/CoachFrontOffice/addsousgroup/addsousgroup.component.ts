@@ -119,6 +119,7 @@ export class AddsousgroupComponent implements OnInit{
 
   addSousGroup() {
     if (this.sousGroupForm.valid) {
+      this.isLoading = true;
       this.sg!.nameSousGroup=this.sousGroupForm.controls['nameSousGroup'].value;
       this.sg!.nbrJoueurSousGroup=this.sousGroupForm.controls['nbrJoueurSousGroup'].value;
       this.sg!.joueurs=this.filteredPlayersObject;
@@ -138,6 +139,9 @@ export class AddsousgroupComponent implements OnInit{
           this.rout.navigate(['/coatch/ShowSousGroups'], navigationExtras).then(() => {
             window.location.reload();  // This will reload the page
           });
+        },
+        complete: () => {
+          this.isLoading = false; 
         }
       });
     }
@@ -175,5 +179,8 @@ export class AddsousgroupComponent implements OnInit{
   avoidAdd() {
     this.rout.navigate(['/coatch/ShowSousGroups']); // Changez '/listsousgroup' selon votre route réelle
   }
+
+  public isLoading = false;
+
 
 }

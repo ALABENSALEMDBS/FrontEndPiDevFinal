@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentServiceService {
+  constructor(private http: HttpClient) {}
 
   private stompClient: any; // Utilisation de `any` au lieu de `Client` directement
 
@@ -37,4 +41,10 @@ export class CommentServiceService {
       });
     }
   }
+
+
+  getGlobalCommentStats(): Observable<any> {
+    return this.http.get('http://localhost:8089/PiDevBackEndProject/api/comments/stats/global');
+  }
+
 }

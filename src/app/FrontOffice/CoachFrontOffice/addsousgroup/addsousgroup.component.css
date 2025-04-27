@@ -324,3 +324,41 @@ li:hover {
   background-color: #ddd; /* Change la couleur au survol */
 }
 
+/* La vidéo en fond */
+.loading-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* en arrière-plan */
+  overflow: hidden;
+}
+
+.loading-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.loading-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4); /* Voile blanc semi-transparent */
+  z-index: 1;
+}
+
+.loading-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+

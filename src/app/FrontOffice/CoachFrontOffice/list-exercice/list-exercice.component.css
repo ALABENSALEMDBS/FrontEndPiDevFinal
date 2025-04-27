@@ -282,6 +282,30 @@ video {
 
 
 
+.stats-panel {
+  position: fixed;
+  top: 0;
+  right: -400px; /* caché à droite */
+  width: 400px;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.stats-panel.open {
+  right: 0; /* visible */
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
 
 

@@ -78,9 +78,13 @@ import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-
 import { NgChartsModule } from 'ng2-charts';
 import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
-import { LiveStreamComponent } from './FrontOffice/CoachFrontOffice/live-stream/live-stream.component';
 import { VideoListComponent } from './FrontOffice/CoachFrontOffice/video-list/video-list.component';
 import { VideoCommentComponent } from './FrontOffice/CoachFrontOffice/video-comment/video-comment.component';
+import { CommentStatsComponent } from './FrontOffice/CoachFrontOffice/comment-stats/comment-stats.component';
+import { CommonModule } from '@angular/common';
+import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
+import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster/broadcaster.component';
+import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -238,11 +242,16 @@ import { VideoCommentComponent } from './FrontOffice/CoachFrontOffice/video-comm
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    CommonModule,
+    NgChartsModule,
     NgChartsModule,
     ChatComponent,
-    LiveStreamComponent,
     VideoListComponent,
     VideoCommentComponent,
+    CommentStatsComponent,
+    BroadcasterComponent,
+    ViewerComponent,
+    HomeStrComponent,
 //     FormsModule,
 //     FooterHomeComponent,
 //     NavbarHomeComponent

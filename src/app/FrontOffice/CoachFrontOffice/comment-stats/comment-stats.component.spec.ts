@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LiveStreamComponent } from './live-stream.component';
+import { CommentStatsComponent } from './comment-stats.component';
 
-describe('LiveStreamComponent', () => {
-  let component: LiveStreamComponent;
-  let fixture: ComponentFixture<LiveStreamComponent>;
+describe('CommentStatsComponent', () => {
+  let component: CommentStatsComponent;
+  let fixture: ComponentFixture<CommentStatsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LiveStreamComponent]
+      imports: [CommentStatsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LiveStreamComponent);
+    fixture = TestBed.createComponent(CommentStatsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
