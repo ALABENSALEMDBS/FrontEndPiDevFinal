@@ -44,6 +44,8 @@ export class CalanderDoctorComponent {
   allConsultations: Consultation[] = [];
   selectedConsultation: Consultation | null = null;
   errorMessage: string | null = null; 
+  isPageReloading = false;
+  
 
   constructor(
     private service: ServiceDoctorService,
@@ -51,6 +53,7 @@ export class CalanderDoctorComponent {
   ) {}
 
   ngOnInit() {
+    this.isPageReloading = true;
     // Initialize the form group for consultation
     this.consultationForm = this.fb.group({
       dateConsultation: ['', Validators.required],
@@ -69,11 +72,18 @@ export class CalanderDoctorComponent {
       alert('Erreur lors de la récupération des joueurs');
     });
         // Load consultations
-    this.loadConsultations(); 
+    this.loadConsultations(); }
+    ngAfterViewInit() {
+      // Once the view has been initialized, we can reset if necessary.
+      if (this.isPageReloading) {
+        this.resetForm();
+        this.isPageReloading = false; // Reset the flag after initial load
+      }
   }
 
   // When a date is clicked in the calendar
   onDateClick(dateInfo: any) {
+    this.resetForm();
     this.clickedDate = dateInfo.dateStr;
     this.formVisible = true;
     this.consultationForm.patchValue({ dateConsultation: this.clickedDate });
@@ -111,18 +121,22 @@ export class CalanderDoctorComponent {
     const consultationDate = new Date(formValue.dateConsultation);
     
     // Vérification si une consultation existe déjà à la même date
-    const isDateTaken = this.allConsultations.some(consultation => {
-      const existingDate = new Date(consultation.dateConsultation);
-    
-      const sameDay = existingDate.toDateString() === consultationDate.toDateString();
-      const sameTime = existingDate.getHours() === consultationDate.getHours()
-                    && existingDate.getMinutes() === consultationDate.getMinutes();
-      
-      return sameDay && sameTime;
-    });
+   // Vérification si une consultation existe déjà à moins de 15 minutes d'intervalle
+const isDateTaken = this.allConsultations.some(consultation => {
+  const existingDate = new Date(consultation.dateConsultation);
+
+  const sameDay = existingDate.toDateString() === consultationDate.toDateString();
+  if (!sameDay) return false;
+
+  const diffInMs = Math.abs(existingDate.getTime() - consultationDate.getTime());
+  const diffInMinutes = diffInMs / (1000 * 60);
+
+  return diffInMinutes < 15; // Moins de 15 minutes = interdit
+});
+
   
     if (isDateTaken) {
-      alert('La date sélectionnée est déjà occupée par une autre consultation.');
+      alert('Impossible de fixer la consultation : il doit y avoir au moins 15 minutes entre deux consultations sur la même journée.');
       return; // Empêche l'ajout si la date est déjà prise
     }
   
@@ -169,7 +183,7 @@ export class CalanderDoctorComponent {
     }
   }
   
-
+//idee 
   // Display error messages
   showErrorMessage(message: string) {
     this.errorMessage = message;
@@ -180,6 +194,7 @@ export class CalanderDoctorComponent {
     this.consultationForm.reset();
     this.formVisible = false;
     this.selectedConsultation = null;
+    this.clickedDate = null;
   }
 
   // Update the calendar event after modification
@@ -205,8 +220,8 @@ export class CalanderDoctorComponent {
       id: newConsultation.id ? newConsultation.id.toString() : '',
       title: `${this.getJoueurName(newConsultation.idUser)} - ${newConsultation.description}`,
       date: newConsultation.dateConsultation,
-      backgroundColor: '#28a745',
-      borderColor: '#1e7e34',
+      backgroundColor: '#6c757d',
+      borderColor: '#5a6268',
       textColor: 'white'
     });
   }
@@ -274,6 +289,46 @@ export class CalanderDoctorComponent {
       borderColor: '#1e7e34',
       textColor: 'white'
     }));
+  }
+
+  //delete 
+  deleteConsultation(id?: number): void {
+    if (!id) {
+      console.error('ID non valide pour la suppression.');
+      alert('Erreur : ID de la consultation introuvable.');
+      return;
+    }
+  
+    const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cette consultation ?');
+    if (!confirmed) {
+      return;
+    }
+  
+    this.service.deleteConsultation(id).subscribe({
+      next: () => {
+        alert('Consultation supprimée avec succès.');
+        this.allConsultations = this.allConsultations.filter(c => c.id !== id);
+  
+        const calendarApi = this.calendarComponent.getApi();
+        const event = calendarApi.getEventById(id.toString());
+        if (event) {
+          event.remove();
+        }
+  
+        this.resetForm();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la suppression de la consultation :', error);
+        const errorMessage = error?.error || 'Erreur lors de la suppression de la consultation.';
+        alert(errorMessage);
+      }
+    });
+  }
+  
+  onCancel()
+  {
+    this.formVisible = false;
+    this.consultationForm.reset();
   }
   
 }

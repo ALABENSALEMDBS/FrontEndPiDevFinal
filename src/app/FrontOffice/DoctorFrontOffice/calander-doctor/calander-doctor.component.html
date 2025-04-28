@@ -1,8 +1,14 @@
-<h1 class="calendar-title">🗓️ Calendrier des Consultations</h1>
-<p>Visualisez et organisez les consultations de manière intuitive.</p>
+<div>
+  <h1 class="titre-fiche" >🗓️ Consultation Calendar</h1>
+  <!-- <p>Visualisez et organisez les consultations de manière intuitive.</p> -->
+   <div>
+
+
+   </div>
+</div>
 
 <div class="calendar-wrapper">
-  <div class="calendar-header">
+  <div class="add-btn-container">
     <button (click)="formVisible = true" class="add-button" aria-label="Ajouter une consultation">Ajouter une consultation</button>
   </div>
 
@@ -13,7 +19,7 @@
   <!-- Modal pour Ajouter ou Modifier une Consultation -->
   <div *ngIf="formVisible" class="modal-overlay" aria-labelledby="consultationModal" aria-hidden="false">
     <div class="modal-content" id="consultationModal">
-      <button (click)="formVisible = false" class="close-button" aria-label="Fermer la modale">X</button>
+      <button (click)="onCancel()" class="close-button" aria-label="Fermer la modale">X</button>
 
       <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()" class="form-container">
         <label for="joueurId">Joueur</label>
@@ -49,7 +55,9 @@
           {{ selectedConsultation ? 'Mettre à jour' : 'Ajouter' }}
           <span *ngIf="isLoading" class="spinner"></span>
         </button>
-      </form>
+        <button type="button" *ngIf="selectedConsultation" (click)="deleteConsultation(selectedConsultation.id)">Supprimer</button>    
+    </form>
+
     </div>
   </div>
 </div>

@@ -1,79 +1,108 @@
-/* Styles pour la structure principale */
+/* Styles pour le titre du calendrier */
+.calendar-title {
+  font-size: 80px;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Container pour le bouton d'ajout */
+.add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+}
+
+/* Titre principal de la fiche */
+.titre-fiche {
+  font-size: 48px;
+  font-weight: 700;
+  color: #e2e8f0;
+  text-align: center;
+  margin: 30px 0 20px;
+  padding-bottom: 50px;
+  border-bottom: 10px solid #0a0f2c;
+  letter-spacing: 1.5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Structure principale */
 .calendar-wrapper {
-  padding: 15px;
-  background-color: #4173df; /* Couleur de fond de l'arrière du calendrier */
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(92, 7, 7, 0.1);
+  padding: 20px;
+  background: linear-gradient(135deg, #061738, #061bd6);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Style pour la table du calendrier (FullCalendar) */
+/* Table du calendrier */
 .fc {
-  background-color: #18125f; /* Couleur de fond pour la table du calendrier */
-  border-radius: 5px;
-  border: 1px solid #ddd; /* Bordure légère pour la table */
+  background-color: #010124;
+  border-radius: 8px;
+  border: 2px solid #ffffff;
 }
 
-/* Personnalisation des lignes de la table */
+/* Personnalisation des lignes */
 .fc-row {
-  background-color: #f0f0f0; /* Couleur des lignes de la table */
+  background-color: #f4f6f8;
 }
 
-/* Personnalisation des couleurs des lignes */
-.fc-row:nth-child(1) { background-color: #8f0c0c; }
-.fc-row:nth-child(2) { background-color: #ccffcc; }
-.fc-row:nth-child(3) { background-color: #ccccff; }
-.fc-row:nth-child(4) { background-color: #ffffcc; }
-.fc-row:nth-child(5) { background-color: #ffccff; }
-.fc-row:nth-child(6) { background-color: #f0f0f0; }
+/* Couleurs alternées */
+.fc-row:nth-child(odd) { background-color: #f0f4f8; }
+.fc-row:nth-child(even) { background-color: #e8f0ff; }
 
-/* Surligner la ligne de la semaine actuelle */
+/* Surligner semaine actuelle */
 .fc-row.fc-week-today {
-  background-color: #ffeb3b;
+  background-color: #ff3b3b;
 }
 
-/* Personnalisation des jours du calendrier */
+/* Jours du calendrier */
 .fc-day {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
 }
 
-
-/* Style pour la modale */
+/* Overlay de modale */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
+/* Contenu de la modale */
 .modal-content {
-  background-color: rgb(9, 4, 80);
-  padding: 20px;
-  border-radius: 10px;
+  background-color: #0e1d47;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
   max-width: 500px;
-  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
+/* Bouton de fermeture */
 .close-button {
-  background-color: #ff0000;
-  color: rgb(12, 85, 85);
-  font-size: 16px;
-  padding: 5px 10px;
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 18px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  float: right;
+  transition: background-color 0.3s;
 }
 
 .close-button:hover {
-  background-color: #6d0707;
+  background-color: #d9363e;
 }
 
-/* Formulaire dans la modale */
+/* Formulaire */
 .form-container {
   display: flex;
   flex-direction: column;
@@ -81,80 +110,101 @@
 
 label {
   margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 600;
+  color: #f0f0f0;
 }
 
 input, select, textarea {
-  margin-bottom: 12px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
 }
 
+/* Zone de texte */
 textarea {
   resize: vertical;
-  height: 100px;
+  height: 120px;
 }
 
-/* Messages d'erreur */
+/* Message d'erreur */
 .error {
-  color: #ff0000;
-  font-size: 12px;
+  color: #ff4d4f;
+  font-size: 14px;
   margin-bottom: 10px;
 }
 
-/* Bouton de soumission du formulaire */
+/* Bouton de soumission */
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: #1e90ff;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 12px 24px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s;
 }
 
 button[type="submit"]:disabled {
-  background-color: #d3d3d3;
+  background-color: #c0c0c0;
   cursor: not-allowed;
 }
 
-button[type="submit"]:not(:disabled):hover {
-  background-color: #0056b3;
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #007acc;
 }
 
-/* Style pour le bouton d'ajout */
-.add-button {
-  background-color: #28a745;
+/* Bouton de suppression */
+button[type="button"] {
+  background-color: #dc3545;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
   transition: background-color 0.3s;
-  position: relative;
-  left: 10px;
+}
+
+button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+/* Bouton d'ajout */
+.add-button {
+  background: linear-gradient(135deg, #f9d423, #ff4e50);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, background 0.3s;
 }
 
 .add-button:hover {
-  background-color: #218838;
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff4e50, #f9d423);
 }
 
-/* Réactivité pour les petits écrans */
+/* Responsive pour mobile */
 @media (max-width: 768px) {
   .calendar-wrapper {
-    padding: 15px;
+    padding: 10px;
   }
-
   .modal-content {
-    padding: 15px;
-    max-width: 90%;
+    padding: 20px;
+    max-width: 95%;
   }
-
   button[type="submit"],
   .add-button {
     font-size: 14px;
-    padding: 8px 16px;
+    padding: 10px 20px;
   }
 }

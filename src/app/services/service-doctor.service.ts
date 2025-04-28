@@ -164,6 +164,10 @@ updateConsultation(consultation: Consultation): Observable<Consultation> {
     consultation
   );
 }
+
+deleteConsultation(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/consultation/delete/${id}`);
+}
 // updateConsultation(consultation: Consultation): Observable<Consultation> {
 //   return this.http.put<Consultation>(
 //     `${this.apiUrl}/consultation/update/${consultation.id}`,
