@@ -35,7 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(135deg, #0a2f5e, #1e5799);
+    background: linear-gradient(135deg, #080f4c 0%, #01268d 100%);
     color: white;
     padding: 2rem;
     border-radius: 10px;

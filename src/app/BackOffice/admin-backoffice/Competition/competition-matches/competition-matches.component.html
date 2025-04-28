@@ -43,8 +43,8 @@
             <tbody>
               <tr *ngFor="let match of matches">
                 <td>{{ formatDate(match.dateMatch) }}</td>
-                <td>{{ match.club1?.nameClub }}</td>
-                <td>{{ match.club2?.nameClub }}</td>
+                <td>{{ match.club1.nameClub }}</td>
+                <td>{{ match.club2.nameClub }}</td>
                 <td>
                   <span *ngIf="match.goals1 !== null && match.goals2 !== null">
                     {{ match.goals1 }} - {{ match.goals2 }}
