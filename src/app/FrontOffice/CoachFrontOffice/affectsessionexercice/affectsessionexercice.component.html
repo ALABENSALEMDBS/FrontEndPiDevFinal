@@ -1,0 +1,150 @@
+<p>affectsessionexercice works!</p>
+<div [ngClass]="{'efootball-modal': isModal}">
+    <div class="efootball-container" [ngClass]="{'efootball-no-padding': isModal}">
+      <div class="efootball-card" [ngClass]="{'efootball-no-border': isModal}">
+        <div class="efootball-header" *ngIf="!isModal">
+          <h2 class="efootball-title">Assign Exercises to Session</h2>
+        </div>
+        <div class="efootball-body">
+          <div *ngIf="seance" class="efootball-section">
+            <h3 class="efootball-section-title">Session Details</h3>
+            <div class="efootball-grid">
+              <div class="efootball-grid-column">
+                <p class="efootball-detail"><span class="efootball-label">Title:</span> {{ seance.titleSeance }}</p>
+                <p class="efootball-detail"><span class="efootball-label">Date:</span> {{ seance.jourSeance }}</p>
+                <p class="efootball-detail"><span class="efootball-label">Time:</span> {{ seance.heureDebut }} - {{ seance.heureFin }}</p>
+              </div>
+              <div class="efootball-grid-column">
+                <p class="efootball-detail"><span class="efootball-label">Location:</span> {{ seance.location }}</p>
+                <p class="efootball-detail"><span class="efootball-label">Duration:</span> {{ seance.durationMinutes }} minutes</p>
+                <p class="efootball-detail"><span class="efootball-label">Intensity Level:</span> {{ seance.intensityLevel }}/10</p>
+              </div>
+            </div>
+          </div>
+          <div class="efootball-info-box">
+            <p><i class="fas fa-info-circle"></i> Exercise eligibility depends on the session's intensity level and duration, based on the type of exercise:</p>
+            <ul>
+              <li><strong>Stretching, Mobility, Breathing</strong>: Allowed only if <strong>intensity ≤ 3</strong></li>
+              <li><strong>Dribble, Passing, Agility</strong>: Allowed if <strong>intensity is between 4 and 6</strong> <em>and</em> <strong>duration ≥ 30 min</strong></li>
+              <li><strong>Endurance, Strength, Speed, Tactical</strong>: Allowed if <strong>intensity ≥ 7</strong> <em>and</em> <strong>duration ≥ 45 min</strong></li>
+              <li><strong>High Speed, Sprints, Anaerobic</strong>: Allowed only if <strong>intensity ≥ 8</strong> <em>and</em> <strong>duration ≥ 60 min</strong></li>
+            </ul>
+          </div>
+          
+          <div class="efootball-exercise-counter" *ngIf="seance">
+            <strong>Current session:</strong> {{ assignedExerciceIds.length + selectedExerciceIds.length }}/{{ maxExercisesAllowed }} exercises 
+            <span *ngIf="getRemainingExercises() > 0">({{ getRemainingExercises() }} more can be added)</span>
+            <span *ngIf="getRemainingExercises() === 0" class="efootball-limit-reached">(Maximum limit reached)</span>
+          </div>
+          
+          <!-- Exercises already assigned to this session -->
+          <div class="efootball-exercises-container" *ngIf="assignedExercices.length > 0">
+            <div class="efootball-exercises-header">
+              <h4 class="efootball-section-title">Exercises Already Assigned to This Session</h4>
+              <div class="efootball-exercises-count">
+                {{ assignedExercices.length }} exercises currently assigned
+              </div>
+            </div>
+            <div class="efootball-exercises-body">
+              <div class="efootball-exercises-grid">
+                <div class="efootball-exercise-item efootball-exercise-assigned" *ngFor="let exercice of assignedExercices">
+                  <div class="efootball-exercise-check">
+                    <input 
+                      type="checkbox" 
+                      class="efootball-checkbox" 
+                      [id]="'assigned-exercice-' + exercice.idExercice"
+                      [checked]="true"
+                      (change)="unassignExercice(exercice.idExercice)">
+                    <label class="efootball-checkbox-label" [for]="'assigned-exercice-' + exercice.idExercice">
+                      <strong>{{ exercice.nameExercice }}</strong>
+                      <p class="efootball-exercise-desc">{{ exercice.descriptionExercice }}</p>
+                      <p class="efootball-exercise-desc">{{ exercice.exercicetype }}</p>
+                      <span class="efootball-badge">Already Assigned</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- All available exercises in a single list with compatibility status -->
+          <div class="efootball-exercises-container" *ngIf="availableExercices.length > 0">
+            <div class="efootball-exercises-header">
+              <h4 class="efootball-section-title">Available Exercises</h4>
+              <div class="efootball-exercises-count">
+                {{ availableExercices.length }} exercises available ({{ compatibleExerciceIds.length }} compatible)
+              </div>
+            </div>
+            <div class="efootball-exercises-body">
+              <div class="efootball-exercises-grid">
+                <div 
+                  *ngFor="let exercice of availableExercices" 
+                  class="efootball-exercise-item"
+                  [ngClass]="{
+                    'efootball-exercise-incompatible': !isExerciceCompatible(exercice.idExercice),
+                    'efootball-exercise-assigned': isExerciceAssigned(exercice.idExercice)
+                  }">
+                  <div class="efootball-exercise-check" 
+                       [ngClass]="{
+                         'efootball-exercise-disabled': !isExerciceCompatible(exercice.idExercice)
+                       }">
+                    <input 
+                      type="checkbox" 
+                      class="efootball-checkbox" 
+                      [id]="'exercice-' + exercice.idExercice"
+                      [disabled]="!isExerciceCompatible(exercice.idExercice)"
+                      [checked]="selectedExerciceIds.includes(exercice.idExercice) || isExerciceAssigned(exercice.idExercice)"
+                      (change)="handleCheckboxChange($event, exercice.idExercice)">
+                    <label class="efootball-checkbox-label" [for]="'exercice-' + exercice.idExercice">
+                      <strong>{{ exercice.nameExercice }}</strong>
+                      <p class="efootball-exercise-desc">{{ exercice.descriptionExercice }}</p>
+                      <p class="efootball-exercise-desc">{{ exercice.exercicetype }}</p>
+                      
+                      <!-- Show compatibility badge -->
+                      <span 
+                        class="efootball-badge" 
+                        [ngClass]="{
+                          'efootball-badge-compatible': isExerciceCompatible(exercice.idExercice),
+                          'efootball-badge-incompatible': !isExerciceCompatible(exercice.idExercice)
+                        }">
+                        {{ getCompatibilityReason(exercice.idExercice) }}
+                      </span>
+                      
+                      <!-- Show assigned badge if needed -->
+                      <span *ngIf="isExerciceAssigned(exercice.idExercice)" 
+                            class="efootball-badge">
+                        Already Assigned
+                      </span>
+                      
+                      <!-- Show limit reached badge if needed -->
+                      <span *ngIf="isExerciceCompatible(exercice.idExercice) && !canSelectExercise(exercice.idExercice) && !selectedExerciceIds.includes(exercice.idExercice)" 
+                            class="efootball-badge efootball-badge-limit">
+                        Limit Reached
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div *ngIf="message" class="efootball-message" [ngClass]="{'efootball-success': message.includes('successfully'), 'efootball-error': message.includes('Error') || message.includes('Maximum')}">
+            {{ message }}
+          </div>
+    
+          <div class="efootball-actions">
+            <button class="efootball-button efootball-button-secondary" (click)="goBack()">
+              <i class="fas fa-arrow-left"></i> {{ isModal ? 'Close' : 'Back to Sessions' }}
+            </button>
+            <button 
+              class="efootball-button efootball-button-primary" 
+              [disabled]="selectedExerciceIds.length === 0 || loading"
+              [ngClass]="{'efootball-button-loading': loading}"
+              (click)="assignExercices()">
+              <i class="fas fa-save"></i> {{ loading ? 'Assigning...' : 'Assign Selected Exercises' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

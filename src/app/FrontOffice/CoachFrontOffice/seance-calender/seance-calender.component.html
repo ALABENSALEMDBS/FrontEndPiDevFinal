@@ -1,237 +1,352 @@
 <div class="calendar-container">
-    <!-- Calendar Header -->
-    <div class="calendar-header">
-      <button class="btn btn-sm btn-outline-secondary" (click)="previousMonth()">
-        <i class="fas fa-chevron-left"></i>
+  <!-- Calendar Header -->
+  <div class="calendar-header">
+    <button class="btn btn-sm btn-outline-secondary" (click)="previousMonth()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <h4>{{ currentMonth }} {{ currentYear }}</h4>
+    <button class="btn btn-sm btn-outline-secondary" (click)="nextMonth()">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Weekday Headers -->
+  <div class="weekdays">
+    <div class="weekday">Sun</div>
+    <div class="weekday">Mon</div>
+    <div class="weekday">Tue</div>
+    <div class="weekday">Wed</div>
+    <div class="weekday">Thu</div>
+    <div class="weekday">Fri</div>
+    <div class="weekday">Sat</div>
+  </div>
+
+  <!-- Calendar Days -->
+  <div class="calendar-grid">
+    <div 
+      *ngFor="let day of calendarDays" 
+      class="calendar-day" 
+      [class.other-month]="!day.isCurrentMonth"
+      [class.today]="day.isToday"
+      [class.has-seance]="day.hasSeance"
+      [class.selected]="day.isSelected"
+      (click)="selectDay(day)">
+      <div class="day-number">{{ day.date.getDate() }}</div>
+      <div class="day-events" *ngIf="day.hasSeance">
+        <div class="event-count">{{ day.seances.length }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRUD Buttons -->
+  <div class="action-bar">
+    <button class="btn btn-success" (click)="openAddForm()">
+      <i class="fas fa-plus"></i> Add New Seance
+    </button>
+  </div>
+
+  <!-- Seance Form (Add/Edit) -->
+  <div class="seance-form-container" *ngIf="showForm">
+    <div class="form-header">
+      <h5>{{ isEditing ? 'Edit Seance' : 'Add New Seance' }}</h5>
+      <button class="btn btn-sm btn-outline-secondary" (click)="closeForm()">
+        <i class="fas fa-times"></i>
       </button>
-      <h4>{{ currentMonth }} {{ currentYear }}</h4>
-      <button class="btn btn-sm btn-outline-secondary" (click)="nextMonth()">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-    </div>
-  
-    <!-- Weekday Headers -->
-    <div class="weekdays">
-      <div class="weekday">Sun</div>
-      <div class="weekday">Mon</div>
-      <div class="weekday">Tue</div>
-      <div class="weekday">Wed</div>
-      <div class="weekday">Thu</div>
-      <div class="weekday">Fri</div>
-      <div class="weekday">Sat</div>
-    </div>
-  
-    <!-- Calendar Days -->
-    <div class="calendar-grid">
-      <div 
-        *ngFor="let day of calendarDays" 
-        class="calendar-day" 
-        [class.other-month]="!day.isCurrentMonth"
-        [class.today]="day.isToday"
-        [class.has-seance]="day.hasSeance"
-        [class.selected]="day.isSelected"
-        (click)="selectDay(day)">
-        <div class="day-number">{{ day.date.getDate() }}</div>
-        <div class="day-events" *ngIf="day.hasSeance">
-          <div class="event-count">{{ day.seances.length }}</div>
-        </div>
-      </div>
-    </div>
-  
-    <!-- CRUD Buttons -->
-    <div class="action-bar">
-      <button class="btn btn-success" (click)="openAddForm()">
-        <i class="fas fa-plus"></i> Add New Seance
-      </button>
-    </div>
-  
-    <!-- Seance Form (Add/Edit) -->
-    <div class="seance-form-container" *ngIf="showForm">
-      <div class="form-header">
-        <h5>{{ isEditing ? 'Edit Seance' : 'Add New Seance' }}</h5>
-        <button class="btn btn-sm btn-outline-secondary" (click)="closeForm()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      
-      <form [formGroup]="seanceForm" (ngSubmit)="submitForm()">
-        <div class="form-group">
-          <label for="titleSeance">Title</label>
-          <input type="text" id="titleSeance" formControlName="titleSeance" class="form-control" required>
-          <div class="invalid-feedback" *ngIf="seanceForm.get('titleSeance')?.invalid && seanceForm.get('titleSeance')?.touched">
-            Title is required
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="jourSeance">Date</label>
-          <input type="date" id="jourSeance" formControlName="jourSeance" class="form-control" required>
-          <div class="invalid-feedback" *ngIf="seanceForm.get('jourSeance')?.invalid && seanceForm.get('jourSeance')?.touched">
-            Date is required
-          </div>
-        </div>
-        
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="heureDebut">Start Time</label>
-            <input type="time" id="heureDebut" formControlName="heureDebut" class="form-control" required>
-            <div class="invalid-feedback" *ngIf="seanceForm.get('heureDebut')?.invalid && seanceForm.get('heureDebut')?.touched">
-              Start time is required
-            </div>
-          </div>
-          
-          <div class="form-group col-md-6">
-            <label for="heureFin">End Time</label>
-            <input type="time" id="heureFin" formControlName="heureFin" class="form-control" required>
-            <div class="invalid-feedback" *ngIf="seanceForm.get('heureFin')?.invalid && seanceForm.get('heureFin')?.touched">
-              End time is required
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="typeSeance">Session Type</label>
-          <select id="typeSeance" formControlName="typeSeance" class="form-control" required>
-            <option value="">Select a type</option>
-            <option value="Group">Group</option>
-            <option value="Individual">Individual</option>
-            <option value="Workshop">Workshop</option>
-            <option value="Seminar">Seminar</option>
-          </select>
-          <div class="invalid-feedback" *ngIf="seanceForm.get('typeSeance')?.invalid && seanceForm.get('typeSeance')?.touched">
-            Session type is required
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input type="text" id="location" formControlName="location" class="form-control" required>
-          <div class="invalid-feedback" *ngIf="seanceForm.get('location')?.invalid && seanceForm.get('location')?.touched">
-            Location is required
-          </div>
-        </div>
-        
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="durationMinutes">Duration (minutes)</label>
-            <input type="number" id="durationMinutes" formControlName="durationMinutes" class="form-control" min="1" required>
-            <div class="invalid-feedback" *ngIf="seanceForm.get('durationMinutes')?.invalid && seanceForm.get('durationMinutes')?.touched">
-              Valid duration is required
-            </div>
-          </div>
-          
-          <div class="form-group col-md-6">
-            <label for="intensityLevel">Intensity Level (1-5)</label>
-            <input type="number" id="intensityLevel" formControlName="intensityLevel" class="form-control" min="1" max="5" required>
-            <div class="invalid-feedback" *ngIf="seanceForm.get('intensityLevel')?.invalid && seanceForm.get('intensityLevel')?.touched">
-              Intensity must be between 1 and 5
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea id="description" formControlName="description" class="form-control" rows="3"></textarea>
-        </div>
-        
-        <div class="form-buttons">
-          <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
-          <button type="submit" class="btn btn-primary" [disabled]="seanceForm.invalid">
-            {{ isEditing ? 'Update' : 'Save' }}
-          </button>
-        </div>
-      </form>
-    </div>
-  
-    <!-- Day Seances Modal -->
-    <div class="day-seances-modal" *ngIf="showSeanceDetails && selectedDaySeances.length > 0">
-      <div class="modal-header">
-        <h5>Seances for {{ selectedDaySeances.length > 0 ? (selectedDaySeances[0].jourSeance | date:'fullDate') : '' }}</h5>
-        <button class="btn btn-sm btn-outline-secondary" (click)="closeSeanceDetails()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="seance-list">
-          <div class="seance-item" *ngFor="let daySeance of selectedDaySeances" 
-               [class.active]="seance?.idSeance === daySeance.idSeance"
-               (click)="selectSeance(daySeance.idSeance)">
-            <div class="seance-time">{{ daySeance.heureDebut }} - {{ daySeance.heureFin }}</div>
-            <div class="seance-title">{{ daySeance.titleSeance }}</div>
-            <div class="seance-type">{{ daySeance.typeSeance }}</div>
-          </div>
-        </div>
-        
-        <!-- Selected Seance Details -->
-        <div class="seance-details" *ngIf="seance">
-          <h6>{{ seance.titleSeance }}</h6>
-          <p><strong>Time:</strong> {{ seance.heureDebut }} - {{ seance.heureFin }}</p>
-          <p><strong>Type:</strong> {{ seance.typeSeance }}</p>
-          <p><strong>Location:</strong> {{ seance.location }}</p>
-          <p><strong>Duration:</strong> {{ seance.durationMinutes }} minutes</p>
-          <p><strong>Intensity:</strong> {{ seance.intensityLevel }}/5</p>
-          
-          <p *ngIf="seance.description"><strong>Description:</strong> {{ seance.description }}</p>
-          
-          <div class="action-buttons">
-                    
-            <!-- Changed to use openConfirmPopup instead of deleteSeance -->
-            <button class="btn btn-sm btn-danger" (click)="openConfirmPopup(seance.idSeance)">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <!-- No Seance Selected Message -->
-    <div class="no-seance" *ngIf="!seance && !showForm && !showSeanceDetails">
-      <p>Select a day with seances to view details or add a new seance.</p>
-    </div>
-  
-    <!-- Upcoming Seances -->
-    <div class="upcoming-seances">
-      <h5>Upcoming Seances</h5>
-      <div class="seance-list">
-        <div class="seance-item" *ngFor="let upcomingSeance of upcomingSeances">
-          <div class="seance-date">{{ upcomingSeance.jourSeance | date:'MMM d' }}</div>
-          <div class="seance-info">
-            <div class="seance-title">{{ upcomingSeance.titleSeance }}</div>
-            <div class="seance-time">{{ upcomingSeance.heureDebut }} - {{ upcomingSeance.heureFin }}</div>
-            <div class="seance-location">{{ upcomingSeance.location }}</div>
-          </div>
-          <div class="seance-actions">
-            <button class="btn btn-sm btn-outline-primary" (click)="openEditForm(upcomingSeance)">
-              <i class="fas fa-edit"></i>
-            </button>
-            <!-- Changed to use openConfirmPopup instead of deleteSeance -->
-            <button class="btn btn-sm btn-outline-danger" (click)="openConfirmPopup(upcomingSeance.idSeance)">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </div>
-        <div class="no-upcoming" *ngIf="!upcomingSeances?.length">
-          No upcoming seances scheduled.
-        </div>
-      </div>
     </div>
     
-    <!-- Confirmation Popup - Moved to the end of the container -->
-    <div class="confirm-popup-overlay" *ngIf="showConfirmPopup">
-      <div class="confirm-popup">
-        <div class="confirm-popup-header">
-          <h5 class="confirm-popup-title">Delete Seance</h5>
-          <button class="confirm-popup-close" (click)="closeConfirmPopup()">
-            <i class="fas fa-times"></i>
+    <form [formGroup]="seanceForm" (ngSubmit)="submitForm()" novalidate>
+
+      <!-- Title -->
+      <div class="form-group">
+        <label for="titleSeance">Title</label>
+        <input type="text" id="titleSeance" formControlName="titleSeance" class="form-control" required>
+        <div *ngIf="seanceForm.get('titleSeance')?.touched && seanceForm.get('titleSeance')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['required']">Title is required.</div>
+          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['minlength']">Min 5 characters.</div>
+          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['maxlength']">Max 100 characters.</div>
+          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['pattern']">Only letters, numbers, accents, and spaces allowed.</div>
+        </div>
+      </div>
+    
+      <!-- Date -->
+      <div class="form-group">
+        <label for="jourSeance">Date</label>
+        <input type="date" id="jourSeance" formControlName="jourSeance" class="form-control" required>
+        <div *ngIf="seanceForm.get('jourSeance')?.touched && seanceForm.get('jourSeance')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="seanceForm.get('jourSeance')?.errors?.['required']">Date is required.</div>
+          <div *ngIf="seanceForm.get('jourSeance')?.errors?.['dateInPast']">Date cannot be in the past.</div>
+        </div>
+      </div>
+    
+      <!-- Time -->
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="heureDebut">Start Time</label>
+          <input type="time" id="heureDebut" formControlName="heureDebut" class="form-control" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="heureFin">End Time</label>
+          <input type="time" id="heureFin" formControlName="heureFin" class="form-control" required>
+        </div>
+      </div>
+      <div class="invalid-feedback d-block" *ngIf="seanceForm.errors?.['invalidTimeOrder'] && (seanceForm.get('heureDebut')?.touched || seanceForm.get('heureFin')?.touched)">
+        End time must be after start time.
+      </div>
+    
+      <!-- Type -->
+      <div class="form-group">
+        <label for="typeSeance">Session Type</label>
+        <select id="typeSeance" formControlName="typeSeance" class="form-control" required>
+          <option value="">Select a type</option>
+          <option value="Group">Group</option>
+          <option value="Individual">Individual</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Seminar">Seminar</option>
+        </select>
+        <div class="invalid-feedback d-block" *ngIf="seanceForm.get('typeSeance')?.touched && seanceForm.get('typeSeance')?.invalid">
+          Session type is required.
+        </div>
+      </div>
+    
+      <!-- Location -->
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" formControlName="location" class="form-control" required>
+        <div *ngIf="seanceForm.get('location')?.touched && seanceForm.get('location')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="seanceForm.get('location')?.errors?.['required']">Location is required.</div>
+          <div *ngIf="seanceForm.get('location')?.errors?.['minlength']">Min 3 characters required.</div>
+          <div *ngIf="seanceForm.get('location')?.errors?.['pattern']">Invalid characters in location name.</div>
+        </div>
+      </div>
+    
+      <!-- Duration & Intensity -->
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="durationMinutes">Duration (minutes)</label>
+          <input type="number" id="durationMinutes" formControlName="durationMinutes" class="form-control" min="5" max="300" required>
+          <div *ngIf="seanceForm.get('durationMinutes')?.touched && seanceForm.get('durationMinutes')?.invalid" class="invalid-feedback d-block">
+            <div *ngIf="seanceForm.get('durationMinutes')?.errors?.['required']">Duration is required.</div>
+            <div *ngIf="seanceForm.get('durationMinutes')?.errors?.['min']">Min 5 minutes.</div>
+            <div *ngIf="seanceForm.get('durationMinutes')?.errors?.['max']">Max 300 minutes.</div>
+          </div>
+        </div>
+    
+        <div class="form-group col-md-6">
+          <label for="intensityLevel">Intensity Level (1–5)</label>
+          <input type="number" id="intensityLevel" formControlName="intensityLevel" class="form-control" min="1" max="5" required>
+          <div *ngIf="seanceForm.get('intensityLevel')?.touched && seanceForm.get('intensityLevel')?.invalid" class="invalid-feedback d-block">
+            <div *ngIf="seanceForm.get('intensityLevel')?.errors?.['required']">Intensity is required.</div>
+            <div *ngIf="seanceForm.get('intensityLevel')?.errors?.['min'] || seanceForm.get('intensityLevel')?.errors?.['max']">
+              Must be between 1 and 5.
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control" rows="3" maxlength="300"></textarea>
+        <div *ngIf="seanceForm.get('description')?.touched && seanceForm.get('description')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="seanceForm.get('description')?.errors?.['maxlength']">Max 300 characters.</div>
+          <div *ngIf="seanceForm.get('description')?.errors?.['containsHtml']">No HTML tags allowed.</div>
+        </div>
+      </div>
+    
+      <!-- Buttons -->
+      <div class="form-buttons mt-3">
+        <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="seanceForm.invalid">
+          {{ isEditing ? 'Update' : 'Save' }}
+        </button>
+      </div>
+    </form>
+    
+    
+  </div>
+
+  <!-- Day Seances Modal -->
+  <div class="day-seances-modal" *ngIf="showSeanceDetails && selectedDaySeances.length > 0">
+    <div class="modal-header">
+      <h5>Seances for {{ selectedDaySeances.length > 0 ? (selectedDaySeances[0].jourSeance | date:'fullDate') : '' }}</h5>
+      <button class="btn btn-sm btn-outline-secondary" (click)="closeSeanceDetails()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="seance-list">
+        <div class="seance-item" *ngFor="let daySeance of selectedDaySeances" 
+             [class.active]="seance?.idSeance === daySeance.idSeance"
+             (click)="selectSeance(daySeance.idSeance)">
+          <div class="seance-time">{{ daySeance.heureDebut }} - {{ daySeance.heureFin }}</div>
+          <div class="seance-title">{{ daySeance.titleSeance }}</div>
+          <div class="seance-type">{{ daySeance.typeSeance }}</div>
+        </div>
+      </div>
+      
+      <!-- Selected Seance Details -->
+      <div class="seance-details" *ngIf="seance">
+        <h6>{{ seance.titleSeance }}</h6>
+        <p><strong>Time:</strong> {{ seance.heureDebut }} - {{ seance.heureFin }}</p>
+        <p><strong>Type:</strong> {{ seance.typeSeance }}</p>
+        <p><strong>Location:</strong> {{ seance.location }}</p>
+        <p><strong>Duration:</strong> {{ seance.durationMinutes }} minutes</p>
+        <p><strong>Intensity:</strong> {{ seance.intensityLevel }}/5</p>
+        
+        <p *ngIf="seance.description"><strong>Description:</strong> {{ seance.description }}</p>
+        
+        <div class="action-buttons">
+          <button class="btn btn-sm btn-danger" (click)="openConfirmPopup(seance.idSeance)">
+            Delete
           </button>
         </div>
-        <div class="confirm-popup-body">
-          <p class="confirm-popup-message">Are you sure you want to delete this seance? This action cannot be undone.</p>
-        </div>
-        <div class="confirm-popup-footer">
-          <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
-          <button class="btn-confirm-delete" (click)="confirmDelete()">Delete</button>
+        
+        <!-- Exercises Section - NEW -->
+        <div class="exercises-section">
+          <h6 class="mt-4">Exercises</h6>
+          
+          <!-- Loading state -->
+          <div class="loading-exercises" *ngIf="loadingExercises">
+            <div class="spinner-border spinner-border-sm text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <span class="ml-2">Loading exercises...</span>
+          </div>
+          
+          <!-- No exercises message -->
+          <div class="no-exercises" *ngIf="!loadingExercises && seanceExercises.length === 0">
+            <p>No exercises assigned to this session.</p>
+          </div>
+          
+          <!-- Exercises list -->
+          <div class="exercise-list" *ngIf="!loadingExercises && seanceExercises.length > 0">
+            <div class="exercise-item" *ngFor="let exercise of seanceExercises">
+              <div class="exercise-header">
+                <h6 class="exercise-name">{{ exercise.nameExercice }}</h6>
+              </div>
+              <div class="exercise-body">
+                <p class="exercise-description">{{ exercise.descriptionExercice }}</p>
+                <div class="exercise-media" *ngIf="exercise.photoExercice">
+                  <img [src]="exercise.photoExercice" alt="{{ exercise.nameExercice }}" class="exercise-image">
+                </div>
+              </div>
+              <div class="exercise-footer">
+                <button class="btn btn-sm btn-outline-info" (click)="loadSousGroupesForExercise(exercise.idExercice)">
+                  <i class="fas fa-users"></i> View Subgroups
+                </button>
+               
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- No Seance Selected Message -->
+  <div class="no-seance" *ngIf="!seance && !showForm && !showSeanceDetails">
+    <p>Select a day with seances to view details or add a new seance.</p>
+  </div>
+
+  <!-- Upcoming Seances -->
+  <div class="upcoming-seances">
+    <h5>Upcoming Seances</h5>
+    <div class="seance-list">
+      <div class="seance-item" *ngFor="let upcomingSeance of upcomingSeances">
+        <div class="seance-date">{{ upcomingSeance.jourSeance | date:'MMM d' }}</div>
+        <div class="seance-info">
+          <div class="seance-title">{{ upcomingSeance.titleSeance }}</div>
+          <div class="seance-time">{{ upcomingSeance.heureDebut }} - {{ upcomingSeance.heureFin }}</div>
+          <div class="seance-location">{{ upcomingSeance.location }}</div>
+        </div>
+        <div class="seance-actions">
+          <button class="btn btn-sm btn-outline-primary" (click)="openEditForm(upcomingSeance)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="openConfirmPopup(upcomingSeance.idSeance)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="no-upcoming" *ngIf="!upcomingSeances?.length">
+        No upcoming seances scheduled.
+      </div>
+    </div>
+  </div>
+  
+  <!-- Confirmation Popup -->
+  <div class="confirm-popup-overlay" *ngIf="showConfirmPopup">
+    <div class="confirm-popup">
+      <div class="confirm-popup-header">
+        <h5 class="confirm-popup-title">Delete Seance</h5>
+        <button class="confirm-popup-close" (click)="closeConfirmPopup()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="confirm-popup-body">
+        <p class="confirm-popup-message">Are you sure you want to delete this seance? This action cannot be undone.</p>
+      </div>
+      <div class="confirm-popup-footer">
+        <button class="btn-cancel" (click)="closeConfirmPopup()">Cancel</button>
+        <button class="btn-confirm-delete" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subgroups Modal - NEW -->
+  <div class="subgroups-modal-overlay" *ngIf="showSubgroupsModal">
+    <div class="subgroups-modal">
+      <div class="modal-header">
+        <h5>Subgroups for {{ selectedExercise?.nameExercice }}</h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="closeSubgroupsModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Loading state -->
+        <div class="loading-subgroups" *ngIf="loadingSubgroups">
+          <div class="spinner-border spinner-border-sm text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <span class="ml-2">Loading subgroups...</span>
+        </div>
+        
+        <!-- No subgroups message -->
+        <div class="no-subgroups" *ngIf="!loadingSubgroups && exerciseSubgroups.length === 0">
+          <p>No subgroups assigned to this exercise.</p>
+        </div>
+        
+        <!-- Subgroups list -->
+        <div class="subgroups-list" *ngIf="!loadingSubgroups && exerciseSubgroups.length > 0">
+          <div class="subgroup-item" *ngFor="let subgroup of exerciseSubgroups">
+            <div class="subgroup-header">
+              <h6>{{ subgroup.nameSousGroup }}</h6>
+              <span class="player-count">{{ subgroup.nbrJoueurSousGroup }} Players</span>
+            </div>
+            <div class="subgroup-body">
+              <!-- Players list -->
+              <div class="player-list" *ngIf="subgroup.joueurs && subgroup.joueurs.length > 0">
+                <div class="player-item" *ngFor="let joueur of subgroup.joueurs">
+                  <div class="player-avatar">
+                    <!-- Player initials as avatar -->
+                    <div class="avatar-circle">
+                      {{ joueur.nameUsers?.charAt(0) }}{{ joueur.prenomUser?.charAt(0) }}
+                    </div>
+                  </div>
+                  <div class="player-info">
+                    <span class="player-name">{{ joueur.nameUsers }} {{ joueur.prenomUser }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- No players message -->
+              <div class="no-players" *ngIf="!subgroup.joueurs || subgroup.joueurs.length === 0">
+                <p>No players in this subgroup.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

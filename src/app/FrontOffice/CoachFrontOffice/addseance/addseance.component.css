@@ -1,171 +1,503 @@
+/* eFootball 2023/2024 Inspired Theme for Add Seance */
+:root {
+  --efootball-bg: #0a1929;
+  --efootball-card-bg: #0f2438;
+  --efootball-accent: #00c8ff;
+  --efootball-accent-alt: #00ff9d;
+  --efootball-text: #ffffff;
+  --efootball-text-muted: #8a9bae;
+  --efootball-border: #1e3a5f;
+  --efootball-success: #00ff9d;
+  --efootball-error: #ff3860;
+  --efootball-gradient: linear-gradient(135deg, #0a1929 0%, #1e3a5f 100%);
+  --efootball-button-gradient: linear-gradient(135deg, #00c8ff 0%, #0077ff 100%);
+  --efootball-highlight: #1e3a5f;
+  --efootball-input-bg: rgba(30, 58, 95, 0.4);
+}
+
+/* Container Styles */
 .add-seance-container {
-    font-family: Arial, sans-serif;
-    max-width: 350px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+  color: rgb(0, 0, 0);
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 100;
+}
+
+.add-container {
+  background:  rgba(206, 206, 206, 0.863);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  border: 1px solid var(--efootball-border);
+  overflow: hidden;
+  max-width: 800px;
+  margin: 20px auto;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header and Close Button */
+.add-container h2 {
+  background: var(--efootball-gradient);
+  color: var(--efootball-accent);
+  margin: 0;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  border-bottom: 2px solid var(--efootball-accent);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(30, 58, 95, 0.6);
+  color: var(--efootball-text);
+  border: 1px solid var(--efootball-border);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  background: rgba(255, 56, 96, 0.3);
+  border-color: var(--efootball-error);
+  color: var(--efootball-error);
+  transform: rotate(90deg);
+}
+
+/* Form Card */
+.form-card {
+  padding: 0;
+  position: relative;
+}
+
+/* Tabs Navigation */
+.form-tabs {
+  display: flex;
+  background: rgba(30, 58, 95, 0.3);
+  border-bottom: 1px solid var(--efootball-border);
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.form-tabs::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.form-tab {
+  padding: 15px 20px;
+  background: rgba(248, 178, 0, 0.863);
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex: 1;
+  min-width: 100px;
+  font-size: 14px;
+}
+
+.form-tab:hover {
+  color: var(--efootball-text);
+  background: rgba(30, 58, 95, 0.5);
+}
+
+.form-tab.active {
+  color: var(--efootball-accent);
+  background: rgba(0, 200, 255, 0.1);
+}
+
+.form-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--efootball-accent);
+  animation: tabActivate 0.3s ease;
+}
+
+@keyframes tabActivate {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 6px;
+  background: rgba(4, 0, 255, 0.985);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--efootball-accent), var(--efootball-accent-alt));
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.882);
+  filter: blur(5px);
+  animation: progressGlow 1.5s infinite;
+}
+
+@keyframes progressGlow {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Form Sections */
+.form-section {
+  padding: 25px;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.form-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-section h3 {
+  color: var(--efootball-accent);
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-left: 15px;
+}
+
+.form-section h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--efootball-accent);
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--efootball-text-muted);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  background:rgba(104, 104, 104, 0.386);
+  border: 1px solid var(--efootball-border);
+  border-radius: 6px;
+  color: var(--efootball-text);
+  font-family: "Rajdhani", "Segoe UI", sans-serif;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--efootball-accent);
+  box-shadow: 0 0 0 2px rgba(0, 200, 255, 0.2);
+  background: rgb(115, 115, 115);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238a9bae' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.form-group select option {
+  background-color: var(--efootball-card-bg);
+  color: var(--efootball-text);
+}
+
+.form-group input[type="date"],
+.form-group input[type="time"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238a9bae' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.form-group input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Error Messages */
+.error-message {
+  color: var(--efootball-error);
+  font-size: 13px;
+  margin-top: 5px;
+  font-weight: 600;
+  animation: errorShake 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.error-message::before {
+  content: "⚠";
+  margin-right: 5px;
+}
+
+@keyframes errorShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Form Navigation */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.nav-button {
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-button:not(.next):not(.submit) {
+  background: rgba(30, 58, 95, 0.6);
+  color: var(--efootball-text);
+  border: 1px solid var(--efootball-border);
+}
+
+.nav-button:not(.next):not(.submit):hover {
+  background: rgba(30, 58, 95, 0.8);
+  transform: translateY(-2px);
+}
+
+.nav-button.next,
+.nav-button.submit {
+  background: var(--efootball-button-gradient);
+  color: var(--efootball-text);
+  box-shadow: 0 5px 15px rgba(0, 119, 255, 0.3);
+}
+
+.nav-button.next:hover,
+.nav-button.submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 119, 255, 0.4);
+}
+
+.nav-button.submit {
+  background: linear-gradient(135deg, #00ff9d 0%, #00c8ff 100%);
+}
+
+.nav-button span {
+  margin-left: 5px;
+  transition: transform 0.2s ease;
+}
+
+.nav-button:hover span {
+  transform: translateX(3px);
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Success and Error Messages */
+.success-message,
+.error-message:not(.form-group .error-message) {
+  padding: 15px;
+  margin: 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.success-message {
+  background: rgba(0, 255, 157, 0.1);
+  border-left: 4px solid var(--efootball-success);
+  color: var(--efootball-success);
+}
+
+.error-message:not(.form-group .error-message) {
+  background: rgba(255, 56, 96, 0.1);
+  border-left: 4px solid var(--efootball-error);
+  color: var(--efootball-error);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
   .add-container {
-    position: relative;
-    padding: 20px;
+    margin: 10px;
+    max-width: none;
   }
-  
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #666;
-  }
-  
-  h2 {
-    margin-top: 0;
-    color: #333;
-    font-size: 1.5em;
-  }
-  
-  .form-card {
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 10px;
-  }
-  
-  .form-tabs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .form-tab {
-    flex: 1;
-    padding: 8px;
-    background: #f0f0f0;
-    border: none;
-    cursor: pointer;
-    font-size: 0.8em;
-    transition: background-color 0.3s;
-  }
-  
-  .form-tab.active {
-    background: #007bff;
-    color: white;
-  }
-  
-  .progress-bar {
-    height: 4px;
-    background-color: #e0e0e0;
-    margin-bottom: 15px;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    background-color: #007bff;
-    transition: width 0.3s ease;
-  }
-  
+
   .form-section {
-    display: none;
+    padding: 15px;
   }
-  
-  .form-section.active {
-    display: block;
+
+  .form-tab {
+    padding: 12px 15px;
+    font-size: 12px;
   }
-  
-  h3 {
-    margin-top: 0;
-    color: #444;
-    font-size: 1.2em;
+}
+
+@media (max-width: 480px) {
+  .form-tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
   }
-  
-  .form-group {
-    margin-bottom: 15px;
+
+  .form-tab {
+    flex: 0 0 auto;
   }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    color: #666;
-    font-size: 0.9em;
-  }
-  
-  input[type="text"],
-  input[type="date"],
-  input[type="time"],
-  input[type="number"],
-  textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 0.9em;
-  }
-  
-  .error-message {
-    color: #d9534f;
-    font-size: 0.8em;
-    margin-top: 5px;
-  }
-  
+
   .form-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 10px;
   }
-  
+
   .nav-button {
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s;
+    width: 100%;
   }
-  
-  .nav-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .nav-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .success-message {
-    color: #28a745;
-    margin-top: 15px;
-    font-size: 0.9em;
-  }
-  
-  /* Scrollbar Styling */
-  .form-card::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .form-card::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  .form-card::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-  }
-  
-  .form-card::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 400px) {
-    .add-seance-container {
-      max-width: 100%;
-      border-radius: 0;
-    }
-  }
+}
+
+/* Special Effects */
+.form-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 200, 255, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Custom Input Styling for Intensity */
+.form-group input[type="number"]#intensityLevel {
+  position: relative;
+  height: 40px;
+}
+
+.form-group input[type="number"]#intensityLevel:focus {
+  background: linear-gradient(90deg, rgba(0, 200, 255, 0.1) 0%, rgba(0, 255, 157, 0.1) 100%);
+}
+
+/* Horizontal Rule */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--efootball-border);
+  margin: 0;
+}
+

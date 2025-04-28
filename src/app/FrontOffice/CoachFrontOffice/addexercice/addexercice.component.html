@@ -1,13 +1,8 @@
-<hr>
 <div class="add-container">
-  <button class="close-btn" (click)="avoidAdd()">
-    ✖
-  </button>
+  <button class="close-btn" (click)="avoidAdd()">✖</button>
   <h2>Add an Exercise</h2>
 
   <form [formGroup]="exerciceform" (ngSubmit)="addExercice()" class="form-card">
-
-    <!-- Nom de l'Exercice -->
     <div class="form-group">
       <label>Exercise Name</label>
       <input type="text" formControlName="nameExercice">
@@ -16,7 +11,6 @@
       </div>
     </div>
 
-    <!-- Description de l'Exercice -->
     <div class="form-group">
       <label>Description of the Exercise</label>
       <textarea formControlName="descriptionExercice"></textarea>
@@ -25,7 +19,6 @@
       </div>
     </div>
 
-    <!-- Vidéo de l'Exercice -->
     <div class="form-group">
       <label>Exercise Video (URL)</label>
       <input type="text" formControlName="videoExercice">
@@ -34,7 +27,17 @@
       </div>
     </div>
 
-    <!-- Boutons d'Action -->
+    <div class="form-group">
+      <label>Exercise Type</label>
+      <select formControlName="typeExercice"> <!-- CORRIGÉ ici -->
+        <option value="" disabled selected>Select Exercise Type</option>
+        <option *ngFor="let type of exerciseTypes" [value]="type">{{ type }}</option>
+      </select>
+      <div *ngIf="typeExercice?.invalid && typeExercice?.touched" class="error-message">
+        Exercise type is required.
+      </div>
+    </div>
+
     <div class="btn-group">
       <button type="submit" class="btn btn-primary" [disabled]="exerciceform.invalid">
         <i class="fas fa-plus-circle"></i> Add
@@ -45,7 +48,6 @@
     </div>
   </form>
 
-  <!-- Messages de succès / erreur -->
   <div *ngIf="successMessage" class="alert alert-success mt-3 fade-in">
     {{ successMessage }}
   </div>

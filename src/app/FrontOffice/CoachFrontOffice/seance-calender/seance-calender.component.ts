@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { seance } from 'src/core/models/seance';
 import { SeanceService } from 'src/app/services/serviceCoatch/serviceSeance/seance.service';
+import { Exercices } from 'src/core/models/exercice';
+import { RapportService } from 'src/app/services/serviceAnalyste/gerer-rapport/rapport.service';
 
 @Component({
   selector: 'app-seance-calender',
@@ -29,22 +31,82 @@ export class SeanceCalenderComponent implements OnInit {
   showForm: boolean = false;
   showSeanceDetails: boolean = false; // New property to control the visibility of seance details
   
+  // New properties for exercises
+  seanceExercises: Exercices[] = [];
+  loadingExercises: boolean = false;
+  
   constructor(
+    private rapportservice: RapportService,
+
     private seanceService: SeanceService,
     private fb: FormBuilder
   ) {
     this.seanceForm = this.fb.group({
       idSeance: [null],
-      titleSeance: ['', Validators.required],
-      jourSeance: ['', Validators.required],
+      titleSeance: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(100),
+        Validators.pattern(/^[\w\sÀ-ÿ'-]+$/)  // Lettres, chiffres, accents, espaces
+      ]],
+      jourSeance: ['', [Validators.required, this.dateNotInPastValidator()]],
       heureDebut: ['', Validators.required],
       heureFin: ['', Validators.required],
       typeSeance: ['', Validators.required],
-      description: [''],
-      location: ['', Validators.required],
-      durationMinutes: [60, [Validators.required, Validators.min(1)]],
-      intensityLevel: [3, [Validators.required, Validators.min(1), Validators.max(5)]]
+      description: ['', [
+        Validators.maxLength(300),
+        this.noHtmlTagsValidator()
+      ]],
+      location: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern(/^[\w\sÀ-ÿ,'-]+$/) // Lettres, chiffres, virgule, apostrophe
+      ]],
+      durationMinutes: [60, [
+        Validators.required,
+        Validators.min(5),
+        Validators.max(300)
+      ]],
+      intensityLevel: [3, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(5)
+      ]]
+    }, {
+      validators: [this.timeOrderValidator()]
     });
+  }
+  
+  // Heure fin après heure début
+  timeOrderValidator(): ValidatorFn {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const start = group.get('heureDebut')?.value;
+      const end = group.get('heureFin')?.value;
+      if (!start || !end) return null;
+      const startTime = new Date(`1970-01-01T${start}`);
+      const endTime = new Date(`1970-01-01T${end}`);
+      return endTime > startTime ? null : { invalidTimeOrder: true };
+    };
+  }
+  
+  // Date ne doit pas être passée
+  dateNotInPastValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const date = new Date(control.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return date >= today ? null : { dateInPast: true };
+    };
+  }
+  
+  // Description : Pas de balises HTML
+  noHtmlTagsValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      return value && /<[^>]*>/.test(value)
+        ? { containsHtml: true }
+        : null;
+    };
   }
   
   ngOnInit() {
@@ -151,6 +213,18 @@ export class SeanceCalenderComponent implements OnInit {
              seanceDate.getFullYear() === date.getFullYear();
     });
   }
+  selectedExercise: Exercices | null = null;
+exerciseSubgroups: any[] = [];
+loadingSubgroups: boolean = false;
+showSubgroupsModal: boolean = false;
+ 
+  
+  // Add this method to close the subgroups modal
+  closeSubgroupsModal() {
+    this.showSubgroupsModal = false;
+    this.selectedExercise = null;
+    this.exerciseSubgroups = [];
+  }
   
   findUpcomingSeances() {
     const today = new Date();
@@ -187,6 +261,9 @@ export class SeanceCalenderComponent implements OnInit {
     // Store all seances for the selected day
     this.selectedDaySeances = day.seances;
     
+    // Reset exercises
+    this.seanceExercises = [];
+    
     // Show the seance details modal if there are seances on this day
     if (day.seances.length > 0) {
       this.showSeanceDetails = true;
@@ -197,6 +274,8 @@ export class SeanceCalenderComponent implements OnInit {
       this.seanceService.getbyidSeances(idSeance).subscribe(
         (data) => {
           this.seance = Array.isArray(data) ? data[0] : data;
+          // Load exercises for this seance
+          this.loadExercisesForSeance(idSeance);
         },
         (error) => {
           console.error("Error fetching seance details:", error);
@@ -213,6 +292,8 @@ export class SeanceCalenderComponent implements OnInit {
     this.seanceService.getbyidSeances(seanceId).subscribe(
       (data) => {
         this.seance = Array.isArray(data) ? data[0] : data;
+        // Load exercises for this seance
+        this.loadExercisesForSeance(seanceId);
       },
       (error) => {
         console.error("Error fetching seance details:", error);
@@ -220,9 +301,27 @@ export class SeanceCalenderComponent implements OnInit {
     );
   }
   
+  // New method to load exercises for a seance
+  loadExercisesForSeance(seanceId: number) {
+    this.loadingExercises = true;
+    this.seanceExercises = [];
+    
+    this.seanceService.findBySeanceExerciceIdSeance(seanceId).subscribe(
+      (exercises) => {
+        this.seanceExercises = exercises;
+        this.loadingExercises = false;
+      },
+      (error) => {
+        console.error("Error fetching exercises:", error);
+        this.loadingExercises = false;
+      }
+    );
+  }
+  
   // Method to close the seance details modal
   closeSeanceDetails() {
     this.showSeanceDetails = false;
+    this.seanceExercises = [];
   }
   
   formatDateForInput(date: Date): string {
@@ -331,6 +430,110 @@ export class SeanceCalenderComponent implements OnInit {
       );
     }
   }
+  // Add this method to your component class to load players for subgroups
+// Add these methods to your SeanceCalenderComponent class
+
+// Method to load players for a specific subgroup
+// Add these methods to your SeanceCalenderComponent class
+
+// Method to load players for a specific subgroup
+loadPlayersForSubgroup(nameSousGroup: string) {
+  // Find the subgroup in our array
+  const subgroupIndex = this.exerciseSubgroups.findIndex(subgroup => subgroup.nameSousGroup === nameSousGroup);
+  if (subgroupIndex !== -1) {
+    // Set loading state
+    this.exerciseSubgroups[subgroupIndex].loadingPlayers = true;
+    
+    // Call the service to get players for this subgroup
+    this.rapportservice.findJoueursBynameSousGroup(nameSousGroup).subscribe(
+      (players) => {
+        // Update the subgroup with players data
+        this.exerciseSubgroups[subgroupIndex].joueurs = players;
+        this.exerciseSubgroups[subgroupIndex].loadingPlayers = false;
+      },
+      (error) => {
+        console.error(`Error fetching players for subgroup ${nameSousGroup}:`, error);
+        this.exerciseSubgroups[subgroupIndex].loadingPlayers = false;
+      }
+    );
+  }
+}
+
+// Modify the loadSousGroupesForExercise method to load players for each subgroup
+loadSousGroupesForExercise(exerciseId: number) {
+  this.loadingSubgroups = true;
+  this.selectedExercise = this.seanceExercises.find(ex => ex.idExercice === exerciseId) || null;
+  this.showSubgroupsModal = true;
+  
+  this.seanceService.findSousGroupesidExercice(exerciseId).subscribe(
+    (subgroups) => {
+      // Initialize subgroups with loading state for players
+      this.exerciseSubgroups = subgroups.map((subgroup: any) => ({
+        ...subgroup,
+        joueurs: [],
+        loadingPlayers: true
+      }));
+      this.loadingSubgroups = false;
+      
+      // For each subgroup, load its players
+      if (this.exerciseSubgroups.length > 0) {
+        this.exerciseSubgroups.forEach(subgroup => {
+          this.loadPlayersForSubgroup(subgroup.nameSousGroup);
+        });
+      }
+    },
+    (error) => {
+      console.error('Error fetching subgroups:', error);
+      this.loadingSubgroups = false;
+    }
+  );
+}
+
+// Method to load all subgroups for a session and their players
+loadSubgroupsForSession(titleSeance: string) {
+  this.rapportservice.findSousGroupestitleSeance(titleSeance).subscribe(
+    (subgroups) => {
+      // Initialize subgroups with loading state for players
+      this.exerciseSubgroups = subgroups.map((subgroup: any) => ({
+        ...subgroup,
+        joueurs: [],
+        loadingPlayers: true
+      }));
+      
+      // For each subgroup, load its players
+      if (this.exerciseSubgroups.length > 0) {
+        this.exerciseSubgroups.forEach(subgroup => {
+          this.loadPlayersForSubgroup(subgroup.nameSousGroup);
+        });
+      }
+    },
+    (error) => {
+      console.error('Error fetching subgroups for session:', error);
+    }
+  );
+}
+
+// New method to load players for all subgroups
+loadPlayersForSubgroups(exerciseId: number) {
+  this.seanceService.findSousGroupesJoueurs(exerciseId).subscribe(
+    (data) => {
+      if (Array.isArray(data)) {
+        // Update our subgroups with player data
+        this.exerciseSubgroups = this.exerciseSubgroups.map(subgroup => {
+          // Find the matching subgroup in the response
+          const subgroupWithPlayers = data.find(item => item.idSousGroup === subgroup.idSousGroup);
+          if (subgroupWithPlayers && subgroupWithPlayers.joueurs) {
+            subgroup.joueurs = subgroupWithPlayers.joueurs;
+          }
+          return subgroup;
+        });
+      }
+    },
+    (error) => {
+      console.error('Error fetching players for subgroups:', error);
+    }
+  );
+}
   openConfirmPopup(id: number) {
     this.seanceIdToDelete = id;
     this.showConfirmPopup = true;
@@ -348,20 +551,19 @@ export class SeanceCalenderComponent implements OnInit {
       this.closeConfirmPopup();
     }
   }
+  
   deleteSeance(id: number) {
-  {
-      this.seanceService.delSeances(id).subscribe(
-        () => {
-          this.loadSeances();
-          this.seance = null;
-          this.showSeanceDetails = false;
-          window.location.reload();
-        },
-        (error) => {
-          console.error('Error deleting seance:', error);
-          alert('Failed to delete seance. Please try again.');
-        }
-      );
-    }
+    this.seanceService.delSeances(id).subscribe(
+      () => {
+        this.loadSeances();
+        this.seance = null;
+        this.showSeanceDetails = false;
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error deleting seance:', error);
+        alert('Failed to delete seance. Please try again.');
+      }
+    );
   }
 }
