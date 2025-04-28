@@ -74,7 +74,7 @@ import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster
 import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
 import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
 
-/*import { CompetitionStandingsComponent } from './BackOffice/admin-backoffice/Competition/competition-standings-component/competition-standings-component.component';
+import { CompetitionStandingsComponent } from './BackOffice/admin-backoffice/Competition/competition-standings-component/competition-standings-component.component';
 import { ListCupComponent } from './BackOffice/admin-backoffice/Cup/list-cup/list-cup.component';
 import { AddCupComponent } from './BackOffice/admin-backoffice/Cup/add-cup/add-cup.component';
 import { CupMatchesComponent } from './BackOffice/admin-backoffice/Cup/cup-matches/cup-matches.component';
@@ -82,7 +82,6 @@ import { UpdateCupGoalsComponent } from './BackOffice/admin-backoffice/Cup/updat
 import { CupClubsComponent } from './BackOffice/admin-backoffice/Cup/cup-clubs/cup-clubs.component';
 import { UpdateCupMatchComponent } from './BackOffice/admin-backoffice/Cup/update-cup-match/update-cup-match.component';
 import { CupBracketComponent } from './BackOffice/admin-backoffice/Cup/cup-bracket/cup-bracket.component';
-*/
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
