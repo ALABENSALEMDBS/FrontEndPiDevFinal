@@ -307,7 +307,7 @@
         </div>
   
         <div *ngIf="!loadingData" class="match-details mb-4">
-          <h3 class="text-center mb-3">{{ match.club1?.nameClub }} vs {{ match.club2?.nameClub }}</h3>
+          <h3 class="text-center mb-3">{{ match.club1.nameClub }} vs {{ match.club2.nameClub }}</h3>
           <div class="text-center text-muted mb-3">
             {{ match.dateMatch | date:'medium' }} at {{ match.lieuMatch }}
           </div>
@@ -355,13 +355,13 @@
               <!-- Added club logo -->
               <div class="mb-3">
                 <img 
-                  [src]="match.club1?.logo" 
-                  [alt]="match.club1?.nameClub + ' logo'" 
+                  [src]="match.club1.logo" 
+                  [alt]="match.club1.nameClub + ' logo'" 
                   class="img-fluid" 
                   style="max-height: 80px; max-width: 80px; margin: 0 auto;"
                 >
               </div>
-              <div class="team-name mb-2">{{ match.club1?.nameClub }}</div>
+              <div class="team-name mb-2">{{ match.club1.nameClub }}</div>
               <input 
                 type="number" 
                 id="goals1" 

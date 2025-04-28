@@ -39,18 +39,18 @@
                 <div *ngFor="let match of round.matches; let matchIndex = index" 
                      [ngClass]="['match-item', getMatchClass(match)]">
                   <div class="match-teams">
-                    <div class="team team-top" [class.winner]="match.winner?.idClub === match.club1?.idClub">
+                    <div class="team team-top" [class.winner]="match.winner?.idClub === match.club1.idClub">
                       <div class="team-logo">
-                        <img [src]="match.club1?.logo" [alt]="match.club1?.nameClub" width="30" height="30">
+                        <img [src]="match.club1.logo" [alt]="match.club1.nameClub" width="30" height="30">
                       </div>
-                      <div class="team-name">{{ match.club1?.nameClub }}</div>
+                      <div class="team-name">{{ match.club1.nameClub }}</div>
                       <div class="team-score" *ngIf="match.goals1 !== null">{{ match.goals1 }}</div>
                     </div>
-                    <div class="team team-bottom" [class.winner]="match.winner?.idClub === match.club2?.idClub">
+                    <div class="team team-bottom" [class.winner]="match.winner?.idClub === match.club2.idClub">
                       <div class="team-logo">
-                        <img [src]="match.club2?.logo" [alt]="match.club2?.nameClub" width="30" height="30">
+                        <img [src]="match.club2.logo" [alt]="match.club2.nameClub" width="30" height="30">
                       </div>
-                      <div class="team-name">{{ match.club2?.nameClub }}</div>
+                      <div class="team-name">{{ match.club2.nameClub }}</div>
                       <div class="team-score" *ngIf="match.goals2 !== null">{{ match.goals2 }}</div>
                     </div>
                   </div>

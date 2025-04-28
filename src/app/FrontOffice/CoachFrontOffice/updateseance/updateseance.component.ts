@@ -570,7 +570,7 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
                 this.loadExercises();
                 this.loadAvailableExercises();
               },
-              error: (err) => {
+              error: (err:any) => {
                 console.error("Erreur lors de l'ajout des nouveaux exercices", err);
                 this.errorMessage = "Erreur lors de la mise à jour des exercices: " + this.extractErrorMessage(err);
                 this.isLoadingExercises = false;
@@ -582,7 +582,7 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
             this.isLoadingExercises = false;
           }
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error("Erreur lors de la vérification des exercices actuels", err);
           this.errorMessage = "Erreur lors de la mise à jour des exercices: " + this.extractErrorMessage(err);
           this.isLoadingExercises = false;

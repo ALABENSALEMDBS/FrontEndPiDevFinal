@@ -1,7 +1,7 @@
 <div class="container-fluid p-4">
     <div class="card">
       <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-        <h2>{{ competition?.nameCompetition }} - Standings</h2>
+        <h2>{{ competition.nameCompetition }} - Standings</h2>
         <div>
           <button class="btn btn-warning me-2" (click)="updateStandings()">
             <i class="bi bi-arrow-clockwise"></i> Update Standings
@@ -58,13 +58,13 @@
                 <td>
                   <div class="d-flex align-items-center">
                     <img 
-                      [src]="standing.club?.logo" 
-                      [alt]="standing.club?.nameClub" 
+                      [src]="standing.club.logo" 
+                      [alt]="standing.club.nameClub" 
                       class="me-2" 
                       style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
                       onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
                     >
-                    <span>{{ standing.club?.nameClub }}</span>
+                    <span>{{ standing.club.nameClub }}</span>
                   </div>
                 </td>
                 <td class="text-center">{{ standing.matchesPlayed }}</td>

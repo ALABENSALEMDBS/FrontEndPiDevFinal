@@ -4,7 +4,7 @@ import { Joueurs } from "./joueur";
 export class StatistiqueIndiv {
     idStatistiqueIndiv!: number;
     vitesseStatistiqueIndiv!: number;
-    endurenceStatistiqueIndiv!: string;
+    endurenceStatistiqueIndiv!: number;
     buts!: number;
     passesDecisives!: number;
     tirs!: number;
