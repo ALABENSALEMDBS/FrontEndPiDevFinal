@@ -1,53 +1,52 @@
+<h1 class="calendar-title">🗓️ Calendrier des Consultations</h1>
+<p>Visualisez et organisez les consultations de manière intuitive.</p>
 
 <div class="calendar-wrapper">
-  <!-- En-tête du calendrier -->
   <div class="calendar-header">
-    <h2>🗓️ Calendrier des Consultations</h2>
-    <p>Visualisez et organisez les consultations de manière intuitive.</p>
-    <!-- Bouton pour ajouter une consultation -->
-    <button (click)="formVisible = true" class="add-button">Ajouter une consultation</button>
+    <button (click)="formVisible = true" class="add-button" aria-label="Ajouter une consultation">Ajouter une consultation</button>
   </div>
 
-  <!-- Section contenant le calendrier et le bouton d'ajout -->
   <div class="calendar-card">
-    <!-- Affichage du calendrier -->
     <full-calendar #calendarRef [options]="calendarOptions"></full-calendar>
   </div>
 
-  <!-- Fenêtre modale qui contient le formulaire -->
-  <div *ngIf="formVisible" class="modal-overlay">
-    <div class="modal-content">
-      <!-- Bouton pour fermer la modale -->
-      <button (click)="formVisible = false" class="close-button">X</button>
+  <!-- Modal pour Ajouter ou Modifier une Consultation -->
+  <div *ngIf="formVisible" class="modal-overlay" aria-labelledby="consultationModal" aria-hidden="false">
+    <div class="modal-content" id="consultationModal">
+      <button (click)="formVisible = false" class="close-button" aria-label="Fermer la modale">X</button>
 
-      <!-- Formulaire de consultation -->
       <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()" class="form-container">
         <label for="joueurId">Joueur</label>
-        <select formControlName="idUser" id="joueurId">
+        <select formControlName="idUser" id="joueurId" aria-required="true" aria-describedby="joueurError">
           <option value="" disabled>-- Sélectionnez un joueur --</option>
           <option *ngFor="let joueur of joueurs" [value]="joueur.idUser">
             {{ joueur.nameUsers }}
           </option>
         </select>
-        <div *ngIf="consultationForm.get('joueurId')?.touched && consultationForm.get('joueurId')?.invalid" class="error">
+        <div *ngIf="consultationForm.get('idUser')?.touched && consultationForm.get('idUser')?.invalid" class="error" id="joueurError" role="alert">
           ⚠️ Veuillez sélectionner un joueur.
         </div>
 
         <label for="dateConsultation">Date de consultation</label>
-        <input type="datetime-local" formControlName="dateConsultation" id="dateConsultation" [value]="consultationForm.get('dateConsultation')?.value || ''" />
-        <div *ngIf="consultationForm.get('dateConsultation')?.touched && consultationForm.get('dateConsultation')?.invalid" class="error">
-          ⚠️ Date requise.
+<input type="datetime-local" formControlName="dateConsultation" id="dateConsultation" aria-required="true" aria-describedby="dateError" />
+        <div *ngIf="consultationForm.get('dateConsultation')?.touched && consultationForm.get('dateConsultation')?.invalid" class="error" id="dateError" role="alert">
+          ⚠️ La date est requise.
         </div>
 
         <label for="description">Description</label>
-        <textarea formControlName="description" id="description" placeholder="Ajouter une description..."></textarea>
-
-        <div *ngIf="consultationForm.get('description')?.touched && consultationForm.get('description')?.invalid" class="error">
+        <textarea formControlName="description" id="description" placeholder="Ajouter une description..." aria-required="true" aria-describedby="descriptionError"></textarea>
+        <div *ngIf="consultationForm.get('description')?.touched && consultationForm.get('description')?.invalid" class="error" id="descriptionError" role="alert">
           ⚠️ La description est requise.
         </div>
 
+        <!-- Display Player Name -->
+        <div *ngIf="consultationForm.get('idUser')?.value">
+          <label for="playerName">Nom du joueur</label>
+          <p id="playerName">{{ getJoueurName(consultationForm.get('idUser')?.value) }}</p>
+        </div>
+
         <button type="submit" [disabled]="consultationForm.invalid || isLoading">
-          Ajouter
+          {{ selectedConsultation ? 'Mettre à jour' : 'Ajouter' }}
           <span *ngIf="isLoading" class="spinner"></span>
         </button>
       </form>

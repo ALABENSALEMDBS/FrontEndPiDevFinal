@@ -1,48 +1,49 @@
 /* Styles pour la structure principale */
 .calendar-wrapper {
-  padding: 20px;
-  background-color: #082769;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.calendar-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.calendar-header h2 {
-  font-size: 24px;
-  color: #333;
-}
-
-.calendar-header p {
-  font-size: 14px;
-  color: #666;
-}
-
-.add-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+  padding: 15px;
+  background-color: #4173df; /* Couleur de fond de l'arrière du calendrier */
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(92, 7, 7, 0.1);
 }
 
-.add-button:hover {
-  background-color: #45a049;
+/* Style pour la table du calendrier (FullCalendar) */
+.fc {
+  background-color: #18125f; /* Couleur de fond pour la table du calendrier */
+  border-radius: 5px;
+  border: 1px solid #ddd; /* Bordure légère pour la table */
 }
 
-/* Modale */
+/* Personnalisation des lignes de la table */
+.fc-row {
+  background-color: #f0f0f0; /* Couleur des lignes de la table */
+}
+
+/* Personnalisation des couleurs des lignes */
+.fc-row:nth-child(1) { background-color: #8f0c0c; }
+.fc-row:nth-child(2) { background-color: #ccffcc; }
+.fc-row:nth-child(3) { background-color: #ccccff; }
+.fc-row:nth-child(4) { background-color: #ffffcc; }
+.fc-row:nth-child(5) { background-color: #ffccff; }
+.fc-row:nth-child(6) { background-color: #f0f0f0; }
+
+/* Surligner la ligne de la semaine actuelle */
+.fc-row.fc-week-today {
+  background-color: #ffeb3b;
+}
+
+/* Personnalisation des jours du calendrier */
+.fc-day {
+  border: 1px solid #ddd;
+}
+
+
+/* Style pour la modale */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -51,77 +52,109 @@
 }
 
 .modal-content {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
+  background-color: rgb(9, 4, 80);
+  padding: 20px;
+  border-radius: 10px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .close-button {
-  background: transparent;
+  background-color: #ff0000;
+  color: rgb(12, 85, 85);
+  font-size: 16px;
+  padding: 5px 10px;
   border: none;
-  font-size: 20px;
-  color: #333;
+  border-radius: 5px;
   cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
 
 .close-button:hover {
-  color: #f44336;
+  background-color: #6d0707;
 }
 
-/* Formulaire */
+/* Formulaire dans la modale */
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 label {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 
-select, input[type="datetime-local"], textarea {
+input, select, textarea {
+  margin-bottom: 12px;
   padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%;
+  border: 1px solid #ddd;
 }
 
 textarea {
   resize: vertical;
-  min-height: 100px;
+  height: 100px;
 }
 
+/* Messages d'erreur */
+.error {
+  color: #ff0000;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+/* Bouton de soumission du formulaire */
 button[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover {
-  background-color: #45a049;
 }
 
 button[type="submit"]:disabled {
-  background-color: #ddd;
+  background-color: #d3d3d3;
   cursor: not-allowed;
 }
 
-/* Message d'erreur */
-.error {
-  color: #f44336;
-  font-size: 12px;
+button[type="submit"]:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+/* Style pour le bouton d'ajout */
+.add-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+  left: 10px;
+}
+
+.add-button:hover {
+  background-color: #218838;
+}
+
+/* Réactivité pour les petits écrans */
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    padding: 15px;
+  }
+
+  .modal-content {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  button[type="submit"],
+  .add-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }

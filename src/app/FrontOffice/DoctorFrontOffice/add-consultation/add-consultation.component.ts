@@ -27,19 +27,19 @@ export class AddConsultationComponent {
     this.service.getalljoueur().subscribe(data => this.joueurs = data);
   }
 
-  onSubmit(): void {
-    const formValue = this.consultationForm.value;
+  // onSubmit(): void {
+  //   const formValue = this.consultationForm.value;
 
-    const consultation: Consultation = {
-      dateConsultation: new Date(formValue.dateConsultation),
-      description: formValue.description,
-      idUser: formValue.joueurId,
-    };
+  //   const consultation: Consultation = {
+  //     dateConsultation: new Date(formValue.dateConsultation),
+  //     description: formValue.description,
+  //     idUser: formValue.joueurId,
+  //   };
 
-    this.service.addConsultation(consultation).subscribe(() => {
-      alert('Consultation ajoutée avec succès !');
-      this.consultationForm.reset();
-    });
-  }
+  //   this.service.addConsultation(consultation).subscribe(() => {
+  //     alert('Consultation ajoutée avec succès !');
+  //     this.consultationForm.reset();
+  //   });
+  // }
 
 }

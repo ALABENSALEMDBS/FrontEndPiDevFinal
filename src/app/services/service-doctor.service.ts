@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Consultation } from 'src/core/models/Consultation';
 import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement';
 import { FicheMedical } from 'src/core/models/ficheMedical';
@@ -150,8 +150,9 @@ getGraviteStatsByPlayer(): Observable<any[]> {
 }
 
 //consultation
-addConsultation(consultation: Consultation): Observable<Consultation> {
-  return this.http.post<Consultation>(`${this.apiUrl}/consultation/add`, consultation);
+addConsultation(consultation: Consultation, idn: number): Observable<Consultation> {
+  console.log('Ajout de consultation:', consultation);  // Log des données envoyées
+  return this.http.post<Consultation>(`${this.apiUrl}/consultation/add/${idn}`, consultation);
 }
 
 getAllConsultations(): Observable<Consultation[]> {
@@ -162,5 +163,21 @@ updateConsultation(consultation: Consultation): Observable<Consultation> {
     `${this.apiUrl}/consultation/update/${consultation.id}`,
     consultation
   );
-
-}}
+}
+// updateConsultation(consultation: Consultation): Observable<Consultation> {
+//   return this.http.put<Consultation>(
+//     `${this.apiUrl}/consultation/update/${consultation.id}`,
+//     consultation
+//   ).pipe(
+//     catchError(error => {
+//       if (error.status === 409) {
+//         // Si le statut est 409, cela signifie qu'il y a un conflit (date déjà prise)
+//         return throwError('La date est déjà prise par un autre joueur.');
+//       } else {
+//         // Pour toute autre erreur
+//         return throwError('Une erreur est survenue. Veuillez réessayer plus tard.');
+//       }
+//     })
+//   );
+// }
+}
