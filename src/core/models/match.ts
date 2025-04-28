@@ -2,6 +2,7 @@
 
 import { Clubs } from "./clubs"
 import { Competition } from "./competition"
+import { Cup } from "./cup"
 
 // export class Match {
 //   idMatch!: number;
@@ -41,5 +42,13 @@ export class Match {
   competition!: Competition | null;  
   club1!: Clubs
   club2!: Clubs
+
+
+
+  cup?: Cup;
+  roundName?: string | null;
+  winner?: Clubs | undefined | null;
+
+
 }
 

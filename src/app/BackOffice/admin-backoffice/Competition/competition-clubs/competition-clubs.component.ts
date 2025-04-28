@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common"
 import { Component, OnInit} from "@angular/core"
 import { ActivatedRoute, Router } from "@angular/router"
 import { CompetitionService } from "src/app/services/serviceCompetition/competition.service"
+import { ClubsService } from "src/app/services/serviceSuperAdmin/servicegererclubs/clubs.service"
 import { Clubs } from "src/core/models/clubs"
 import { Competition } from "src/core/models/competition"
 
@@ -24,6 +25,7 @@ export class CompetitionClubsComponent implements OnInit {
     private competitionService: CompetitionService,
     private route: ActivatedRoute,
     private router: Router,
+    private clubService : ClubsService
   ) {}
 
   ngOnInit(): void {
@@ -43,12 +45,25 @@ export class CompetitionClubsComponent implements OnInit {
       },
     })
   }
+  imageUrls:string[]=[];
 
   loadClubs(): void {
     this.loading = true
     this.competitionService.getParticipatingClubs(this.competitionId).subscribe({
       next: (data) => {
         this.clubs = data
+
+
+        this.clubs.forEach(club => {
+          if (club.mediaUrl) {
+            this.clubService.getImage(club.mediaUrl).subscribe(imageBlob => {
+              const imageUrl = URL.createObjectURL(imageBlob);
+              this.imageUrls.push(imageUrl);
+            });
+          }
+        });
+
+        
         this.loading = false
       },
       error: (err) => {

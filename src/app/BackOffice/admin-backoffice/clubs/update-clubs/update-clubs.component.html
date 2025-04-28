@@ -95,16 +95,14 @@
       </div>
   
       <!-- File Upload for Logo -->
-      <div class="form-group">
-        <label for="logo">Club Logo:</label>
-        <input 
-          type="file" 
-          id="logo" 
-          name="logo" 
-          (change)="onFileSelected($event)" 
-          class="form-control" 
-        />
-      </div>
+      <div class="mb-3">
+        <input
+              id="mediaUrl"
+              type="file"
+              class="form-control"                   accept="image/*"
+              (change)="onFileSelected($event)"
+            >
+          </div>
   
       <!-- Submit Button -->
       <button 
@@ -112,8 +110,20 @@
         [disabled]="updateClubForm.invalid" 
         class="btn btn-primary"
       >
+
         Update Club
       </button>
     </form>
   </div>
+
+
+  <style>
+    input, select {
+      color: black !important;
+    }
+    input::placeholder {
+      color: black !important;
+    }
+  </style>
+  
   

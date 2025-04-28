@@ -18,7 +18,8 @@ export class AddClubsComponent {
     adressClub: '',
     dateClub: '',
     licenceClub: '',
-    logo: ''
+    logo: '',
+    mediaUrl:''
   };
 
   selectedFile: File | null = null; // Variable to store the selected logo file
@@ -37,6 +38,10 @@ export class AddClubsComponent {
       this.clubsService.createClubs(this.clubData, this.selectedFile).subscribe(
         (response) => {
           console.log('Club saved successfully', response);
+          console.log(response.idClub)
+          this.clubsService.uploadPostPicture(response.idClub,this.selectedFile!).subscribe({next:()=>{
+
+          }})
         },
         (error) => {
           console.error('Error saving club', error);

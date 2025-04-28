@@ -1,0 +1,75 @@
+<!-- src/app/components/cup/cup-bracket/cup-bracket.component.html -->
+<div class="container-fluid p-4">
+    <div class="card">
+      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h2>Tournament Bracket: {{ cup?.name }}</h2>
+        <div>
+          <button class="btn btn-primary me-2" (click)="viewMatches()">
+            <i class="bi bi-list-ul"></i> View Matches List
+          </button>
+          <button class="btn btn-light" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Back to Cups
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Loading spinner -->
+        <div *ngIf="loading" class="text-center my-5">
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+  
+        <!-- Error message -->
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+  
+        <!-- No matches message -->
+        <div *ngIf="!loading && bracketRounds.length === 0" class="alert alert-info">
+          No matches found for this cup tournament.
+        </div>
+  
+        <!-- Tournament bracket -->
+        <div *ngIf="!loading && bracketRounds.length > 0" class="tournament-bracket">
+          <div class="bracket-container">
+            <div *ngFor="let round of bracketRounds; let roundIndex = index" class="bracket-round">
+              <h3 class="round-title">{{ round.name }}</h3>
+              <div class="matches-container">
+                <div *ngFor="let match of round.matches; let matchIndex = index" 
+                     [ngClass]="['match-item', getMatchClass(match)]">
+                  <div class="match-teams">
+                    <div class="team team-top" [class.winner]="match.winner?.idClub === match.club1?.idClub">
+                      <div class="team-logo">
+                        <img [src]="match.club1?.logo" [alt]="match.club1?.nameClub" width="30" height="30">
+                      </div>
+                      <div class="team-name">{{ match.club1?.nameClub }}</div>
+                      <div class="team-score" *ngIf="match.goals1 !== null">{{ match.goals1 }}</div>
+                    </div>
+                    <div class="team team-bottom" [class.winner]="match.winner?.idClub === match.club2?.idClub">
+                      <div class="team-logo">
+                        <img [src]="match.club2?.logo" [alt]="match.club2?.nameClub" width="30" height="30">
+                      </div>
+                      <div class="team-name">{{ match.club2?.nameClub }}</div>
+                      <div class="team-score" *ngIf="match.goals2 !== null">{{ match.goals2 }}</div>
+                    </div>
+                  </div>
+                  <div class="match-details" *ngIf="match.dateMatch">
+                    {{ match.dateMatch | date:'short' }}
+                  </div>
+                  <div class="match-status" *ngIf="match.statusMatch">
+                    <span [class]="'badge ' + (match.statusMatch.toLowerCase() === 'completed' ? 'bg-success' : 
+                                             match.statusMatch.toLowerCase() === 'in progress' ? 'bg-warning' : 
+                                             match.statusMatch.toLowerCase() === 'cancelled' ? 'bg-danger' : 
+                                             match.statusMatch.toLowerCase() === 'postponed' ? 'bg-secondary' : 'bg-info')">
+                      {{ match.statusMatch }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
