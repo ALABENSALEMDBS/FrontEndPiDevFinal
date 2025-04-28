@@ -1,4 +1,7 @@
+import { EtatPlayer } from "./EtatPlayer";
 import { Joueurs } from "./joueur";
+import { seance } from "./seance";
+import { sousgroup } from "./sousgroup";
 
 export class Rapport {
     idRapport!: number;             // Unique identifier (int)
@@ -21,8 +24,12 @@ export class Rapport {
     reactionTime!: number;          // Time to respond
     reactivity!: number;            // Adjusting movements
 
-    etatRapport!: string;           // State of the report (string)
+    etatRapport!: EtatPlayer;           // State of the report (string)
     blessureRapport!: string;       // Injury report (string)
-    joueur!: Joueurs; // Assurez-vous que cette propriété existe
+    joueurrapport?: Joueurs;
+    dateRapport!: Date;           // State of the report (string) 
+    sousGroupesrapport?: sousgroup;
+    seancesrapport?: seance;
+  joueursrapport: Joueurs | undefined;
 
 }

@@ -1,63 +1,61 @@
 <div class="site-wrap">
 
-    <div class="site-mobile-menu site-navbar-target">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icon-close2 js-menu-toggle"></span>
       </div>
-      <div class="site-mobile-menu-body"></div>
     </div>
-    
-    <header class="site-navbar py-4" role="banner">
-      <div class="container">
-          <div class="d-flex align-items-center">
-              <div class="site-logo">
-                  <a routerLink="HomeCoach">
-                      <img src="assets/front/images/logo.png" alt="Logo">
-                  </a>
-              </div>
-              <div class="ml-auto">
-                  <nav class="site-navigation position-relative text-right" role="navigation">
-                      <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                          <li class="active"><a routerLink="Homeanalyste" class="nav-link">Home</a></li>
-                          <li><a routerLink="Reportshow" class="nav-link">List reports</a></li>
-                          <li><a routerLink="showFormation" class="nav-link">Formation</a></li>
-                          <li><a routerLink="ShowSousGroups" class="nav-link">Show Sub Groups</a></li>
-                          <li><a routerLink="showseance" class="nav-link">Show Seance</a></li>
-                          <li><a routerLink="showexercice" class="nav-link">Show Exercice</a></li>
+    <div class="site-mobile-menu-body"></div>
+  </div>
   
-                          <!-- Profil Utilisateur avec Combobox -->
-                          <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profil" class="rounded-circle" width="40" height="40">
-                                  <span>Utilisateur</span>
-                              </a>
-                              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                  <li><a class="dropdown-item" routerLink="settings">⚙️ Paramètres</a></li>
-                                  <li><a class="dropdown-item text-danger" routerLink="logout">🚪 Déconnexion</a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </nav>
-  
-                  <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
-                      <span class="icon-menu h3 text-white"></span>
-                  </a>
-              </div>
-          </div>
-      </div>
-    </header>
-  
-    <div class="hero overlay" style="background-image: url('assets/front/images/wallpaperflare.com_wallpaper.jpg');">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-5 ml-auto">
-            <h1 class="text-white">{{ pageTitle }}</h1> <!-- Dynamic page title -->
-           
-          </div>
+  <header class="site-navbar py-4" role="banner">
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <div class="site-logo">
+                <a routerLink="HomeCoach">
+                    <img src="assets/front/images/logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="ml-auto">
+                <nav class="site-navigation position-relative text-right" role="navigation">
+                    <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                        <li><a routerLink="Homeanalyste" class="nav-link">Home</a></li>
+                        <li><a routerLink="Reportshow" class="nav-link">List reports</a></li>
+                        <li><a routerLink="compareplayers" class="nav-link">Compare Players</a></li>
+                        <li><a routerLink="PlayerreportstatComponent" class="nav-link">Recommended Players</a></li>
+                       
+
+                        <!-- Profil Utilisateur avec Combobox -->
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="toggleDropdown()">
+                              <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profil" class="rounded-circle" width="40" height="40">
+                              <span>Utilisateur</span>
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen" aria-labelledby="userDropdown">
+                              <li><a class="dropdown-item" routerLink="settings">⚙️ Paramètres</a></li>
+                              <li><a class="dropdown-item text-danger" routerLink="logout">🚪 Déconnexion</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                </nav>
+
+                <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
+                    <span class="icon-menu h3 text-white"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+  </header>
+
+  <div class="hero overlay" style="background-image: url('assets/front/images/wallpaperflare.com_wallpaper.jpg');">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 ml-auto">
+          <h1 class="text-white">{{ pageTitle }}</h1> <!-- Dynamic page title -->
+         
         </div>
       </div>
     </div>
   </div>
-  
+</div>

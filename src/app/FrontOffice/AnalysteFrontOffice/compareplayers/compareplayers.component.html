@@ -1,0 +1,551 @@
+<div class="player-comparison-container">
+    <!-- Selection Panel -->
+    <div class="selection-panel">
+      <h1 class="title">Player Comparison</h1>
+      <p class="subtitle">Analyze and compare player performances</p>
+  
+      <div class="selection-controls">
+        <div class="form-group">
+          <label for="position">Position</label>
+          <select id="position" [(ngModel)]="selectedPosition" (change)="onPositionChange()" [disabled]="isLoading">
+            <option value="">Select a position</option>
+            <option *ngFor="let position of positions" [value]="position">{{ position }}</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="player1">Player 1</label>
+          <select id="player1" [(ngModel)]="selectedPlayer1" [disabled]="!selectedPosition || isLoading">
+            <option [ngValue]="null">Select a player</option>
+            <option *ngFor="let player of filteredPlayers" [ngValue]="player" [disabled]="isPlayerInBadState(player.numeroJoueur)" [ngClass]="{'bad-state-option': isPlayerInBadState(player.numeroJoueur)}">
+              {{ player.nameUsers }} {{ player.prenomUser }}
+              <span *ngIf="isPlayerInBadState(player.numeroJoueur)">(Bad condition)</span>
+            </option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="player2">Player 2</label>
+          <select id="player2" [(ngModel)]="selectedPlayer2" [disabled]="!selectedPosition || isLoading">
+            <option [ngValue]="null">Select a player</option>
+            <option *ngFor="let player of getFilteredPlayersForSecondSelection()" [ngValue]="player" [disabled]="isPlayerInBadState(player.numeroJoueur)" [ngClass]="{'bad-state-option': isPlayerInBadState(player.numeroJoueur)}">
+              {{ player.nameUsers }} {{ player.prenomUser }}
+              <span *ngIf="isPlayerInBadState(player.numeroJoueur)">(Bad condition)</span>
+            </option>
+          </select>
+        </div>
+  
+        <button class="compare-btn" (click)="comparePlayersWithSamePosition()" 
+          [disabled]="!selectedPlayer1 || !selectedPlayer2 || areSamePlayers() || isLoading">
+          {{ isLoading ? 'Loading...' : 'Compare Players' }}
+        </button>
+      </div>
+    </div>
+  
+    <!-- Loading Indicator -->
+    <div class="loading-overlay" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading data...</p>
+    </div>
+  
+    <!-- Comparison Results -->
+    <div class="comparison-results" *ngIf="showComparison">
+      <!-- Player Cards -->
+      <div class="player-cards">
+        <div class="player-card player-card-1" [ngClass]="{'bad-state-player': selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)}">
+          <div class="player-header">
+            <div class="player-photo">
+              <img [src]="getPlayerPhoto(selectedPlayer1)" [alt]="selectedPlayer1?.nameUsers">
+              <div *ngIf="selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)" class="bad-state-indicator">!</div>
+            </div>
+            <div class="player-info">
+              <h2>{{ selectedPlayer1?.nameUsers }} {{ selectedPlayer1?.prenomUser }}</h2>
+              <div class="player-details">
+                <span class="position-badge">{{ selectedPlayer1?.posteJoueur }}</span>
+                <span class="player-number">{{ selectedPlayer1?.numeroJoueur }}</span>
+              </div>
+              <div *ngIf="selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)" class="bad-state-warning">
+                {{ getBadStateReason(selectedPlayer1.numeroJoueur) }}
+              </div>
+            </div>
+          </div>
+          <div class="player-stats">
+            <div class="stat-category" *ngFor="let category of categories">
+              <div class="stat-label">{{ category.label }}</div>
+              <div class="stat-value" [style.background-color]="category.color">
+                {{ player1Stats[category.key] || 0 }}
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="player-card player-card-2" [ngClass]="{'bad-state-player': selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)}">
+          <div class="player-header">
+            <div class="player-photo">
+              <img [src]="getPlayerPhoto(selectedPlayer2)" [alt]="selectedPlayer2?.nameUsers">
+              <div *ngIf="selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)" class="bad-state-indicator">!</div>
+            </div>
+            <div class="player-info">
+              <h2>{{ selectedPlayer2?.nameUsers }} {{ selectedPlayer2?.prenomUser }}</h2>
+              <div class="player-details">
+                <span class="position-badge">{{ selectedPlayer2?.posteJoueur }}</span>
+                <span class="player-number">{{ selectedPlayer2?.numeroJoueur }}</span>
+              </div>
+              <div *ngIf="selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)" class="bad-state-warning">
+                {{ getBadStateReason(selectedPlayer2.numeroJoueur) }}
+              </div>
+            </div>
+          </div>
+          <div class="player-stats">
+            <div class="stat-category" *ngFor="let category of categories">
+              <div class="stat-label">{{ category.label }}</div>
+              <div class="stat-value" [style.background-color]="category.color">
+                {{ player2Stats[category.key] || 0 }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Date Filter Info -->
+      <div class="date-filter-info" *ngIf="filterByDate">
+        <div class="filter-badge">
+          <i class="icon-calendar"></i> Filtered by date: {{ formatDate(startDate) }} - {{ formatDate(endDate) }}
+          <button class="clear-filter-btn" (click)="resetDateFilter()">
+            <i class="icon-close"></i>
+          </button>
+        </div>
+      </div>
+  
+      <!-- Tabs Navigation -->
+      <div class="tabs-container">
+        <div class="tabs-nav">
+          <button class="tab-btn" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+            <i class="icon-radar"></i> Overview
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'sessions'" (click)="setActiveTab('sessions')">
+            <i class="icon-calendar"></i> Sessions
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'subgroups'" (click)="setActiveTab('subgroups')">
+            <i class="icon-users"></i> Subgroups
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'details'" (click)="setActiveTab('details')">
+            <i class="icon-list"></i> Details
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'session-comparison'" (click)="setActiveTab('session-comparison')">
+            <i class="icon-bar-chart"></i> Session Comparison
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'match-selection'" (click)="setActiveTab('match-selection')">
+            <i class="icon-trophy"></i> Match Selection
+          </button>
+        </div>
+  
+        <!-- Tab Content: Overview -->
+        <div class="tab-content" *ngIf="activeTab === 'overview'">
+          <div class="charts-container">
+            <div class="chart-box">
+              <h3>Category Comparison</h3>
+              <div class="chart-wrapper">
+                <canvas #radarChart></canvas>
+              </div>
+            </div>
+            <div class="chart-box">
+              <h3>Attribute Comparison</h3>
+              <div class="chart-wrapper">
+                <canvas #barChart></canvas>
+              </div>
+            </div>
+          </div>
+  
+          <div class="attributes-comparison">
+            <h3>Detailed Attribute Comparison</h3>
+            
+            <div class="attributes-grid">
+              <div class="attribute-row header-row">
+                <div class="player1-value">{{ selectedPlayer1?.nameUsers }}</div>
+                <div class="attribute-name">Attribute</div>
+                <div class="player2-value">{{ selectedPlayer2?.nameUsers }}</div>
+              </div>
+              
+              <ng-container *ngFor="let attr of attributesToCompare">
+                <div class="attribute-row">
+                  <div class="player1-value" [ngClass]="getHigherStatClass(attr.key).player1Class">
+                    {{ player1Stats[attr.key] || 0 }}
+                  </div>
+                  <div class="attribute-name">{{ attr.label }}</div>
+                  <div class="player2-value" [ngClass]="getHigherStatClass(attr.key).player2Class">
+                    {{ player2Stats[attr.key] || 0 }}
+                  </div>
+                </div>
+                <div class="attribute-bars">
+                  <div class="player1-bar-container">
+                    <div class="player1-bar" [style.width]="getStatBarWidth(player1Stats[attr.key] || 0)" 
+                         [style.background]="getStatGradient(player1Stats[attr.key] || 0)"></div>
+                  </div>
+                  <div class="player2-bar-container">
+                    <div class="player2-bar" [style.width]="getStatBarWidth(player2Stats[attr.key] || 0)" 
+                         [style.background]="getStatGradient(player2Stats[attr.key] || 0)"></div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Tab Content: Sessions -->
+        <div class="tab-content" *ngIf="activeTab === 'sessions'">
+          <div class="sessions-container">
+            <div class="sessions-list">
+              <h3>Sessions</h3>
+              <div class="player1-sessions">
+                <h4>{{ selectedPlayer1?.nameUsers }} {{ selectedPlayer1?.prenomUser }}</h4>
+                <div class="session-group" *ngFor="let sessionKey of getSessionKeys(player1Sessions)">
+                  <h5>{{ sessionKey }}</h5>
+                  <ul>
+                    <li *ngFor="let session of player1Sessions[sessionKey]">
+                      <span class="session-date">{{ session.jourSeance| date:'MM/dd/yyyy' }}</span>
+                      <span class="session-title">{{ session.titleSeance }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="player2-sessions">
+                <h4>{{ selectedPlayer2?.nameUsers }} {{ selectedPlayer2?.prenomUser }}</h4>
+                <div class="session-group" *ngFor="let sessionKey of getSessionKeys(player2Sessions)">
+                  <h5>{{ sessionKey }}</h5>
+                  <ul>
+                    <li *ngFor="let session of player2Sessions[sessionKey]">
+                      <span class="session-date">{{ session.jourSeance | date:'MM/dd/yyyy' }}</span>
+                      <span class="session-title">{{ session.titleSeance }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Tab Content: Subgroups -->
+        <div class="tab-content" *ngIf="activeTab === 'subgroups'">
+          <div class="subgroups-container">
+            <div class="subgroups-list">
+              <h3>Subgroups</h3>
+              <div class="player1-subgroups">
+                <h4>{{ selectedPlayer1?.nameUsers }} {{ selectedPlayer1?.prenomUser }}</h4>
+                <div class="subgroup-group" *ngFor="let subgroupKey of getSubgroupKeys(player1Subgroups)">
+                  <h5>{{ subgroupKey }}</h5>
+                  <ul>
+                    <li *ngFor="let subgroup of player1Subgroups[subgroupKey]">
+                      <span class="subgroup-name">{{ subgroup.nameSousGroup }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="player2-subgroups">
+                <h4>{{ selectedPlayer2?.nameUsers }} {{ selectedPlayer2?.prenomUser }}</h4>
+                <div class="subgroup-group" *ngFor="let subgroupKey of getSubgroupKeys(player2Subgroups)">
+                  <h5>{{ subgroupKey }}</h5>
+                  <ul>
+                    <li *ngFor="let subgroup of player2Subgroups[subgroupKey]">
+                      <span class="subgroup-name">{{ subgroup.nameSousGroup }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Tab Content: Details -->
+        <div class="tab-content" *ngIf="activeTab === 'details'">
+          <div class="details-container">
+            <div class="reports-selection">
+              <div class="player1-reports">
+                <h4>{{ selectedPlayer1?.nameUsers }} {{ selectedPlayer1?.prenomUser }}</h4>
+                <select [(ngModel)]="selectedReport1">
+                  <option [ngValue]="null">Select a report</option>
+                  <option *ngFor="let report of player1Reports" [ngValue]="report">
+                    Report from {{ formatDate(report.dateRapport) }}
+                  </option>
+                </select>
+              </div>
+              
+              <div class="player2-reports">
+                <h4>{{ selectedPlayer2?.nameUsers }} {{ selectedPlayer2?.prenomUser }}</h4>
+                <select [(ngModel)]="selectedReport2">
+                  <option [ngValue]="null">Select a report</option>
+                  <option *ngFor="let report of player2Reports" [ngValue]="report">
+                    Report from {{ formatDate(report.dateRapport) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="reports-comparison" *ngIf="selectedReport1 || selectedReport2">
+              <div class="report-details">
+                <div class="report-column" *ngIf="selectedReport1">
+                  <h4>{{ selectedPlayer1?.nameUsers }} {{ selectedPlayer1?.prenomUser }}</h4>
+                  <div class="report-info">
+                    <p><strong>Date:</strong> {{ formatDate(selectedReport1.dateRapport) }}</p>
+                    <p><strong>Session:</strong> {{ selectedReport1.seancesrapport?.titleSeance || 'N/A' }}</p>
+                    <p><strong>Subgroup:</strong> {{ selectedReport1.sousGroupesrapport?.nameSousGroup || 'N/A' }}</p>
+                    <p><strong>State:</strong> <span [ngClass]="{'bad-state-text': selectedReport1.etatRapport === 'BAD'}">{{ selectedReport1.etatRapport === 'BAD' ? 'Bad' : 'Good' }}</span></p>
+                  </div>
+                  
+                  <div class="report-attributes">
+                    <div class="attribute-item" *ngFor="let attr of attributesToCompare">
+                      <div class="attribute-label">{{ attr.label }}</div>
+                      <div class="attribute-bar-container">
+                        <div class="attribute-bar" 
+                             [style.width]="getReportStatBarWidth(selectedReport1, attr.key)"
+                             [style.background-color]="getReportStatColor(selectedReport1, attr.key)">
+                          <span class="attribute-value">{{ getReportAttributeValue(selectedReport1, attr.key) }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="report-column" *ngIf="selectedReport2">
+                  <h4>{{ selectedPlayer2?.nameUsers }} {{ selectedPlayer2?.prenomUser }}</h4>
+                  <div class="report-info">
+                    <p><strong>Date:</strong> {{ formatDate(selectedReport2.dateRapport) }}</p>
+                    <p><strong>Session:</strong> {{ selectedReport2.seancesrapport?.titleSeance || 'N/A' }}</p>
+                    <p><strong>Subgroup:</strong> {{ selectedReport2.sousGroupesrapport?.nameSousGroup || 'N/A' }}</p>
+                    <p><strong>State:</strong> <span [ngClass]="{'bad-state-text': selectedReport2.etatRapport === 'BAD'}">{{ selectedReport2.etatRapport === 'BAD' ? 'Bad' : 'Good' }}</span></p>
+                  </div>
+                  
+                  <div class="report-attributes">
+                    <div class="attribute-item" *ngFor="let attr of attributesToCompare">
+                      <div class="attribute-label">{{ attr.label }}</div>
+                      <div class="attribute-bar-container">
+                        <div class="attribute-bar" 
+                             [style.width]="getReportStatBarWidth(selectedReport2, attr.key)"
+                             [style.background-color]="getReportStatColor(selectedReport2, attr.key)">
+                          <span class="attribute-value">{{ getReportAttributeValue(selectedReport2, attr.key) }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Tab Content: Session Comparison -->
+        <div class="tab-content" *ngIf="activeTab === 'session-comparison'">
+          <div class="session-comparison-container">
+            <div class="session-filter">
+              <h3>Session Comparison</h3>
+              <div class="filter-controls">
+                <label for="sessionFilter">Filter by session:</label>
+                <select id="sessionFilter" [(ngModel)]="selectedSessionFilter" (change)="filterSessionComparisons()">
+                  <option value="all">All sessions</option>
+                  <option *ngFor="let session of sessionComparisons" [value]="session.sessionName">
+                    {{ session.sessionName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="session-chart">
+              <canvas #sessionComparisonChart></canvas>
+            </div>
+            
+            <div class="session-details" *ngIf="selectedSessionComparison">
+              <div class="session-header">
+                <h4>{{ selectedSessionComparison.sessionName }}</h4>
+                <div class="winner-badge" [ngClass]="getWinnerBadgeClass(
+                  selectedSessionComparison.player1Points, 
+                  selectedSessionComparison.player2Points)">
+                  Best player: {{ selectedSessionComparison.bestPlayer }}
+                </div>
+              </div>
+              
+              <div class="session-scores">
+                <div class="player-score">
+                  <div class="player-name">
+                    {{ selectedPlayer1?.nameUsers }} {{ selectedPlayer1?.prenomUser }}
+                    <span *ngIf="selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)" class="bad-state-badge">Bad condition</span>
+                  </div>
+                  <div class="score-value">{{ selectedSessionComparison.player1Points }}</div>
+                </div>
+                
+                <div class="vs-indicator">VS</div>
+                
+                <div class="player-score">
+                  <div class="player-name">
+                    {{ selectedPlayer2?.nameUsers }} {{ selectedPlayer2?.prenomUser }}
+                    <span *ngIf="selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)" class="bad-state-badge">Bad condition</span>
+                  </div>
+                  <div class="score-value">{{ selectedSessionComparison.player2Points }}</div>
+                </div>
+              </div>
+              
+              <div class="recommendation-box">
+                <h5>Recommendation</h5>
+                <p>{{ selectedSessionComparison.recommendation }}</p>
+              </div>
+            </div>
+            
+            <div class="sessions-summary">
+              <h4>Sessions Summary</h4>
+              <div class="summary-stats">
+                <div class="summary-item">
+                  <div class="summary-label">Best player overall</div>
+                  <div class="summary-value">{{ getBestPlayerOverall() }}</div>
+                </div>
+                
+                <div class="summary-item">
+                  <div class="summary-label">Average {{ selectedPlayer1?.nameUsers }}</div>
+                  <div class="summary-value">{{ getAverageSessionPoints(true) }}</div>
+                </div>
+                
+                <div class="summary-item">
+                  <div class="summary-label">Average {{ selectedPlayer2?.nameUsers }}</div>
+                  <div class="summary-value">{{ getAverageSessionPoints(false) }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Tab Content: Match Selection -->
+        <div class="tab-content" *ngIf="activeTab === 'match-selection'">
+          <div class="match-selection-container">
+            <!-- Warning for players in bad condition -->
+            <div *ngIf="(selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)) || 
+                        (selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur))" 
+                 class="bad-state-warning-banner">
+              <i class="warning-icon"></i>
+              <div class="warning-message">
+                <strong>Warning:</strong> 
+                <span *ngIf="selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)">
+                  {{ selectedPlayer1.nameUsers }} {{ selectedPlayer1.prenomUser }} is in poor physical condition.
+                </span>
+                <span *ngIf="selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur) && 
+                             selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)"> and </span>
+                <span *ngIf="selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)">
+                  {{ selectedPlayer2.nameUsers }} {{ selectedPlayer2.prenomUser }} is in poor physical condition.
+                </span>
+                <p>Comparison with players in poor condition is not recommended for match selection.</p>
+              </div>
+            </div>
+  
+            <div class="match-selection-header">
+              <h3>Comparison for Match Selection</h3>
+              <p class="match-selection-description">
+                Comparative analysis of performances to determine the best player for the next match.
+              </p>
+            </div>
+  
+            <div class="match-comparison-result">
+              <div class="player-comparison-cards">
+                <div class="player-comparison-card" [ngClass]="{'bad-state-player': selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)}">
+                  <div class="player-photo">
+                    <img [src]="getPlayerPhoto(selectedPlayer1)" [alt]="selectedPlayer1?.nameUsers">
+                    <div *ngIf="selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)" class="bad-state-indicator">!</div>
+                  </div>
+                  <div class="player-info">
+                    <h4>{{ selectedPlayer1?.nameUsers }} {{ selectedPlayer1?.prenomUser }}</h4>
+                    <div class="player-score">
+                      <div class="score-value" [ngClass]="getScoreClass(matchSelectionScore.player1)">
+                        {{ matchSelectionScore.player1 }}
+                      </div>
+                    </div>
+                    <div *ngIf="selectedPlayer1 && isPlayerInBadState(selectedPlayer1.numeroJoueur)" class="bad-state-reason">
+                      {{ getBadStateReason(selectedPlayer1.numeroJoueur) }}
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="comparison-vs">VS</div>
+  
+                <div class="player-comparison-card" [ngClass]="{'bad-state-player': selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)}">
+                  <div class="player-photo">
+                    <img [src]="getPlayerPhoto(selectedPlayer2)" [alt]="selectedPlayer2?.nameUsers">
+                    <div *ngIf="selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)" class="bad-state-indicator">!</div>
+                  </div>
+                  <div class="player-info">
+                    <h4>{{ selectedPlayer2?.nameUsers }} {{ selectedPlayer2?.prenomUser }}</h4>
+                    <div class="player-score">
+                      <div class="score-value" [ngClass]="getScoreClass(matchSelectionScore.player2)">
+                        {{ matchSelectionScore.player2 }}
+                      </div>
+                    </div>
+                    <div *ngIf="selectedPlayer2 && isPlayerInBadState(selectedPlayer2.numeroJoueur)" class="bad-state-reason">
+                      {{ getBadStateReason(selectedPlayer2.numeroJoueur) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="comparison-conclusion">
+                <div class="conclusion-header">
+                  <h4>Conclusion</h4>
+                </div>
+                <div class="conclusion-content">
+                  <p>{{ matchSelectionReason }}</p>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Performance metrics chart -->
+            <div class="performance-metrics">
+              <h4>Performance Metrics</h4>
+              <div class="metrics-chart">
+                <canvas #matchSelectionChart></canvas>
+              </div>
+            </div>
+  
+            <!-- Session performance summary -->
+            <div class="session-performance-summary">
+              <h4>Session Performance Summary</h4>
+              <div class="session-summary-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Session</th>
+                      <th>{{ selectedPlayer1?.nameUsers }}</th>
+                      <th>{{ selectedPlayer2?.nameUsers }}</th>
+                      <th>Difference</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let session of sessionComparisons">
+                      <td>{{ session.sessionName }}</td>
+                      <td [ngClass]="{'higher-value': session.player1Points > session.player2Points}">
+                        {{ session.player1Points }}
+                      </td>
+                      <td [ngClass]="{'higher-value': session.player2Points > session.player1Points}">
+                        {{ session.player2Points }}
+                      </td>
+                      <td>
+                        <span *ngIf="session.player1Points > session.player2Points">
+                          +{{ session.player1Points - session.player2Points }} for {{ selectedPlayer1?.nameUsers }}
+                        </span>
+                        <span *ngIf="session.player2Points > session.player1Points">
+                          +{{ session.player2Points - session.player1Points }} for {{ selectedPlayer2?.nameUsers }}
+                        </span>
+                        <span *ngIf="session.player1Points === session.player2Points">
+                          Tie
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="actions">
+        <button class="reset-btn" (click)="resetComparison()">Reset comparison</button>
+      </div>
+    </div>
+  </div>
+  

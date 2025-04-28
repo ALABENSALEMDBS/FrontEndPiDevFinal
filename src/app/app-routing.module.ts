@@ -73,6 +73,11 @@ import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update
 import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster/broadcaster.component';
 import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
 import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
+import { PlayerRapportDetailsComponent } from './FrontOffice/AnalysteFrontOffice/rapport/player-rapport-details/player-rapport-details.component';
+import { SimilaireplayerComponent } from './FrontOffice/AnalysteFrontOffice/rapport/similaireplayer/similaireplayer.component';
+import { CompareplayersComponent } from './FrontOffice/AnalysteFrontOffice/compareplayers/compareplayers.component';
+import { PlayerreportstatComponent } from './FrontOffice/AnalysteFrontOffice/rapport/playerreportstat/playerreportstat.component';
+import { AffectsessionexerciceComponent } from './FrontOffice/CoachFrontOffice/affectsessionexercice/affectsessionexercice.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -257,6 +262,7 @@ const routes: Routes = [
         children: [
           { path: 'addseance', component: AddseanceComponent },
           {path: 'updateseance/:idSeance', component: UpdateseanceComponent },
+          { path: 'affectsessionexercice/:id',component: AffectsessionexerciceComponent }
 
         ]
       },
@@ -297,12 +303,16 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'Homeanalyste', pathMatch: 'full' },
       { path: 'Homeanalyste', component: HomeAnalysteComponent  },
+      { path: 'compareplayers', component: CompareplayersComponent },
+      { path: 'PlayerreportstatComponent', component: PlayerreportstatComponent },
       {
         path: 'Reportshow',
         component:ListRapportComponent ,
         children: [
           { path: 'update/:idRapport', component: UpdateRapportComponent },
           { path: 'addreports', component: AddRapportComponent },
+          { path: 'player-details/:numeroJoueur', component: PlayerRapportDetailsComponent },
+          {path: "similaireplayer",component: SimilaireplayerComponent},
         ]
       }]
   },

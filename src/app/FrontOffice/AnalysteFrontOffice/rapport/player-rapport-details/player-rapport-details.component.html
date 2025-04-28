@@ -1,145 +1,155 @@
 <div class="player-details-panel" *ngIf="joueur" #playerPanel>
-    <div class="panel-header">
-      <h2>Informations du Joueur</h2>
-      <button class="close-btn" (click)="closePanel()">×</button>
-    </div>
-  
-    <div class="player-info">
-      <img [src]="joueur.photoUser || 'assets/default-avatar.png'" alt="Photo du Joueur">
-      <h3>{{ joueur.nameUsers }} {{ joueur.prenomUser }}</h3>
-  
-      <div class="info-group">
-        <h4>Informations personnelles</h4>
-        <div class="info-item">
-          <strong>Email :</strong>
-          <span>{{ joueur.emailUser }}</span>
-        </div>
-        <div class="info-item">
-          <strong>Téléphone :</strong>
-          <span>{{ joueur.telephoneUser }}</span>
-        </div>
-      </div>
-  
-      <div class="info-group">
-        <h4>Informations sportives</h4>
-        <div class="info-item">
-          <strong>Position :</strong>
-          <span>{{ joueur.posteJoueur }}</span>
-        </div>
-        <div class="info-item">
-          <strong>Numéro :</strong>
-          <span>{{ joueur.numeroJoueur }}</span>
-        </div>
-      </div>
-  
-      <div class="info-group">
-        <h4>Contrat</h4>
-        <div class="info-item">
-          <strong>Début :</strong>
-          <span>{{ joueur.debutContratJoueur | date }}</span>
-        </div>
-        <div class="info-item">
-          <strong>Fin :</strong>
-          <span>{{ joueur.finContratJoueur | date }}</span>
-        </div>
-      </div>
-  
-      <div class="info-group" *ngIf="joueur.rapport">
-        <h4>Rapport médical</h4>
-        <div class="info-item">
-          <strong>État :</strong>
-          <span>{{ joueur.rapport.etatRapport }}</span>
-        </div>
-        <div class="info-item">
-          <strong>Blessure :</strong>
-          <span>{{ joueur.rapport.blessureRapport }}</span>
-        </div>
-      </div>
-  
-      <div class="info-group" *ngIf="joueur.rapport">
-        <h4>Attributs physiques</h4>
-        <div class="attribute-grid">
-          <div class="attribute-item">
-            <strong>Vitesse :</strong>
-            <span>{{ joueur.rapport.speedRapport }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Accélération :</strong>
-            <span>{{ joueur.rapport.accelerationRapport }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Endurance :</strong>
-            <span>{{ joueur.rapport.endurance }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Endurance musculaire :</strong>
-            <span>{{ joueur.rapport.muscularEndurance }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Capacité aérobique :</strong>
-            <span>{{ joueur.rapport.aerobicCapacity }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Capacité anaérobique :</strong>
-            <span>{{ joueur.rapport.anaerobicCapacity }}</span>
-          </div>
-        </div>
-      </div>
-  
-      <div class="info-group" *ngIf="joueur.rapport">
-        <h4>Attributs de force</h4>
-        <div class="attribute-grid">
-          <div class="attribute-item">
-            <strong>Force :</strong>
-            <span>{{ joueur.rapport.strength }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Puissance :</strong>
-            <span>{{ joueur.rapport.power }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Explosivité :</strong>
-            <span>{{ joueur.rapport.explosiveness }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Saut vertical :</strong>
-            <span>{{ joueur.rapport.verticalJump }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Saut horizontal :</strong>
-            <span>{{ joueur.rapport.horizontalJump }}</span>
-          </div>
-        </div>
-      </div>
-  
-      <div class="info-group" *ngIf="joueur.rapport">
-        <h4>Attributs de coordination</h4>
-        <div class="attribute-grid">
-          <div class="attribute-item">
-            <strong>Agilité :</strong>
-            <span>{{ joueur.rapport.agility }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Équilibre :</strong>
-            <span>{{ joueur.rapport.balance }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Coordination :</strong>
-            <span>{{ joueur.rapport.coordination }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Temps de réaction :</strong>
-            <span>{{ joueur.rapport.reactionTime }}</span>
-          </div>
-          <div class="attribute-item">
-            <strong>Réactivité :</strong>
-            <span>{{ joueur.rapport.reactivity }}</span>
-          </div>
-        </div>
-      </div>
-  
-     
-  
-      <button class="download-btn" (click)="downloadPDF()">Télécharger PDF</button>
-    </div>
+  <div class="panel-header">
+    <h2>player information
+
+    </h2>
+    <button class="close-btn" (click)="closePanel()">×</button>
   </div>
+
+  <div class="player-info">
+    <img [src]="joueur.photoUser || 'assets/default-avatar.png'" alt="Photo du Joueur" />
+    <h3>{{ joueur.nameUsers }} {{ joueur.prenomUser }}</h3>
+
+    <!-- Informations personnelles -->
+    <div class="info-group">
+      <h4>personal information
+      </h4>
+      <div class="info-item"><strong>Email :</strong> <span>{{ joueur.emailUser }}</span></div>
+      <div class="info-item"><strong>phone :</strong> <span>{{ joueur.telephoneUser }}</span></div>
+    </div>
+
+    <!-- Informations sportives -->
+    <div class="info-group">
+      <h4>sports information
+
+      </h4>
+      <div class="info-item"><strong>position :</strong> <span>{{ joueur.posteJoueur }}</span></div>
+      <div class="info-item"><strong>number :</strong> <span>{{ joueur.numeroJoueur }}</span></div>
+    </div>
+
+    <!-- Contrat -->
+    <div class="info-group">
+      <h4>contract</h4>
+      <div class="info-item"><strong>beginning :</strong> <span>{{ joueur.debutContratJoueur | date }}</span></div>
+      <div class="info-item"><strong>end :</strong> <span>{{ joueur.finContratJoueur | date }}</span></div>
+    </div>
+
+    <!-- Rapport médical -->
+    <div class="info-group" *ngIf="selectedRapport">
+      <h4>medical report
+      </h4>
+      <div class="info-item"><strong>state :</strong>
+        <span [ngClass]="getStatusClass(selectedRapport.etatRapport)">{{ selectedRapport.etatRapport }}</span>
+      </div>
+      <div class="info-item"><strong>injury :</strong>
+        <span [ngClass]="getInjuryClass(selectedRapport.blessureRapport)">{{ selectedRapport.blessureRapport }}</span>
+      </div>
+    </div>
+
+    <!-- Attributs physiques -->
+    <div class="info-group" *ngIf="selectedRapport">
+      <h4>physical attributes
+
+      </h4>
+      <div class="attribute-grid">
+        <div class="attribute-item"><strong>speed :</strong> <span>{{ selectedRapport.speedRapport }}</span></div>
+        <div class="attribute-item"><strong>acceleration :</strong> <span>{{ selectedRapport.accelerationRapport }}</span></div>
+        <div class="attribute-item"><strong>stamina :</strong> <span>{{ selectedRapport.endurance }}</span></div>
+        <div class="attribute-item"><strong>muscular endurance:</strong> <span>{{ selectedRapport.muscularEndurance }}</span></div>
+        <div class="attribute-item"><strong>aerobic capacity :</strong> <span>{{ selectedRapport.aerobicCapacity }}</span></div>
+        <div class="attribute-item"><strong>anaerobic capacity :</strong> <span>{{ selectedRapport.anaerobicCapacity }}</span></div>
+      </div>
+    </div>
+
+    <!-- Attributs de force -->
+    <div class="info-group" *ngIf="selectedRapport">
+      <h4>Strength attributes</h4>
+      <div class="attribute-grid">
+        <div class="attribute-item"><strong>strength :</strong> <span>{{ selectedRapport.strength }}</span></div>
+        <div class="attribute-item"><strong>power :</strong> <span>{{ selectedRapport.power }}</span></div>
+        <div class="attribute-item"><strong>explosiveness :</strong> <span>{{ selectedRapport.explosiveness }}</span></div>
+        <div class="attribute-item"><strong>vertical jump :</strong> <span>{{ selectedRapport.verticalJump }}</span></div>
+        <div class="attribute-item"><strong>Horizontal jump :</strong> <span>{{ selectedRapport.horizontalJump }}</span></div>
+      </div>
+    </div>
+
+    <!-- Attributs de coordination -->
+    <div class="info-group" *ngIf="selectedRapport">
+      <h4>Coordination attributes</h4>
+      <div class="attribute-grid">
+        <div class="attribute-item"><strong>agility :</strong> <span>{{ selectedRapport.agility }}</span></div>
+        <div class="attribute-item"><strong>balance :</strong> <span>{{ selectedRapport.balance }}</span></div>
+        <div class="attribute-item"><strong>coordination :</strong> <span>{{ selectedRapport.coordination }}</span></div>
+        <div class="attribute-item"><strong>reaction time
+          :</strong> <span>{{ selectedRapport.reactionTime }}</span></div>
+        <div class="attribute-item"><strong>responsiveness
+          :</strong> <span>{{ selectedRapport.reactivity }}</span></div>
+      </div>
+    </div>
+
+    <!-- Joueurs similaires -->
+    <div class="info-group" *ngIf="similarPlayers && similarPlayers.length > 0">
+      <h4>Players with similar performance</h4>
+      <div class="similar-players">
+        <div *ngFor="let player of similarPlayers" class="similar-player-full-info">
+          <div class="panel-header">
+            <h5>{{ player.nameUsers }} {{ player.prenomUser }}</h5>
+          </div>
+    
+          <div class="player-info">
+            <img [src]="player.photoUser || 'assets/default-avatar.png'" alt="Photo du Joueur" />
+    
+            <!-- Infos personnelles -->
+            <div class="info-item"><strong>Email :</strong> {{ player.emailUser }}</div>
+            <div class="info-item"><strong>phone :</strong> {{ player.telephoneUser }}</div>
+    
+            <!-- Infos sportives -->
+            <div class="info-item"><strong>position :</strong> {{ player.posteJoueur }}</div>
+            <div class="info-item"><strong>number :</strong> {{ player.numeroJoueur }}</div>
+    
+            <!-- Contrat -->
+            <div class="info-item"><strong>contract :</strong> {{ player.debutContratJoueur | date:'shortDate' }} - {{ player.finContratJoueur | date:'shortDate' }}</div>
+    
+            <!-- Affichage du rapport si présent -->
+            <ng-container *ngIf="player.rapports && player.rapports.length > 0">
+              <div class="rapport-section">
+                <h6>Last physical report</h6>
+                <ng-container *ngIf="player.rapports[0] as rapport">
+                  <!-- Etat / blessure -->
+                  <div class="info-item"><strong>state :</strong> <span [ngClass]="getStatusClass(rapport.etatRapport)">{{ rapport.etatRapport }}</span></div>
+                  <div class="info-item"><strong>injury :</strong> <span [ngClass]="getInjuryClass(rapport.blessureRapport)">{{ rapport.blessureRapport }}</span></div>
+    
+                  <!-- Attributs -->
+                  <div class="attribute-grid">
+                    <div class="attribute-item"><strong>speed :</strong> {{ rapport.speedRapport }}</div>
+                    <div class="attribute-item"><strong>acceleration :</strong> {{ rapport.accelerationRapport }}</div>
+                    <div class="attribute-item"><strong>endurance :</strong> {{ rapport.endurance }}</div>
+                    <div class="attribute-item"><strong>muscular endurance
+                      :</strong> {{ rapport.muscularEndurance }}</div>
+                    <div class="attribute-item"><strong>aerobic capacity
+                      :</strong> {{ rapport.aerobicCapacity }}</div>
+                    <div class="attribute-item"><strong>anaerobic capacity
+
+                      :</strong> {{ rapport.anaerobicCapacity }}</div>
+                    <div class="attribute-item"><strong>strength :</strong> {{ rapport.strength }}</div>
+                    <div class="attribute-item"><strong>power :</strong> {{ rapport.power }}</div>
+                    <div class="attribute-item"><strong>explosiveness :</strong> {{ rapport.explosiveness }}</div>
+                    <div class="attribute-item"><strong>Vertical jump :</strong> {{ rapport.verticalJump }}</div>
+                    <div class="attribute-item"><strong>Horizontal jump :</strong> {{ rapport.horizontalJump }}</div>
+                    <div class="attribute-item"><strong>agility :</strong> {{ rapport.agility }}</div>
+                    <div class="attribute-item"><strong>balance :</strong> {{ rapport.balance }}</div>
+                    <div class="attribute-item"><strong>coordination :</strong> {{ rapport.coordination }}</div>
+                    <div class="attribute-item"><strong>reaction time
+                      :</strong> {{ rapport.reactionTime }}</div>
+                    <div class="attribute-item"><strong>responsiveness :</strong> {{ rapport.reactivity }}</div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
