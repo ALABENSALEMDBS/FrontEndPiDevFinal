@@ -89,9 +89,9 @@ export class ClubsService {
   // }
 
 
-  updateClub(idClub: number, formData: FormData): Observable<any> {
+  /*updateClub(idClub: number, formData: FormData): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/modify-club/${idClub}`, formData);
-  }
+  }*/
   
 
 // In ClubsService
@@ -104,11 +104,46 @@ getClubById(id: number): Observable<Clubs> {
     return this.http.post<Clubs[]>(`${this.baseUrl}/add-club`, club);
   }
 
+
+  //hedhi
   createClubs(clubsData: any, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('club', JSON.stringify(clubsData));
     formData.append('file', file);
     return this.http.post<any>(`${this.baseUrl}/saveClub`, formData);
   }
+  
+
+  /*updateClub(clubId: number, clubsData: any, file?: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('club', JSON.stringify(clubsData));
+    if (file) {
+      formData.append('file', file);
+    }
+    return this.http.put<any>(`${this.baseUrl}/updateClub/${clubId}`, formData);
+  }*/
+  
+
+
+  getImage(filename: string): Observable<Blob> {
+    const cleanFilename = filename.replace(/^\.\/uploadss\\/i, ''); 
+    return this.http.get(`http://localhost:8089/PiDevBackEndProject/club/uploads/${cleanFilename}`, { responseType: 'blob' });
+  }
+  uploadPostPicture(postId: number, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.baseUrl}/picture/${postId}`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+
+  updateClub(clubId: number, clubsData: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/updateClub/${clubId}`, clubsData);
+  }
+  
 }
+
 

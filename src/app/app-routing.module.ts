@@ -74,6 +74,15 @@ import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster
 import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
 import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
 
+/*import { CompetitionStandingsComponent } from './BackOffice/admin-backoffice/Competition/competition-standings-component/competition-standings-component.component';
+import { ListCupComponent } from './BackOffice/admin-backoffice/Cup/list-cup/list-cup.component';
+import { AddCupComponent } from './BackOffice/admin-backoffice/Cup/add-cup/add-cup.component';
+import { CupMatchesComponent } from './BackOffice/admin-backoffice/Cup/cup-matches/cup-matches.component';
+import { UpdateCupGoalsComponent } from './BackOffice/admin-backoffice/Cup/update-cup-goals/update-cup-goals.component';
+import { CupClubsComponent } from './BackOffice/admin-backoffice/Cup/cup-clubs/cup-clubs.component';
+import { UpdateCupMatchComponent } from './BackOffice/admin-backoffice/Cup/update-cup-match/update-cup-match.component';
+import { CupBracketComponent } from './BackOffice/admin-backoffice/Cup/cup-bracket/cup-bracket.component';
+*/
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -119,9 +128,43 @@ const routes: Routes = [
             { path: 'clubs/:id', component: CompetitionClubsComponent },
             { path: 'addmatch', component: AddMatchComponent },
             { path: "update-match/:competitionId/:matchId", component: UpdateCompetitionMatchComponent},
-            { path: "update-goals/:competitionId/:matchId", component: UpdateCompetitionGoalsComponent}
+            { path: "update-goals/:competitionId/:matchId", component: UpdateCompetitionGoalsComponent},
+            { path: 'standings/:id', component: CompetitionStandingsComponent }, // Added standings route
           ]
         },
+
+
+
+        //this is the cup part
+        {
+          path: 'superadmin/showcup',
+          component: ListCupComponent,
+          children: [
+            { path: 'add', component: AddCupComponent },
+            { path: 'matches/:id', component: CupMatchesComponent },
+            { path: 'clubs/:id', component: CupClubsComponent },
+            { path: 'update-match/:cupId/:matchId', component: UpdateCupMatchComponent },
+            { path: 'update-goals/:cupId/:matchId', component: UpdateCupGoalsComponent },
+            { path: 'bracket/:id', component: CupBracketComponent },
+          ]
+        },
+
+
+
+
+
+      // Add this to the routes array in the superadmin section
+{
+  path: 'showcup',
+  component: ListCupComponent,
+  children: [
+    { path: 'add', component: AddCupComponent },
+    { path: 'matches/:id', component: CupMatchesComponent },
+    { path: "update-goals/:competitionId/:matchId", component: UpdateCupGoalsComponent },
+  ]
+},
+
+
 
 
         {

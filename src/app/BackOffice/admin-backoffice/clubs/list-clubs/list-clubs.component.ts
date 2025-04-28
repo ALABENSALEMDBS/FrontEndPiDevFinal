@@ -24,13 +24,37 @@ export class ListClubsComponent implements OnInit{
   }
 
   // Fetch all clubs from the service
+  // getClubs(): void {
+  //   this.clubService.getAllClubs().subscribe(data => {
+  //     this.clubs = data;
+  //     this.clubs.forEach(club=>{
+  //       this.clubService.getImage(club.mediaUrl!).subscribe((imageBlob) => {
+  //         console.log('Image blob:', imageBlob);
+  //         const imageUrl = URL.createObjectURL(imageBlob);
+  //         this.imageUrls.push(imageUrl);
+
+  //     })
+  //   });
+  // }
+
+  imageUrls:string[]=[];
+
   getClubs(): void {
     this.clubService.getAllClubs().subscribe(data => {
       this.clubs = data;
-      console.log(this.clubs);
+     // this.imageUrls = []; // Vider d'abord pour éviter de cumuler si tu rappelles la méthode
+      this.clubs.forEach(club => {
+        if (club.mediaUrl) {
+          this.clubService.getImage(club.mediaUrl).subscribe(imageBlob => {
+            const imageUrl = URL.createObjectURL(imageBlob);
+            this.imageUrls.push(imageUrl);
+          });
+        }
+      });
     });
   }
-
+  
+  
   //Delete a club by id
   // deleteClub(id:any){
   //   this.clubService.delClubs(id).subscribe(() => {
@@ -83,58 +107,5 @@ export class ListClubsComponent implements OnInit{
 
   }
   
-  
-  
-  
-
-
-  // deleteClub(id: number) {
-  //   // Call your service to delete the club by id
-  //   this.clubService.deleteClub(id).subscribe(
-  //     () => {
-  //       console.log(`Club with id ${id} deleted successfully.`);
-  //       // Remove the deleted club from the list
-  //       this.clubs = this.clubs.filter(club => club.idCLubs !== id);
-  //     },
-  //     (error) => {
-  //       console.error(`Error deleting club with id ${id}:`, error);
-  //     }
-  //   );
-  // }
-
-
-  // deleteExercices(id:any){
-  //   this.coatchService.delExercices(id).subscribe(()=>{
-  //     console.log("deleted exercices !!!!")
-  //     window.location.reload()
-  //   })
-  // }
-
-
-
-
-  // deleteClub(id: any) {
-  //   console.log("Deleting club with ID:", id); // ✅ See if ID is undefined
-  //   this.clubService.delClubs(id).subscribe(() => {
-  //     console.log('Club deleted!');
-  //     window.location.reload();
-  //   }, error => {
-  //     console.error('Error deleting club:', error);
-  //   });
-  // }
-  
-
-
-
-
-
-
-
-  /*getAllClubLogos(): string[] {
-    return this.clubs.map(club => 'data:image/jpeg;base64,' + club.logo);
-  }*/
-
-    // Service Method
-
 }
 

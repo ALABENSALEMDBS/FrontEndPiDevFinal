@@ -2,6 +2,7 @@
 
     <div class="card p-4">
       <h3 class="card-title mb-4 text-center">Club Form</h3>
+
   
       <!-- Club Name -->
       <div class="mb-3">
@@ -89,10 +90,19 @@
       </div>
   
       <!-- File Upload for Logo -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="logo" class="form-label">Upload Club Logo:</label>
         <input type="file" id="logo" class="form-control" (change)="onFileSelected($event)" />
-      </div>
+      </div> -->
+
+      <div class="mb-3">
+            <input
+                  id="mediaUrl"
+                  type="file"
+                  class="form-control"                   accept="image/*"
+                  (change)="onFileSelected($event)"
+                >
+              </div>
   
       <!-- Submit Button -->
       <div class="d-flex justify-content-center">

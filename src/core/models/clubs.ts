@@ -7,6 +7,8 @@ export class Clubs {
     licenceClub!: string;
 
     logo!: string;
+
+    mediaUrl!: string;
   
   }
   
