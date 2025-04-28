@@ -112,8 +112,13 @@ export class CalanderDoctorComponent {
     
     // Vérification si une consultation existe déjà à la même date
     const isDateTaken = this.allConsultations.some(consultation => {
-      // Comparaison des dates sans tenir compte de l'heure
-      return new Date(consultation.dateConsultation).toDateString() === consultationDate.toDateString();
+      const existingDate = new Date(consultation.dateConsultation);
+    
+      const sameDay = existingDate.toDateString() === consultationDate.toDateString();
+      const sameTime = existingDate.getHours() === consultationDate.getHours()
+                    && existingDate.getMinutes() === consultationDate.getMinutes();
+      
+      return sameDay && sameTime;
     });
   
     if (isDateTaken) {
