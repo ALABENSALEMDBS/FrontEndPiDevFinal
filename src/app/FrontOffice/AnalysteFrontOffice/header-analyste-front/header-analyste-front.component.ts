@@ -8,7 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
     standalone: false
 })
 export class HeaderAnalysteFrontComponent {
+  isDropdownOpen = false;
 
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
     pageTitle: string = '';
 
@@ -28,14 +32,10 @@ export class HeaderAnalysteFrontComponent {
       this.pageTitle = 'Welcome Analyst';
     } else if (currentUrl.includes('Reportshow')) {
       this.pageTitle = 'Management Reports';
-    } else if (currentUrl.includes('showFormation')) {
-      this.pageTitle = 'Management Formation';
-    } else if (currentUrl.includes('ShowSousGroups')) {
-      this.pageTitle = 'Management Sub Groups';
-    } else if (currentUrl.includes('showseance')) {
-      this.pageTitle = 'Management Session';
-    } else if (currentUrl.includes('showexercice')) {
-      this.pageTitle = 'Management Exercices';
+    } else if (currentUrl.includes('compareplayers')) {
+      this.pageTitle = 'Compare Players';
+    } else if (currentUrl.includes('PlayerreportstatComponent')) {
+      this.pageTitle = 'Recommended Players';
     } else {
       this.pageTitle = 'Welcome';
     }

@@ -1,164 +1,304 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RapportService } from 'src/app/services/serviceAnalyste/gerer-rapport/rapport.service';
+
+// Import models
+import { Joueurs } from 'src/core/models/joueur';
+import { sousgroup } from 'src/core/models/sousgroup';
+import { seance } from 'src/core/models/seance';
+import { Rapport } from 'src/core/models/rapport';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-rapport',
-  imports: [FormsModule,ReactiveFormsModule,CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './add-rapport.component.html',
   styleUrls: ['./add-rapport.component.css']
 })
-export class AddRapportComponent {
+export class AddRapportComponent implements OnInit {
   rapportForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
-  sections: string[] = ["performance", "strength", "agility", "state"]
-  currentSection = "performance"
-  showForm: boolean = true;  // Déclare cette variable
+  sections: string[] = ["player", "performance", "strength", "agility", "state"];
+  currentSection = "player";
+  showForm: boolean = true;
 
+  // Lists for dropdowns
+  joueurs: Joueurs[] = [];
+  sousGroupes: sousgroup[] = [];
+  seances: seance[] = [];
+  filteredSousGroupes: sousgroup[] = [];
+  filteredJoueurs: Joueurs[] = [];
+  
+  // Variable to store selected player
+  selectedJoueur: Joueurs | null = null;
 
   etatOptions = [
-    "good","bad"
+    "GOOD", "BAD"
   ];
 
   blessureOptions = [
-    "None","Minor","Moderate","Severe"
+    "None", "Minor", "Moderate", "Severe"
   ];
 
-  constructor(private rapportService: RapportService, private rout: Router) {
-    // Initialisation sans `titleSeance` et `jourSeance`
-    this.rapportForm = new FormGroup({
-      numeroJoueur: new FormControl('', [Validators.required]),  // Ajout du champ numeroJoueur
-      speedRapport: new FormControl('', [Validators.required]),
-      accelerationRapport: new FormControl('', [Validators.required]),
-      endurance: new FormControl('', [Validators.required]),
-      muscularEndurance: new FormControl('', [Validators.required]),
-      aerobicCapacity: new FormControl('', [Validators.required]),
-      anaerobicCapacity: new FormControl('', [Validators.required]),
-      strength: new FormControl('', [Validators.required]),
-      power: new FormControl('', [Validators.required]),
-      explosiveness: new FormControl('', [Validators.required]),
-      verticalJump: new FormControl('', [Validators.required]),
-      horizontalJump: new FormControl('', [Validators.required]),
-      agility: new FormControl('', [Validators.required]),
-      balance: new FormControl('', [Validators.required]),
-      coordination: new FormControl('', [Validators.required]),
-      reactionTime: new FormControl('', [Validators.required]),
-      reactivity: new FormControl('', [Validators.required]),
-      etatRapport: new FormControl('', [Validators.required]),
-      blessureRapport: new FormControl('', [Validators.required]),
+  constructor(
+    private fb: FormBuilder,
+    private rapportService: RapportService, 
+    private router: Router
+  ) {
+    this.rapportForm = this.fb.group({
+      numeroJoueur: ['', Validators.required],
+      nameSousGroup: ['', Validators.required],
+      titleSeance: ['', Validators.required],
+      speedRapport: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      accelerationRapport: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      endurance: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      muscularEndurance: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      aerobicCapacity: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      anaerobicCapacity: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      strength: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      power: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      explosiveness: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      verticalJump: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      horizontalJump: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      agility: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      balance: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      coordination: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      reactionTime: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      reactivity: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      etatRapport: ['', Validators.required],
+      // Date is set automatically in the addRapport method
+    });
+
+    // Add value change listeners for cascading dropdowns
+    this.rapportForm.get('titleSeance')?.valueChanges.subscribe(titleSeance => {
+      if (titleSeance) {
+        this.loadSousGroupesBySession(titleSeance);
+        // Reset sub-group and player selections when session changes
+        this.rapportForm.get('nameSousGroup')?.setValue('');
+        this.rapportForm.get('numeroJoueur')?.setValue('');
+        this.filteredJoueurs = [];
+        this.selectedJoueur = null;
+      }
+    });
+
+    this.rapportForm.get('nameSousGroup')?.valueChanges.subscribe(nameSousGroup => {
+      if (nameSousGroup) {
+        this.loadJoueursBySousGroup(nameSousGroup);
+        // Reset player selection when sub-group changes
+        this.rapportForm.get('numeroJoueur')?.setValue('');
+        this.selectedJoueur = null;
+      }
     });
     
-  }
-  setCurrentSection(section: string): void {
-    this.currentSection = section
+    // Add listener for player change
+    this.rapportForm.get('numeroJoueur')?.valueChanges.subscribe(numeroJoueur => {
+      if (numeroJoueur) {
+        this.updateSelectedJoueur(numeroJoueur);
+      } else {
+        this.selectedJoueur = null;
+      }
+    });
   }
 
- 
+  ngOnInit(): void {
+    // Load initial data for session dropdown
+    this.loadSeances();
+  }
 
+  // Methods to load data for dropdowns
+  loadJoueurs(): void {
+    this.rapportService.getAllJoueurs().subscribe({
+      next: (data) => {
+        this.joueurs = data;
+      },
+      error: (err) => {
+        console.error('Error loading joueurs:', err);
+      }
+    });
+  }
+
+  loadSousGroupes(): void {
+    this.rapportService.getAllSousGroupes().subscribe({
+      next: (data) => {
+        this.sousGroupes = data;
+      },
+      error: (err) => {
+        console.error('Error loading sous groupes:', err);
+      }
+    });
+  }
+
+  loadSeances(): void {
+    this.rapportService.getAllSeances().subscribe({
+      next: (data) => {
+        this.seances = data;
+      },
+      error: (err) => {
+        console.error('Error loading seances:', err);
+      }
+    });
+  }
+
+  // Methods for cascading dropdowns
+  loadSousGroupesBySession(titleSeance: string): void {
+    this.rapportService.findSousGroupestitleSeance(titleSeance).subscribe({
+      next: (data: any) => {
+        this.filteredSousGroupes = data;
+      },
+      error: (err) => {
+        console.error('Error loading sous groupes by session:', err);
+        this.filteredSousGroupes = [];
+      }
+    });
+  }
+
+  loadJoueursBySousGroup(nameSousGroup: string): void {
+    this.rapportService.findJoueursBynameSousGroup(nameSousGroup).subscribe({
+      next: (data: any) => {
+        this.filteredJoueurs = data;
+      },
+      error: (err) => {
+        console.error('Error loading joueurs by sous groupe:', err);
+        this.filteredJoueurs = [];
+      }
+    });
+  }
   
+  // Method to update selected player
+  updateSelectedJoueur(numeroJoueur: any): void {
+    const formValue = Number(numeroJoueur);
+    this.selectedJoueur = this.filteredJoueurs.find(j => Number(j.numeroJoueur) === formValue) || null;
+  }
+  
+  // Get player photo
+  getPlayerPhoto(): string {
+    if (this.selectedJoueur && this.selectedJoueur.photoUser) {
+      return this.selectedJoueur.photoUser;
+    }
+    // Return default image if no photo
+    return 'assets/images/default-player.png';
+  }
+  
+  // Check if player has a photo
+  hasPlayerPhoto(): boolean {
+    return !!(this.selectedJoueur && this.selectedJoueur.photoUser);
+  }
 
   // Calculate progress percentage
   getProgressPercentage(): number {
-    const currentIndex = this.sections.indexOf(this.currentSection)
-    return ((currentIndex + 1) / this.sections.length) * 100
+    const currentIndex = this.sections.indexOf(this.currentSection);
+    return ((currentIndex + 1) / this.sections.length) * 100;
   }
-
-
   addRapport() {
     if (this.rapportForm.valid) {
-      const numeroJoueur = this.rapportForm.value.numeroJoueur; // Récupère le numéro du joueur depuis le formulaire
+      const numeroJoueur = this.rapportForm.value.numeroJoueur;
+      const nameSousGroup = this.rapportForm.value.nameSousGroup;
+      const titleSeance = this.rapportForm.value.titleSeance;
   
-      // Appel du service pour ajouter le rapport avec le numéro de joueur
-      this.rapportService.addRapport(this.rapportForm.value, numeroJoueur).subscribe({
+      // Create a rapport object with today's date automatically set
+      const rapportData = {
+        ...this.rapportForm.value,
+        dateRapport: new Date() // Automatically set today's date
+      };
+  
+      // Call service to add rapport with player number
+      this.rapportService.addRapport(rapportData, numeroJoueur, nameSousGroup, titleSeance).subscribe({
         next: () => {
-          const navigationExtras: NavigationExtras = {
-            state: { successMessage: 'Rapport ajouté avec succès !' }
-          };
-  
-          // Cacher le formulaire après l'ajout
-          this.showForm = false;
-  
-          // Navigation vers la page des rapports sans recharger la page
-          this.rout.navigate(['analyste/Reportshow'], navigationExtras);
-  
-          // Attendre un court instant puis rafraîchir la page
-          setTimeout(() => {
-            window.location.reload();
-          }, 500); // Attendre 500ms avant de recharger
+          // Rediriger directement vers la page des rapports avec rechargement complet
+          window.location.href = '/analyste/Reportshow';
         },
-        error: () => {
-          const navigationExtras: NavigationExtras = {
-            state: { errorMessage: 'Erreur lors de l’ajout du rapport.' }
-          };
-  
-          // Navigation vers la page des rapports sans recharger la page
-          this.rout.navigate(['analyste/Reportshow'], navigationExtras);
-  
-          // Optionnel : Recharger la page aussi en cas d'erreur
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
+        error: (err) => {
+          this.errorMessage = 'Erreur lors de l\'ajout du rapport.';
+          console.error('Error adding rapport:', err);
+          
+          // En cas d'erreur, on peut soit rester sur la page, soit rediriger quand même
+          // window.location.href = '/analyste/Reportshow';
         }
+      });
+    } else {
+      // Mark all form controls as touched to trigger validation messages
+      Object.keys(this.rapportForm.controls).forEach(key => {
+        this.rapportForm.get(key)?.markAsTouched();
       });
     }
   }
-  
-  
+
   nextSection(): void {
-    switch (this.currentSection) {
-      case "performance":
-        this.currentSection = "strength"
-        break
-      case "strength":
-        this.currentSection = "agility"
-        break
-      case "agility":
-        this.currentSection = "state"
-        break
+    const currentIndex = this.sections.indexOf(this.currentSection);
+    if (currentIndex < this.sections.length - 1) {
+      this.currentSection = this.sections[currentIndex + 1];
     }
   }
 
   prevSection(): void {
-    switch (this.currentSection) {
-      case "strength":
-        this.currentSection = "performance"
-        break
-      case "agility":
-        this.currentSection = "strength"
-        break
-      case "state":
-        this.currentSection = "agility"
-        break
+    const currentIndex = this.sections.indexOf(this.currentSection);
+    if (currentIndex > 0) {
+      this.currentSection = this.sections[currentIndex - 1];
     }
   }
 
   goToSection(section: string): void {
-    this.currentSection = section
+    if (this.sections.includes(section)) {
+      this.currentSection = section;
+    }
   }
 
-  // Progress bar calculation
-  
+  // Get player initials
+  getPlayerInitials(): string {
+    if (this.selectedJoueur) {
+      return (this.selectedJoueur.prenomUser.charAt(0) + this.selectedJoueur.nameUsers.charAt(0)).toUpperCase();
+    }
+    
+    const formValue = this.rapportForm.get('numeroJoueur')?.value;
+    const joueur = this.filteredJoueurs.find(j => Number(j.numeroJoueur) === Number(formValue));
+    if (joueur) {
+      return (joueur.prenomUser.charAt(0) + joueur.nameUsers.charAt(0)).toUpperCase();
+    }
+    return '';
+  }
+
+  // Get selected player full name
+  getSelectedPlayerName(): string {
+    if (this.selectedJoueur) {
+      return `${this.selectedJoueur.prenomUser} ${this.selectedJoueur.nameUsers}`;
+    }
+    
+    const formValue = this.rapportForm.get('numeroJoueur')?.value;
+    const joueur = this.filteredJoueurs.find(j => Number(j.numeroJoueur) === Number(formValue));
+    if (joueur) {
+      return `${joueur.prenomUser} ${joueur.nameUsers}`;
+    }
+    return '';
+  }
+
+  // Get current date formatted
+  getCurrentDate(): string {
+    const today = new Date();
+    return today.toLocaleDateString('fr-FR', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  }
 
   // Status class methods
   getStatusClass(status: string): string {
-    if (status === "Active") return "status-active"
-    if (status === "Inactive") return "status-inactive"
-    return ""
+    if (status === "Active") return "status-active";
+    if (status === "Inactive") return "status-inactive";
+    return "";
   }
 
   getInjuryClass(injury: string): string {
-    if (injury === "None") return "injury-none"
-    if (injury === "Minor") return "injury-minor"
-    if (injury === "Major") return "injury-major"
-    return ""
+    if (injury === "None") return "injury-none";
+    if (injury === "Minor") return "injury-minor";
+    if (injury === "Moderate") return "injury-moderate";
+    if (injury === "Severe") return "injury-severe";
+    return "";
   }
 
-  
   avoidAdd() {
-    this.rout.navigate(['analyste/Reportshow']); // Navigation vers la page de rapports
+    this.router.navigate(['analyste/Reportshow']); // Navigate to reports page
   }
-  
 }

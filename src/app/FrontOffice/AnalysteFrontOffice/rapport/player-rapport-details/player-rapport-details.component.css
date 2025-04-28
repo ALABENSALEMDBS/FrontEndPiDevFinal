@@ -1,187 +1,342 @@
+/* Player Details Panel Styles */
 .player-details-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 400px;
-    height: 100vh;
-    background-color: #ffffff;
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    overflow-y: auto;
-    transition: transform 0.3s ease-in-out;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Arial', sans-serif;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow-y: auto;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+  /* Add these properties to fix scrolling issues */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.player-details-panel.hidden {
+  transform: translateX(100%);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--primary-color, #1e88e5);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /* Add these properties to ensure the header stays in place */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.player-info {
+  padding: 20px;
+  will-change: transform; /* Optimize for animations */
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.player-info img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color, #1e88e5);
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.player-info h3 {
+  text-align: center;
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color, #333);
+}
+
+/* Info Groups */
+.info-group {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.info-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.info-group h4 {
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  padding-left: 15px;
+  color: var(--primary-dark, #1565c0);
+  text-transform: uppercase;
+}
+
+.info-group h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-color, #1e88e5);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.info-item strong {
+  min-width: 140px;
+  font-weight: 600;
+  color: var(--text-light, #757575);
+}
+
+.info-item span {
+  flex: 1;
+  color: var(--text-color, #333);
+}
+
+/* Status and Injury Classes */
+.status-good {
+  color: var(--good-color, #4caf50);
+  font-weight: 600;
+}
+
+.status-bad {
+  color: var(--bad-color, #f44336);
+  font-weight: 600;
+}
+
+.injury-none {
+  color: var(--good-color, #4caf50);
+}
+
+.injury-minor {
+  color: var(--warning-color, #ff9800);
+}
+
+.injury-major {
+  color: var(--bad-color, #f44336);
+}
+
+/* Attribute Grid */
+.attribute-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.attribute-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.attribute-item strong {
+  min-width: 100px;
+  font-weight: 600;
+  color: var(--text-light, #757575);
+}
+
+.attribute-item span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  background-color: var(--hexagon-bg, #e3f2fd);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  font-weight: bold;
+  color: var(--primary-dark, #1565c0);
+}
+
+/* Similar Players Section */
+.similar-players {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.similar-player-full-info {
+  background-color: #b5b5b5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.similar-player-full-info .panel-header {
+  background-color: var(--primary-light, #64b5f6);
+  padding: 10px 15px;
+  position: relative; /* Change from sticky to relative for nested headers */
+  top: auto;
+}
+
+.similar-player-full-info h5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.similar-player-full-info .player-info {
+  padding: 15px;
+}
+
+.similar-player-full-info img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.rapport-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--border-color, #e0e0e0);
+}
+
+.rapport-section h6 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: var(--primary-dark, #1565c0);
+}
+
+.similar-player-full-info .attribute-grid {
+  grid-template-columns: repeat(1, 1fr);
+  margin-top: 10px;
+}
+
+.similar-player-full-info .attribute-item {
+  font-size: 13px;
+}
+
+.similar-player-full-info .attribute-item strong {
+  min-width: 140px;
+}
+
+.similar-player-full-info .attribute-item span {
+  width: 25px;
+  height: 22px;
+  font-size: 12px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .player-details-panel {
+    width: 100%;
   }
-  
-  .panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #3498db, #2980b9);
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  
-  .panel-header h2 {
-    margin: 0;
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-  
-  .close-btn {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: white;
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background-color 0.2s;
-  }
-  
-  .close-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  .player-info {
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .player-info img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto 20px;
-    border: 4px solid #3498db;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .player-info h3 {
-    text-align: center;
-    margin: 0 0 15px;
-    font-size: 1.6rem;
-    color: #2c3e50;
-    font-weight: 600;
-  }
-  
-  .info-group {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  }
-  
-  .info-group h4 {
-    color: #3498db;
-    margin: 0 0 15px;
-    font-size: 1.2rem;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 5px;
-  }
-  
-  .info-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-    color: #34495e;
-  }
-  
-  .info-item strong {
-    font-weight: 600;
-    color: #2c3e50;
-  }
-  
+
   .attribute-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr;
   }
-  
-  .attribute-item {
-    display: flex;
+}
+
+@media (max-width: 480px) {
+  .info-item {
     flex-direction: column;
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
-  
+
+  .info-item strong {
+    min-width: auto;
+    margin-bottom: 2px;
+  }
+
+  .attribute-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .attribute-item strong {
-    font-size: 0.8rem;
-    color: #7f8c8d;
-    margin-bottom: 5px;
+    min-width: auto;
+    margin-bottom: 2px;
   }
-  
+
   .attribute-item span {
-    font-size: 1rem;
-    color: #2c3e50;
-    font-weight: 600;
+    margin-top: 2px;
   }
-  
-  .download-btn {
-    background-color: #2ecc71;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    align-self: center;
-    margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .download-btn:hover {
-    background-color: #27ae60;
-    transform: translateY(-2px);
-  }
-  
-  .download-btn:active {
-    transform: translateY(0);
-  }
-  
-  .qr-code-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .qr-code-container qrcode {
-    border: 2px solid #3498db;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: white;
-  }
-  
-  /* Animation for panel entry/exit */
-  .player-details-panel.hidden {
+}
+
+/* Animation for panel opening */
+@keyframes slideIn {
+  from {
     transform: translateX(100%);
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .player-details-panel {
-      width: 100%;
-    }
-    
-    .attribute-grid {
-      grid-template-columns: 1fr;
-    }
+  to {
+    transform: translateX(0);
   }
+}
+
+.player-details-panel {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Custom scrollbar for the panel */
+.player-details-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.player-details-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.player-details-panel::-webkit-scrollbar-thumb {
+  background: var(--primary-light, #64b5f6);
+  border-radius: 4px;
+}
+
+.player-details-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color, #1e88e5);
+}
+
+/* Add this to ensure the main content area doesn't scroll when the panel is open */
+body.panel-open {
+  overflow: hidden;
+}
+
+/* Add this to prevent z-index conflicts with other navigation elements */
+.navbar,
+.header,
+.top-nav,
+.navigation {
+  z-index: 999; /* Just below the panel z-index */
+}

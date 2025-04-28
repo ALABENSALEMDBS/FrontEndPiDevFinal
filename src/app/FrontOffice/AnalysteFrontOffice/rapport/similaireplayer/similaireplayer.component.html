@@ -1,0 +1,89 @@
+<div class="similar-players-container">
+    <div class="header">
+      <h2>Joueurs Similaires</h2>
+      <p class="subtitle">Poste: <span class="highlight">{{ poste }}</span> | Numéro: <span class="highlight">{{ numero }}</span></p>
+      <button class="btn-back" (click)="goBack()">
+        <span class="btn-icon">←</span>
+        Retour
+      </button>
+    </div>
+  
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      <p>Chargement des joueurs similaires...</p>
+    </div>
+  
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+    </div>
+  
+    <div *ngIf="!isLoading && !error && similarReports.length === 0" class="no-results">
+      <p>Aucun joueur similaire trouvé pour ce poste et ce numéro.</p>
+    </div>
+  
+    <div *ngIf="!isLoading && !error && similarReports.length > 0" class="similar-players-grid">
+      <div *ngFor="let report of similarReports" class="player-card">
+        <div class="card-badge">JOUEUR SIMILAIRE</div>
+        
+        <div class="player-info" *ngIf="report.joueurrapport">
+          <div class="player-position">{{ report.joueurrapport.posteJoueur }}</div>
+          <div class="player-number">{{ report.joueurrapport.numeroJoueur }}</div>
+          <div class="player-avatar">
+            <img [src]="report.joueurrapport.photoUser || 'assets/default-avatar.png'" alt="Photo du Joueur">
+          </div>
+          <h3>{{ report.joueurrapport.nameUsers }} {{ report.joueurrapport.prenomUser }}</h3>
+        </div>
+        
+        <div class="report-section">
+          <h4 class="report-title">Statistiques</h4>
+          
+          <div class="stats-grid">
+            <div class="stat-container">
+              <div class="stat-label">Vitesse</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.speedRapport"></div>
+              </div>
+              <div class="stat-number">{{ report.speedRapport }}</div>
+            </div>
+            
+            <div class="stat-container">
+              <div class="stat-label">Accélération</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.accelerationRapport"></div>
+              </div>
+              <div class="stat-number">{{ report.accelerationRapport }}</div>
+            </div>
+            
+            <div class="stat-container">
+              <div class="stat-label">Endurance</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.endurance"></div>
+              </div>
+              <div class="stat-number">{{ report.endurance }}</div>
+            </div>
+            
+            <div class="stat-container">
+              <div class="stat-label">Force</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.strength"></div>
+              </div>
+              <div class="stat-number">{{ report.strength }}</div>
+            </div>
+          </div>
+          
+          <div class="report-status">
+            <div class="status-item">
+              <span class="status-label">État:</span>
+              <span class="status-value" [ngClass]="getStatusClass(report.etatRapport)">{{ report.etatRapport }}</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">Blessure:</span>
+              <span class="status-value" [ngClass]="getInjuryClass(report.blessureRapport)">{{ report.blessureRapport }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-shine"></div>
+      </div>
+    </div>
+  </div>
+  

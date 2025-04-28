@@ -1,73 +1,188 @@
-<div class="add-btn-container">
-    <button [routerLink]="['addreports']" class="btn-add">Ajouter un Rapport</button>
+<div class="filter-container">
+  <div class="filter-input-group">
+    <!-- Session title filter as combobox -->
+    <select 
+      [(ngModel)]="sessionTitleFilter" 
+      class="filter-select"
+    >
+      <option value="">Select a session title</option>
+      <option *ngFor="let title of sessionTitles" [value]="title">{{ title }}</option>
+    </select>
+    <button class="btn-filter" (click)="filterBySessionTitle()">
+      <span class="btn-icon">🔍</span>
+      Filtrer
+    </button>
+    
+    <!-- Sous group filter as combobox -->
+    <select 
+      [(ngModel)]="sousGroupFilter" 
+      class="filter-select"
+    >
+      <option value="">Select a sub-group</option>
+      <option *ngFor="let group of sousGroups" [value]="group">{{ group }}</option>
+    </select>
+    <button class="btn-filter" (click)="filterBySousGroup()">
+      <span class="btn-icon">🔍</span>
+      Filter by sub-group
+    </button>
+    
+    <!-- Player filter as combobox -->
+    <select 
+      [(ngModel)]="playerNumberFilter" 
+      class="filter-select"
+    >
+      <option [ngValue]="null">select a player      </option>
+      <option *ngFor="let player of playersList" [ngValue]="player.numeroJoueur">
+        {{ player.numeroJoueur }} - {{ player.nameUsers }} {{ player.prenomUser }}
+      </option>
+    </select>
+    <button class="btn-filter" (click)="filterByPlayerNumber()">
+      <span class="btn-icon">🔍</span>
+      Filter by player
+    </button>
+    
+    <button *ngIf="isFiltered" class="btn-reset" (click)="resetFilter()">
+      <span class="btn-icon">↺</span>
+      reset    </button>
   </div>
-  
-  <router-outlet></router-outlet>
-  <br>
-  
-  <div class="container">
-    <!-- Liste des joueurs -->
-    <div class="card-container">
-      <div class="card" *ngFor="let joueur of Joueurs">
-        
-        <!-- Infos du joueur -->
+</div>
+
+<div class="add-btn-container">
+  <button [routerLink]="['addreports']" class="btn-add">
+    <span class="btn-icon">+</span>
+    Add report
+
+  </button>
+</div>
+<br>
+<router-outlet></router-outlet>
+<br>
+
+<div class="container">
+  <!-- Liste des joueurs avec leurs rapports -->
+  <div class="card-container">
+    <ng-container *ngFor="let player of playersWithReports">
+      <!-- Cartes de rapports du joueur -->
+      <div *ngFor="let report of player.rapports" class="card report-card">
+        <div class="card-badge">report</div>
         <div class="player-info">
-          <img [src]="joueur.photoUser || 'assets/default-avatar.png'" alt="Photo du Joueur">
-          <h3>{{ joueur.nameUsers }} {{ joueur.prenomUser }}</h3>
-          <p><strong>Position :</strong> {{ joueur.posteJoueur }}</p>
-          <p><strong>Numéro :</strong> {{ joueur.numeroJoueur }}</p>
-          <p><strong>Contrat :</strong> {{ joueur.debutContratJoueur | date }} - {{ joueur.finContratJoueur | date }}</p>
+          <div class="player-position">{{ player.posteJoueur }}</div>
+          <div class="player-number">{{ player.numeroJoueur }}</div>
+          <div class="player-avatar">
+            <img [src]="player.photoUser || 'assets/default-avatar.png'" alt="Photo du Joueur">
+          </div>
+          <h3>{{ player.nameUsers }} {{ player.prenomUser }}</h3>
+          <div class="player-details">
+            <p><strong>position:</strong> {{ player.posteJoueur }}</p>
+            <p><strong>number:</strong> {{ player.numeroJoueur }}</p>
+            <p><strong>contract:</strong> {{ player.debutContratJoueur | date:'dd/MM/yyyy' }} - {{ player.finContratJoueur | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <!-- In your template, add this to your report item -->
+<!-- buttonnnnnnnnnnnnnnn-->
+<button 
+  class="btn btn-primary" 
+  (click)="viewPlayerDetails(player, report)"
+  title="Voir les détails du joueur et du rapport">
+  <i class="fas fa-info-circle"></i> Details
+</button>
         </div>
-  
-        <!-- Bouton pour afficher les détails du joueur -->
-        <button class="btn-player" (click)="openPlayersPanel(joueur)">Player</button>
-  
-        <!-- Affichage du rapport -->
-        <div *ngIf="joueur.rapport; else noReport" class="report-card">
-          <p><strong>Vitesse :</strong> {{ joueur.rapport.speedRapport }}</p>
-          <p><strong>Accélération :</strong> {{ joueur.rapport.accelerationRapport }}</p>
-          <p><strong>Endurance :</strong> {{ joueur.rapport.endurance }}</p>
-          <p><strong>Force :</strong> {{ joueur.rapport.strength }}</p>
-          <p><strong>État :</strong> {{ joueur.rapport.etatRapport }}</p>
-          <p><strong>Blessure :</strong> {{ joueur.rapport.blessureRapport }}</p>
-  
+        
+        <div class="report-section">
+          <h4 class="report-title">{{ player.nameUsers }} {{ player.prenomUser }} :  Report</h4>
+          
+          <div class="stats-grid">
+            <div class="stat-container">
+              <div class="stat-label">speed</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.speedRapport"></div>
+              </div>
+              <div class="stat-number">{{ report.speedRapport }}</div>
+            </div>
+            
+            <div class="stat-container">
+              <div class="stat-label">acceleration</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.accelerationRapport"></div>
+              </div>
+              <div class="stat-number">{{ report.accelerationRapport }}</div>
+            </div>
+            
+            <div class="stat-container">
+              <div class="stat-label">endurance</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.endurance"></div>
+              </div>
+              <div class="stat-number">{{ report.endurance }}</div>
+            </div>
+            
+            <div class="stat-container">
+              <div class="stat-label">strength</div>
+              <div class="stat-bar">
+                <div class="stat-value" [style.width.%]="report.strength"></div>
+              </div>
+              <div class="stat-number">{{ report.strength }}</div>
+            </div>
+          </div>
+          
+          <div class="report-status">
+            <div class="status-item">
+              <span class="status-label">status:</span>
+              <span class="status-value" [ngClass]="getStatusClass(report.etatRapport)">{{ report.etatRapport }}</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">injury:</span>
+              <span class="status-value" [ngClass]="getInjuryClass(report.blessureRapport)">{{ report.blessureRapport }}</span>
+            </div>
+          </div>
+
           <div class="card-actions">
-              <button class="btn-update" (click)="openPopup(joueur.rapport)">Modifier</button>
-              <button class="btn-delete" (click)="openConfirmPopup(joueur.rapport.idRapport)">Supprimer</button>
+            <button class="btn-update" (click)="viewReportDetails(report)">
+              <span class="btn-icon">✎</span>
+              edit
+            </button>
+            <button class="btn-delete" (click)="confirmDeleteReport(report.idRapport)">
+              <span class="btn-icon">✕</span>
+              delete
+            </button>
           </div>
         </div>
-  
-        <!-- Message si aucun rapport n'est disponible -->
-        <ng-template #noReport>
-          <p class="no-report">Aucun rapport disponible</p>
-        </ng-template>
+        <div class="card-shine"></div>
       </div>
-    </div>
-  
-    <!-- Panneau latéral pour afficher les détails du joueur -->
-    <div class="player-details-panel" [class.show]="selectedPlayer">
-      <app-player-rapport-details *ngIf="selectedPlayer" [joueur]="selectedPlayer"></app-player-rapport-details>
-      <button *ngIf="showPlayersPanel" class="close-btn" (click)="closePlayersPanel()">×</button>
+    </ng-container>
+  </div>
+</div>
+
+<!-- Pop-up de modification -->
+<div class="popup-container" [class.show]="showReportDetails">
+  <div class="popup-content">
+    <button class="close-btn" (click)="closeReportDetails()">×</button>
+    <app-update-rapport *ngIf="showReportDetails" [rapportData]="selectedReport"></app-update-rapport>
+  </div>
+</div>
+
+<!-- Add this where you want the player details to appear -->
+<!-- Remplacez votre div player-details-panel par celle-ci -->
+<div class="player-details-panel" [class.show]="showPlayersPanel">
+  <app-player-rapport-details 
+    *ngIf="selectedPlayer && selectedReport"
+    [joueur]="selectedPlayer" 
+    [rapportId]="selectedReport.idRapport">
+  </app-player-rapport-details>
+  <button class="close-btn" (click)="closePlayerDetails()"></button>
+</div>
+
+
+<!-- Pop-up de confirmation -->
+<div class="confirm-popup-container" [class.show]="showDeleteConfirm">
+  <div class="confirm-popup-content">
+    <div class="confirm-icon">⚠️</div>
+    <h3>are you absolutely sure?
+
+    </h3>
+    <p>Do you really want to delete this report? This action is irreversible.</p>
+    <div class="popup-actions">
+      <button class="btn-cancel" (click)="cancelDelete()">Annuler</button>
+      <button class="btn-delete" (click)="deleteReport()">Supprimer</button>
     </div>
   </div>
-  
-  <!-- Pop-up de modification -->
-  <div class="popup-container" [class.show]="showPopup">
-    <div class="popup-content">
-        <button class="close-btn" (click)="closePopup()">×</button>
-        <app-update-rapport *ngIf="showPopup" [rapportData]="selectedRapport"></app-update-rapport>
-    </div>
-  </div>
-  
-  <!-- Pop-up de confirmation -->
-  <div class="confirm-popup-container" [class.show]="showConfirmPopup">
-    <div class="confirm-popup-content">
-        <h3>Êtes-vous sûr ?</h3>
-        <p>Voulez-vous vraiment supprimer ce rapport ? Cette action est irréversible.</p>
-        <div class="popup-actions">
-            <button class="btn-cancel" (click)="closeConfirmPopup()">Annuler</button>
-            <button class="btn-delete" (click)="confirmDelete()">Supprimer</button>
-        </div>
-    </div>
-  </div>
-  
+</div>
