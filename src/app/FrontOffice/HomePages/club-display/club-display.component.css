@@ -1,425 +1,568 @@
 /* src/app/components/club-display/club-display.component.css */
 /* General Styles */
 .site-wrap {
-    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.content-wrapper {
+  padding-bottom: 50px;
+  background-color: #333;
+}
+
+/* Hero Section */
+.hero.overlay {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 7rem 0;
+}
+
+.hero.overlay:before {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 10;
+}
+
+/* Section Styles */
+.site-section {
+  padding: 5rem 0;
+}
+
+.site-section.bg-dark {
+  background: #222;
+  color: #fff;
+}
+
+
+.title-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.site-section.bg-dark .title-section h2 {
+  color: #fff;
+}
+
+/* Team VS Styles */
+.team-vs {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  background: #fff;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-vs .score {
+  font-size: 3rem;
+  color: #000;
+  font-weight: 700;
+  margin: 0 auto;
+}
+
+.team-vs h3 {
+  font-size: 20px;
+  color: #000;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.team-vs h3 span {
+  font-size: 14px;
+  color: #4d4d4d;
+}
+
+.team-vs ul {
+  margin-bottom: 0;
+}
+
+.team-vs ul li {
+  margin-bottom: 5px;
+}
+
+.team-vs .team-details {
+  padding: 30px;
+}
+
+.team-vs .team-details img {
+  max-width: 120px;
+  margin-bottom: 20px;
+}
+
+/* Widget Next Match Styles */
+.widget-next-match {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border-radius: 4px;
   
-  .content-wrapper {
-    padding-bottom: 50px;
-    background-color: #333;
-  }
-  
-  /* Hero Section */
-  .hero.overlay {
-    position: relative;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 7rem 0;
-  }
-  
-  .hero.overlay:before {
-    content: "";
-    position: absolute;
-    background: rgba(0, 0, 0, 0.6);
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  
-  .hero .container {
-    position: relative;
-    z-index: 10;
-  }
-  
-  /* Section Styles */
-  .site-section {
-    padding: 5rem 0;
-  }
-  
-  .site-section.bg-dark {
-    background: #222;
-    color: #fff;
-  }
-  
-  
-  .title-section h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-  }
-  
-  .site-section.bg-dark .title-section h2 {
-    color: #fff;
-  }
-  
-  /* Team VS Styles */
+}
+
+.widget-next-match .widget-title {
+  background: #ee1e46;
+  color: #000;
+  padding: 15px;
+}
+
+.widget-next-match .widget-title h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.widget-next-match .widget-body {
+  padding: 30px;
+  background: #444;
+}
+
+.widget-vs {
+  width: 100%;
+}
+
+.widget-vs img {
+  max-width: 90px;
+}
+
+.widget-vs h3 {
+  color: #fff; /* Changed from #000 to #fff for better contrast on dark background */
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.widget-vs .vs {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: #ee1e46;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  line-height: 50px;
+  font-weight: 700;
+  margin: 0 10px;
+}
+
+.widget-vs-contents h4 {
+  color: #ee1e46;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.widget-vs-contents .text-primary {
+  color: #ee1e46 !important;
+}
+
+/* Add to your component's CSS */
+.more-clubs {
+  transition: all 0.4s ease;
+}
+
+#toggleClubs {
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+#toggleClubs:hover {
+  transform: translateY(-2px);
+}
+
+.first-row .club-card {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.more-clubs .club-card {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Improved Club Card Styles */
+.club-card {
+  background: #e4e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.club-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.club-card-header {
+  background: linear-gradient(135deg, #ee1e46, #f05e78);
+  padding: 28px;
+  text-align: center;
+  position: relative;
+}
+
+.club-logo-container {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 3px solid #fff;
+  position: relative;
+  top: 20px;
+}
+
+.club-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.club-card-body {
+  padding: 40px 20px 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.club-name {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ee1e46;
+  padding-bottom: 10px;
+}
+
+.club-info-container {
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+.club-info-item {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.club-info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 700;
+  color: #ee1e46;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.info-value {
+  color: #333;
+  font-size: 16px;
+}
+
+.club-card-footer {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.club-card-footer .btn {
+  background-color: #ee1e46;
+  border-color: #ee1e46;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.club-card-footer .btn:hover {
+  background-color: #d01a3e;
+  transform: scale(1.05);
+}
+
+/* Recent Matches Styles */
+.custom-media {
+  margin-bottom: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.custom-media:hover {
+  transform: translateY(-5px);
+}
+
+.custom-media .img {
+  flex: 0 0 auto;
+  width: 80px;
+}
+
+.custom-media .text {
+  flex: 1 1 auto;
+  padding-left: 20px;
+}
+
+.custom-media .text .meta {
+  color: #adb5bd;
+  font-size: 14px;
+}
+
+.custom-media .text h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.match-result {
+  width: 80px;
+  height: 80px;
+  background: #ee1e46;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 10px rgba(238, 30, 70, 0.3);
+}
+
+.match-result .score {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
   .team-vs {
-    display: flex;
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    background: #fff;
-    border-radius: 4px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
   }
   
   .team-vs .score {
-    font-size: 3rem;
-    color: #000;
-    font-weight: 700;
-    margin: 0 auto;
+    margin: 20px 0;
   }
   
-  .team-vs h3 {
-    font-size: 20px;
-    color: #000;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  
-  .team-vs h3 span {
-    font-size: 14px;
-    color: #4d4d4d;
-  }
-  
-  .team-vs ul {
-    margin-bottom: 0;
-  }
-  
-  .team-vs ul li {
-    margin-bottom: 5px;
-  }
-  
-  .team-vs .team-details {
-    padding: 30px;
-  }
-  
-  .team-vs .team-details img {
-    max-width: 120px;
-    margin-bottom: 20px;
-  }
-  
-  /* Widget Next Match Styles */
-  .widget-next-match {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    border-radius: 4px;
-    
-  }
-  
-  .widget-next-match .widget-title {
-    background: #ee1e46;
-    color: #000;
-    padding: 15px;
-  }
-  
-  .widget-next-match .widget-title h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 0;
-  }
-  
-  .widget-next-match .widget-body {
-    padding: 30px;
-    background: #444;
-  }
-  
-  .widget-vs {
+  .team-vs .team-1,
+  .team-vs .team-2 {
     width: 100%;
   }
-  
-  .widget-vs img {
-    max-width: 90px;
-  }
-  
-  .widget-vs h3 {
-    color: #000;
-    font-weight: 700;
-    font-size: 18px;
-    margin-top: 10px;
-  }
-  
-  .widget-vs .vs {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background: #ee1e46;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 12px;
-    text-align: center;
-    line-height: 50px;
-    font-weight: 700;
-    margin: 0 10px;
-  }
-  
-  .widget-vs-contents h4 {
-    color: #ee1e46;
-    font-size: 18px;
-    font-weight: 700;
-  }
-  
-  .widget-vs-contents .text-primary {
-    color: #ee1e46 !important;
-  }
-  
-  /* Improved Club Card Styles */
+}
+
+@media (max-width: 768px) {
   .club-card {
-    background: #e4e0e0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .club-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-  }
-  
-  .club-card-header {
-    background: linear-gradient(135deg, #ee1e46, #f05e78);
-    padding: 28px;
-    text-align: center;
-    position: relative;
-  }
-  
-  .club-logo-container {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 50%;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    border: 3px solid #fff;
-    position: relative;
-    top: 20px;
-  }
-  
-  .club-logo {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-  
-  .club-card-body {
-    padding: 40px 20px 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .club-name {
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ee1e46;
-    padding-bottom: 10px;
-  }
-  
-  .club-info-container {
-    flex-grow: 1;
-    margin-bottom: 20px;
-  }
-  
-  .club-info-item {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .club-info-item:last-child {
-    border-bottom: none;
-  }
-  
-  .info-label {
-    font-weight: 700;
-    color: #ee1e46;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
-  
-  .info-value {
-    color: #333;
-    font-size: 16px;
-  }
-  
-  .club-card-footer {
-    text-align: center;
-    padding-top: 10px;
-  }
-  
-  .club-card-footer .btn {
-    background-color: #ee1e46;
-    border-color: #ee1e46;
-    padding: 8px 20px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-  
-  .club-card-footer .btn:hover {
-    background-color: #d01a3e;
-    transform: scale(1.05);
-  }
-  
-  /* Recent Matches Styles */
-  .custom-media {
     margin-bottom: 30px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
   }
   
-  .custom-media:hover {
-    transform: translateY(-5px);
+  .custom-media {
+    flex-direction: column;
   }
   
   .custom-media .img {
-    flex: 0 0 auto;
-    width: 80px;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
   
   .custom-media .text {
-    flex: 1 1 auto;
-    padding-left: 20px;
+    padding-left: 0;
   }
-  
-  .custom-media .text .meta {
-    color: #adb5bd;
-    font-size: 14px;
-  }
-  
-  .custom-media .text h3 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .match-result {
-    width: 80px;
-    height: 80px;
-    background: #ee1e46;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 5px 10px rgba(238, 30, 70, 0.3);
-  }
-  
-  .match-result .score {
-    color: #fff;
-    font-size: 24px;
-    font-weight: 700;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 992px) {
-    .team-vs {
-      flex-direction: column;
-    }
-    
-    .team-vs .score {
-      margin: 20px 0;
-    }
-    
-    .team-vs .team-1,
-    .team-vs .team-2 {
-      width: 100%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .club-card {
-      margin-bottom: 30px;
-    }
-    
-    .custom-media {
-      flex-direction: column;
-    }
-    
-    .custom-media .img {
-      margin-bottom: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    
-    .custom-media .text {
-      padding-left: 0;
-    }
-  }
+}
 
-
-
-  /* src/app/components/club-display/club-display.component.css */
+/* src/app/components/club-display/club-display.component.css */
 /* Add these styles for the new background */
 
-
 .bg-light-custom {
-    background-color: #333;
-    background-image: linear-gradient(to bottom, #333, #333);
-    position: relative;
-  }
+  background-color: #333;
+  background-image: linear-gradient(to bottom, #333, #333);
+  position: relative;
+}
+
+.bg-light-custom:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(to right, #ee1e46, #f05e78);
+}
+
+.bg-light-custom .title-section .heading {
+  color: #fff;
+}
+
+.bg-light-custom .custom-media {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bg-light-custom .custom-media:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.bg-light-custom .custom-media .text h3 {
+  color: #333;
+}
+
+.bg-light-custom .custom-media .text p {
+  color: #666;
+}
+
+.bg-light-custom .match-result {
+  background: linear-gradient(135deg, #ee1e40, #f05e78);
+}
+
+/* Add new styles for upcoming matches with dark background */
+.bg-dark-match {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bg-dark-match h3,
+.bg-dark-match h4 {
+  color: #fff;
+}
+
+.bg-dark-match p {
+  color: #ccc;
+}
+
+.bg-dark-match .vs {
+  background: #ee1e46;
+  color: #fff;
+}
+
+
+/* Upcoming matches card styles */
+.bg-dark-match {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bg-dark-match:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.bg-dark-match h3,
+.bg-dark-match h4 {
+  color: #fff;
+}
+
+.bg-dark-match p {
+  color: #ccc;
+}
+
+.bg-dark-match .vs {
+  background: #ee1e46;
+  color: #fff;
+}
 
 
 
-  
-  .bg-light-custom:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(to right, #ee1e46, #f05e78);
-  }
-  
-  .bg-light-custom .title-section .heading {
-    color: #fff;
-  }
-  
-  .bg-light-custom .custom-media {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .bg-light-custom .custom-media:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  }
-  
-  .bg-light-custom .custom-media .text h3 {
-    color: #333;
-  }
-  
-  .bg-light-custom .custom-media .text p {
-    color: #666;
-  }
-  
-  .bg-light-custom .match-result {
-    background: linear-gradient(135deg, #ee1e40, #f05e78);
-  }
 
+/* Widget Next Match Styles - Updated with dark colors */
+.widget-next-match {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border-radius: 4px;
+}
 
-  
+.widget-next-match .widget-title {
+  background: #ee1e46; /* Keep the red header */
+  color: #fff; /* Changed from #000 to #fff for better contrast */
+  padding: 15px;
+}
+
+.widget-next-match .widget-title h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.widget-next-match .widget-body {
+  padding: 30px;
+  background: #222; /* Changed from #444 to #222 as requested */
+  color: #fff;
+}
+
+.widget-vs {
+  width: 100%;
+}
+
+.widget-vs img {
+  max-width: 90px;
+}
+
+.widget-vs h3 {
+  color: #fff; /* Changed from #000 to #fff for better contrast */
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.widget-vs .vs {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: #ee1e46;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  line-height: 50px;
+  font-weight: 700;
+  margin: 0 10px;
+}
+
+.widget-vs-contents h4 {
+  color: #ee1e46;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.widget-vs-contents .text-primary {
+  color: #ee1e46 !important;
+}

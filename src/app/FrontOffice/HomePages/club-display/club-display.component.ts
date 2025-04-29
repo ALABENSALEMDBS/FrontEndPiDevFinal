@@ -116,4 +116,5 @@ export class ClubDisplayComponent implements OnInit {
     // In a real application, you would fetch this data from your API
     return ["Player 1", "Player 2"];
   }
+
 }
