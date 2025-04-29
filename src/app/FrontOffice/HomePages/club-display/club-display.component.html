@@ -179,27 +179,51 @@
         </div>
       </div> <!-- .site-section -->
     
-      <!-- Clubs section -->
-      <div class="site-section">
+      <!-- Clubs section with improved cards -->
+      <div class="site-section bg-dark">
         <div class="container">
           <div class="row">
-            <div class="col-6 title-section">
-              <h2 class="heading">Our Clubs</h2>
+            <div class="col-12 title-section">
+              <h2 class="heading text-white">Our Clubs</h2>
             </div>
           </div>
           
           <div class="row">
-            <div class="col-lg-4 mb-4" *ngFor="let club of clubs">
-              <div class="custom-card">
-                <div class="card-header text-center">
-                  <img [src]="club.logo" alt="{{ club.nameClub }}" class="img-fluid club-logo">
-                  <h3 class="club-name">{{ club.nameClub }}</h3>
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs">
+              <div class="club-card">
+                <div class="club-card-header">
+                  <div class="club-logo-container">
+                    <img [src]="club.logo" alt="{{ club.nameClub }}" class="club-logo">
+                  </div>
                 </div>
-                <div class="card-body">
-                  <p><strong>Address:</strong> {{ club.adressClub }}</p>
-                  <p><strong>Email:</strong> {{ club.emailClub }}</p>
-                  <p><strong>Founded:</strong> {{ formatDate(club.dateClub) }}</p>
-                  <p><strong>License:</strong> {{ club.licenceClub }}</p>
+                <div class="club-card-body">
+                  <h3 class="club-name">{{ club.nameClub }}</h3>
+                  
+                  <div class="club-info-container">
+                    <div class="club-info-item">
+                      <div class="info-label">Address</div>
+                      <div class="info-value">{{ club.adressClub }}</div>
+                    </div>
+                    
+                    <div class="club-info-item">
+                      <div class="info-label">Email</div>
+                      <div class="info-value">{{ club.emailClub }}</div>
+                    </div>
+                    
+                    <div class="club-info-item">
+                      <div class="info-label">Founded</div>
+                      <div class="info-value">{{ formatDate(club.dateClub) }}</div>
+                    </div>
+                    
+                    <div class="club-info-item">
+                      <div class="info-label">License</div>
+                      <div class="info-value">{{ club.licenceClub }}</div>
+                    </div>
+                  </div>
+                  
+                  <div class="club-card-footer">
+                    <button class="btn btn-primary">View Details</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -208,31 +232,36 @@
       </div>
     
       <!-- Recent matches section -->
-      <div class="container site-section">
-        <div class="row">
-          <div class="col-6 title-section">
-            <h2 class="heading">Recent Results</h2>
-          </div>
+      <!-- src/app/components/club-display/club-display.component.html -->
+<!-- Only showing the relevant section that needs to be updated -->
+
+<!-- Recent matches section with updated background -->
+<div class="site-section bg-light-custom">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 title-section">
+          <h2 class="heading">Recent Results</h2>
         </div>
-        <div class="row">
-          <div class="col-lg-6" *ngFor="let match of recentMatches">
-            <div class="custom-media d-flex">
-              <div class="img mr-4">
-                <div class="match-result">
-                  <span class="score">{{ match.goals1 }} - {{ match.goals2 }}</span>
-                </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6" *ngFor="let match of recentMatches">
+          <div class="custom-media d-flex">
+            <div class="img mr-4">
+              <div class="match-result">
+                <span class="score">{{ match.goals1 }} - {{ match.goals2 }}</span>
               </div>
-              <div class="text">
-                <span class="meta">{{ formatDate(match.dateMatch) }}</span>
-                <h3 class="mb-4">{{ match.club1.nameClub }} vs {{ match.club2.nameClub }}</h3>
-                <p>{{ match.typeMatch }} at {{ match.lieuMatch }}</p>
-                <p>Referee: {{ match.arbitre }}</p>
-              </div>
+            </div>
+            <div class="text">
+              <span class="meta">{{ formatDate(match.dateMatch) }}</span>
+              <h3 class="mb-4">{{ match.club1.nameClub }} vs {{ match.club2.nameClub }}</h3>
+              <p>{{ match.typeMatch }} at {{ match.lieuMatch }}</p>
+              <p>Referee: {{ match.arbitre }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
     
     <!-- Footer would go here -->
   </div>

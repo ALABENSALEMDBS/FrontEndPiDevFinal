@@ -87,6 +87,7 @@ import { UpdateCupGoalsComponent } from './BackOffice/admin-backoffice/Cup/updat
 import { CupClubsComponent } from './BackOffice/admin-backoffice/Cup/cup-clubs/cup-clubs.component';
 import { UpdateCupMatchComponent } from './BackOffice/admin-backoffice/Cup/update-cup-match/update-cup-match.component';
 import { CupBracketComponent } from './BackOffice/admin-backoffice/Cup/cup-bracket/cup-bracket.component';
+import { ClubDisplayComponent } from './FrontOffice/HomePages/club-display/club-display.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -94,6 +95,7 @@ const routes: Routes = [
   {path:'contact',component:ContactPageComponent},
   {path:'player',component:PlayerPageComponent},
   {path:'blog',component:BlogPageComponent},
+  {path:'clubs',component:ClubDisplayComponent},
   {path:'matches',component:MatchesPageComponent},
 
 
