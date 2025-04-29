@@ -30,7 +30,7 @@
         <td>{{ nouriture.nom }}</td>
         <td>{{ nouriture.recommandation }}</td>
         <td>{{ nouriture.calories }}</td>
-        <td>
+        <td class="d-flex justify-content-center align-items-center gap-2">
           <button class="btn btn-warning m-2" (click)="onUpdateNouritureClicked(nouriture)">Edit</button>
           <button class="btn btn-danger m-1" (click)="supprimerNourriture(nouriture)">DELETE</button>
         </td>

@@ -33,7 +33,7 @@
           <td>{{ exercice.descriptionExerciceRetablissement }}</td>
           <td>{{ exercice.dureeExercice || 'Non spécifié' }}</td>
           <td>{{ exercice.niveauDifficulte || 'Non spécifié' }}</td>
-          <td>
+          <td class="d-flex justify-content-center align-items-center gap-2">
             <button class="btn btn-warning m-2" [routerLink]="['/doctor/updateexercice', 
             exercice.idExerciceRetablissement]">✏️ Modifier</button>
             <button class="btn btn-danger" (click)="supprimerExercice(exercice)">🗑️ Supprimer</button>

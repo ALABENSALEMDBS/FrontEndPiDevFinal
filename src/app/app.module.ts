@@ -76,6 +76,7 @@ import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.componen
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
 import { ChartsdoctorComponent } from "./BackOffice/admin-club-backoffice/chartsdoctor/chartsdoctor.component";
 import { DoctorplayerchartComponent } from './FrontOffice/DoctorFrontOffice/doctorplayerchart/doctorplayerchart.component';
+import { AddConsultationComponent } from './FrontOffice/DoctorFrontOffice/add-consultation/add-consultation.component';
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -243,7 +244,7 @@ import { DoctorplayerchartComponent } from './FrontOffice/DoctorFrontOffice/doct
     // ],
     // providers: [provideHttpClient(withInterceptorsFromDi())] })
     FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent,
-    ChartsdoctorComponent,DoctorplayerchartComponent,
+    ChartsdoctorComponent,DoctorplayerchartComponent,AddConsultationComponent
     
     
 ], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })

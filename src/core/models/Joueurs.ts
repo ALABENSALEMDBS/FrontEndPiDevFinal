@@ -9,5 +9,6 @@ export class Joueur {
     posteJoueur!: string;
     numeroJoueur!: number;
     debutContratJoueur!: Date;
+    photoUser!: string | null;
    
   }
