@@ -1,31 +1,158 @@
+<div class="update-seance-container">
+  <div class="update-container">
+    <button class="close-btn" routerLink="/coatch/showseance">✖</button>
+    <h2>Modifier la Séance</h2>
 
-<div class="container">
-  <h2>Mettre à jour la Séance</h2>
-
-  <form [formGroup]="seanceform" (ngSubmit)="updateSeance()">
-
-    <div class="form-group">
-      <label>ID de la Séance</label>
-      <input type="text" class="form-control" formControlName="idSeance" >
+    <!-- Alert Banner for Validation Errors -->
+    <div *ngIf="showValidationAlert" class="validation-alert">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-content">
+        <h4>Attention!</h4>
+        <p>{{ validationMessage }}</p>
+      </div>
+      <button class="alert-close" (click)="dismissAlert()">✖</button>
     </div>
 
-    <div class="form-group">
-      <label>Titre de la Séance</label>
-      <input type="text" class="form-control" formControlName="titleSeance">
-      <div *ngIf="titleSeance?.invalid && titleSeance?.touched" class="text-danger">
-        Titre requis (min 3 caractères).
+    <form [formGroup]="seanceform" (ngSubmit)="validateAndSubmit()" class="form-card">
+      <div class="form-tabs">
+        <button type="button" class="form-tab" [class.active]="currentSection === 'details'" (click)="setCurrentSection('details')">Details</button>
+        <button type="button" class="form-tab" [class.active]="currentSection === 'schedule'" (click)="setCurrentSection('schedule')">Schedule</button>
+        <button type="button" class="form-tab" [class.active]="currentSection === 'location'" (click)="setCurrentSection('location')">Location</button>
+        <button type="button" class="form-tab" [class.active]="currentSection === 'intensity'" (click)="setCurrentSection('intensity')">Intensity</button>
+        <button type="button" class="form-tab" [class.active]="currentSection === 'exercises'" (click)="setCurrentSection('exercises')">Exercises</button>
+      </div>
+    
+      <div class="form-section" [class.active]="currentSection === 'details'">
+        <h3>Session Details</h3>
+    
+        <div class="form-group">
+          <label for="titleSeance">Session Title:</label>
+          <input type="text" id="titleSeance" formControlName="titleSeance" required>
+          <div *ngIf="titleSeance?.invalid && titleSeance?.touched" class="error-message">
+            <div *ngIf="titleSeance?.errors?.['required']">Title is required.</div>
+            <div *ngIf="titleSeance?.errors?.['minlength']">Title must be at least 3 characters long.</div>
+            <div *ngIf="titleSeance?.errors?.['maxlength']">Title cannot exceed 100 characters.</div>
+            <div *ngIf="titleSeance?.errors?.['pattern']">Title can only contain letters, numbers, and spaces.</div>
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="typeSeance">Session Type:</label>
+          <select id="typeSeance" formControlName="typeSeance" required>
+            <option value="">Select a type</option>
+            <option value="Cardio">Cardio</option>
+            <option value="Musculation">Strength</option>
+            <option value="Flexibilité">Flexibility</option>
+            <option value="HIIT">HIIT</option>
+            <option value="Récupération">Recovery</option>
+            <option value="Technique">Technique</option>
+            <option value="Mixte">Mixed</option>
+          </select>
+          <div *ngIf="typeSeance?.invalid && typeSeance?.touched" class="error-message">
+            Session type is required.
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" formControlName="description" rows="5" placeholder="Enter session description..."></textarea>
+        
+          <div *ngIf="seanceform.get('description')?.invalid && seanceform.get('description')?.touched" class="error-message">
+            <div *ngIf="seanceform.get('description')?.errors?.['required']">Description is required.</div>
+            <div *ngIf="seanceform.get('description')?.errors?.['minlength']">Description must be at least 10 characters long.</div>
+            <div *ngIf="seanceform.get('description')?.errors?.['maxlength']">Description cannot exceed 500 characters.</div>
+            <div *ngIf="seanceform.get('description')?.errors?.['pattern']">Description can only contain letters, numbers, and spaces.</div>
+          </div>
+        
+          <div *ngIf="seanceform.get('description')?.value?.length > 400" class="warning-message">
+            Warning: Description is getting long ({{ seanceform.get('description')?.value?.length }}/500 characters).
+          </div>
+        </div>
+        
+        
+    
+        <div class="form-navigation">
+          <div></div>
+          <button type="button" class="nav-button next" (click)="nextSection()">Next →</button>
+        </div>
+      </div>
+    
+      <div class="form-section" [class.active]="currentSection === 'schedule'">
+        <h3>Schedule</h3>
+    
+        <div class="form-group">
+          <label for="jourSeance">Date:</label>
+          <input type="date" id="jourSeance" formControlName="jourSeance" required>
+          <div *ngIf="jourSeance?.invalid && jourSeance?.touched" class="error-message">
+            Date is required.
+          </div>
+          <div *ngIf="isPastDate()" class="warning-message">
+            Warning: You selected a past date.
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="heureDebut">Start Time:</label>
+          <input type="time" id="heureDebut" formControlName="heureDebut" required (change)="calculateDuration()">
+          <div *ngIf="heureDebut?.invalid && heureDebut?.touched" class="error-message">
+            Start time is required.
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="heureFin">End Time:</label>
+          <input type="time" id="heureFin" formControlName="heureFin" required (change)="calculateDuration()">
+          <div *ngIf="heureFin?.invalid && heureFin?.touched" class="error-message">
+            End time is required.
+          </div>
+          <div *ngIf="isEndTimeBeforeStartTime()" class="error-message">
+            End time must be after start time.
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="durationMinutes">Duration (minutes):</label>
+          <input type="number" id="durationMinutes" formControlName="durationMinutes" min="5" max="240" required>
+          <div *ngIf="durationMinutes?.invalid && durationMinutes?.touched" class="error-message">
+            <span *ngIf="durationMinutes?.errors?.['required']">Duration is required.</span>
+            <span *ngIf="durationMinutes?.errors?.['min']">Minimum duration is 5 minutes.</span>
+            <span *ngIf="durationMinutes?.errors?.['max']">Maximum duration is 240 minutes.</span>
+          </div>
+          <div *ngIf="isDurationExcessive()" class="warning-message">
+            Warning: Sessions over 120 minutes may be excessive.
+          </div>
+        </div>
+    
+        <div class="form-navigation">
+          <button type="button" class="nav-button" (click)="prevSection()">← Previous</button>
+          <button type="button" class="nav-button next" (click)="nextSection()">Next →</button>
+        </div>
+      </div>
+    </form>
+    
+    
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div *ngIf="showConfirmModal" class="confirm-modal-overlay">
+      <div class="confirm-modal">
+        <div class="confirm-modal-header">
+          <h4>Confirmation</h4>
+          <button class="modal-close-btn" (click)="cancelSubmit()">✖</button>
+        </div>
+        <div class="confirm-modal-body">
+          <p>{{ confirmMessage }}</p>
+        </div>
+        <div class="confirm-modal-footer">
+          <button class="cancel-btn" (click)="cancelSubmit()">Annuler</button>
+          <button class="confirm-btn" (click)="confirmSubmit()">Confirmer</button>
+        </div>
       </div>
     </div>
-
-    <div class="form-group">
-      <label>Jour de la Séance</label>
-      <input type="datetime" class="form-control" formControlName="jourSeance">
-      <div *ngIf="jourSeance?.invalid && jourSeance?.touched" class="text-danger">
-        Sélectionner un jour valide.
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary" (click)="updateSeance()" [disabled]="seanceform.invalid">Mettre à jour</button>
-    <button type="button" class="btn btn-secondary" routerLink="/showseance">Annuler</button>
-  </form>
+  </div>
 </div>

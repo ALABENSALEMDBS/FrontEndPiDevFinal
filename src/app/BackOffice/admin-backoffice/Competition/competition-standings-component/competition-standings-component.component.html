@@ -1,0 +1,115 @@
+<div class="container-fluid p-4">
+    <div class="card">
+      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h2>{{ competition.nameCompetition }} - Standings</h2>
+        <div>
+          <button class="btn btn-warning me-2" (click)="updateStandings()">
+            <i class="bi bi-arrow-clockwise"></i> Update Standings
+          </button>
+          <button class="btn btn-light" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Back to Competitions
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Success message -->
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+  
+        <!-- Loading spinner -->
+        <div *ngIf="loading" class="text-center my-5">
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+  
+        <!-- Error message -->
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+  
+        <!-- No standings message -->
+        <div *ngIf="!loading && standings.length === 0" class="alert alert-info">
+          <p>No standings available for this competition.</p>
+          <p>Click "Update Standings" to generate the current standings based on match results.</p>
+        </div>
+  
+        <!-- Standings table -->
+        <div class="table-responsive" *ngIf="!loading && standings.length > 0">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Pos</th>
+                <th>Club</th>
+                <th class="text-center">P</th>
+                <th class="text-center">W</th>
+                <th class="text-center">D</th>
+                <th class="text-center">L</th>
+                <th class="text-center">GF</th>
+                <th class="text-center">GA</th>
+                <th class="text-center">GD</th>
+                <th class="text-center">Pts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let standing of standings; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img 
+                      [src]="standing.club.logo" 
+                      [alt]="standing.club.nameClub" 
+                      class="me-2" 
+                      style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
+                      onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                    >
+                    <span>{{ standing.club.nameClub }}</span>
+                  </div>
+                </td>
+                <td class="text-center">{{ standing.matchesPlayed }}</td>
+                <td class="text-center">{{ standing.wins }}</td>
+                <td class="text-center">{{ standing.draws }}</td>
+                <td class="text-center">{{ standing.losses }}</td>
+                <td class="text-center">{{ standing.goalsFor }}</td>
+                <td class="text-center">{{ standing.goalsAgainst }}</td>
+                <td class="text-center">{{ standing.goalDifference }}</td>
+                <td class="text-center fw-bold">{{ standing.points }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <!-- Legend -->
+        <div class="mt-4" *ngIf="!loading && standings.length > 0">
+          <h5>Legend</h5>
+          <div class="d-flex flex-wrap">
+            <div class="me-4 mb-2">
+              <span>P:</span> Played
+            </div>
+            <div class="me-4 mb-2">
+              <span>W:</span> Won
+            </div>
+            <div class="me-4 mb-2">
+              <span>D:</span> Drawn
+            </div>
+            <div class="me-4 mb-2">
+              <span>L:</span> Lost
+            </div>
+            <div class="me-4 mb-2">
+              <span>GF:</span> Goals For
+            </div>
+            <div class="me-4 mb-2">
+              <span>GA:</span> Goals Against
+            </div>
+            <div class="me-4 mb-2">
+              <span>GD:</span> Goal Difference
+            </div>
+            <div class="me-4 mb-2">
+              <span>Pts:</span> Points
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

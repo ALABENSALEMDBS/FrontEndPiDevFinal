@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <h6 style="color: rgb(250, 8, 8);">Or you reached the limit (11 players)</h6>
+    <h6 style="color: rgb(250, 8, 8);">Or you reached the limit (16 players)</h6>
 
     <div class="players-content">
       <div *ngIf="loading" class="loading">
@@ -47,7 +47,7 @@
             <input type="checkbox" 
                    [checked]="isPlayerSelected(player.idUser)"
                    (change)="togglePlayerSelection(player.idUser)"
-                   [disabled]="!isPlayerSelected(player.idUser) && (formation?.joueurs?.length + selectedPlayers.length >= 11 || isPlayerInFormation(player.idUser))">
+                   [disabled]="!isPlayerSelected(player.idUser) && (formation?.joueurs?.length + selectedPlayers.length >= 16 || isPlayerInFormation(player.idUser))">
                   </div>
           <div class="player-photo">
             <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">
@@ -90,7 +90,7 @@
                 <input type="checkbox" 
                        [checked]="isPlayerSelected(player.idUser)"
                        (change)="togglePlayerSelection(player.idUser)"
-                       [disabled]="!isPlayerSelected(player.idUser) && (formation?.joueurs?.length + selectedPlayers.length >= 11 || isPlayerInFormation(player.idUser))">
+                       [disabled]="!isPlayerSelected(player.idUser) && (formation?.joueurs?.length + selectedPlayers.length >= 16 || isPlayerInFormation(player.idUser))">
               </td>
               <td class="player-avatar">
                 <img [src]="player.photoUser || 'assets/default-player.png'" alt="Photo of {{player.nameUsers}}">

@@ -1,0 +1,385 @@
+<div class="football-dashboard">
+    <div class="dashboard-header">
+      <div class="logo-area">
+        <div class="hexagon-logo">
+          <span class="logo-text">TEAM</span>
+          <span class="logo-text-small">ANALYTICS</span>
+        </div>
+      </div>
+      <h1 class="dashboard-title">PERFORMANCE ANALYTICS</h1>
+    </div>
+  
+    <!-- Section 1: Underperforming Players -->
+    <section class="dashboard-section underperforming-section">
+      <div class="section-header">
+        <div class="section-title-area">
+          <div class="hexagon-small"></div>
+          <h2 class="section-title">PLAYERS IN DIFFICULTY</h2>
+        </div>
+        <div class="filter-controls">
+          <div class="filter-label">FILTER BY POST</div>
+          <div class="custom-select">
+            <select id="badPlayerPoste" [(ngModel)]="selectedBadPlayerPoste" (change)="loadBadPlayersByPoste(selectedBadPlayerPoste)">
+              <option *ngFor="let poste of playerPostes" [value]="poste">{{ poste }}</option>
+            </select>
+            <div class="select-arrow"></div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="loading-indicator" *ngIf="isLoadingBadReports">
+        <div class="hexagon-spinner">
+          <div class="spinner-inner"></div>
+        </div>
+        <p>load data
+
+        </p>
+      </div>
+  
+      <div class="table-container" *ngIf="!isLoadingBadReports && badReports.length > 0; else noBadReports">
+        <table class="player-table">
+          <thead>
+            <tr>
+              <th>player</th>
+              <th>position</th>
+              <th>speed</th>
+              <th>acceleration</th>
+              <th>endurance</th>
+              <th>state</th>
+              <th>injury</th>
+              <th>date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let report of badReports" class="player-row">
+              <td class="player-name-cell">
+                <div class="player-avatar" *ngIf="report.joueursrapport?.photoUser">
+                  <img [src]="report.joueursrapport?.photoUser" alt="Photo">
+                </div>
+                <div class="player-avatar no-photo" *ngIf="!report.joueursrapport?.photoUser">
+                  <span>{{ getPlayerInitials(report.joueursrapport) }}</span>
+                </div>
+                <span>{{ getPlayerFullName(report.joueursrapport) }}</span>
+              </td>
+              <td>{{ report.joueursrapport?.posteJoueur }}</td>
+              <td>
+                <div class="stat-hexagon" [ngClass]="getStatClass(report.speedRapport)">
+                  {{ report.speedRapport }}
+                </div>
+              </td>
+              <td>
+                <div class="stat-hexagon" [ngClass]="getStatClass(report.accelerationRapport)">
+                  {{ report.accelerationRapport }}
+                </div>
+              </td>
+              <td>
+                <div class="stat-hexagon" [ngClass]="getStatClass(report.endurance)">
+                  {{ report.endurance }}
+                </div>
+              </td>
+              <td>
+                <div class="status-badge" [ngClass]="{'status-bad': report.etatRapport === 'BAD', 'status-good': report.etatRapport === 'GOOD'}">
+                  {{ report.etatRapport }}
+                </div>
+              </td>
+              <td>{{ report.blessureRapport || 'Aucune' }}</td>
+              <td>{{ report.dateRapport | date:'dd/MM/yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noBadReports>
+        <div class="no-data-container" *ngIf="!isLoadingBadReports">
+          <div class="no-data-icon"></div>
+          <p>No player in difficulty found for this position</p>
+        </div>
+      </ng-template>
+    </section>
+  
+    <!-- Section 2: Best Player -->
+    <section class="dashboard-section best-player-section">
+      <div class="section-header">
+        <div class="section-title-area">
+          <div class="hexagon-small"></div>
+          <h2 class="section-title">elite player
+
+          </h2>
+        </div>
+        <div class="filter-controls multi-filter">
+          <div class="filter-group">
+            <div class="filter-label">position
+            </div>
+            <div class="custom-select">
+              <select id="bestPlayerPoste" [(ngModel)]="selectedBestPlayerPoste">
+                <option *ngFor="let poste of playerPostes" [value]="poste">{{ poste }}</option>
+              </select>
+              <div class="select-arrow"></div>
+            </div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-label">session</div>
+            <div class="custom-select">
+              <select id="bestPlayerSeance" [(ngModel)]="selectedBestPlayerSeance">
+                <option *ngFor="let seanceItem of seances" [value]="seanceItem.titleSeance">{{ seanceItem.titleSeance }}</option>
+              </select>
+              <div class="select-arrow"></div>
+            </div>
+          </div>
+         
+          <button class="action-button" (click)="loadBestPlayerByPosteSeanceSousGroupe(selectedBestPlayerPoste, selectedBestPlayerSeance, selectedBestPlayerGroupe)">
+            filter
+          </button>
+        </div>
+      </div>
+  
+      <div class="loading-indicator" *ngIf="isLoadingBestPlayer">
+        <div class="hexagon-spinner">
+          <div class="spinner-inner"></div>
+        </div>
+        <p>load data
+
+        </p>
+      </div>
+  
+      <div class="elite-player-card" *ngIf="!isLoadingBestPlayer && bestPlayer; else noBestPlayer">
+        <div class="elite-player-header">
+          <div class="player-profile">
+            <div class="player-photo-frame" *ngIf="bestPlayer.joueursrapport?.photoUser">
+              <img [src]="bestPlayer.joueursrapport?.photoUser" alt="Photo du joueur">
+            </div>
+            <div class="player-photo-frame no-photo" *ngIf="!bestPlayer.joueursrapport?.photoUser">
+              <div class="player-initials">{{ getPlayerInitials(bestPlayer.joueursrapport) }}</div>
+            </div>
+            <div class="player-details">
+              <h3 class="player-name">{{ getPlayerFullName(bestPlayer.joueursrapport) }}</h3>
+              <div class="player-position">{{ bestPlayer.joueursrapport?.posteJoueur }}</div>
+              <div class="player-number">{{ bestPlayer.joueursrapport?.numeroJoueur }}</div>
+            </div>
+          </div>
+          <div class="player-overall">
+            <div class="overall-rating">
+              {{ calculateOverallRating(bestPlayer) }}
+            </div>
+            <div class="rating-label">global</div>
+          </div>
+        </div>
+  
+        <div class="elite-player-stats">
+          <div class="stats-column">
+            <h4 class="stats-category">physical
+            </h4>
+            <div class="hexagon-stats-grid">
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.speedRapport)">
+                  {{ bestPlayer.speedRapport }}
+                </div>
+                <span class="hexagon-stat-label">VIT</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.accelerationRapport)">
+                  {{ bestPlayer.accelerationRapport }}
+                </div>
+                <span class="hexagon-stat-label">ACC</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.endurance)">
+                  {{ bestPlayer.endurance }}
+                </div>
+                <span class="hexagon-stat-label">END</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.strength)">
+                  {{ bestPlayer.strength }}
+                </div>
+                <span class="hexagon-stat-label">FOR</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.power)">
+                  {{ bestPlayer.power }}
+                </div>
+                <span class="hexagon-stat-label">PUIS</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.muscularEndurance)">
+                  {{ bestPlayer.muscularEndurance }}
+                </div>
+                <span class="hexagon-stat-label">ReS</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="stats-column">
+            <h4 class="stats-category">technical</h4>
+            <div class="hexagon-stats-grid">
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.agility)">
+                  {{ bestPlayer.agility }}
+                </div>
+                <span class="hexagon-stat-label">AGI</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.balance)">
+                  {{ bestPlayer.balance }}
+                </div>
+                <span class="hexagon-stat-label">ÉQU</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.coordination)">
+                  {{ bestPlayer.coordination }}
+                </div>
+                <span class="hexagon-stat-label">COO</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.explosiveness)">
+                  {{ bestPlayer.explosiveness }}
+                </div>
+                <span class="hexagon-stat-label">EXP</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.reactionTime)">
+                  {{ bestPlayer.reactionTime }}
+                </div>
+                <span class="hexagon-stat-label">RÉA</span>
+              </div>
+              <div class="hexagon-stat-item">
+                <div class="hexagon-stat" [ngClass]="getStatClass(bestPlayer.reactivity)">
+                  {{ bestPlayer.reactivity }}
+                </div>
+                <span class="hexagon-stat-label">ADA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="elite-player-footer">
+          <div class="session-info">
+            <div class="info-item">
+              <span class="info-label">session</span>
+              <span class="info-value">{{ bestPlayer.seancesrapport?.titleSeance }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">group</span>
+              <span class="info-value">{{ bestPlayer.sousGroupesrapport?.nameSousGroup }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">DATE</span>
+              <span class="info-value">{{ bestPlayer.dateRapport | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">STATE</span>
+              <span class="info-value" [ngClass]="{'status-bad': bestPlayer.etatRapport === 'BAD', 'status-good': bestPlayer.etatRapport === 'GOOD'}">
+                {{ bestPlayer.etatRapport }}
+              </span>
+            </div>
+          </div>
+          <button class="action-button view-details-button">see details
+
+          </button>
+        </div>
+      </div>
+      <ng-template #noBestPlayer>
+        <div class="no-data-container" *ngIf="!isLoadingBestPlayer">
+          <div class="no-data-icon"></div>
+          <p>No elite player found with these criteria</p>
+        </div>
+      </ng-template>
+    </section>
+  
+    <!-- Section 3: Suspect Players with Good State -->
+    <section class="dashboard-section suspect-section">
+      <div class="section-header">
+        <div class="section-title-area">
+          <div class="hexagon-small"></div>
+          <h2 class="section-title">SUSPECTED PLAYERS <span class="highlight">"GOOD" status</span></h2>
+        </div>
+        <div class="filter-controls">
+          <div class="filter-label">FILTER BY POST</div>
+          <div class="custom-select">
+            <select id="suspectPlayerPoste" [(ngModel)]="selectedSuspectPlayerPoste" (change)="loadSuspectPlayersWithGoodState(selectedSuspectPlayerPoste)">
+              <option *ngFor="let poste of playerPostes" [value]="poste">{{ poste }}</option>
+            </select>
+            <div class="select-arrow"></div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="loading-indicator" *ngIf="isLoadingSuspectPlayers">
+        <div class="hexagon-spinner">
+          <div class="spinner-inner"></div>
+        </div>
+        <p>load data
+
+        </p>
+      </div>
+  
+      <div class="suspect-players-grid" *ngIf="!isLoadingSuspectPlayers && suspectGoodStatePlayers.length > 0; else noSuspectPlayers">
+        <div class="suspect-player-card" *ngFor="let player of suspectGoodStatePlayers">
+          <div class="suspect-card-header">
+            <div class="suspect-player-info">
+              <div class="player-avatar" *ngIf="player.joueursrapport?.photoUser">
+                <img [src]="player.joueursrapport?.photoUser" alt="Photo">
+              </div>
+              <div class="player-avatar no-photo" *ngIf="!player.joueursrapport?.photoUser">
+                <span>{{ getPlayerInitials(player.joueursrapport) }}</span>
+              </div>
+              <div class="suspect-player-name">
+                <h3>{{ getPlayerFullName(player.joueursrapport) }}</h3>
+                <p>{{ player.joueursrapport?.posteJoueur || 'Poste non défini' }}</p>
+              </div>
+            </div>
+            <div class="suspect-badge">suspect</div>
+          </div>
+          
+          <div class="suspect-card-stats">
+            <div class="suspect-stat-row">
+              <div class="suspect-stat">
+                <span class="suspect-stat-label">VIT</span>
+                <div class="suspect-stat-bar">
+                  <div class="suspect-stat-fill" [style.width.%]="player.speedRapport * 10"></div>
+                </div>
+                <span class="suspect-stat-value">{{ player.speedRapport }}</span>
+              </div>
+            </div>
+            <div class="suspect-stat-row">
+              <div class="suspect-stat">
+                <span class="suspect-stat-label">ACC</span>
+                <div class="suspect-stat-bar">
+                  <div class="suspect-stat-fill" [style.width.%]="player.accelerationRapport * 10"></div>
+                </div>
+                <span class="suspect-stat-value">{{ player.accelerationRapport }}</span>
+              </div>
+            </div>
+            <div class="suspect-stat-row">
+              <div class="suspect-stat">
+                <span class="suspect-stat-label">END</span>
+                <div class="suspect-stat-bar">
+                  <div class="suspect-stat-fill" [style.width.%]="player.endurance * 10"></div>
+                </div>
+                <span class="suspect-stat-value">{{ player.endurance }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="suspect-card-footer">
+            <div class="suspect-info">
+              <div class="suspect-info-item">
+                <span class="suspect-info-label">state</span>
+                <span class="status-good">{{ player.etatRapport }}</span>
+              </div>
+              <div class="suspect-info-item">
+                <span class="suspect-info-label">DATE</span>
+                <span>{{ player.dateRapport | date:'dd/MM/yyyy' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noSuspectPlayers>
+        <div class="no-data-container" *ngIf="!isLoadingSuspectPlayers">
+          <div class="no-data-icon"></div>
+          <p>No suspicious player with status "GOOD" found for this post</p>
+        </div>
+      </ng-template>
+    </section>
+  </div>
+  

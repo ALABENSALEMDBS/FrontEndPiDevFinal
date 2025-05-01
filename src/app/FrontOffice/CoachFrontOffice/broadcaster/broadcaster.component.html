@@ -1,0 +1,46 @@
+<!-- <p>broadcaster works!</p> -->
+
+<div class="broadcaster-container">
+  <div class="header">
+      <h2>Diffusion en direct: {{ room?.name }}</h2>
+      <button class="back-button" (click)="goToHome()">Retour à l'accueil</button>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+  </div>
+
+  <div class="video-container">
+      <video #videoElement autoplay muted playsinline></video>
+
+      <div class="controls">
+          <button *ngIf="!isStreaming" class="start-button" (click)="startStreaming()">
+              Commencer la diffusion
+          </button>
+          <button *ngIf="isStreaming" class="stop-button" (click)="stopStreaming()">
+              Arrêter la diffusion
+          </button>
+      </div>
+
+      <div *ngIf="isStreaming" class="streaming-indicator">
+          <span class="dot"></span> En direct
+      </div>
+  </div>
+
+  <div class="stream-info" *ngIf="room">
+      <h3>Informations sur le stream</h3>
+      <p><strong>ID de la room:</strong> {{ roomId }}</p>
+      <p><strong>Nom:</strong> {{ room.name }}</p>
+      <p><strong>Statut:</strong> {{ isStreaming ? 'En direct' : 'Pas en diffusion' }}</p>
+      <p *ngIf="room.recordingPath"><strong>Enregistrement:</strong> {{ room.recordingPath }}</p>
+  </div>
+
+  <div class="share-info" *ngIf="isStreaming">
+      <h3>Partagez ce stream</h3>
+      <p>Partagez ce lien pour que d'autres personnes puissent regarder votre diffusion:</p>
+      <div class="share-link">
+          <code>{{ window.location.origin }}/view/{{ roomId }}</code>
+      </div>
+  </div>
+</div>
+

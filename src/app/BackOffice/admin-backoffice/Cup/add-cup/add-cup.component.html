@@ -1,0 +1,98 @@
+<!-- src/app/components/cup/add-cup/add-cup.component.html -->
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-success text-white">
+      <h2>Create New Cup Tournament</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="cupForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Error message -->
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+
+        <!-- Success message -->
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+        
+        <!-- Cup Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Cup Tournament Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            class="form-control text-black"  
+            [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+          >
+          <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+            <div *ngIf="f['name'].errors['required']">Cup name is required</div>
+          </div>
+        </div>
+        
+        <!-- Participating Clubs -->
+        <div class="mb-3">
+          <label class="form-label">Participating Clubs</label>
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> 
+            The number of clubs must be a power of 2 (2, 4, 8, 16, 32, etc.) for a proper knockout tournament.
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div *ngFor="let club of clubs" class="col-md-4 mb-2">
+                  <div class="form-check">
+                    <input 
+                      class="form-check-input" 
+                      type="checkbox" 
+                      [id]="'club' + club.idClub" 
+                      [value]="club.idClub" 
+                      (change)="onClubSelectionChange(club.idClub, $event)"
+                    >
+                    <label class="form-check-label" [for]="'club' + club.idClub">
+                      <div class="d-flex align-items-center">
+                        <img 
+                          [src]="club.logo" 
+                          [alt]="club.nameClub" 
+                          class="me-2" 
+                          style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
+                        >
+                        {{ club.nameClub }}
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && selectedClubs.length < 2" class="text-danger mt-2">
+                At least 2 clubs must be selected for a cup tournament
+              </div>
+              <div *ngIf="submitted && selectedClubs.length >= 2 && !isPowerOfTwo(selectedClubs.length)" class="text-danger mt-2">
+                The number of clubs must be a power of 2 (2, 4, 8, 16, 32, etc.)
+              </div>
+              <div *ngIf="selectedClubs.length > 0" class="mt-2">
+                <strong>Selected clubs:</strong> {{ selectedClubs.length }}
+                <span *ngIf="isPowerOfTwo(selectedClubs.length)" class="text-success">
+                  <i class="bi bi-check-circle"></i> Valid number for a knockout tournament
+                </span>
+                <span *ngIf="!isPowerOfTwo(selectedClubs.length)" class="text-danger">
+                  <i class="bi bi-exclamation-triangle"></i> Not a valid number for a knockout tournament
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Submit button -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-success" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+            Create Cup Tournament
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

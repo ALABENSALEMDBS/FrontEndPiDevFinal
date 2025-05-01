@@ -30,6 +30,10 @@ import { AllTemplatePlayerFrontComponent } from './FrontOffice/PlayerFrontOffice
 import { FooterPlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/footer-player-front/footer-player-front.component';
 import { HeaderPlayerFrontComponent } from './FrontOffice/PlayerFrontOffice/header-player-front/header-player-front.component';
 
+//import { HeaderBackComponent } from './BackOffice/admin-backoffice/header-back/header-back.component';
+
+
+
 //import { AccueilComponent } from './BackOffice/accueil/accueil.component';
 import { CreateUpdateFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/create-update-fiche-medical/create-update-fiche-medical.component';
 import { ListeFicheMedicalComponent } from './FrontOffice/DoctorFrontOffice/FicheMedical/liste-fiche-medical/liste-fiche-medical.component';
@@ -77,6 +81,13 @@ import { WebsocketService } from './services/serviceCoatch/services/websocket.se
 import { ChartsdoctorComponent } from "./BackOffice/admin-club-backoffice/chartsdoctor/chartsdoctor.component";
 import { DoctorplayerchartComponent } from './FrontOffice/DoctorFrontOffice/doctorplayerchart/doctorplayerchart.component';
 import { AddConsultationComponent } from './FrontOffice/DoctorFrontOffice/add-consultation/add-consultation.component';
+import { VideoListComponent } from './FrontOffice/CoachFrontOffice/video-list/video-list.component';
+import { VideoCommentComponent } from './FrontOffice/CoachFrontOffice/video-comment/video-comment.component';
+import { CommentStatsComponent } from './FrontOffice/CoachFrontOffice/comment-stats/comment-stats.component';
+import { CommonModule } from '@angular/common';
+import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
+import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster/broadcaster.component';
+import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
 
 //import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // @NgModule({
@@ -225,27 +236,34 @@ import { AddConsultationComponent } from './FrontOffice/DoctorFrontOffice/add-co
     ListTournoiComponent,
     AddTournoiComponent,
     UpdateTournoiComponent,
-    AddMatchComponent,
-    ListMatchComponent,
-    UpdateMatchComponent,
-    
-    
+    // AddMatchComponent,
+    // ListMatchComponent,
+    // UpdateMatchComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    CommonModule,
+    NgChartsModule,
     NgChartsModule,
     ChatComponent,
-    //     FormsModule,
-    //     FooterHomeComponent,
-    //     NavbarHomeComponent
-    // ],
-    // providers: [provideHttpClient(withInterceptorsFromDi())] })
-    FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent,
-    ChartsdoctorComponent,DoctorplayerchartComponent,AddConsultationComponent
+    VideoListComponent,
+    VideoCommentComponent,
+    CommentStatsComponent,
+    BroadcasterComponent,
+    ViewerComponent,
+    HomeStrComponent,
+    FormsModule,
+    FooterHomeComponent,
+    NavbarHomeComponent,
+    PlayersFormationComponent,
+    ChartsdoctorComponent,
+    DoctorplayerchartComponent,
+    AddConsultationComponent
     
     
 ], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
+
 export class AppModule { }

@@ -13,7 +13,7 @@
     <div class="panel-header">
       <h3>Players for {{ formation?.nameFormation }}</h3>
       <div class="panel-actions"  >
-        <button class="assign-btn" (click)="assignPlayer(formation?.idFormation)"   [ngClass]="formation?.joueurs?.length === 11 ? 'red' : 'green'"  [disabled]="formation?.joueurs?.length === 11">
+        <button class="assign-btn" (click)="assignPlayer(formation?.idFormation)"   [ngClass]="formation?.joueurs?.length === 16 ? 'red' : 'green'"  [disabled]="formation?.joueurs?.length === 16">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
             <path d="M12 5v14M5 12h14"></path>
           </svg>
@@ -36,7 +36,11 @@
             </svg> -->
           </div>
           <div class="player-name">
-              <span>{{ player.numeroJoueur }} - {{ player.nameUsers }}  {{player.prenomUser}}</span>
+              <span>{{ player.numeroJoueur }} - {{ player.nameUsers }}  {{player.prenomUser}}</span> 
+              <span> => <strong [ngClass]="{'titulaire': player.tituliare, 'bank': !player.tituliare}">
+                {{ player.tituliare ? 'Starter' : 'Substitute' }}
+              </strong>
+              </span>
           </div>
           <div class="player-poste">
               <span>{{ player.posteJoueur }}</span>
@@ -74,7 +78,12 @@
             </svg>
             Statistic
             </button>
+
+            <button class="sub-btn"   (click)="maketito(player.idUser)">
+              Sub/Sta
+            </button>
           </div>
+
 
 
         </div>
@@ -112,7 +121,7 @@
 <div *ngIf="isModalOpenStatistic" class="modal-overlay">
   <div class="modal-content">
     <button class="close-btnM" (click)="closeModalStatistic()">✖</button>
-    <h2>Statistiques de {{ nameUsers }}</h2>
+    <h2>Statistics of {{ nameUsers }}</h2>
 
     <div *ngIf="statistiques.length > 0; else noData">
       <!-- Navigation des catégories -->
@@ -160,7 +169,7 @@
     <ng-template #noData>
       <div class="no-data-container">
         <div class="no-data-icon">📊</div>
-        <p class="no-data">Aucune statistique disponible pour ce joueur.</p>
+        <p class="no-data">No statistics available for this player.</p>
       </div>
     </ng-template>
   </div>

@@ -1,4 +1,4 @@
-<div class="site-mobile-menu site-navbar-target">
+<!-- <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
       <div class="site-mobile-menu-close">
         <span class="icon-close2 js-menu-toggle"></span>
@@ -50,4 +50,114 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+
+
+
+
+
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icon-close2 js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
   </div>
+  
+  
+  <header class="site-navbar py-4" role="banner">
+  
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <!-- <div class="site-logo">
+          <a href="index.html">
+            <img src="assets/front/images/logo.png" alt="Logo">y
+          </a>
+        </div> -->
+        <div class="ml-auto">
+          <nav class="site-navigation position-relative text-right" role="navigation">
+            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+              <li><a routerLink="/home" class="nav-link">Home</a></li>
+              <li><a routerLink="/matches" class="nav-link">Matches</a></li>
+
+            <!--  Matches TEST  -->
+              <li><a routerLink="/clubs" class="nav-link">Friendly Matches</a></li>
+              <li><a routerLink="/blog" class="nav-link">Players</a></li>
+              <!-- <li><a routerLink="/blog" class="nav-link">Blog</a></li> -->
+              <li><a routerLink="/contact" class="nav-link">Contact</a></li>
+              <!-- <li><a routerLink="login.html" class="btn btn-danger ml-3">Login</a></li> -->
+  
+              <!-- <li class="mt-2">
+                <a class="btn btn-danger d-flex align-items-center gap-2 px-3 py-2" (click)="logout() "> 
+                  <i class="mdi mdi-logout"></i>
+                  <span>Logout</span>
+                </a>
+              </li> -->
+              
+            </ul>
+          </nav>
+  
+          <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span
+              class="icon-menu h3 text-white"></span></a>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+  
+  <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 ml-auto">
+          <h1 class="text-white">{{ currentPage }}</h1>
+          <p>
+            <br>
+            
+  
+  
+            <a href="#" 
+     class="btn btn-primary" 
+     style="font-size: 50px; font-weight: bold; padding: 15px 30px; border: 2px solid #a72c28; border-radius: 10px; background-color: transparent; color: #a73d28; text-transform: uppercase; text-align: center; display: inline-block; text-decoration: none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;">
+     You are Welcome
+  </a>
+  
+  <!-- Adding hover effect with JavaScript -->
+  <script>
+    const button = document.querySelector('.btn');
+    button.addEventListener('mouseenter', function() {
+      button.style.backgroundColor = '#28a745'; /* Green background on hover */
+      button.style.color = 'white'; /* White text on hover */
+      button.style.transform = 'scale(1.05)'; /* Slightly increase size */
+    });
+    button.addEventListener('mouseleave', function() {
+      button.style.backgroundColor = 'transparent'; /* Reset to transparent */
+      button.style.color = '#28a745'; /* Reset text color */
+      button.style.transform = 'scale(1)'; /* Reset size */
+    });
+    button.addEventListener('mousedown', function() {
+      button.style.backgroundColor = '#218838'; /* Darker green on click */
+      button.style.color = 'white'; /* White text when clicked */
+    });
+    button.addEventListener('mouseup', function() {
+      button.style.backgroundColor = '#28a745'; /* Reset to hover color */
+      button.style.color = 'white'; /* Keep text white */
+    });
+  </script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+          </p>  
+        </div>
+      </div>
+    </div>
+  </div>
+  

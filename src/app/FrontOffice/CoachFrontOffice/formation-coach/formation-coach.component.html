@@ -17,7 +17,7 @@
     <div class="card" *ngFor="let f of formation">
       <div class="card-image">
         <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Football Training">
-        <span class="level-badge" [ngClass]="f.joueurs?.length === 11 ? 'green' : (f.joueurs?.length === 0 ? 'red' : 'orange')">
+        <span class="level-badge" [ngClass]="getBadgeColor(f)">
           {{ f.nameFormation }}
         </span>
       </div>
@@ -49,9 +49,10 @@
                 class="count-badge"  
                 [ngClass]="{
                   'no-players': f.joueurs?.length === 0, 
-                  'single-player': f.joueurs?.length != 11 && f.joueurs?.length != 0
+                  'single-player': f.joueurs && f.joueurs.length < 11 && f.joueurs.length != 0
                 }">
-                {{ f.joueurs?.length }}
+                <!-- {{ f.joueurs?.length }}  -->
+                {{ getlenghtplayerinformation(f) }}
               </span>
               {{ f.joueurs?.length === 0 ? 'No Player' : (f.joueurs?.length === 1 ? 'Player' : 'Players') }}
             </span>

@@ -1,0 +1,113 @@
+<form (ngSubmit)="onSubmit(addClubForm)" #addClubForm="ngForm" class="container mt-4">
+
+    <div class="card p-4">
+      <h3 class="card-title mb-4 text-center">Club Form</h3>
+
+  
+      <!-- Club Name -->
+      <div class="mb-3">
+        <label for="nameClub" class="form-label">Club Name:</label>
+        <input
+          type="text"
+          id="nameClub"
+          name="nameClub"
+          [(ngModel)]="clubData.nameClub"
+          required
+          class="form-control"
+          #nameClub="ngModel"
+        />
+        <div *ngIf="nameClub.invalid && (nameClub.dirty || nameClub.touched)" class="text-danger mt-2">
+          <div *ngIf="nameClub.errors?.['required']">Club Name is required.</div>
+        </div>
+      </div>
+  
+      <!-- Club Email -->
+      <div class="mb-3">
+        <label for="emailClub" class="form-label">Club Email:</label>
+        <input
+          type="email"
+          id="emailClub"
+          name="emailClub"
+          [(ngModel)]="clubData.emailClub"
+          required
+          class="form-control"
+          #emailClub="ngModel"
+        />
+        <div *ngIf="emailClub.invalid && (emailClub.dirty || emailClub.touched)" class="text-danger mt-2">
+          <div *ngIf="emailClub.errors?.['required']">Club Email is required.</div>
+        </div>
+      </div>
+  
+      <!-- Club Address -->
+      <div class="mb-3">
+        <label for="adressClub" class="form-label">Club Address:</label>
+        <input
+          type="text"
+          id="adressClub"
+          name="adressClub"
+          [(ngModel)]="clubData.adressClub"
+          required
+          class="form-control"
+          #adressClub="ngModel"
+        />
+        <div *ngIf="adressClub.invalid && (adressClub.dirty || adressClub.touched)" class="text-danger mt-2">
+          <div *ngIf="adressClub.errors?.['required']">Club Address is required.</div>
+        </div>
+      </div>
+  
+      <!-- Club Date -->
+      <div class="mb-3">
+        <label for="dateClub" class="form-label">Club Date:</label>
+        <input
+          type="date"
+          id="dateClub"
+          name="dateClub"
+          [(ngModel)]="clubData.dateClub"
+          required
+          class="form-control"
+          #dateClub="ngModel"
+        />
+        <div *ngIf="dateClub.invalid && (dateClub.dirty || dateClub.touched)" class="text-danger mt-2">
+          <div *ngIf="dateClub.errors?.['required']">Club Date is required.</div>
+        </div>
+      </div>
+  
+      <!-- Club Licence -->
+      <div class="mb-3">
+        <label for="licenceClub" class="form-label">Club Licence:</label>
+        <input
+          type="text"
+          id="licenceClub"
+          name="licenceClub"
+          [(ngModel)]="clubData.licenceClub"
+          required
+          class="form-control"
+          #licenceClub="ngModel"
+        />
+        <div *ngIf="licenceClub.invalid && (licenceClub.dirty || licenceClub.touched)" class="text-danger mt-2">
+          <div *ngIf="licenceClub.errors?.['required']">Club Licence is required.</div>
+        </div>
+      </div>
+  
+      <!-- File Upload for Logo -->
+      <!-- <div class="mb-3">
+        <label for="logo" class="form-label">Upload Club Logo:</label>
+        <input type="file" id="logo" class="form-control" (change)="onFileSelected($event)" />
+      </div> -->
+
+      <div class="mb-3">
+            <input
+                  id="mediaUrl"
+                  type="file"
+                  class="form-control"                   accept="image/*"
+                  (change)="onFileSelected($event)"
+                >
+              </div>
+  
+      <!-- Submit Button -->
+      <div class="d-flex justify-content-center">
+        <button type="submit" [disabled]="addClubForm.invalid" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+  

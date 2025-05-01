@@ -1,0 +1,439 @@
+/* eFootball 2023/2024 Inspired Theme */
+:root {
+    --efootball-bg: #0a1929;
+    --efootball-card-bg: #0f2438;
+    --efootball-accent: #00c8ff;
+    --efootball-accent-alt: #00ff9d;
+    --efootball-text: #ffffff;
+    --efootball-text-muted: #8a9bae;
+    --efootball-border: #1e3a5f;
+    --efootball-success: #00ff9d;
+    --efootball-error: #ff3860;
+    --efootball-gradient: linear-gradient(135deg, #0a1929 0%, #1e3a5f 100%);
+    --efootball-button-gradient: linear-gradient(135deg, #00c8ff 0%, #0077ff 100%);
+    --efootball-highlight: #1e3a5f;
+  }
+  
+  /* Base Styles */
+  .efootball-container {
+    background:  #767676;
+    color:  #fffffffc;
+    font-family: "Rajdhani", "Segoe UI", sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231e3a5f' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+  
+  .efootball-modal {
+    padding: 0;
+    min-height: auto;
+    background: none;
+  }
+  
+  .efootball-no-padding {
+    padding: 0;
+  }
+  
+  .efootball-card {
+    background: var(--efootball-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    border: 1px solid var(--efootball-border);
+    position: relative;
+  }
+  
+  .efootball-no-border {
+    border: none;
+    box-shadow: none;
+  }
+  
+  .efootball-header {
+    background: var(--efootball-gradient);
+    padding: 15px 20px;
+    border-bottom: 2px solid var(--efootball-accent);
+    position: relative;
+  }
+  
+  .efootball-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--efootball-accent);
+    text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+  }
+  
+  .efootball-body {
+    padding: 20px;
+  }
+  
+  /* Section Styles */
+  .efootball-section {
+    margin-bottom: 25px;
+  }
+  
+  .efootball-section-title {
+    color:  #ffffff;;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-left: 15px;
+  }
+  
+  .efootball-section-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--efootball-accent);
+  }
+  
+  .efootball-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+  }
+  
+  .efootball-grid-column {
+    flex: 1;
+    min-width: 250px;
+    padding: 0 10px;
+    margin-bottom: 15px;
+  }
+  
+  .efootball-detail {
+    margin-bottom: 10px;
+    background: rgba(0, 59, 137, 0.792);
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid var(--efootball-border);
+    transition: all 0.2s ease;
+  }
+  
+  .efootball-detail:hover {
+    background: rgba(33, 108, 207, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .efootball-label {
+    font-weight: 600;
+    color: var(--efootball-text-muted);
+    margin-right: 5px;
+  }
+  
+  /* Info Box */
+  .efootball-info-box {
+    background: rgba(191, 0, 0, 0.266);
+    border-left: 4px solid var(--efootball-accent);
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 0 6px 6px 0;
+  }
+  
+  .efootball-info-box p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  .efootball-info-box i {
+    color: var(--efootball-accent);
+    margin-right: 8px;
+  }
+  
+  .efootball-info-box ul {
+    margin: 0;
+    padding-left: 25px;
+    color: var(--efootball-text-muted);
+  }
+  
+  .efootball-info-box li {
+    margin-bottom: 5px;
+  }
+  
+  /* Exercises Container */
+  .efootball-exercises-container {
+    background: rgba(0, 18, 176, 0.244);
+    border-radius: 8px;
+    border: 1px solid var(--efootball-border);
+    margin-bottom: 25px;
+    overflow: hidden;
+  }
+  
+  .efootball-exercises-header {
+    background: rgba(30, 58, 95, 0.5);
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--efootball-border);
+  }
+  
+  .efootball-exercises-header h4 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--efootball-accent);
+  }
+  
+  .efootball-exercises-body {
+    padding: 15px;
+  }
+  
+  .efootball-no-exercises {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .efootball-exercises-count {
+    background: rgba(0, 138, 28, 0.659);
+    color: var(--efootball-success);
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  .efootball-exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+  }
+  
+  .efootball-exercise-item {
+    background: rgba(4, 0, 121, 0.536);
+    border-radius: 6px;
+    border: 1px solid var(--efootball-border);
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+  
+  .efootball-exercise-item:hover {
+    background: rgba(30, 58, 95, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .efootball-exercise-check {
+    padding: 15px;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .efootball-exercise-disabled {
+    opacity: 0.75;
+  }
+  
+  .efootball-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .efootball-checkbox-label {
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    display: block;
+    user-select: none;
+    width: 100%;
+  }
+  
+  .efootball-checkbox-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--efootball-border);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  
+  .efootball-checkbox:checked + .efootball-checkbox-label::before {
+    background: var(--efootball-accent);
+    border-color: var(--efootball-accent);
+  }
+  
+  .efootball-checkbox:checked + .efootball-checkbox-label::after {
+    content: "✓";
+    position: absolute;
+    left: 6px;
+    top: 1px;
+    font-size: 16px;
+    color:  #00fc19;;
+    font-weight: bold;
+  }
+  
+  .efootball-checkbox:disabled + .efootball-checkbox-label {
+    cursor: not-allowed;
+  }
+  
+  .efootball-exercise-desc {
+    margin: 5px 0 8px;
+    color: var(--efootball-text-muted);
+    font-size: 14px;
+  }
+  
+  .efootball-badge {
+    display: inline-block;
+    background: var(--efootball-success);
+    color: var(--efootball-bg);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+  
+  /* Message */
+  .efootball-message {
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .efootball-success {
+    background: rgba(0, 255, 157, 0.1);
+    border-left: 4px solid var(--efootball-success);
+    color: var(--efootball-success);
+  }
+  
+  .efootball-error {
+    background: rgba(255, 56, 96, 0.1);
+    border-left: 4px solid var(--efootball-error);
+    color: var(--efootball-error);
+  }
+  
+  /* Action Buttons */
+  .efootball-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+  }
+  
+  .efootball-button {
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .efootball-button i {
+    margin-right: 8px;
+  }
+  
+  .efootball-button-secondary {
+    background: rgba(187, 17, 4, 0.6);
+    color: var(--efootball-text);
+    border: 1px solid var(--efootball-border);
+  }
+  
+  .efootball-button-secondary:hover {
+    background: rgb(255, 3, 3);
+    transform: translateY(-2px);
+  }
+  
+  .efootball-button-primary {
+    background: rgba(0, 128, 0, 0.474);
+    color: rgb(255, 255, 255);
+  }
+  
+  .efootball-button-primary:hover {
+    transform: translateY(-2px);
+    background: rgb(0, 255, 0);
+  }
+  
+  .efootball-button-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .efootball-button-loading {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .efootball-button-loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: loading 1.5s infinite;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes loading {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .efootball-grid-column {
+      flex: 100%;
+    }
+  
+    .efootball-exercises-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .efootball-body {
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .efootball-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .efootball-button {
+      width: 100%;
+    }
+  }
+  
+  

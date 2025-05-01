@@ -20,7 +20,7 @@ export class UpdateTournoiComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.idTournoi = this.act.snapshot.params['idTournoi']; // Récupérer l'ID du sous-groupe
+    this.idTournoi = this.act.snapshot.params['idTournoi']; //Récupérer l'ID du sous-groupe
 
 
 

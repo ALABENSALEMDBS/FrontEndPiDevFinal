@@ -1,0 +1,155 @@
+<!-- src/app/components/cup/update-cup-goals/update-cup-goals.component.html -->
+<div class="container-fluid p-4">
+  <div class="card">
+    <div class="card-header bg-success text-white">
+      <h2>Update Cup Match Score: {{ cup.name }}</h2>
+    </div>
+    <div class="card-body">
+      <!-- Loading spinner -->
+      <div *ngIf="loadingData" class="text-center my-5">
+        <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+  
+      <!-- Error message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+      
+      <!-- Success message -->
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+  
+      <div *ngIf="!loadingData" class="match-details mb-4">
+        <h3 class="text-center mb-3">{{ match.club1.nameClub }} vs {{ match.club2.nameClub }}</h3>
+        <div class="text-center text-muted mb-3">
+          {{ match.dateMatch | date:'medium' }} at {{ match.lieuMatch }}
+        </div>
+        <div class="text-center mb-3">
+          <span class="badge bg-info">{{ match.roundName }}</span>
+        </div>
+      </div>
+  
+      <!-- Image Upload Section -->
+      <div *ngIf="!loadingData" class="mb-4">
+        <div class="card">
+          <div class="card-header bg-light">
+            <h5>Upload Score Sheet Image</h5>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="scoreImage" class="form-label">Upload an image of the score sheet</label>
+              <input 
+                type="file" 
+                class="form-control" 
+                id="scoreImage" 
+                accept="image/*"
+                (change)="onFileSelected($event)"
+              >
+              <div class="form-text">The system will extract the score from the image (format expected: "Team1 : 2 - 1")</div>
+            </div>
+            
+            <div *ngIf="uploadedImage" class="text-center mb-3">
+              <img [src]="uploadedImagePreview" class="img-thumbnail" style="max-height: 200px;" alt="Uploaded score sheet">
+            </div>
+            
+            <button 
+              *ngIf="uploadedImage" 
+              class="btn btn-primary" 
+              (click)="updateScoreFromImage()"
+              [disabled]="processingImage"
+            >
+              <span *ngIf="processingImage" class="spinner-border spinner-border-sm me-1"></span>
+              Update Score From Image
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <form *ngIf="!loadingData" [formGroup]="goalsForm" (ngSubmit)="onSubmit()">
+        <div class="row justify-content-center mb-4">
+          <div class="col-md-5 text-center">
+            <!-- Added club logo -->
+            <div class="mb-3">
+              <img 
+                [src]="match.club1.logo" 
+                [alt]="match.club1.nameClub + ' logo'" 
+                class="img-fluid" 
+                style="max-height: 80px; max-width: 80px; margin: 0 auto;"
+              >
+            </div>
+            <div class="team-name mb-2">{{ match.club1.nameClub }}</div>
+            <input 
+              type="number" 
+              id="goals1" 
+              formControlName="goals1" 
+              class="form-control form-control-lg text-center text-black"
+              min="0"
+              [ngClass]="{ 'is-invalid': submitted && f['goals1'].errors }"
+            >
+            <div *ngIf="submitted && f['goals1'].errors" class="invalid-feedback">
+              <div *ngIf="f['goals1'].errors['required']">Home team goals is required</div>
+              <div *ngIf="f['goals1'].errors['min']">Goals cannot be negative</div>
+            </div>
+          </div>
+          <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
+            <span class="fs-1 fw-bold">-</span>
+          </div>
+          <div class="col-md-5 text-center">
+            <!-- Added club logo -->
+            <div class="mb-3">
+              <img 
+                [src]="match.club2.logo" 
+                [alt]="match.club2.nameClub + ' logo'" 
+                class="img-fluid" 
+                style="max-height: 80px; max-width: 80px; margin: 0 auto;"
+              >
+            </div>
+            <div class="team-name mb-2">{{ match.club2.nameClub }}</div>
+            <input 
+              type="number" 
+              id="goals2" 
+              formControlName="goals2" 
+              class="form-control form-control-lg text-center text-black"
+              min="0"
+              [ngClass]="{ 'is-invalid': submitted && f['goals2'].errors }"
+            >
+            <div *ngIf="submitted && f['goals2'].errors" class="invalid-feedback">
+              <div *ngIf="f['goals2'].errors['required']">Away team goals is required</div>
+              <div *ngIf="f['goals2'].errors['min']">Goals cannot be negative</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="alert alert-warning">
+          <i class="bi bi-exclamation-triangle"></i> 
+          Cup matches cannot end in a draw. The team with more goals will automatically be set as the winner and advance to the next round.
+        </div>
+        
+        <!-- Submit button -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+          <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-success" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+            Update Score
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  
+<style>
+  input, select {
+    color: black !important;
+  }
+  input::placeholder {
+    color: black !important;
+  }
+  .team-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+</style>

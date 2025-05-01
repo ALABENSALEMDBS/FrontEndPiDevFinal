@@ -1,0 +1,5 @@
+/* Ensure text in form input fields is visible */
+input.form-control {
+    color: black !important; /* Override default white text */
+  }
+  

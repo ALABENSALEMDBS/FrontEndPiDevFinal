@@ -3,30 +3,50 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExerciceService } from 'src/app/services/serviceCoatch/serviceExercice/exercice.service';
 
+export enum ExerciseType {
+  CARDIO = 'CARDIO',
+  STRETCHING = 'STRETCHING',
+  MOBILITY = 'MOBILITY',
+  BREATHING = 'BREATHING',
+  DRIBBLE = 'DRIBBLE',
+  LIGHT_ENDURANCE = 'LIGHT_ENDURANCE',
+  COORDINATION = 'COORDINATION',
+  HEADSHOT = 'HEADSHOT',
+  AGILITY = 'AGILITY',
+  REACTIVITY = 'REACTIVITY',
+  PASSING = 'PASSING',
+  ENDURANCE = 'ENDURANCE',
+  STRENGTH = 'STRENGTH',
+  TACTICAL = 'TACTICAL',
+  POWER = 'POWER',
+  EXPLOSIVENESS = 'EXPLOSIVENESS',
+  SPEED = 'SPEED',
+  HIGH_SPEED = 'HIGH_SPEED',
+  HIGH_INTENSITY = 'HIGH_INTENSITY',
+  ANAEROBIC = 'ANAEROBIC',
+  SPRINTS = 'SPRINTS',
+  RESISTANCE = 'RESISTANCE'
+}
+
 @Component({
-    selector: 'app-addexercice',
-    templateUrl: './addexercice.component.html',
-    styleUrls: ['./addexercice.component.css'],
-    standalone: false
+  selector: 'app-addexercice',
+  templateUrl: './addexercice.component.html',
+  styleUrls: ['./addexercice.component.css'],
+  standalone: false
 })
 export class AddexerciceComponent {
   exerciceform: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
 
+  exerciseTypes = Object.values(ExerciseType);
+
   constructor(private seanceExercice: ExerciceService, private rout: Router) {
-    // Initialisation manuelle du FormGroup
     this.exerciceform = new FormGroup({
       nameExercice: new FormControl('', [Validators.required, Validators.minLength(3)]),
       descriptionExercice: new FormControl('', [Validators.required]),
-      videoExercice: new FormControl('', [
-        Validators.required,
-        // Validators.pattern(/^https?:\/\/.*\.mp4$/) // Validation de l'URL de la vidéo (ex: https://exemple.com/nom.mp4)
-      ]),
-      // photoExercice: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/) // Validation de l'URL de la photo (png, jpg, jpeg, gif)
-      // ])
+      videoExercice: new FormControl('', [Validators.required]),
+      typeExercice: new FormControl('', [Validators.required]) // <<<<<< ici je corrige
     });
   }
 
@@ -47,25 +67,20 @@ export class AddexerciceComponent {
     }
   }
 
-  // Getters pour faciliter l'accès aux contrôles dans le template
   get nameExercice() {
     return this.exerciceform.get('nameExercice');
   }
-
   get descriptionExercice() {
     return this.exerciceform.get('descriptionExercice');
   }
-
   get videoExercice() {
     return this.exerciceform.get('videoExercice');
   }
-
-  // get photoExercice() {
-  //   return this.exerciceform.get('photoExercice');
-  // }
-
-  avoidAdd() {
-    this.rout.navigate(['/coatch/showexercice']); // Changez '/listexercie' selon votre route réelle
+  get typeExercice() { // <<<< ici aussi correction
+    return this.exerciceform.get('typeExercice');
   }
 
+  avoidAdd() {
+    this.rout.navigate(['/coatch/showexercice']);
+  }
 }

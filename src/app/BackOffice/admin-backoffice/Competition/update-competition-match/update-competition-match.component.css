@@ -1,0 +1,8 @@
+.input-group-text {
+    padding: 0.25rem;
+  }
+  
+  .form-control:read-only {
+    background-color: #f8f9fa;
+  }
+  

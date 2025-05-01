@@ -1,0 +1,56 @@
+canvas {
+  width: 300px; /* Taille de largeur souhaitée */
+  height: 300px; /* Taille de hauteur souhaitée */
+}
+
+.glass-stat-card {
+  background: rgba(255, 255, 255, 0.726);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
+  color: black;
+}
+
+
+
+.glass-stat-card {
+  background: rgba(255, 255, 255, 0.7); /* Transparence */
+  backdrop-filter: blur(10px); /* Flou joli */
+  border-radius: 20px; /* Coins arrondis */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* OMBRE DOUCE */
+  padding: 20px;
+  margin: 20px;
+  text-align: center; /* Tout centré */
+  color: #000; /* Texte noir */
+}
+
+.card-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto; /* Centre le graphe */
+}
+
+
+.glass-stat-card {
+  background: rgba(44, 47, 51, 0.85); /* Fond sombre avec transparence */
+  backdrop-filter: blur(10px); /* Flou léger */
+  border-radius: 20px; /* Coins arrondis */
+  box-shadow: 0 8px 32px 0 rgba(83, 97, 218, 0.6); /* Ombre plus forte */
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  color: #ffffff; /* Texte blanc */
+}
+
+
+
+

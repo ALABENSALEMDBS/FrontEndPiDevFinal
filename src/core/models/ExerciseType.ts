@@ -1,0 +1,32 @@
+export enum ExerciseType {
+    // Low intensity
+    CARDIO = 'CARDIO',
+    STRETCHING = 'STRETCHING',
+    MOBILITY = 'MOBILITY',
+    BREATHING = 'BREATHING',
+  
+    // Medium-low intensity
+    DRIBBLE = 'DRIBBLE',
+    LIGHT_ENDURANCE = 'LIGHT_ENDURANCE',
+    COORDINATION = 'COORDINATION',
+    HEADSHOT = 'HEADSHOT',
+    AGILITY = 'AGILITY',
+    REACTIVITY = 'REACTIVITY',
+    PASSING = 'PASSING',
+  
+    // Medium to high intensity
+    ENDURANCE = 'ENDURANCE',
+    STRENGTH = 'STRENGTH',
+    TACTICAL = 'TACTICAL',
+    POWER = 'POWER',
+    EXPLOSIVENESS = 'EXPLOSIVENESS',
+    SPEED = 'SPEED',
+  
+    // High intensity
+    HIGH_SPEED = 'HIGH_SPEED',
+    HIGH_INTENSITY = 'HIGH_INTENSITY',
+    ANAEROBIC = 'ANAEROBIC',
+    SPRINTS = 'SPRINTS',
+    RESISTANCE = 'RESISTANCE'
+  }
+  

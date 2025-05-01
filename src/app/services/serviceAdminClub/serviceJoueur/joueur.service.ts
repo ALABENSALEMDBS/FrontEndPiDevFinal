@@ -45,4 +45,17 @@ export class JoueurService {
   }
 
 
+
+
+ // joueur.service.ts
+maketitulaire(idjoueur: number): Observable<Joueurs> {
+  return this.http.put<Joueurs>(
+    `http://localhost:8089/PiDevBackEndProject/joueurs/maktitulaire/${idjoueur}`,
+    {}
+  );
+}
+
+  
+
+
 }

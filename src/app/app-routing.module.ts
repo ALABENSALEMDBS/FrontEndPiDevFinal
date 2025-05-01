@@ -5,7 +5,7 @@ import { AccueilComponent } from './BackOffice/admin-backoffice/accueil/accueil.
 import { AllTemplateBackComponent } from './BackOffice/admin-backoffice/all-template-back/all-template-back.component';
 import { AddMatchComponent } from './BackOffice/admin-backoffice/match/add-match/add-match.component';
 import { ListMatchComponent } from './BackOffice/admin-backoffice/match/list-match/list-match.component';
-import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
+//import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
 import { AddTournoiComponent } from './BackOffice/admin-backoffice/tournoi/add-tournoi/add-tournoi.component';
 import { ListTournoiComponent } from './BackOffice/admin-backoffice/tournoi/list-tournoi/list-tournoi.component';
 import { UpdateTournoiComponent } from './BackOffice/admin-backoffice/tournoi/update-tournoi/update-tournoi.component';
@@ -60,37 +60,138 @@ import { ChartsdoctorComponent } from './BackOffice/admin-club-backoffice/charts
 import { CalanderDoctorComponent } from './FrontOffice/DoctorFrontOffice/calander-doctor/calander-doctor.component';
 import { AddConsultationComponent } from './FrontOffice/DoctorFrontOffice/add-consultation/add-consultation.component';
 import { DoctorplayerchartComponent } from './FrontOffice/DoctorFrontOffice/doctorplayerchart/doctorplayerchart.component';
+import { ContactPageComponent } from './FrontOffice/HomePages/contact-page/contact-page.component';
+import { PlayerPageComponent } from './FrontOffice/HomePages/player-page/player-page.component';
+import { BlogPageComponent } from './FrontOffice/HomePages/blog-page/blog-page.component';
+import { MatchesPageComponent } from './FrontOffice/HomePages/matches-page/matches-page.component';
+import { ListClubsComponent } from './BackOffice/admin-backoffice/clubs/list-clubs/list-clubs.component';
+import { UpdateClubsComponent } from './BackOffice/admin-backoffice/clubs/update-clubs/update-clubs.component';
+import { AddClubsComponent } from './BackOffice/admin-backoffice/clubs/add-clubs/add-clubs.component';
+import { UpdateGoalsComponent } from './BackOffice/admin-backoffice/match/update-goals/update-goals.component';
+import { AddCompetitionComponent } from './BackOffice/admin-backoffice/Competition/add-competition/add-competition.component';
+import { UpdateCompetitionComponent } from './BackOffice/admin-backoffice/Competition/update-competition/update-competition.component';
+import { CompetitionClubsComponent } from './BackOffice/admin-backoffice/Competition/competition-clubs/competition-clubs.component';
+import { ListCompetitionComponent } from './BackOffice/admin-backoffice/Competition/list-competition/list-competition.component';
+import { CompetitionMatchesComponent } from './BackOffice/admin-backoffice/Competition/competition-matches/competition-matches.component';
+import { UpdateCompetitionMatchComponent } from './BackOffice/admin-backoffice/Competition/update-competition-match/update-competition-match.component';
+import { UpdateCompetitionGoalsComponent } from './BackOffice/admin-backoffice/Competition/update-competition-goals/update-competition-goals.component';
+import { UpdateMatchComponent } from './BackOffice/admin-backoffice/match/update-match/update-match.component';
+import { BroadcasterComponent } from './FrontOffice/CoachFrontOffice/broadcaster/broadcaster.component';
+import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.component';
+import { HomeStrComponent } from './FrontOffice/CoachFrontOffice/home-str/home-str.component';
+import { PlayerRapportDetailsComponent } from './FrontOffice/AnalysteFrontOffice/rapport/player-rapport-details/player-rapport-details.component';
+import { SimilaireplayerComponent } from './FrontOffice/AnalysteFrontOffice/rapport/similaireplayer/similaireplayer.component';
+import { CompareplayersComponent } from './FrontOffice/AnalysteFrontOffice/compareplayers/compareplayers.component';
+import { PlayerreportstatComponent } from './FrontOffice/AnalysteFrontOffice/rapport/playerreportstat/playerreportstat.component';
+import { AffectsessionexerciceComponent } from './FrontOffice/CoachFrontOffice/affectsessionexercice/affectsessionexercice.component';
 
+import { CompetitionStandingsComponent } from './BackOffice/admin-backoffice/Competition/competition-standings-component/competition-standings-component.component';
+import { ListCupComponent } from './BackOffice/admin-backoffice/Cup/list-cup/list-cup.component';
+import { AddCupComponent } from './BackOffice/admin-backoffice/Cup/add-cup/add-cup.component';
+import { CupMatchesComponent } from './BackOffice/admin-backoffice/Cup/cup-matches/cup-matches.component';
+import { UpdateCupGoalsComponent } from './BackOffice/admin-backoffice/Cup/update-cup-goals/update-cup-goals.component';
+import { CupClubsComponent } from './BackOffice/admin-backoffice/Cup/cup-clubs/cup-clubs.component';
+import { UpdateCupMatchComponent } from './BackOffice/admin-backoffice/Cup/update-cup-match/update-cup-match.component';
+import { CupBracketComponent } from './BackOffice/admin-backoffice/Cup/cup-bracket/cup-bracket.component';
+import { ClubDisplayComponent } from './FrontOffice/HomePages/club-display/club-display.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   {path:'home',component:HomePageComponent},
+  {path:'contact',component:ContactPageComponent},
+  {path:'player',component:PlayerPageComponent},
+  {path:'blog',component:BlogPageComponent},
+  {path:'clubs',component:ClubDisplayComponent},
+  {path:'matches',component:MatchesPageComponent},
 
 
-  {
-    path: 'superadmin',
-    component: AllTemplateBackComponent,
-    children:[
-      { path: '', redirectTo: 'HomeAccueilsuperadmin', pathMatch: 'full' },
-      {path:'HomeAccueilsuperadmin',component: AccueilComponent},
-      {
-        path: 'showtournoi',
-        component: ListTournoiComponent,
-        children: [
-          { path: 'update/:idTournoi', component: UpdateTournoiComponent },
-          { path: 'addtournoi', component: AddTournoiComponent },
-        ]
-      },
-      {
-        path: 'showmatch',
-        component: ListMatchComponent,
-        children: [
-          { path: 'update/:idMatch', component: UpdateMatchComponent },
-          { path: 'addmatch', component: AddMatchComponent },
-        ]
-      },
-    ]
-  },
+{
+      path: 'superadmin',
+      component: AllTemplateBackComponent,
+      children:[
+        { path: '', redirectTo: 'HomeAccueilsuperadmin', pathMatch: 'full' },
+        { path:'HomeAccueilsuperadmin',component: AccueilComponent},
+        {
+          path: 'showtournoi',
+          component: ListTournoiComponent,
+          children: [
+            { path: 'update/:idTournoi', component: UpdateTournoiComponent },
+            { path: 'addtournoi', component: AddTournoiComponent },
+          ]
+        },
+        {
+          path: 'showmatch',
+          component: ListMatchComponent,
+          children: [
+            { path: 'update/:idMatch', component: UpdateMatchComponent },
+            { path: 'addmatch', component: AddMatchComponent },
+            { path: 'update-goals/:idMatch', component: UpdateGoalsComponent }, // Add this line
+            //{ path: 'listMatch', component: ListMatchComponent },
+          ]
+        },
+
+        {
+          path: 'showcompetition',
+          component: ListCompetitionComponent,
+          children: [
+            { path: 'add', component: AddCompetitionComponent },
+            { path: 'update/:id', component: UpdateCompetitionComponent },
+            { path: 'matches/:id', component: CompetitionMatchesComponent }, // Add this line
+            { path: 'clubs/:id', component: CompetitionClubsComponent },
+            { path: 'addmatch', component: AddMatchComponent },
+            { path: "update-match/:competitionId/:matchId", component: UpdateCompetitionMatchComponent},
+            { path: "update-goals/:competitionId/:matchId", component: UpdateCompetitionGoalsComponent},
+            { path: 'standings/:id', component: CompetitionStandingsComponent }, // Added standings route
+          ]
+        },
+
+
+
+        //this is the cup part
+        {
+          path: 'superadmin/showcup',
+          component: ListCupComponent,
+          children: [
+            { path: 'add', component: AddCupComponent },
+            { path: 'matches/:id', component: CupMatchesComponent },
+            { path: 'clubs/:id', component: CupClubsComponent },
+            { path: 'update-match/:cupId/:matchId', component: UpdateCupMatchComponent },
+            { path: 'update-goals/:cupId/:matchId', component: UpdateCupGoalsComponent },
+            { path: 'bracket/:id', component: CupBracketComponent },
+          ]
+        },
+
+
+
+
+
+      // Add this to the routes array in the superadmin section
+{
+  path: 'showcup',
+  component: ListCupComponent,
+  children: [
+    { path: 'add', component: AddCupComponent },
+    { path: 'matches/:id', component: CupMatchesComponent },
+    { path: "update-goals/:competitionId/:matchId", component: UpdateCupGoalsComponent },
+  ]
+},
+
+
+
+
+        {
+          path: 'showclubs',
+          component: ListClubsComponent,
+          children: [
+            { path: 'update/:idClub', component: UpdateClubsComponent },
+            { path: 'addclubs', component: AddClubsComponent },
+            //{ path: 'listMatch', component: ListMatchComponent },
+          ]
+        },
+
+
+      ]
+    },
 
   {
     path: 'clubadmin',
@@ -143,9 +244,9 @@ const routes: Routes = [
             {
               path:'listefiche',
               component:ListeFicheMedicalComponent
-              
+
             },
-            
+
             {
               path:'listeExercicedeRetablissement',
               component:ListeExerciceRetablissementComponent
@@ -194,7 +295,7 @@ const routes: Routes = [
               component:DoctorplayerchartComponent
             }
 
-            
+
     ]
   },
   {
@@ -228,6 +329,7 @@ const routes: Routes = [
         children: [
           { path: 'addseance', component: AddseanceComponent },
           {path: 'updateseance/:idSeance', component: UpdateseanceComponent },
+          { path: 'affectsessionexercice/:id',component: AffectsessionexerciceComponent }
 
         ]
       },
@@ -235,8 +337,9 @@ const routes: Routes = [
       {
         path: 'showexercice', component: ListExerciceComponent,
         children:[
-          {path: 'addexercice', component: AddexerciceComponent },
-          {path: 'updateexercice/:idExercice', component: UpdateexerciceComponent },
+          { path: 'addexercice', component: AddexerciceComponent },
+          { path: 'updateexercice/:idExercice', component: UpdateexerciceComponent },
+          { path: 'homeStr', component: HomeStrComponent },
 
         ]
       },
@@ -267,15 +370,21 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'Homeanalyste', pathMatch: 'full' },
       { path: 'Homeanalyste', component: HomeAnalysteComponent  },
+      { path: 'compareplayers', component: CompareplayersComponent },
+      { path: 'PlayerreportstatComponent', component: PlayerreportstatComponent },
       {
         path: 'Reportshow',
         component:ListRapportComponent ,
         children: [
           { path: 'update/:idRapport', component: UpdateRapportComponent },
           { path: 'addreports', component: AddRapportComponent },
+          { path: 'player-details/:numeroJoueur', component: PlayerRapportDetailsComponent },
+          {path: "similaireplayer",component: SimilaireplayerComponent},
         ]
       }]
   },
+  { path: 'broadcast/:roomId', component: BroadcasterComponent },
+  { path: 'view/:roomId', component: ViewerComponent },
 
   {
     path:'home',

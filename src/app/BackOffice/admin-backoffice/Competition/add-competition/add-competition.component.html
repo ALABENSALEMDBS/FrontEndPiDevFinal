@@ -1,0 +1,93 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h2>Create New Competition</h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+          
+          <!-- Competition Name -->
+          <div class="mb-3">
+            <label for="nameCompetition" class="form-label">Competition Name</label>
+            <input 
+              type="text" 
+              id="nameCompetition" 
+              formControlName="nameCompetition" 
+              class="form-control text-black"  
+              [ngClass]="{ 'is-invalid': submitted && f['nameCompetition'].errors }"
+            >
+            <div *ngIf="submitted && f['nameCompetition'].errors" class="invalid-feedback">
+              <div *ngIf="f['nameCompetition'].errors['required']">Competition name is required</div>
+            </div>
+          </div>
+          
+          <!-- Competition Type -->
+          <div class="mb-3">
+            <label for="typeC" class="form-label">Competition Type</label>
+            <select 
+              id="typeC" 
+              formControlName="typeC" 
+              class="form-select text-black"  
+              [ngClass]="{ 'is-invalid': submitted && f['typeC'].errors }"
+            >
+              <option value="" disabled>Select competition type</option>
+              <option *ngFor="let type of competitionTypes" [value]="type">{{ type }}</option>
+            </select>
+            <div *ngIf="submitted && f['typeC'].errors" class="invalid-feedback">
+              <div *ngIf="f['typeC'].errors['required']">Competition type is required</div>
+            </div>
+          </div>
+          
+          <!-- Participating Clubs -->
+          <div class="mb-3">
+            <label class="form-label">Participating Clubs</label>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div *ngFor="let club of clubs" class="col-md-4 mb-2">
+                    <div class="form-check">
+                      <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        [id]="'club' + club.idClub" 
+                        [value]="club.idClub" 
+                        (change)="onClubSelectionChange(club.idClub, $event)"
+                      >
+                      <label class="form-check-label" [for]="'club' + club.idClub">
+                        <div class="d-flex align-items-center">
+                          <img 
+                            [alt]="club.nameClub" 
+                            class="me-2" 
+                            style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
+                          >
+                          {{ club.nameClub }}
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="submitted && selectedClubs.length < 2" class="text-danger mt-2">
+                  At least 2 clubs must be selected for a competition
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Error message -->
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+          
+          <!-- Submit button -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-success" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+              Create Competition
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

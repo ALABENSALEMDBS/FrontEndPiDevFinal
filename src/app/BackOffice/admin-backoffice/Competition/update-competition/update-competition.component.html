@@ -1,0 +1,211 @@
+<!-- <div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h2>Update Competition</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loadingData" class="text-center my-5">
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+  
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+  
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+  
+        <form *ngIf="!loadingData" [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+
+          <div class="mb-3">
+            <label for="nameCompetition" class="form-label">Competition Name</label>
+            <input 
+              type="text" 
+              id="nameCompetition" 
+              formControlName="nameCompetition" 
+              class="form-control text-black"  
+              [ngClass]="{ 'is-invalid': submitted && f['nameCompetition'].errors }"
+            >
+            <div *ngIf="submitted && f['nameCompetition'].errors" class="invalid-feedback">
+              <div *ngIf="f['nameCompetition'].errors['required']">Competition name is required</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="typeC" class="form-label">Competition Type</label>
+            <select 
+              id="typeC" 
+              formControlName="typeC" 
+              class="form-select text-black"  
+              [ngClass]="{ 'is-invalid': submitted && f['typeC'].errors }"
+            >
+              <option value="" disabled>Select competition type</option>
+              <option *ngFor="let type of competitionTypes" [value]="type">{{ type }}</option>
+            </select>
+            <div *ngIf="submitted && f['typeC'].errors" class="invalid-feedback">
+              <div *ngIf="f['typeC'].errors['required']">Competition type is required</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Participating Clubs</label>
+            <div class="card">
+              <div class="card-body">
+                <div class="alert alert-warning">
+                  <i class="bi bi-info-circle"></i> 
+                  Participating clubs cannot be modified after competition creation.
+                </div>
+                
+                <div class="row">
+                  <div *ngFor="let club of participatingClubs" class="col-md-4 mb-3">
+                    <div class="card">
+                      <div class="card-body p-2">
+                        <div class="d-flex align-items-center">
+                          <img 
+                            [src]="club.logo" 
+                            [alt]="club.nameClub" 
+                            class="me-2" 
+                            style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;"
+                          >
+                          <span>{{ club.nameClub }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-success" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+              Update Competition
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    input, select {
+      color: black !important;
+    }
+    input::placeholder {
+      color: black !important;
+    }
+  </style> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h2>Update Competition</h2>
+      </div>
+      <div class="card-body">
+  
+        <!-- Loading spinner -->
+        <div *ngIf="loadingData" class="text-center my-5">
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">Loading competition data...</p>
+        </div>
+  
+        <!-- Error -->
+        <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+        <!-- Success -->
+        <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  
+        <!-- Form -->
+        <form *ngIf="!loadingData" [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+  
+          <!-- Competition Name -->
+          <div class="mb-3">
+            <label for="nameCompetition" class="form-label">Competition Name</label>
+            <input
+              type="text"
+              id="nameCompetition"
+              class="form-control"
+              formControlName="nameCompetition"
+              [ngClass]="{ 'is-invalid': submitted && f['nameCompetition'].errors }"
+            />
+            <div *ngIf="submitted && f['nameCompetition'].errors" class="invalid-feedback">
+              <div *ngIf="f['nameCompetition'].errors['required']">Name is required</div>
+            </div>
+          </div>
+  
+          <!-- Competition Type -->
+          <!-- <div class="mb-3">
+            <label for="typeC" class="form-label">Competition Type</label>
+            <select
+              id="typeC"
+              class="form-select"
+              formControlName="typeC"
+              [ngClass]="{ 'is-invalid': submitted && f['typeC'].errors }"
+            >
+              <option value="" disabled>Select type</option>
+              <option *ngFor="let type of competitionTypes" [value]="type">{{ type }}</option>
+            </select>
+            <div *ngIf="submitted && f['typeC'].errors" class="invalid-feedback">
+              <div *ngIf="f['typeC'].errors['required']">Type is required</div>
+            </div>
+          </div> -->
+  
+          <!-- Participating Clubs -->
+          <div class="mb-3">
+            <label class="form-label">Participating Clubs</label>
+            <div class="alert alert-info" *ngIf="participatingClubs.length === 0">
+              No participating clubs available.
+            </div>
+            <ul class="list-group" *ngIf="participatingClubs.length > 0">
+              <li class="list-group-item" *ngFor="let club of participatingClubs">
+                <img [src]="club.logo" alt="logo" width="40" class="me-2" />
+                {{ club.nameClub }}
+              </li>
+            </ul>
+          </div>
+  
+          <!-- Buttons -->
+          <button type="submit" class="btn btn-success me-2" [disabled]="loading">
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    input, select {
+      color: black !important;
+    }
+    input::placeholder {
+      color: black !important;
+    }
+  </style>
+  

@@ -123,4 +123,27 @@ export class FormationCoachComponent implements OnInit {
 
   }
 
+
+
+
+
+  getBadgeColor(f: any): string {
+    const titulaires = f.joueurs?.filter((j: any) => j.tituliare).length || 0;
+    if (titulaires == 11) {
+      return 'green';
+    } else {
+      return 'red';
+    }
+    //  else {
+    //   return 'orange';
+    // }
+  }
+
+
+  getlenghtplayerinformation(f:any){
+    return f.joueurs?.length;
+  }
+  
+  
+
 }

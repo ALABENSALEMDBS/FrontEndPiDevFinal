@@ -348,7 +348,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
   }
   
   .remove-btn {
@@ -394,6 +394,31 @@
   }
   
   .statistique-btn .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+
+  
+  .sub-btn {
+    background-color: #2d0af1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+  }
+
+  .sub-btn:hover {
+    background-color: #2f06c4;
+  }
+  
+  .sub-btn .icon {
     width: 16px;
     height: 16px;
   }
@@ -595,6 +620,15 @@
   
   
 
+
+
+  .titulaire {
+    color: rgb(4, 249, 57);
+  }
+  .bank {
+    color: rgb(249, 4, 4);
+  }
+  
  
 /* 
 

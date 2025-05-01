@@ -1,1 +1,170 @@
-<p>list-match works!</p>
+<!-- <div class="container">
+  <h2 style="text-align: center; margin-bottom: 20px;">Liste des Matchs</h2>
+
+  <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <button [routerLink]="['addmatch']"
+            style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
+      <i class="fas fa-plus"></i> Ajouter un Match
+    </button>
+  </div>
+
+  
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    <div *ngFor="let m of match" class="card"
+         style="width: 300px; padding: 20px; background: rgba(255, 255, 255, 0.726); backdrop-filter: blur(8px); color: black; text-align: center; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+      <h3>Match</h3>
+
+
+
+
+
+      <img class="card-img-top" style="width: 100%; height: 100%; object-fit: cover;" 
+     [src]="'data:image/jpeg;base64,'+m.displayPicture" alt="Title">
+
+<div class="card-body">
+  <p><strong>Résultat:</strong> {{ m.resultatMatch }}</p>
+  <p><strong>Date:</strong> {{ m.dateMatch }}</p>
+  <p><strong>Lieu:</strong> {{ m.lieuMatch }}</p>
+  <p><strong>Status:</strong> {{ m.statusMatch }}</p>
+  <p><strong>Type:</strong> {{ m.typeMatch }}</p>
+  <p><strong>Arbitre:</strong> {{ m.arbitre }}</p>
+  <p><strong>Club 1:</strong> {{m.club1.nameClub}}</p>
+  <p><strong>Club 2:</strong> {{m.club2.nameClub}}</p>
+
+
+ 
+  <div class="d-flex align-items-center justify-content-between border p-2">
+    <div class="text-center">
+      <img [src]="'data:image/jpeg;base64,'+m.club1.logo" class="rounded-circle" 
+           style="width: 50px; height: 50px; object-fit: cover;">
+      <p class="m-0"><strong>{{ m.club1.nameClub }}</strong></p>
+    </div>
+    <span class="fw-bold">VS</span>
+    <div class="text-center">
+      <img [src]="'data:image/jpeg;base64,'+m.club2.logo" class="rounded-circle" 
+           style="width: 50px; height: 50px; object-fit: cover;">
+      <p class="m-0"><strong>{{ m.club2.nameClub }}</strong></p>
+    </div>
+  </div>
+</div>
+
+  <div *ngIf="match.length === 0" class="no-data" style="text-align: center; margin-top: 20px;">
+    Aucun match trouvé.
+  </div>
+</div>
+
+<router-outlet></router-outlet> -->
+
+
+<div class="container-fluid p-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2>Match Management</h2>
+      <button class="btn btn-light" (click)="addNewMatch()">
+        <i class="bi bi-plus-circle"></i> Add New Match
+      </button>
+    </div>
+    <div class="card-body">
+      <!-- Filter buttons -->
+      <div class="mb-4">
+        <div class="btn-group" role="group">
+          <button 
+            type="button" 
+            class="btn" 
+            [class.btn-primary]="filterType === 'all'"
+            [class.btn-outline-primary]="filterType !== 'all'"
+            (click)="applyFilter('all')">
+            All Matches
+          </button>
+          <button 
+            type="button" 
+            class="btn" 
+            [class.btn-primary]="filterType === 'upcoming'"
+            [class.btn-outline-primary]="filterType !== 'upcoming'"
+            (click)="applyFilter('upcoming')">
+            Upcoming Matches
+          </button>
+          <button 
+            type="button" 
+            class="btn" 
+            [class.btn-primary]="filterType === 'played'"
+            [class.btn-outline-primary]="filterType !== 'played'"
+            (click)="applyFilter('played')">
+            Played Matches
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- No matches message -->
+      <div *ngIf="!loading && filteredMatches.length === 0" class="alert alert-info">
+        No matches found.
+      </div>
+
+      <!-- Matches table -->
+      <div class="table-responsive" *ngIf="!loading && filteredMatches.length > 0">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Home Team</th>
+              <th>Away Team</th>
+              <th>Score</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Type</th>
+              <th>Referee</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let match of filteredMatches">
+              <td>{{ formatDate(match.dateMatch) }}</td>
+              <td>{{ match.club1.nameClub }}</td>
+              <td>{{ match.club2.nameClub }}</td>
+              <td>
+                <span *ngIf="match.goals1 !== null && match.goals2 !== null">
+                  {{ match.goals1 }} - {{ match.goals2 }}
+                </span>
+                <span *ngIf="match.goals1 === null || match.goals2 === null">
+                  -
+                </span>
+              </td>
+              <td>{{ match.lieuMatch }}</td>
+              <td><span [class]="getStatusClass(match.statusMatch)">{{ match.statusMatch }}</span></td>
+              <td>{{ match.typeMatch }}</td>
+              <td>{{ match.arbitre }}</td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary" (click)="editMatch(match.idMatch)">
+                    <i class="bi bi-pencil"></i> 🔄
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteMatch(match.idMatch)">
+                    <i class="bi bi-trash"></i> ❌
+                  </button>
+                  <button class="btn btn-sm btn-outline-success" (click)="updateGoals(match)">
+                    <i class="bi bi-trophy"></i> Goals
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Router outlet for child routes (add/update) -->
+  <router-outlet></router-outlet>
+</div>

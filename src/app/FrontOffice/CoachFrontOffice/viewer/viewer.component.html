@@ -1,0 +1,43 @@
+<!-- <p>viewer works!</p> -->
+
+<div class="viewer-container">
+  <div class="header">
+      <h2>Visionnage du live: {{ room?.name }}</h2>
+      <button class="back-button" (click)="goToHome()">Retour à l'accueil</button>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+  </div>
+
+  <div class="video-container">
+      <div class="status-overlay" *ngIf="statusMessage">
+          <div class="status-message">{{ statusMessage }}</div>
+          <div class="loader" *ngIf="isBuffering && isStreamActive"></div>
+      </div>
+
+      <video #videoElement autoplay playsinline controls></video>
+
+      <div *ngIf="isStreamActive" class="streaming-indicator">
+          <span class="dot"></span> En direct
+      </div>
+  </div>
+
+  <div class="stream-info" *ngIf="room">
+      <h3>Informations sur le stream</h3>
+      <p><strong>Nom:</strong> {{ room.name }}</p>
+      <p><strong>Créé le:</strong> {{ room.createdAt | date:'medium' }}</p>
+      <p><strong>Statut:</strong> {{ isStreamActive ? 'En direct' : 'Terminé' }}</p>
+
+      <div *ngIf="room.recordingPath && !isStreamActive" class="recording-info">
+          <h4>Enregistrement disponible</h4>
+          <p>La vidéo de ce stream a été enregistrée et est disponible pour le visionnage ultérieur.</p>
+      </div>
+  </div>
+
+  <button *ngIf="isStreamActive && statusMessage" (click)="forceReconnect()">
+      Reconnecter manuellement
+  </button>
+</div>
+
+

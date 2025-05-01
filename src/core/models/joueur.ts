@@ -12,6 +12,7 @@ export class Joueurs {
     numeroJoueur!: number;
     debutContratJoueur!: Date;
     finContratJoueur!: Date;
-    rapport!: Rapport | null;
+    rapports?: Rapport[];
+    tituliare!: boolean;
 
 }
