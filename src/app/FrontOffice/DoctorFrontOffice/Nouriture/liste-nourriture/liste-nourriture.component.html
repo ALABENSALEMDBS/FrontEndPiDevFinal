@@ -1,34 +1,40 @@
 <div class="container mt-4">
 
-    <div *ngIf="message" class="alert alert-info mt-3">{{ message }}</div>
-    
+  <!-- Message d'alerte si nécessaire -->
+  <div *ngIf="message" class="alert alert-danger">
+    {{ message }}
+  </div>
 
-    <h2 class="mt-4">Liste des Nourritures</h2>
-    <button class="btn btn-primary mb-3" (click)="goToCreatePage()">ADD Exercise </button>
-    <table class="table table-bordered mt-3">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Recommandation</th>
-          <th>Calories</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let nouriture of nourritures">
-          <td>{{ nouriture.idNourriture }}</td>
-          <td>{{ nouriture.nom }}</td>
-          <td>{{ nouriture.recommandation }}</td>
-          <td>{{ nouriture.calories }}</td>
-          <td>
-            <td> <button  class="btn btn-warning m-2" (click)="onUpdateNouritureClicked(nouriture)">Edit</button> 
+  <!-- Titre stylisé -->
+  <h2 class="titre-fiche">List of Foods</h2>
 
-            <button class="btn btn-danger btn-sm" (click)="supprimerNourriture(nouriture)">
-              DELETE
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Bouton d'ajout stylisé -->
+  <div class="add-btn-container">
+    <button class="btn" (click)="goToCreatePage()">ADD Foods</button>
+  </div>
+
+  <!-- Tableau stylisé -->
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Recommandation</th>
+        <th>Calories</th>
+        <th>Actions</th> <!-- Pour mieux présenter les boutons -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let nouriture of nourritures">
+        <td>{{ nouriture.idNourriture }}</td>
+        <td>{{ nouriture.nom }}</td>
+        <td>{{ nouriture.recommandation }}</td>
+        <td>{{ nouriture.calories }}</td>
+        <td class="d-flex justify-content-center align-items-center gap-2">
+          <button class="btn btn-warning m-2" (click)="onUpdateNouritureClicked(nouriture)">Edit</button>
+          <button class="btn btn-danger m-1" (click)="supprimerNourriture(nouriture)">DELETE</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-

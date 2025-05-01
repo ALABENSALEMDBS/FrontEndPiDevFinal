@@ -11,5 +11,6 @@ export class FicheMedical {
   joueurficheMedicale: any;
   joueurNom?: string;  // Facultatif
   joueurPrenom?: string;  // Facultatif
+  idExerciceRetablissement!: number;
   
   }

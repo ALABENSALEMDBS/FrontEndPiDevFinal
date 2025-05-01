@@ -1,0 +1,210 @@
+/* Styles pour le titre du calendrier */
+.calendar-title {
+  font-size: 80px;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Container pour le bouton d'ajout */
+.add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+}
+
+/* Titre principal de la fiche */
+.titre-fiche {
+  font-size: 48px;
+  font-weight: 700;
+  color: #e2e8f0;
+  text-align: center;
+  margin: 30px 0 20px;
+  padding-bottom: 50px;
+  border-bottom: 10px solid #0a0f2c;
+  letter-spacing: 1.5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Structure principale */
+.calendar-wrapper {
+  padding: 20px;
+  background: linear-gradient(135deg, #061738, #061bd6);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Table du calendrier */
+.fc {
+  background-color: #010124;
+  border-radius: 8px;
+  border: 2px solid #ffffff;
+}
+
+/* Personnalisation des lignes */
+.fc-row {
+  background-color: #f4f6f8;
+}
+
+/* Couleurs alternées */
+.fc-row:nth-child(odd) { background-color: #f0f4f8; }
+.fc-row:nth-child(even) { background-color: #e8f0ff; }
+
+/* Surligner semaine actuelle */
+.fc-row.fc-week-today {
+  background-color: #ff3b3b;
+}
+
+/* Jours du calendrier */
+.fc-day {
+  border: 1px solid #ccc;
+}
+
+/* Overlay de modale */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Contenu de la modale */
+.modal-content {
+  background-color: #0e1d47;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Bouton de fermeture */
+.close-button {
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 18px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  float: right;
+  transition: background-color 0.3s;
+}
+
+.close-button:hover {
+  background-color: #d9363e;
+}
+
+/* Formulaire */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+input, select, textarea {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+}
+
+/* Zone de texte */
+textarea {
+  resize: vertical;
+  height: 120px;
+}
+
+/* Message d'erreur */
+.error {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Bouton de soumission */
+button[type="submit"] {
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #007acc;
+}
+
+/* Bouton de suppression */
+button[type="button"] {
+  background-color: #dc3545;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+/* Bouton d'ajout */
+.add-button {
+  background: linear-gradient(135deg, #f9d423, #ff4e50);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.add-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff4e50, #f9d423);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    padding: 10px;
+  }
+  .modal-content {
+    padding: 20px;
+    max-width: 95%;
+  }
+  button[type="submit"],
+  .add-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}

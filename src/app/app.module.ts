@@ -78,6 +78,9 @@ import { NavbarHomeComponent } from "./FrontOffice/HomePages/navbar-home/navbar-
 import { NgChartsModule } from 'ng2-charts';
 import { ChatComponent } from './FrontOffice/CoachFrontOffice/chat/chat.component';
 import { WebsocketService } from './services/serviceCoatch/services/websocket.service';
+import { ChartsdoctorComponent } from "./BackOffice/admin-club-backoffice/chartsdoctor/chartsdoctor.component";
+import { DoctorplayerchartComponent } from './FrontOffice/DoctorFrontOffice/doctorplayerchart/doctorplayerchart.component';
+import { AddConsultationComponent } from './FrontOffice/DoctorFrontOffice/add-consultation/add-consultation.component';
 import { VideoListComponent } from './FrontOffice/CoachFrontOffice/video-list/video-list.component';
 import { VideoCommentComponent } from './FrontOffice/CoachFrontOffice/video-comment/video-comment.component';
 import { CommentStatsComponent } from './FrontOffice/CoachFrontOffice/comment-stats/comment-stats.component';
@@ -252,11 +255,15 @@ import { ViewerComponent } from './FrontOffice/CoachFrontOffice/viewer/viewer.co
     BroadcasterComponent,
     ViewerComponent,
     HomeStrComponent,
-//     FormsModule,
-//     FooterHomeComponent,
-//     NavbarHomeComponent
-// ],
-// providers: [provideHttpClient(withInterceptorsFromDi())] })
+    FormsModule,
+    FooterHomeComponent,
+    NavbarHomeComponent,
+    PlayersFormationComponent,
+    ChartsdoctorComponent,
+    DoctorplayerchartComponent,
+    AddConsultationComponent
+    
+    
+], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 
-    FormsModule, FooterHomeComponent, NavbarHomeComponent, PlayersFormationComponent], providers: [WebsocketService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

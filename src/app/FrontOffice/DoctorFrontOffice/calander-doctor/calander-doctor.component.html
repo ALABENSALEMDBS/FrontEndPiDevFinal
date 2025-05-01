@@ -1,0 +1,63 @@
+<div>
+  <h1 class="titre-fiche" >🗓️ Consultation Calendar</h1>
+  <!-- <p>Visualisez et organisez les consultations de manière intuitive.</p> -->
+   <div>
+
+
+   </div>
+</div>
+
+<div class="calendar-wrapper">
+  <div class="add-btn-container">
+    <button (click)="formVisible = true" class="add-button" aria-label="Ajouter une consultation">Ajouter une consultation</button>
+  </div>
+
+  <div class="calendar-card">
+    <full-calendar #calendarRef [options]="calendarOptions"></full-calendar>
+  </div>
+
+  <!-- Modal pour Ajouter ou Modifier une Consultation -->
+  <div *ngIf="formVisible" class="modal-overlay" aria-labelledby="consultationModal" aria-hidden="false">
+    <div class="modal-content" id="consultationModal">
+      <button (click)="onCancel()" class="close-button" aria-label="Fermer la modale">X</button>
+
+      <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()" class="form-container">
+        <label for="joueurId">Joueur</label>
+        <select formControlName="idUser" id="joueurId" aria-required="true" aria-describedby="joueurError">
+          <option value="" disabled>-- Sélectionnez un joueur --</option>
+          <option *ngFor="let joueur of joueurs" [value]="joueur.idUser">
+            {{ joueur.nameUsers }}
+          </option>
+        </select>
+        <div *ngIf="consultationForm.get('idUser')?.touched && consultationForm.get('idUser')?.invalid" class="error" id="joueurError" role="alert">
+          ⚠️ Veuillez sélectionner un joueur.
+        </div>
+
+        <label for="dateConsultation">Date de consultation</label>
+<input type="datetime-local" formControlName="dateConsultation" id="dateConsultation" aria-required="true" aria-describedby="dateError" />
+        <div *ngIf="consultationForm.get('dateConsultation')?.touched && consultationForm.get('dateConsultation')?.invalid" class="error" id="dateError" role="alert">
+          ⚠️ La date est requise.
+        </div>
+
+        <label for="description">Description</label>
+        <textarea formControlName="description" id="description" placeholder="Ajouter une description..." aria-required="true" aria-describedby="descriptionError"></textarea>
+        <div *ngIf="consultationForm.get('description')?.touched && consultationForm.get('description')?.invalid" class="error" id="descriptionError" role="alert">
+          ⚠️ La description est requise.
+        </div>
+
+        <!-- Display Player Name -->
+        <div *ngIf="consultationForm.get('idUser')?.value">
+          <label for="playerName">Nom du joueur</label>
+          <p id="playerName">{{ getJoueurName(consultationForm.get('idUser')?.value) }}</p>
+        </div>
+
+        <button type="submit" [disabled]="consultationForm.invalid || isLoading">
+          {{ selectedConsultation ? 'Mettre à jour' : 'Ajouter' }}
+          <span *ngIf="isLoading" class="spinner"></span>
+        </button>
+        <button type="button" *ngIf="selectedConsultation" (click)="deleteConsultation(selectedConsultation.id)">Supprimer</button>    
+    </form>
+
+    </div>
+  </div>
+</div>
