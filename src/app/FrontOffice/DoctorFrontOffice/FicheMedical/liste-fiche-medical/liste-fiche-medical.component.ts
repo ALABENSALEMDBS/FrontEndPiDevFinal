@@ -67,8 +67,13 @@ export class ListeFicheMedicalComponent {
     
       // Title Section
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(20);
-      doc.text('Medical Records List', 14, 10);
+      doc.setFontSize(18);
+      doc.text('Medical Records List', 105, 15, { align: 'center' });
+    
+      // Subtitle with export date
+      doc.setFontSize(11);
+      const now = new Date();
+      doc.text(`Exported on: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 105, 22, { align: 'center' });
     
       // Define table columns and data
       const columns = ['Player', 'Weight (kg)', 'Height (cm)', 'Injury Date', 'Severity', 'Injury Type'];
@@ -76,37 +81,57 @@ export class ListeFicheMedicalComponent {
         fiche.joueurFullName,
         fiche.poidsFicheMedicale,
         fiche.tailleFicheMedicale,
-       // this.datePipe.transform(fiche.dateBlessure, 'dd/MM/yyyy'),  // Format the date
+        //this.datePipe.transform(fiche.dateBlessure, 'dd/MM/yyyy') ?? '', // Formatted date
         fiche.gravite,
         fiche.type,
       ]);
     
-      // Use autoTable to generate a better formatted table
+      // Add Table
       autoTable(doc, {
         head: [columns],
         body: data,
-        theme: 'striped', // Add striping to rows for better readability
-        startY: 30, // Adjust the starting Y position to leave space for the title
+        theme: 'striped',
+        startY: 30,
         styles: {
-          fontSize: 10, // Font size for table content
-          cellPadding: 2, // Padding inside each cell
+          fontSize: 10,
+          cellPadding: 3,
+          valign: 'middle',
+          halign: 'center',
+          lineColor: [204, 204, 204], // Line color between rows
         },
         headStyles: {
-          fillColor: [40, 40, 40], // Dark background for header
-          textColor: [255, 255, 255], // White text in header
+          fillColor: [0, 102, 204], // Blue header
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+        },
+        alternateRowStyles: {
+          fillColor: [240, 240, 240], // Light gray for better readability
         },
         columnStyles: {
-          0: { cellWidth: 50 }, // Custom column width for player name
-          1: { cellWidth: 30 }, // Custom column width for weight
-          2: { cellWidth: 30 }, // Custom column width for height
-          3: { cellWidth: 40 }, // Custom column width for injury date
-          4: { cellWidth: 30 }, // Custom column width for severity
-          5: { cellWidth: 30 }, // Custom column width for injury type
+          0: { cellWidth: 45 }, // Player
+          1: { cellWidth: 25 }, // Weight
+          2: { cellWidth: 25 }, // Height
+          3: { cellWidth: 35 }, // Date
+          4: { cellWidth: 30 }, // Severity
+          5: { cellWidth: 30 }, // Type
         },
-        margin: { top: 20, left: 14 }, // Adjust margin
+        margin: { top: 25, left: 14, right: 14 },
+        didDrawPage: (data) => {
+          // Footer with page number
+          const pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
+          doc.setFontSize(10);
+    
+          // Optional: Add logo or watermark in the footer
+          // doc.addImage('path_to_logo.png', 'PNG', 180, pageHeight - 20, 20, 10);
+        }
       });
     
-      // Save the PDF file
-      doc.save('medical_records.pdf');
+      // Optional: Add a header at the bottom for additional information
+      doc.setFontSize(8);
+      doc.text('Confidential - For internal use only', 105, 290, { align: 'center' });
+    
+      // Save the PDF
+      doc.save(`medical_records_${now.toISOString().slice(0,10)}.pdf`);
     }
+    
   }

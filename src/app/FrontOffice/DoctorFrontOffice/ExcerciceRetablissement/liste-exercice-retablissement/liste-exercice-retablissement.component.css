@@ -59,7 +59,9 @@
 .container {
   padding: 2rem;
 }
-
+.modal-title {
+  color: black;
+}
 /* Table View */
 table {
   width: 100%;
