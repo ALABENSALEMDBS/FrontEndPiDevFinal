@@ -190,10 +190,6 @@
 
 
 
-
-
-
-
             <ng-container *ngFor="let match of upcomingMatches.slice(1); let i = index">
               <div class="col-lg-6 mb-4">
                 <div class="bg-dark-match p-4 rounded">
@@ -252,7 +248,7 @@
           </div>
           
           <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs | slice:0:3">
               <div class="club-card">
                 <div class="club-card-header">
                   <div class="club-logo-container">

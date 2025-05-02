@@ -574,6 +574,8 @@ export class CupMatchesComponent implements OnInit {
     });
   }
 
+
+
   generateNextRound(): void {
     if (confirm('Are you sure you want to generate the next round?')) {
       this.cupService.generateNextRound(this.cupId).subscribe({
@@ -591,6 +593,9 @@ export class CupMatchesComponent implements OnInit {
       });
     }
   }
+
+
+  
 
   editMatch(id: number): void {
     this.router.navigate(["/superadmin/showcup/update-match", this.cupId, id]);
