@@ -70,33 +70,34 @@
                   <td>{{ i + 1 }}</td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <img 
+                      <!-- <img 
                         [src]="match.club1.logo" 
                         [alt]="match.club1.nameClub" 
                         class="me-2" 
                         style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
-                      >
+                      > -->
                       {{ match.club1.nameClub }}
                     </div>
                   </td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <img 
+                      <!-- <img 
                         [src]="match.club2.logo" 
                         [alt]="match.club2.nameClub" 
                         class="me-2" 
                         style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
-                      >
+                      > -->
                       {{ match.club2.nameClub }}
                     </div>
                   </td>
                   <td>
-                    <span *ngIf="match.goals1 !== null && match.goals2 !== null">
+                    <!-- <span *ngIf="match.goals1 !== null && match.goals2 !== null">
                       {{ match.goals1 }} - {{ match.goals2 }}
                     </span>
                     <span *ngIf="match.goals1 === null || match.goals2 === null">
                       -
-                    </span>
+                    </span> -->
+                    {{match.resultatMatch}}
                   </td>
                   <td>{{ formatDate(match.dateMatch) }}</td>
                   <td>{{ match.lieuMatch || 'Not set' }}</td>
