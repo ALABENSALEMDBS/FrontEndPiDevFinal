@@ -1,0 +1,25 @@
+.club-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #dee2e6;
+    overflow: hidden;
+  }
+  
+  .club-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .club-logo {
+    max-height: 80px;
+    max-width: 80px;
+    object-fit: contain;
+  }
+  
+  .club-details {
+    font-size: 0.9rem;
+  }
+  
+  .club-details p {
+    margin-bottom: 0.5rem;
+  }
+  

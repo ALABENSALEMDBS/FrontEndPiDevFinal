@@ -30,18 +30,15 @@
         <table class="table table-striped table-hover">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Name</th>
-              <th>Matches</th>
               <th>Participating Clubs</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let cup of cups">
-              <td>{{ cup.idCup }}</td>
               <td>{{ cup.name }}</td>
-              <td>{{ cup.matchs?.length || 0 }}</td>
+              <!-- <td>{{ cup.matchs?.length || 0 }}</td> -->
               <td>
                 <button class="btn btn-sm btn-outline-info" (click)="viewParticipatingClubs(cup.idCup)">
                   View Clubs

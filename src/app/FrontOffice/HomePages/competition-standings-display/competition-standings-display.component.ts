@@ -31,6 +31,11 @@ export class CompetitionStandingsDisplayComponent implements OnInit {
     this.competitionId = +this.route.snapshot.paramMap.get("id")!
     this.loadCompetition()
     this.loadStandings()
+
+    // Add this to ensure styles are applied correctly
+    document.documentElement.style.setProperty("--first-place-color", "#ffd70033")
+    document.documentElement.style.setProperty("--second-place-color", "#c0c0c033")
+    document.documentElement.style.setProperty("--third-place-color", "#cd7f3233")
   }
 
   loadCompetition(): void {

@@ -174,14 +174,28 @@ const routes: Routes = [
 
 
       // Add this to the routes array in the superadmin section
+// {
+//   path: 'showcup',
+//   component: ListCupComponent,
+//   children: [
+//     { path: 'add', component: AddCupComponent },
+//     { path: 'matches/:id', component: CupMatchesComponent },
+//     { path: "update-goals/:competitionId/:matchId", component: UpdateCupGoalsComponent },
+//   ]
+// },
+
+
 {
-  path: 'showcup',
+  path: "showcup",
   component: ListCupComponent,
   children: [
-    { path: 'add', component: AddCupComponent },
-    { path: 'matches/:id', component: CupMatchesComponent },
-    { path: "update-goals/:competitionId/:matchId", component: UpdateCupGoalsComponent },
-  ]
+    { path: "add", component: AddCupComponent },
+    { path: "matches/:id", component: CupMatchesComponent },
+    { path: "bracket/:id", component: CupBracketComponent },
+    { path: "clubs/:id", component: CupClubsComponent },
+    { path: "update-goals/:cupId/:matchId", component: UpdateCupGoalsComponent },
+    { path: "update-match/:cupId/:matchId", component: UpdateCupMatchComponent },
+  ],
 },
 
 
