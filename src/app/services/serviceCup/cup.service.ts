@@ -104,21 +104,68 @@ export class CupService {
   }
 
 
+
+
+
+  // // Get matches grouped by round
+  // getMatchesByRound(cupId: number): Observable<Record<string, Match[]>> {
+  //   return this.http.get<Record<string, Match[]>>(`${this.apiUrl}/cups/${cupId}/matches-by-round`);
+  // }
+
+
+  // // Get participating clubs
+  // getParticipatingClubs(cupId: number): Observable<Clubs[]> {
+  //   return this.http.get<Clubs[]>(`${this.apiUrl}/getParticipatingClubs/${cupId}`);
+  // }
+
+
+  // // Update cup
+  // updateCup(id: number, cup: Cup): Observable<Cup> {
+  //   return this.http.put<Cup>(`${this.apiUrl}/updateCup/${id}`, cup);
+  // }
+
+
+
+
+  
   // Get matches grouped by round
   getMatchesByRound(cupId: number): Observable<Record<string, Match[]>> {
-    return this.http.get<Record<string, Match[]>>(`${this.apiUrl}/cups/${cupId}/matches-by-round`);
+    return this.http.get<Record<string, Match[]>>(`${this.apiUrl}/cups/${cupId}/matches-by-round`).pipe(
+      catchError((error) => {
+        console.error(`Error fetching matches by round for cup ID ${cupId}:`, error)
+        return throwError(() => new Error("Failed to load matches. Please try again."))
+      }),
+    )
   }
 
+  // Get all matches for a cup
+  getMatchesOfCup(cupId: number): Observable<Match[]> {
+    return this.http.get<Match[]>(`${this.apiUrl}/getMatchesOfCup/${cupId}`).pipe(
+      catchError((error) => {
+        console.error(`Error fetching matches for cup ID ${cupId}:`, error)
+        return throwError(() => new Error("Failed to load matches. Please try again."))
+      }),
+    )
+  }
 
   // Get participating clubs
   getParticipatingClubs(cupId: number): Observable<Clubs[]> {
-    return this.http.get<Clubs[]>(`${this.apiUrl}/getParticipatingClubs/${cupId}`);
+    return this.http.get<Clubs[]>(`${this.apiUrl}/getParticipatingClubs/${cupId}`).pipe(
+      catchError((error) => {
+        console.error(`Error fetching participating clubs for cup ID ${cupId}:`, error)
+        return throwError(() => new Error("Failed to load participating clubs. Please try again."))
+      }),
+    )
   }
-
 
   // Update cup
   updateCup(id: number, cup: Cup): Observable<Cup> {
-    return this.http.put<Cup>(`${this.apiUrl}/updateCup/${id}`, cup);
+    return this.http.put<Cup>(`${this.apiUrl}/modify-cup/${id}`, cup).pipe(
+      catchError((error) => {
+        console.error(`Error updating cup with ID ${id}:`, error)
+        return throwError(() => new Error("Failed to update cup. Please try again."))
+      }),
+    )
   }
 
   

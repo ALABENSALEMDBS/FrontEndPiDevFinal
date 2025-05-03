@@ -166,7 +166,7 @@
           <div *ngIf="!loading && competitions.length === 0 && !featuredCompetition" class="alert alert-info">
             No competitions found.
           </div>
-          
+        
           <!-- Competitions grid -->
           <div class="row" *ngIf="!loading && competitions.length > 0">
             <div class="col-lg-4 col-md-6 mb-4" *ngFor="let competition of competitions">
@@ -175,6 +175,8 @@
                   <h3 class="competition-name">{{ competition.nameCompetition }}</h3>
                   <span [class]="getTypeClass(competition.TypeC)">{{ competition.TypeC }}</span>
                 </div>
+                <img src="assets/front/images/c2.avif" alt="Trophy" class="img-fluid" style="max-height: 240px;" >
+
                 <div class="competition-card-body">
                   <div class="competition-info-container">
                     <div class="competition-info-item">
@@ -198,6 +200,8 @@
               </div>
             </div>
           </div>
+
+
         </div>
       </div>
     </div>

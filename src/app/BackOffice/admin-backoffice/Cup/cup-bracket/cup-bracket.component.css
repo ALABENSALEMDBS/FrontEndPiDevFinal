@@ -1,124 +1,136 @@
-/* src/app/components/cup/cup-bracket/cup-bracket.component.css */
 .tournament-bracket {
-    overflow-x: auto;
-    padding: 20px 0;
-  }
-  
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.bracket-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  min-width: 800px;
+}
+
+.bracket-round {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+  min-width: 250px;
+}
+
+.round-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #28a745;
+  padding: 8px;
+  border-bottom: 2px solid #28a745;
+}
+
+.matches-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.match-item {
+  margin-bottom: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.match-teams {
+  display: flex;
+  flex-direction: column;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.team-top {
+  border-bottom: 1px solid #eee;
+}
+
+.team-logo {
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.team-name {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.team-score {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.match-details {
+  font-size: 0.8rem;
+  color: #6c757d;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.match-status {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+}
+
+.winner {
+  background-color: rgba(40, 167, 69, 0.1);
+  font-weight: bold;
+}
+
+.match-completed {
+  border-left: 4px solid #28a745;
+}
+
+.match-in-progress {
+  border-left: 4px solid #ffc107;
+}
+
+.match-cancelled {
+  border-left: 4px solid #dc3545;
+}
+
+.match-postponed {
+  border-left: 4px solid #6c757d;
+}
+
+.match-pending {
+  border-left: 4px solid #17a2b8;
+}
+
+@media (max-width: 768px) {
   .bracket-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    min-width: 800px;
+    flex-direction: column;
   }
-  
+
   .bracket-round {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    margin: 0 10px;
+    margin-right: 0;
+    margin-bottom: 30px;
+    width: 100%;
   }
-  
-  .round-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #28a745;
-  }
-  
-  .matches-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 100%;
-  }
-  
-  .match-item {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  .match-teams {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .team {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-  }
-  
-  .team-top {
-    border-bottom: 1px solid #eee;
-  }
-  
-  .team-logo {
-    margin-right: 10px;
-  }
-  
-  .team-logo img {
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .team-name {
-    flex: 1;
-    font-weight: 500;
-  }
-  
-  .team-score {
-    font-weight: bold;
-    min-width: 30px;
-    text-align: center;
-  }
-  
-  .match-details {
-    font-size: 0.8rem;
-    color: #6c757d;
-    margin-top: 5px;
-    text-align: center;
-  }
-  
-  .match-status {
-    text-align: center;
-    margin-top: 5px;
-  }
-  
-  .winner {
-    font-weight: bold;
-    color: #28a745;
-    background-color: rgba(40, 167, 69, 0.1);
-  }
-  
-  .match-completed {
-    border-left: 3px solid #28a745;
-  }
-  
-  .match-in-progress {
-    border-left: 3px solid #ffc107;
-  }
-  
-  .match-cancelled {
-    border-left: 3px solid #dc3545;
-    opacity: 0.7;
-  }
-  
-  .match-postponed {
-    border-left: 3px solid #6c757d;
-    opacity: 0.8;
-  }
-  
-  .match-pending {
-    border-left: 3px solid #17a2b8;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 992px) {
-    .bracket-container {
-      min-width: 600px;
-    }
-  }
+}
