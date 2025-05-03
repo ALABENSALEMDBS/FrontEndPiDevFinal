@@ -110,7 +110,7 @@ const routes: Routes = [
   { path: 'competitions', component: CompetitionDisplayComponent },
 { path: 'competitions/clubs/:id', component: CompetitionClubsDisplayComponent },
 { path: 'competitions/matches/:id', component: CompetitionMatchesDisplayComponent },
-{ path: 'competitions/standings/:id', component: CompetitionStandingsDisplayComponent }
+{ path: 'competitions/standings/:id', component: CompetitionStandingsDisplayComponent },
 
 
 {
