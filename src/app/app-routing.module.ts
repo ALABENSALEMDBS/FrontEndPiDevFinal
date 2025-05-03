@@ -94,6 +94,10 @@ import { CupClubsComponent } from './BackOffice/admin-backoffice/Cup/cup-clubs/c
 import { UpdateCupMatchComponent } from './BackOffice/admin-backoffice/Cup/update-cup-match/update-cup-match.component';
 import { CupBracketComponent } from './BackOffice/admin-backoffice/Cup/cup-bracket/cup-bracket.component';
 import { ClubDisplayComponent } from './FrontOffice/HomePages/club-display/club-display.component';
+import { CompetitionDisplayComponent } from './FrontOffice/HomePages/competition-display/competition-display.component';
+import { CompetitionClubsDisplayComponent } from './FrontOffice/HomePages/competition-clubs-display/competition-clubs-display.component';
+import { CompetitionMatchesDisplayComponent } from './FrontOffice/HomePages/competition-matches-display/competition-matches-display.component';
+import { CompetitionStandingsDisplayComponent } from './FrontOffice/HomePages/competition-standings-display/competition-standings-display.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -103,6 +107,10 @@ const routes: Routes = [
   {path:'blog',component:BlogPageComponent},
   {path:'clubs',component:ClubDisplayComponent},
   {path:'matches',component:MatchesPageComponent},
+  { path: 'competitions', component: CompetitionDisplayComponent },
+{ path: 'competitions/clubs/:id', component: CompetitionClubsDisplayComponent },
+{ path: 'competitions/matches/:id', component: CompetitionMatchesDisplayComponent },
+{ path: 'competitions/standings/:id', component: CompetitionStandingsDisplayComponent }
 
 
 {
