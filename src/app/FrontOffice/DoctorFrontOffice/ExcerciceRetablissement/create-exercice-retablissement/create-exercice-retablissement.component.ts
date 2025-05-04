@@ -28,7 +28,7 @@ export class CreateExerciceRetablissementComponent {
       const exercice: ExerciceRetablissements = this.exerciceForm.value;
       this.exerciceService.addexercice(exercice).subscribe({
         next: () => {
-          alert('Exercice ajouté avec succès !');
+          //alert('Exercice ajouté avec succès !');
           this.exerciceForm.reset();
           this.router.navigate(['doctor/listeExercicedeRetablissement'])
           

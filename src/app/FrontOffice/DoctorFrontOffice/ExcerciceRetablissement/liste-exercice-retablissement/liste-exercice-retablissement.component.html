@@ -2,15 +2,15 @@
 
 <!-- Boutons actions (alignés à droite comme dans l'autre vue) -->
 <div class="view-toggle text-end my-3">
-  <button class="btn btn-outline-light me-2" (click)="viewMode = 'table'">🧾 Vue Tableau</button>
-  <button class="btn btn-outline-light me-2" (click)="viewMode = 'card'">📦 Vue Cartes</button>
+  <button class="btn btn-outline-light me-2" (click)="viewMode = 'table'">🧾 Table View</button>
+  <button class="btn btn-outline-light me-2" (click)="viewMode = 'card'">📦 Card View</button>
   <button class="btn btn-danger me-2" (click)="exportToPDF()">📝 Export to PDF</button>
   <button class="btn btn-secondary mt-1" data-bs-toggle="modal" data-bs-target="#importModal">IMPORT</button>
 </div>
 
 <!-- Bouton pour ajouter -->
 <div class="add-btn-container mb-3">
-  <button class="btn btn-primary" (click)="goToCreatePage()">➕ Ajouter un exercice</button>
+  <button class="btn btn-primary" (click)="goToCreatePage()">➕ Add an exercise</button>
 </div>
 
 <!-- Contenu principal -->
@@ -20,10 +20,10 @@
     <table class="table table-bordered table-striped mt-3">
       <thead>
         <tr>
-          <th>Nom</th>
+          <th>Name</th>
           <th>Description</th>
-          <th>Durée (min)</th>
-          <th>Niveau</th>
+          <th>Duration (min)</th>
+          <th>Level</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -35,8 +35,8 @@
           <td>{{ exercice.niveauDifficulte || 'Non spécifié' }}</td>
           <td class="d-flex justify-content-center align-items-center gap-2">
             <button class="btn btn-warning m-2" [routerLink]="['/doctor/updateexercice', 
-            exercice.idExerciceRetablissement]">✏️ Modifier</button>
-            <button class="btn btn-danger" (click)="supprimerExercice(exercice)">🗑️ Supprimer</button>
+            exercice.idExerciceRetablissement]">✏️ Edit</button>
+            <button class="btn btn-danger" (click)="supprimerExercice(exercice)">🗑️ Delete</button>
           </td>
         </tr>
       </tbody>
@@ -50,11 +50,11 @@
         <div class="card-body">
           <h5 class="card-title">{{ exercice.nomExerciceRetablissement }}</h5>
           <p><strong>Description:</strong> {{ exercice.descriptionExerciceRetablissement }}</p>
-          <p><strong>Durée:</strong> {{ exercice.dureeExercice || 'Non spécifié' }} min</p>
-          <p><strong>Niveau:</strong> {{ exercice.niveauDifficulte || 'Non spécifié' }}</p>
+          <p><strong>Duration:</strong> {{ exercice.dureeExercice || 'Non spécifié' }} min</p>
+          <p><strong>Level:</strong> {{ exercice.niveauDifficulte || 'Non spécifié' }}</p>
           <div class="mt-3">
-            <button class="btn btn-warning me-2" [routerLink]="['/doctor/updateexercice', exercice.idExerciceRetablissement]">✏️ Modifier</button>
-            <button class="btn btn-danger" (click)="supprimerExercice(exercice)">🗑️ Supprimer</button>
+            <button class="btn btn-warning me-2" [routerLink]="['/doctor/updateexercice', exercice.idExerciceRetablissement]">✏️ Edit</button>
+            <button class="btn btn-danger" (click)="supprimerExercice(exercice)">🗑️ Delete</button>
           </div>
         </div>
       </div>
@@ -67,12 +67,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="importModalLabel">Importer un exercice</h5>
+        <h5 class="modal-title" id="importModalLabel">Import an Exercise</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
         <input type="file" (change)="onFileSelected($event)" accept=".csv" />
-        <button class="btn btn-primary mt-2" (click)="onUpload()">Envoyer</button>
+        <button class="btn btn-primary mt-2" (click)="onUpload()">Upload</button>
       </div>
     </div>
   </div>
@@ -80,11 +80,11 @@
 
 <div class="confirm-popup-container" [class.show]="showConfirmPopup">
   <div class="confirm-popup-content">
-    <h3>Êtes-vous sûr ?</h3>
-    <p>Voulez-vous vraiment supprimer cet exercice ? Cette action est irréversible.</p>
+    <h3>Are you sure?</h3>
+    <p>Do you really want to delete this exercise? This action cannot be undone.</p>
     <div class="popup-actions mt-3">
-      <button class="btn btn-secondary me-2" (click)="closeConfirmPopup()">Annuler</button>
-      <button class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+      <button class="btn btn-secondary me-2" (click)="closeConfirmPopup()">Cancel</button>
+      <button class="btn btn-danger" (click)="confirmDelete()">Delete</button>
     </div>
   </div>
 </div>

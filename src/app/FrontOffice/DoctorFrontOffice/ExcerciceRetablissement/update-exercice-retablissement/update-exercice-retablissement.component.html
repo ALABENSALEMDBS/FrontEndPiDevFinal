@@ -1,6 +1,6 @@
 
 <div class="container mt-4">
-    <h2>Update a Recovery Exercise</h2>
+    <h2 class="form-header">Update a Recovery Exercise</h2>
     <form [formGroup]="exerciceForm" (ngSubmit)="updateExercice()">
       
       <div class="form-group">
@@ -27,9 +27,10 @@
           <option value="Difficile">Hard</option>
         </select>
       </div>
-  
-      <button type="submit" class="btn btn-primary mt-3" [disabled]="exerciceForm.invalid">SAVE</button>
-      <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listeExercicedeRetablissement'">Cancel</button>
+  <div class="text-center mt-4">
+      <button type="submit" class="btn btn-primary " [disabled]="exerciceForm.invalid">SAVE</button>
+      <button type="button" class="btn btn-secondary" [routerLink]="'/doctor/listeExercicedeRetablissement'">Cancel</button>
+    </div>
     </form>
   </div>
   

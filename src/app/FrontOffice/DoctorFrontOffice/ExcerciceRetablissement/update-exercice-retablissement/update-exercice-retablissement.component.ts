@@ -61,7 +61,7 @@ export class UpdateExerciceRetablissementComponent {
       
       this.exerciceService.updateExercice(this.idExerciceRetablissement.toString(), exercice).subscribe({
         next: () => {
-          alert('Exercice mis à jour avec succès !');
+          //alert('Exercice mis à jour avec succès !');
           this.router.navigate(['/doctor/listeExercicedeRetablissement']);
         },
         error: (err) => {

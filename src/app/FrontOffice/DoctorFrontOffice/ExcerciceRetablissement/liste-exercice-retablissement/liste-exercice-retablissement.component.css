@@ -13,8 +13,12 @@
 .add-btn-container {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 1.5rem 2rem;
-  background: linear-gradient(135deg, #0e1731, #1a2747);
+  background: linear-gradient(90deg, #0e1c36, #1a2a6c);
+  border-top: 4px solid #040492;
+  border-bottom: 4px solid #040492;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .add-btn-container .btn {
@@ -22,17 +26,21 @@
   color: #0e1731;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
 }
 
 .add-btn-container .btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(255, 200, 50, 0.5);
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #f9d45c, #f5b041);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
+
 
 /* View Toggle */
 .view-toggle {
@@ -120,16 +128,20 @@ table {
 
 /* Titre de fiche */
 .titre-fiche {
-  font-size: 28px;
-  font-weight: bold;
-  color: #c7d3df;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #f5f7fa;
   text-align: center;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 10px solid #01012c;
-  letter-spacing: 1px;
+  margin: 2rem 0 2rem;
+  padding: 1.5rem 0;
+  width: 100%;
+  background: linear-gradient(90deg, #0e1c36, #1a2a6c);
+  border-top: 4px solid #040492;
+  border-bottom: 4px solid #040492;
+  letter-spacing: 1.5px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Popup confirmation */
