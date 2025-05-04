@@ -98,6 +98,7 @@ import { CompetitionDisplayComponent } from './FrontOffice/HomePages/competition
 import { CompetitionClubsDisplayComponent } from './FrontOffice/HomePages/competition-clubs-display/competition-clubs-display.component';
 import { CompetitionMatchesDisplayComponent } from './FrontOffice/HomePages/competition-matches-display/competition-matches-display.component';
 import { CompetitionStandingsDisplayComponent } from './FrontOffice/HomePages/competition-standings-display/competition-standings-display.component';
+import { UpdateCupComponent } from './BackOffice/admin-backoffice/Cup/update-cup/update-cup.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -195,6 +196,7 @@ const routes: Routes = [
     { path: "clubs/:id", component: CupClubsComponent },
     { path: "update-goals/:cupId/:matchId", component: UpdateCupGoalsComponent },
     { path: "update-match/:cupId/:matchId", component: UpdateCupMatchComponent },
+    { path: "update/:id", component: UpdateCupComponent },
   ],
 },
 
