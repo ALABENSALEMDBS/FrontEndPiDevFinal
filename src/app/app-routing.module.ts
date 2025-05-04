@@ -99,6 +99,10 @@ import { CompetitionClubsDisplayComponent } from './FrontOffice/HomePages/compet
 import { CompetitionMatchesDisplayComponent } from './FrontOffice/HomePages/competition-matches-display/competition-matches-display.component';
 import { CompetitionStandingsDisplayComponent } from './FrontOffice/HomePages/competition-standings-display/competition-standings-display.component';
 import { UpdateCupComponent } from './BackOffice/admin-backoffice/Cup/update-cup/update-cup.component';
+import { CupMatchesDisplayComponent } from './FrontOffice/HomePages/cup-matches-display/cup-matches-display.component';
+import { CupClubsDisplayComponent } from './FrontOffice/HomePages/cup-clubs-display/cup-clubs-display.component';
+import { CupBracketDisplayComponent } from './FrontOffice/HomePages/cup-bracket-display/cup-bracket-display.component';
+import { CupDisplayComponent } from './FrontOffice/HomePages/cup-display/cup-display.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -112,6 +116,12 @@ const routes: Routes = [
 { path: 'competitions/clubs/:id', component: CompetitionClubsDisplayComponent },
 { path: 'competitions/matches/:id', component: CompetitionMatchesDisplayComponent },
 { path: 'competitions/standings/:id', component: CompetitionStandingsDisplayComponent },
+
+
+{ path: 'cups', component: CupDisplayComponent },
+{ path: 'cups/bracket/:id', component: CupBracketDisplayComponent },
+{ path: 'cups/clubs/:id', component: CupClubsDisplayComponent },
+{ path: 'cups/matches/:id', component: CupMatchesDisplayComponent },
 
 
 {
