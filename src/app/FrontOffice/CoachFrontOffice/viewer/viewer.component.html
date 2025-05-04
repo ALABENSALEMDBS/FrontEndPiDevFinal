@@ -2,8 +2,8 @@
 
 <div class="viewer-container">
   <div class="header">
-      <h2>Visionnage du live: {{ room?.name }}</h2>
-      <button class="back-button" (click)="goToHome()">Retour à l'accueil</button>
+      <h2>Viewing the live: {{ room?.name }}</h2>
+      <button class="back-button" (click)="goToHome()">Back to home</button>
   </div>
 
   <div class="error-message" *ngIf="errorMessage">
@@ -19,24 +19,24 @@
       <video #videoElement autoplay playsinline controls></video>
 
       <div *ngIf="isStreamActive" class="streaming-indicator">
-          <span class="dot"></span> En direct
+          <span class="dot"></span> Live
       </div>
   </div>
 
   <div class="stream-info" *ngIf="room">
-      <h3>Informations sur le stream</h3>
-      <p><strong>Nom:</strong> {{ room.name }}</p>
-      <p><strong>Créé le:</strong> {{ room.createdAt | date:'medium' }}</p>
-      <p><strong>Statut:</strong> {{ isStreamActive ? 'En direct' : 'Terminé' }}</p>
+      <h3>Stream information</h3>
+      <p><strong>Name:</strong> {{ room.name }}</p>
+      <p><strong>Created on:</strong> {{ room.createdAt | date:'medium' }}</p>
+      <p><strong>Status:</strong> {{ isStreamActive ? 'En direct' : 'Terminé' }}</p>
 
       <div *ngIf="room.recordingPath && !isStreamActive" class="recording-info">
-          <h4>Enregistrement disponible</h4>
-          <p>La vidéo de ce stream a été enregistrée et est disponible pour le visionnage ultérieur.</p>
+          <h4>Recording available</h4>
+          <p>The video of this stream was recorded and is available for later viewing.</p>
       </div>
   </div>
 
   <button *ngIf="isStreamActive && statusMessage" (click)="forceReconnect()">
-      Reconnecter manuellement
+    Reconnect manually
   </button>
 </div>
 

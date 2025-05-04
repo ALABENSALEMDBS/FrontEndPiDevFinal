@@ -1,56 +1,175 @@
-canvas {
-  width: 300px; /* Taille de largeur souhaitée */
-  height: 300px; /* Taille de hauteur souhaitée */
-}
+/* FIFA/FC25-Inspired Statistics Card Styling with Orange Accents */
 
 .glass-stat-card {
-  background: rgba(255, 255, 255, 0.726);
-  backdrop-filter: blur(8px);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  margin: 20px;
-  color: black;
+  background: linear-gradient(135deg, rgba(13, 36, 86, 0.85), rgba(10, 26, 58, 0.9));
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-left: 4px solid #ff9800;
+  backdrop-filter: blur(10px);
+  max-width: 600px;
+  margin: 0 auto 30px;
 }
 
-
-
-.glass-stat-card {
-  background: rgba(255, 255, 255, 0.7); /* Transparence */
-  backdrop-filter: blur(10px); /* Flou joli */
-  border-radius: 20px; /* Coins arrondis */
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* OMBRE DOUCE */
-  padding: 20px;
-  margin: 20px;
-  text-align: center; /* Tout centré */
-  color: #000; /* Texte noir */
+/* Hexagonal pattern background */
+.glass-stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23ff9800' fill-opacity='0.05' d='M50 0L93.3 25v50L50 100L6.7 75V25L50 0z'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  z-index: -1;
+  opacity: 0.3;
 }
 
+/* Diagonal accent in top-right corner */
+.glass-stat-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), transparent);
+  border-radius: 0 0 0 100%;
+  z-index: 0;
+}
+
+/* Card title styling */
 .card-title {
   font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+  color: #ff9800;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+  z-index: 1;
+}
+
+.card-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff9800, #ff5500);
+  border-radius: 2px;
+}
+
+/* Chart container styling */
+.chart-container {
+  position: relative;
+  z-index: 1;
+  padding: 15px;
+  background: rgba(13, 36, 86, 0.5);
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 152, 0, 0.1);
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Canvas styling */
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Hover effect for the card */
+.glass-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .glass-stat-card {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+}
+
+/* Animation for chart loading */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .chart-container {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto; /* Centre le graphe */
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
-
-.glass-stat-card {
-  background: rgba(44, 47, 51, 0.85); /* Fond sombre avec transparence */
-  backdrop-filter: blur(10px); /* Flou léger */
-  border-radius: 20px; /* Coins arrondis */
-  box-shadow: 0 8px 32px 0 rgba(83, 97, 218, 0.6); /* Ombre plus forte */
-  padding: 20px;
-  margin: 20px;
-  text-align: center;
-  color: #ffffff; /* Texte blanc */
+/* Custom chart tooltip styling (if you're using Chart.js) */
+:root {
+  --chart-tooltip-bg: rgba(13, 36, 86, 0.9);
+  --chart-tooltip-color: #ffffff;
+  --chart-tooltip-border: #ff9800;
 }
 
+/* This will be applied if you're using Chart.js tooltips */
+.chartjs-tooltip {
+  background: var(--chart-tooltip-bg) !important;
+  color: var(--chart-tooltip-color) !important;
+  border-color: var(--chart-tooltip-border) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+  font-family: "Exo 2", "Roboto", sans-serif !important;
+  padding: 10px !important;
+}
 
+/* Custom legend styling */
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
 
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
 
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+
+/* FIFA-style chart label styling */
+.chart-js-tooltip-key {
+  color: #ff9800 !important;
+  font-weight: 600 !important;
+}
