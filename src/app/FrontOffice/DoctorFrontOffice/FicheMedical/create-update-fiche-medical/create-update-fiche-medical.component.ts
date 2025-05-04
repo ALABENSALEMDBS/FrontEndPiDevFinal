@@ -89,5 +89,39 @@ export class CreateUpdateFicheMedicalComponent {
         this.errorMessage = "Erreur lors de l'ajout de la fiche médicale.";
       }
     });
-  }}
+  }
+  recognition: any;
+
+  startVoiceInput(): void {
+    const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    
+    if (!SpeechRecognition) {
+      alert("Votre navigateur ne supporte pas la reconnaissance vocale.");
+      return;
+    }
+  
+    this.recognition = new SpeechRecognition();
+    this.recognition.lang = 'fr-FR';
+    this.recognition.interimResults = false;
+  
+    this.recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      this.ficheMedicalForm.get('type')?.setValue(transcript);
+    };
+  
+    this.recognition.onerror = (event: any) => {
+      console.error("Erreur vocale :", event.error);
+    };
+  
+    this.recognition.start();
+  }
+  
+
+
+
+
+
+
+
+}
   

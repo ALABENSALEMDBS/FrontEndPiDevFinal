@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Edit a Medical Record</h2>
+    <h2 class="form-header"> Edit a Medical Record</h2>
   
     <form *ngIf="ficheMedicalForm" [formGroup]="ficheMedicalForm" (ngSubmit)="updateFicheMedicale()">
   
@@ -64,12 +64,12 @@
         <label for="joueur">Player</label>
         <select formControlName="joueurId">
           <option value="" disabled selected>Select a player</option>
-          <option *ngFor="let player of players" [value]="player.idUser">{{ player.nameUsers }}</option>
+          <option *ngFor="let player of players" [value]="player.idUser">{{ player.nameUsers }} {{ player.prenomUser }}</option>
         </select>
       </div>
      <!-- Sélection du exerciceretablissement  -->
  <div class="form-group">
-  <label for="joueur">Exercice retablissement</label>
+  <label for="joueur">Recovery Exercise </label>
   <select formControlName="idExerciceRetablissement" required>
     <option value="" disabled selected>Select a Exercice</option>
     <option *ngFor="let exerciceretablissement of exercice" [value]="exerciceretablissement.idExerciceRetablissement">{{ exerciceretablissement.nomExerciceRetablissement }}  {{ exerciceretablissement.descriptionExerciceRetablissement }}</option>
@@ -78,10 +78,10 @@
       
   
       <!-- Boutons -->
-       
-      <button type="submit" class="btn btn-primary mt-3"  [disabled]="ficheMedicalForm.invalid"  >Enregistrer </button>
-      <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listefiche'">Retour</button>
-  
+      <div class="button-container">
+      <button type="submit" class="btn btn-primary mt-2"  [disabled]="ficheMedicalForm.invalid"  >Save </button>
+      <button type="button" class="btn btn-secondary mt-2" [routerLink]="'/doctor/listefiche'">Back</button>
+    </div>
     </form>
   
     <!-- Messages de succès et d'erreur -->

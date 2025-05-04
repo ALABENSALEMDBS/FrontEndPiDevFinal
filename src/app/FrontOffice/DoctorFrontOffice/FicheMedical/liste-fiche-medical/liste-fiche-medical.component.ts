@@ -52,7 +52,7 @@ export class ListeFicheMedicalComponent {
       if (confirm("Do you really want to delete this Medical Record ?")) {
         this.servicedoctors.deletfichemedicalbyid(fiche.idFicheMedicale).subscribe({
           next: () => {
-            alert('Exercice supprimé avec succès !');
+           // alert('Exercice supprimé avec succès !');
             this.loadFichesMedicales(); // Mettre à jour la liste
           },
           error: (err) => {
@@ -64,74 +64,85 @@ export class ListeFicheMedicalComponent {
     }
     exportToPDF(): void {
       const doc = new jsPDF();
+      const now = new Date();
     
-      // Title Section
+      // Header background
+      doc.setFillColor(0, 102, 204);
+      doc.rect(0, 0, 210, 30, 'F');
+    
+      // Logo image (replace with your actual path or base64)
+      // Exemple avec logo local dans assets : Angular : mettre le logo dans src/assets
+      doc.addImage('assets/images/b2.png', 'PNG', 10, 5, 20, 20);
+    
+      // App name with emoji
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(18);
-      doc.text('Medical Records List', 105, 15, { align: 'center' });
+      doc.setTextColor(255, 255, 255);
+      doc.text(' Tactic Foot - Medical Records ', 105, 15, { align: 'center' });
     
-      // Subtitle with export date
-      doc.setFontSize(11);
-      const now = new Date();
-      doc.text(`Exported on: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 105, 22, { align: 'center' });
+      // Exported on date
+      doc.setFontSize(10);
+      doc.text(`Exported on: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 105, 24, { align: 'center' });
     
-      // Define table columns and data
+      // Table setup
       const columns = ['Player', 'Weight (kg)', 'Height (cm)', 'Injury Date', 'Severity', 'Injury Type'];
       const data = this.fichesMedicales.map(fiche => [
         fiche.joueurFullName,
         fiche.poidsFicheMedicale,
         fiche.tailleFicheMedicale,
-        //this.datePipe.transform(fiche.dateBlessure, 'dd/MM/yyyy') ?? '', // Formatted date
+        fiche.dateBlessure,
         fiche.gravite,
         fiche.type,
       ]);
     
-      // Add Table
       autoTable(doc, {
         head: [columns],
         body: data,
         theme: 'striped',
-        startY: 30,
+        startY: 35,
         styles: {
           fontSize: 10,
           cellPadding: 3,
           valign: 'middle',
           halign: 'center',
-          lineColor: [204, 204, 204], // Line color between rows
+          lineColor: [204, 204, 204],
         },
         headStyles: {
-          fillColor: [0, 102, 204], // Blue header
+          fillColor: [0, 102, 204],
           textColor: [255, 255, 255],
           fontStyle: 'bold',
         },
         alternateRowStyles: {
-          fillColor: [240, 240, 240], // Light gray for better readability
+          fillColor: [240, 240, 240],
         },
-        columnStyles: {
-          0: { cellWidth: 45 }, // Player
-          1: { cellWidth: 25 }, // Weight
-          2: { cellWidth: 25 }, // Height
-          3: { cellWidth: 35 }, // Date
-          4: { cellWidth: 30 }, // Severity
-          5: { cellWidth: 30 }, // Type
-        },
-        margin: { top: 25, left: 14, right: 14 },
+        margin: { top: 30, left: 14, right: 14 },
         didDrawPage: (data) => {
-          // Footer with page number
-          const pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
-          doc.setFontSize(10);
+          const pageHeight = doc.internal.pageSize.height;
+          doc.setFontSize(9);
+          doc.setTextColor(120);
     
-          // Optional: Add logo or watermark in the footer
-          // doc.addImage('path_to_logo.png', 'PNG', 180, pageHeight - 20, 20, 10);
+          // Footer
+          doc.text('Tactic Foot • All Rights Reserved • Confidential', 105, pageHeight - 10, { align: 'center' });
         }
       });
     
-      // Optional: Add a header at the bottom for additional information
-      doc.setFontSize(8);
-      doc.text('Confidential - For internal use only', 105, 290, { align: 'center' });
-    
-      // Save the PDF
-      doc.save(`medical_records_${now.toISOString().slice(0,10)}.pdf`);
+      // Save the document
+      doc.save(`medical_records_${now.toISOString().slice(0, 10)}.pdf`);
     }
+    
+    //selected 
+    selectedFiche: any = null;
+    detailsVisible: boolean = false;
+    
+    selectPlayer(fiche: any) {
+      this.selectedFiche = fiche;
+      this.detailsVisible = true;
+    }
+    
+    toggleDetails() {
+      this.detailsVisible = !this.detailsVisible;
+    }
+    
+
     
   }
