@@ -1,3 +1,11 @@
+
+<h2 class="titre-fiche text-center mb-4">List of Foods</h2>
+
+<!-- Bouton d'ajout -->
+<div class="add-btn-container">
+  <button class="btn btn-primary" (click)="goToCreatePage()">➕ ADD Foods</button>
+</div>
+
 <div class="container mt-4">
 
   <!-- Message d'alerte si nécessaire -->
@@ -6,35 +14,39 @@
   </div>
 
   <!-- Titre stylisé -->
-  <h2 class="titre-fiche">List of Foods</h2>
 
-  <!-- Bouton d'ajout stylisé -->
-  <div class="add-btn-container">
-    <button class="btn" (click)="goToCreatePage()">ADD Foods</button>
+
+  <!-- Grille de cartes -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let nouriture of nourritures">
+      <div class="card shadow-sm h-100">
+        <img *ngIf="nouriture.imagesN" [src]="nouriture.imagesN" class="card-img-top" alt="Food Image" style="height: 180px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">{{ nouriture.nom }}</h5>
+          <p class="card-text"><strong>Recommandation:</strong> {{ nouriture.recommandation }}</p>
+          <p class="card-text"><strong>Calories:</strong> {{ nouriture.calories }}</p>
+          <div class="d-flex justify-content-between mt-3">
+           
+            <button class="btn btn-sm btn-warning" (click)="onUpdateNouritureClicked(nouriture)">✏️ Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="openConfirmPopup(nouriture)">🗑️ Delete</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Tableau stylisé -->
-  <table class="table table-bordered mt-3">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Recommandation</th>
-        <th>Calories</th>
-        <th>Actions</th> <!-- Pour mieux présenter les boutons -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let nouriture of nourritures">
-        <td>{{ nouriture.idNourriture }}</td>
-        <td>{{ nouriture.nom }}</td>
-        <td>{{ nouriture.recommandation }}</td>
-        <td>{{ nouriture.calories }}</td>
-        <td class="d-flex justify-content-center align-items-center gap-2">
-          <button class="btn btn-warning m-2" (click)="onUpdateNouritureClicked(nouriture)">Edit</button>
-          <button class="btn btn-danger m-1" (click)="supprimerNourriture(nouriture)">DELETE</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+<!-- Fenêtre de confirmation -->
+<div class="confirm-popup-container" [class.show]="showConfirmPopup">
+  <div class="confirm-popup-content">
+    <h3>Êtes-vous sûr ?</h3>
+    <p>Voulez-vous vraiment supprimer cet aliment ? Cette action est irréversible.</p>
+    <div class="popup-actions mt-3">
+      <button class="btn btn-secondary me-2" (click)="closeConfirmPopup()">Annuler</button>
+      <button class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+    </div>
+  </div>
+</div>
+
 </div>

@@ -249,3 +249,76 @@ table {
     padding: 0.5rem 1rem;
     font-size: 0.75rem;
   }}
+
+  .titre-fiche {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #f5f7fa;
+    text-align: center;
+    margin: 2rem 0 2rem;
+    padding: 1.5rem 0;
+    width: 100%;
+    background: linear-gradient(90deg, #0e1c36, #1a2a6c);
+    border-top: 4px solid #040492;
+    border-bottom: 4px solid #040492;
+    letter-spacing: 1.5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Add Button Container */
+.add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(90deg, #0e1c36, #1a2a6c);
+  border-top: 4px solid #040492;
+  border-bottom: 4px solid #040492;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.add-btn-container .btn {
+  background: linear-gradient(135deg, #f9c933, #f39c12);
+  color: #0e1731;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.add-btn-container .btn:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #f9d45c, #f5b041);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.confirm-popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.confirm-popup-container.show {
+  display: flex;
+}
+
+.confirm-popup-content {
+  background: rgb(2, 1, 68);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}

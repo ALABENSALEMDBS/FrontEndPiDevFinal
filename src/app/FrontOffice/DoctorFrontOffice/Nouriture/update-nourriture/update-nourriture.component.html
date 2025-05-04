@@ -1,25 +1,50 @@
 <div class="container mt-4">
-    <h2 class="form-title">Modifier une Nourriture</h2>
-  
-    <form *ngIf="nourritureForm" [formGroup]="nourritureForm" (ngSubmit)="updateNourriture()" class="custom-form">
-        <div class="form-group">
-        <label for="nom">Nom</label>
-        <input id="nom" type="text" class="form-control" formControlName="nom" required>
+  <h2 class="form-header">Modifier une Nourriture</h2>
+
+  <form *ngIf="nourritureForm" [formGroup]="nourritureForm" (ngSubmit)="updateNourriture()" class="custom-form">
+    
+    <!-- Image -->
+    <div class="form-group">
+      <label for="imagesN">Image</label>
+
+      <!-- Prévisualisation de la nouvelle image -->
+      <div *ngIf="imagePreview; else showOldImage">
+        <p>Nouvelle image :</p>
+        <img [src]="imagePreview" alt="Prévisualisation" style="max-width: 150px;">
       </div>
-  
-      <div class="form-group">
-        <label for="recommandation">Recommandation</label>
-        <textarea id="recommandation" class="form-control" formControlName="recommandation" required></textarea>
-      </div>
-  
-      <div class="form-group">
-        <label for="calories">Calories</label>
-        <input id="calories" type="number" class="form-control" formControlName="calories" required>
-      </div>
-  
-      <button type="submit" class="btn btn-success mt-3" [disabled]="nourritureForm.invalid">Mettre à jour</button>
-      
-      
-    </form>
-  </div>
-  
+
+      <!-- Affichage de l'image actuelle si aucune nouvelle sélectionnée -->
+      <ng-template #showOldImage>
+        <div *ngIf="oldImageUrl">
+          <p>Image actuelle :</p>
+          <img [src]="oldImageUrl" alt="Image actuelle" style="max-width: 150px;">
+        </div>
+      </ng-template>
+
+      <!-- Sélection d'une nouvelle image -->
+      <input type="file" (change)="onImageSelected($event)">
+    </div>
+
+    <!-- Nom -->
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input id="nom" type="text" class="form-control" formControlName="nom" required>
+    </div>
+
+    <!-- Recommandation -->
+    <div class="form-group">
+      <label for="recommandation">Recommandation</label>
+      <textarea id="recommandation" class="form-control" formControlName="recommandation" required></textarea>
+    </div>
+
+    <!-- Calories -->
+    <div class="form-group">
+      <label for="calories">Calories</label>
+      <input id="calories" type="number" class="form-control" formControlName="calories" required>
+    </div>
+
+    <!-- Bouton -->
+    <button type="submit" class="btn btn-custom mt-3" [disabled]="nourritureForm.invalid">Mettre à jour</button>
+    <button type="button" class="btn btn-secondary mt-3" [routerLink]="'/doctor/listenouriture'">Cancel</button>
+  </form>
+</div>

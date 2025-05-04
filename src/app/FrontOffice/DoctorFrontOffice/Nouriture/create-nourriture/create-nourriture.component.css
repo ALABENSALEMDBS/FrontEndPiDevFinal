@@ -1,51 +1,144 @@
-.form-control {
-    color: black !important; /* Texte noir lors de la saisie */
-    background-color: white !important; /* Fond blanc */
-    border: 1px solid #ccc; /* Bordure grise pour la visibilité */
-    padding: 10px; /* Espacement pour un bon confort de saisie */
-    font-size: 16px; /* Agrandir un peu le texte */
+/* Variables essentielles */
+:root {
+  --blue: #0d6efd;
+  --red: #dc3545;
+  --text: #ccd6e0;
+  --radius: 0.375rem;
+}
+
+/* Style général compact */
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(240, 237, 237, 0.1);
+  position: relative;
+  padding-bottom: 80px; /* Espace pour les boutons en bas */
+    color: #5f6368;
+    
+}
+
+/* Titre amélioré avec bordure bleue */
+/* .form-title {
+  color: var(--blue);
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  border: 2px solid var(--blue);
+  border-radius: var(--radius);
+  background: rgba(13, 110, 253, 0.05);
+  box-shadow: 0 2px 5px rgba(2, 4, 129, 0.2);
+} */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #1100cf 0%, #1100cf 100%);
+  color: white;
+  border-radius: 15px;
+}
+
+.text {
+  color: #5f6368;
+}
+/* Formulaire simplifié */
+.custom-form { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 1rem; 
+}
+
+
+.form-group { margin-bottom: 1rem; }
+label { display: block; margin-bottom: 0.25rem; font-weight: 600; color: var(--text); 
+  color: #5f6368;
+} 
+
+/* Champs de formulaire - texte visible */
+.form-control, select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #3911eb;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+  color: var(--text) !important; /* Texte foncé pour être visible */
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.form-control:focus, select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+  outline: 0;
+}
+
+/* Validation */
+.text-danger { color: var(--red); font-size: 0.875rem; }
+.form-control.ng-invalid.ng-touched { border-color: var(--red); }
+.form-control.ng-valid.ng-touched { border-color: #198754; }
+
+/* Boutons */
+.btn {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0 0.5rem;
+  min-width: 120px;
+
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
+.btn-primary { color: white; background-color: var(--blue); }
+.btn-primary:hover { background-color: #0b5ed7; }
+.btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+.btn-secondary { color: white; background-color: var(--red); }
+.btn-secondary:hover { background-color: #bb2d3b; }
+
+/* Conteneur de boutons - fixé en bas */
+.button-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  padding: 0 1.5rem;
+}
+
+/* Messages d'alerte */
+.alert {
+  padding: 0.75rem;
+  margin-top: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 60px; /* Espace pour ne pas chevaucher les boutons */
+}
+.alert-success { background-color: #0d11e0; color: #0f5132; }
+.alert-danger { background-color: #f8d7da; color: #842029; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .custom-form { grid-template-columns: 1fr; }
+  .container { padding-bottom: 100px; } /* Plus d'espace en bas sur mobile */
+  .button-container { 
+    flex-direction: row; 
+    justify-content: center;
+    bottom: 15px;
   }
-  
-  .form-control:focus {
-    border-color: #007bff; /* Bordure bleue au focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Légère lueur bleue */
+  .btn { 
+    flex: 0 1 auto;
+    margin: 0 0.25rem;
+    padding: 0.75rem 1rem;
   }
-  
-  ::placeholder {
-    color: #666 !important; /* Placeholder gris foncé pour contraste */
-    opacity: 1;
-  }
-  
-  .btn {
-    font-size: 18px; /* Texte plus grand */
-    padding: 12px 20px; /* Ajouter de l'espace pour un meilleur confort */
-    border-radius: 8px; /* Coins arrondis pour un effet moderne */
-    font-weight: bold; /* Texte en gras */
-    transition: all 0.3s ease-in-out; /* Animation fluide */
-    cursor: pointer; /* Changer le curseur pour indiquer un bouton interactif */
-  }
-  
-  /* Style du bouton "Save" */
-  .btn-primary {
-    background-color: #28a745; /* Vert pour indiquer l'action de sauvegarde */
-    border: none;
-    color: white;
-  }
-  
-  .btn-primary:hover {
-    background-color: #218838; /* Vert foncé au survol */
-    transform: scale(1.05); /* Léger agrandissement */
-  }
-  
-  /* Style du bouton "Cancel" */
-  .btn-secondary {
-    background-color: #dc3545; /* Rouge pour annuler */
-    border: none;
-    color: white;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #c82333; /* Rouge foncé au survol */
-    transform: scale(1.05);
-  }
-  
+}
+
+/* Placeholder visible */
+::placeholder {
+  color: #6c757d !important;
+  opacity: 1;
+}

@@ -1,6 +1,24 @@
 <div class="container mt-4">
-    <h2 class="form-title">Ajouter une Nourriture</h2>
+    <h2 class="form-header">Ajouter une Nourriture</h2>
     <form [formGroup]="nourritureForm" (ngSubmit)="ajouterNourriture()" class="custom-form">
+
+      <div class="form-group">
+        <label for="imagesN">Image</label>
+        <input 
+          id="imagesN" 
+          type="file" 
+          class="form-control" 
+          (change)="onImageSelected($event)" 
+          accept="image/*"
+          required
+        >
+      </div>
+      
+      <!-- Preview de l’image sélectionnée -->
+      <div *ngIf="imagePreview">
+        <img [src]="imagePreview" alt="Preview" style="max-width: 150px; margin-top: 10px;">
+      </div>
+
       <div class="form-group">
         <label for="nom">Nom</label>
         <input id="nom" type="text" class="form-control" formControlName="nom" required>
