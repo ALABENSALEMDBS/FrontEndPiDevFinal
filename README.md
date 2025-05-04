@@ -1,16 +1,30 @@
-# FrontEndPiDevFinal (TacticFoot - Frontend)
+# ⚽ FrontEndPiDevFinal (TacticFoot - Frontend)
 
-## Description
-**FrontEndPiDevFinal** is the **frontend** part of **TacticFoot**, a sports management application dedicated to football.  
-This Angular application allows **coaches, analysts, doctors, club admins, and super admins** to manage teams, matches, and player health.  
-The **super admin** can add clubs and assign matches.  
+## 📘 Description
+**FrontEndPiDevFinal** is the **frontend** part of the **TacticFoot** application — a football-specific sports management platform.
 
-## Technologies Used
-- Angular  
-- TypeScript  
-- JSON  
+This Angular-based web application is designed for various types of users:
+- 👨‍🏫 **Coaches**
+- 📊 **Analysts**
+- 🩺 **Doctors**
+- 🏢 **Club administrators**
+- 🛡️ **Super administrators**
 
-## Installation
-1. Clone the repository (Frontend only):  
-   
-   git clone https://github.com/username/FrontEndPiDevFinal.git](https://github.com/ALABENSALEMDBS/FrontEndPiDevFinal.git
+They can manage **teams**, **matches**, and **player health monitoring**.  
+Super admins have extended privileges, including **adding clubs** and **assigning matches**.
+
+---
+
+## 🛠️ Technologies Used
+- [Angular](https://angular.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- JSON (for data exchange with the backend)
+
+---
+
+## 🚀 Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/ALABENSALEMDBS/FrontEndPiDevFinal.git
+cd FrontEndPiDevFinal
