@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { Router } from "@angular/router"
 import { SeanceService } from "src/app/services/serviceCoatch/serviceSeance/seance.service"
 
-
 @Component({
   selector: "app-addseance",
   templateUrl: "./addseance.component.html",
@@ -27,7 +26,7 @@ export class AddseanceComponent {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100),
-        Validators.pattern("^[a-zA-ZÀ-ÿ0-9\\s\\-'’]+$")
+        Validators.pattern("^[a-zA-ZÀ-ÿ0-9\\s\\-'']+$")
       ]),
       typeSeance: new FormControl("", [
         Validators.required
@@ -36,10 +35,14 @@ export class AddseanceComponent {
         Validators.required
       ]),
       heureDebut: new FormControl("", [
-        Validators.required
+        Validators.required,
+        Validators.pattern("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
+        this.validateTimeFormat
       ]),
       heureFin: new FormControl("", [
-        Validators.required
+        Validators.required,
+        Validators.pattern("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
+        this.validateTimeFormat
       ]),
       durationMinutes: new FormControl("", [
         Validators.required,
@@ -49,7 +52,7 @@ export class AddseanceComponent {
       description: new FormControl("", [
         Validators.maxLength(500),
         Validators.minLength(5),
-        Validators.pattern("^[a-zA-ZÀ-ÿ0-9\\s\\-'’,.()!?]{5,500}$")
+        Validators.pattern("^[a-zA-ZÀ-ÿ0-9\\s\\-'',.()!?]{5,500}$")
       ]),
       
       location: new FormControl("", [
@@ -65,10 +68,37 @@ export class AddseanceComponent {
         Validators.max(10)
       ])
     })
+    
+    // Add form-level validator for time comparison
     this.seanceForm.setValidators(this.validateHeureFinApresHeureDebut);
 
-
+    // Add value change listeners to automatically calculate duration
+    this.seanceForm.get('heureDebut')?.valueChanges.subscribe(() => {
+      this.calculateDuration();
+    });
+    
+    this.seanceForm.get('heureFin')?.valueChanges.subscribe(() => {
+      this.calculateDuration();
+    });
+    
+    // Add value change listener for duration to update end time
+    this.seanceForm.get('durationMinutes')?.valueChanges.subscribe(() => {
+      this.updateEndTimeFromDuration();
+    });
   }
+
+  // Validator for time format (HH:MM)
+  validateTimeFormat(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    
+    const timePattern = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    if (!timePattern.test(control.value)) {
+      return { invalidTimeFormat: true };
+    }
+    
+    return null;
+  }
+  
   validateHeureFinApresHeureDebut(group: AbstractControl): ValidationErrors | null {
     const start = group.get('heureDebut')?.value;
     const end = group.get('heureFin')?.value;
@@ -77,6 +107,21 @@ export class AddseanceComponent {
       return { heureInvalide: true };
     }
     return null;
+  }
+  
+  // Helper method to get error messages for time fields
+  getTimeErrorMessage(controlName: string): string {
+    const control = this.seanceForm.get(controlName);
+    if (!control || !control.errors || !control.touched) return '';
+    
+    if (control.errors['required']) {
+      return 'Time is required';
+    }
+    if (control.errors['pattern'] || control.errors['invalidTimeFormat']) {
+      return 'Invalid time format (HH:MM)';
+    }
+    
+    return '';
   }
   
   setCurrentSection(section: string): void {
@@ -107,7 +152,9 @@ export class AddseanceComponent {
     const startTime = this.seanceForm.get("heureDebut")?.value
     const endTime = this.seanceForm.get("heureFin")?.value
 
-    if (startTime && endTime) {
+    if (startTime && endTime && 
+        this.isValidTimeFormat(startTime) && 
+        this.isValidTimeFormat(endTime)) {
       const start = new Date(`2000-01-01T${startTime}`)
       const end = new Date(`2000-01-01T${endTime}`)
 
@@ -117,9 +164,56 @@ export class AddseanceComponent {
         diff += 24 * 60 * 60 * 1000 // Add 24 hours
       }
 
+      // Temporarily remove the valueChanges subscription to avoid infinite loop
+      const durationControl = this.seanceForm.get("durationMinutes");
+      const durationSubs = durationControl?.valueChanges.subscribe();
+      durationSubs?.unsubscribe();
+      
       const durationMinutes = Math.round(diff / 60000)
-      this.seanceForm.get("durationMinutes")?.setValue(durationMinutes)
+      durationControl?.setValue(durationMinutes, { emitEvent: false });
+      
+      // Resubscribe after setting the value
+      durationControl?.valueChanges.subscribe(() => {
+        this.updateEndTimeFromDuration();
+      });
     }
+  }
+  
+  // Update end time based on start time and duration
+  updateEndTimeFromDuration(): void {
+    const startTime = this.seanceForm.get("heureDebut")?.value;
+    const durationMinutes = this.seanceForm.get("durationMinutes")?.value;
+    
+    if (startTime && durationMinutes && 
+        this.isValidTimeFormat(startTime) && 
+        !isNaN(durationMinutes)) {
+      
+      const start = new Date(`2000-01-01T${startTime}`);
+      const end = new Date(start.getTime() + durationMinutes * 60000);
+      
+      // Format the end time as HH:MM
+      const hours = end.getHours().toString().padStart(2, '0');
+      const minutes = end.getMinutes().toString().padStart(2, '0');
+      const endTimeString = `${hours}:${minutes}`;
+      
+      // Temporarily remove the valueChanges subscription to avoid infinite loop
+      const endTimeControl = this.seanceForm.get("heureFin");
+      const endTimeSubs = endTimeControl?.valueChanges.subscribe();
+      endTimeSubs?.unsubscribe();
+      
+      endTimeControl?.setValue(endTimeString, { emitEvent: false });
+      
+      // Resubscribe after setting the value
+      endTimeControl?.valueChanges.subscribe(() => {
+        this.calculateDuration();
+      });
+    }
+  }
+  
+  // Helper method to check if a time string is in valid format
+  isValidTimeFormat(time: string): boolean {
+    const timePattern = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    return timePattern.test(time);
   }
 
   addSeance() {
@@ -134,11 +228,12 @@ export class AddseanceComponent {
         next: () => {
           this.successMessage = "Séance ajoutée avec succès !"
           this.errorMessage = ""
+          window.location.reload();
 
-          // Show success message for a moment, then reload the page
+
+          // Show success message for a moment, then close the form and reload
           setTimeout(() => {
-            this.seanceForm.reset()
-            window.location.reload() // Reload the page instead of navigating
+            this.avoidAdd(); // Close the form automatically
           }, 2000)
         },
         error: (err) => {
@@ -158,7 +253,7 @@ export class AddseanceComponent {
   }
 
   avoidAdd() {
+    // Navigate to the show seance page
     this.router.navigate(["coatch/showseance"])
   }
 }
-

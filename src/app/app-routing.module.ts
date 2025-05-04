@@ -402,15 +402,14 @@ const routes: Routes = [
     path:'analyste',
     component:AllTemplateAnalysteFrontComponent,
     children: [
-      { path: '', redirectTo: 'Homeanalyste', pathMatch: 'full' },
-      { path: 'Homeanalyste', component: HomeAnalysteComponent  },
+      { path: '', redirectTo: 'Reportshow', pathMatch: 'full' },
       { path: 'compareplayers', component: CompareplayersComponent },
       { path: 'PlayerreportstatComponent', component: PlayerreportstatComponent },
       {
         path: 'Reportshow',
         component:ListRapportComponent ,
         children: [
-          { path: 'update/:idRapport', component: UpdateRapportComponent },
+          { path: 'updatereport/:idRapport', component: UpdateRapportComponent },
           { path: 'addreports', component: AddRapportComponent },
           { path: 'player-details/:numeroJoueur', component: PlayerRapportDetailsComponent },
           {path: "similaireplayer",component: SimilaireplayerComponent},

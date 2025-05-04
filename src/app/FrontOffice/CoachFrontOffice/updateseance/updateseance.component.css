@@ -920,6 +920,64 @@
   box-shadow: 0 8px 20px rgba(0, 119, 255, 0.4);
 }
 
+/* Styles pour les exercices compatibles */
+.exercise-item.compatible {
+  background-color: rgba(0, 128, 0, 0.05);
+  border-left: 3px solid green;
+}
+
+.compatibility-badge {
+  background-color: green;
+  color: white;
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+/* Styles pour le filtre d'exercices */
+.exercise-filters {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-group select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* Bouton pour retirer tous les exercices */
+.remove-all-btn {
+  background-color: #e74c3c; /* rouge vif */
+  color: #fff; /* texte blanc */
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.remove-all-btn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.remove-all-btn:active {
+  transform: scale(0.95);
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .update-container {
@@ -987,25 +1045,4 @@
   .confirm-btn {
     width: 100%;
   }
-  .remove-all-btn {
-    background-color: #e74c3c; /* rouge vif */
-    color: #fff; /* texte blanc */
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .remove-all-btn:hover {
-    background-color: #c0392b;
-    transform: scale(1.05);
-  }
-  
-  .remove-all-btn:active {
-    transform: scale(0.95);
-  }
-  
 }
