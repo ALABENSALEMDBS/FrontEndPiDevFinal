@@ -1,208 +1,275 @@
+/* FIFA/FC25 Inspired Comment Section Styling */
+
 .comment-section {
-  width: 100vw !important;
-  max-width: 50vw !important;
-  margin: 0 auto;
-}
-
-
-.video-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-
-h3 {
-  margin-bottom: 16px;
-  font-size: 22px;
-  color: #333;
-}
-
-.comment {
-  display: flex;
-  margin-bottom: 16px;
-  background: #635555;
+  background: rgba(13, 36, 86, 0.7);
   border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid #ff9800;
 }
 
-.avatar {
-  font-size: 24px;
-  margin-right: 12px;
+/* Diagonal accent in top-right corner */
+.comment-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), transparent);
+  border-radius: 0 0 0 100%;
+  z-index: 0;
 }
 
-.content {
-  flex: 1;
+/* Heading styling */
+.comment-section h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  color: #ff9800;
+  position: relative;
+  padding-bottom: 10px;
+  z-index: 1;
 }
 
-.meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 4px;
+.comment-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff9800, #ff5500);
+  border-radius: 1.5px;
 }
 
-.username {
-  font-weight: bold;
-  color: #444;
-}
-
-.timestamp {
-  font-style: italic;
-}
-
-.text {
-  font-size: 15px;
-  color: #222;
-  margin: 0;
-}
-
-.new-comment {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.input {
-  flex: 1;
-  padding: 10px 12px;
-  border: 1px solid #5e5656;
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-}
-
-.input:focus {
-  border-color: #5d5e5e;
-}
-
-.send-btn {
-  background-color: #5d5e5e;
-  color: rgb(94, 81, 81);
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.send-btn:hover {
-  background-color: #5d5e5e;
-}
-
-
-.comment-section {
-  border-radius: 16px;
-  padding: 24px;
-  background-color: #f2f2f2;
-  max-width: 720px;
-  margin: 30px auto;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-h3 {
-  margin-bottom: 24px;
-  font-size: 24px;
-  color: #222;
-  border-bottom: 2px solid #5d5e5e;
-  padding-bottom: 8px;
-}
-
+/* Comment item styling */
 .comment {
   display: flex;
-  gap: 12px;
   margin-bottom: 20px;
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 16px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
-  transition: transform 0.2s ease;
+  background: rgba(26, 34, 51, 0.8);
+  border-radius: 8px;
+  padding: 15px;
+  position: relative;
+  transition: all 0.3s ease;
+  border-left: 3px solid rgba(255, 152, 0, 0.5);
 }
 
 .comment:hover {
-  transform: translateY(-2px);
+  transform: translateX(5px);
+  border-left-color: #ff9800;
+  background: rgba(26, 34, 51, 0.9);
 }
 
+/* Avatar styling */
 .avatar {
-  background-color: #5d5e5e;
-  color: white;
-  border-radius: 50%;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9800, #ff5500);
+  color: #0d2456;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-right: 15px;
+  flex-shrink: 0;
+  box-shadow: 0 3px 8px rgba(255, 152, 0, 0.3);
 }
 
+/* Comment content */
 .content {
   flex: 1;
 }
 
+/* Username and timestamp */
 .meta {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 6px;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .username {
-  font-weight: bold;
-  color: #333;
+  color: #ff9800;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .timestamp {
-  font-style: italic;
-  font-size: 12px;
-  color: #999;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
 }
 
+/* Comment text */
 .text {
-  font-size: 15px;
-  color: #444;
+  color: #ffffff;
+  font-size: 0.95rem;
+  line-height: 1.4;
   margin: 0;
 }
 
+/* New comment section */
 .new-comment {
   display: flex;
-  gap: 12px;
-  margin-top: 30px;
-  align-items: center;
+  margin-top: 25px;
+  position: relative;
+  z-index: 1;
 }
 
+/* Input field */
 .input {
   flex: 1;
-  padding: 12px 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-  transition: border-color 0.3s;
+  background: rgba(26, 34, 51, 0.8);
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  border-radius: 6px;
+  padding: 12px 15px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
 }
 
 .input:focus {
-  border-color: #5d5e5e;
   outline: none;
+  border-color: #ff9800;
+  box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.2);
 }
 
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Send button */
 .send-btn {
-  background-color: #5d5e5e;
+  background: linear-gradient(135deg, #ff9800, #ff5500);
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
+  border-radius: 6px;
+  padding: 0 20px;
+  margin-left: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
 }
 
 .send-btn:hover {
-  background-color: #5d5e5e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
 }
 
+/* Empty state */
+.comment-section:not(:has(.comment)):after {
+  content: "Aucun commentaire pour le moment. Soyez le premier à commenter !";
+  display: block;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 20px 0;
+  font-style: italic;
+}
 
+/* FIFA-style hexagonal pattern background */
+.comment-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23ff9800' fill-opacity='0.03' d='M50 0L93.3 25v50L50 100L6.7 75V25L50 0z'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .comment-section {
+    padding: 15px;
+  }
+
+  .comment {
+    padding: 12px;
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .new-comment {
+    flex-direction: column;
+  }
+
+  .input {
+    margin-bottom: 10px;
+  }
+
+  .send-btn {
+    margin-left: 0;
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+/* Animation for new comments */
+@keyframes newComment {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.comment:first-child {
+  animation: newComment 0.3s ease-out forwards;
+}
+
+/* Custom scrollbar for comment section */
+.comment-section {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.comment-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comment-section::-webkit-scrollbar-track {
+  background: rgba(26, 34, 51, 0.5);
+  border-radius: 3px;
+}
+
+.comment-section::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ff9800, #ff5500);
+  border-radius: 3px;
+}
+
+/* Hover effect for send button */
+.send-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(255, 152, 0, 0.3);
+}
+
+/* Focus styles for accessibility */
+.input:focus-visible {
+  outline: 2px solid #ff9800;
+  outline-offset: 2px;
+}
+
+.send-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}

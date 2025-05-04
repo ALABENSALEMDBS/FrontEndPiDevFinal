@@ -42,14 +42,14 @@ export class CommentStatsComponent implements OnInit {
       this.stats = stats;
 
       this.pieChartData = {
-        labels: ['Positifs', 'Négatifs', 'Neutres'],
+        labels: ['Positifs', 'Négatifs'],
         datasets: [{
           data: [
             this.stats?.POSITIVE || 0,
-            this.stats?.NEGATIVE || 0,
-            this.stats?.NEUTRAL || 0
+            this.stats?.NEGATIVE || 0
+            
           ],
-          backgroundColor: ['#4caf50', '#f44336', '#ffeb3b'],
+          backgroundColor: ['#4caf50', '#f44336'],
         }],
       };
 
