@@ -30,7 +30,7 @@
           <div class="col-lg-5 ml-auto">
             <h1 class="text-white">{{ currentPage }}</h1>
             <p>Explore our cup tournaments and knockout competitions. Follow the journey to the final!</p>
-            <a href="#cups" class="btn btn-primary py-3 px-4 mr-3">View Cups</a>
+            <!-- <a href="#cups" class="btn btn-danger py-3 px-4 mr-3">View Cups</a> -->
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
                   <div class="row align-items-center">
                     <div class="col-md-4">
                       <div class="tournament-logo text-center">
-                        <img src="assets/front/images/trophy.png" alt="Trophy" class="img-fluid" style="max-height: 150px;">
+                        <img src="assets/front/images/t1.jpg" alt="Trophy" class="img-fluid" style="max-height: 150px;">
                         <h4 class="mt-3">Cup Tournament</h4>
                       </div>
                     </div>
@@ -86,19 +86,19 @@
                             <!-- <p class="text-white">{{ getMatchCount(featuredCup) }} matches scheduled</p> -->
                           </div>
                           <div>
-                            <h5 class="text-white">Clubs</h5>
+                            <!-- <h5 class="text-white">Clubs</h5> -->
                             <!-- <p class="text-white">{{ getClubCount(featuredCup) }} participating clubs</p> -->
                           </div>
                         </div>
                         
                         <div class="tournament-actions mt-4">
-                          <a [routerLink]="['/cups/bracket', featuredCup.idCup]" class="btn btn-primary mr-2">
+                          <a [routerLink]="['/cups/bracket', featuredCup.idCup]" class="btn btn-danger mr-2">
                             <i class="bi bi-diagram-3"></i> Tournament Bracket
                           </a>
-                          <a [routerLink]="['/cups/clubs', featuredCup.idCup]" class="btn btn-primary mr-2">
+                          <a [routerLink]="['/cups/clubs', featuredCup.idCup]" class="btn btn-danger mr-2">
                             <i class="bi bi-people"></i> Participating Clubs
                           </a>
-                          <a [routerLink]="['/cups/matches', featuredCup.idCup]" class="btn btn-primary">
+                          <a [routerLink]="['/cups/matches', featuredCup.idCup]" class="btn btn-danger">
                             <i class="bi bi-trophy"></i> Matches
                           </a>
                         </div>
@@ -141,21 +141,23 @@
                   <h3 class="cup-name">{{ cup.name }}</h3>
                   <span class="badge bg-primary">Cup Tournament</span>
                 </div>
+                <img src="assets/front/images/c1.avif" alt="Trophy" class="img-fluid" style="max-height: 240px;" >
+
                 <div class="cup-card-body">
                   <div class="cup-info-container">
                     <div class="cup-info-item">
-                      <div class="info-label">Matches</div>
+                      <!-- <div class="info-label">Matches</div> -->
                       <!-- <div class="info-value">{{ getMatchCount(cup) }}</div> -->
                     </div>
-                    <div class="cup-info-item">
+                    <!-- <div class="cup-info-item">
                       <div class="info-label">Clubs</div>
-                      <!-- <div class="info-value">{{ getClubCount(cup) }}</div> -->
+                      <div class="info-value">{{ getClubCount(cup) }}</div> 
 
 
 
                       <div>{{ clubCounts[cup.idCup] || 0 }}</div>
 
-                    </div>
+                    </div> -->
                   </div>
                   
                   <div class="cup-card-footer">

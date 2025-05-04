@@ -6,7 +6,7 @@
           <div class="col-lg-5 ml-auto">
             <h1 class="text-white">{{ currentPage }}</h1>
             <p>View all matches for this cup tournament.</p>
-            <a routerLink="/cups" class="btn btn-primary py-3 px-4 mr-3">Back to Cups</a>
+            <a routerLink="/cups" class="btn btn-danger py-3 px-4 mr-3">Back to Cups</a>
           </div>
         </div>
       </div>
@@ -106,7 +106,7 @@
                     <div class="match-info">
                       <div><i class="bi bi-calendar"></i> {{ formatDate(match.dateMatch) }}</div>
                       <div><i class="bi bi-clock"></i> {{ formatTime(match.dateMatch) }}</div>
-                      <div><i class="bi bi-geo-alt"></i> {{ match.lieuMatch || 'Venue TBD' }}</div>
+                      <div><i class="bi bi-geo-alt"></i> {{ match.lieuMatch || '' }}</div>
                     </div>
                     <div class="match-result" *ngIf="hasWinner(match)">
                       <div class="winner-label">Winner:</div>
