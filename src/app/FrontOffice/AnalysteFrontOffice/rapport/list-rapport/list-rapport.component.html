@@ -51,7 +51,6 @@
   <button [routerLink]="['addreports']" class="btn-add">
     <span class="btn-icon">+</span>
     Add report
-
   </button>
 </div>
 <br>
@@ -78,13 +77,13 @@
             <p><strong>contract:</strong> {{ player.debutContratJoueur | date:'dd/MM/yyyy' }} - {{ player.finContratJoueur | date:'dd/MM/yyyy' }}</p>
           </div>
           <!-- In your template, add this to your report item -->
-<!-- buttonnnnnnnnnnnnnnn-->
-<button 
-  class="btn btn-primary" 
-  (click)="viewPlayerDetails(player, report)"
-  title="Voir les détails du joueur et du rapport">
-  <i class="fas fa-info-circle"></i> Details
-</button>
+          <!-- buttonnnnnnnnnnnnnnn-->
+          <button 
+            class="btn btn-primary" 
+            (click)="viewPlayerDetails(player, report)"
+            title="Voir les détails du joueur et du rapport">
+            <i class="fas fa-info-circle"></i> Details
+          </button>
         </div>
         
         <div class="report-section">
@@ -136,7 +135,8 @@
           </div>
 
           <div class="card-actions">
-            <button class="btn-update" (click)="viewReportDetails(report)">
+            <!-- Changed from popup to router navigation -->
+            <button class="btn-update" [routerLink]="['updatereport', report.idRapport]">
               <span class="btn-icon">✎</span>
               edit
             </button>
@@ -152,13 +152,13 @@
   </div>
 </div>
 
-<!-- Pop-up de modification -->
-<div class="popup-container" [class.show]="showReportDetails">
+<!-- Remove the update popup since we're using page navigation now -->
+<!-- <div class="popup-container" [class.show]="showReportDetails">
   <div class="popup-content">
     <button class="close-btn" (click)="closeReportDetails()">×</button>
     <app-update-rapport *ngIf="showReportDetails" [rapportData]="selectedReport"></app-update-rapport>
   </div>
-</div>
+</div> -->
 
 <!-- Add this where you want the player details to appear -->
 <!-- Remplacez votre div player-details-panel par celle-ci -->
@@ -171,14 +171,11 @@
   <button class="close-btn" (click)="closePlayerDetails()"></button>
 </div>
 
-
 <!-- Pop-up de confirmation -->
 <div class="confirm-popup-container" [class.show]="showDeleteConfirm">
   <div class="confirm-popup-content">
     <div class="confirm-icon">⚠️</div>
-    <h3>are you absolutely sure?
-
-    </h3>
+    <h3>are you absolutely sure?</h3>
     <p>Do you really want to delete this report? This action is irreversible.</p>
     <div class="popup-actions">
       <button class="btn-cancel" (click)="cancelDelete()">Annuler</button>

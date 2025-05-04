@@ -5,7 +5,6 @@ import { CompetitionService } from "src/app/services/serviceCompetition/competit
 import { ClubsService } from "src/app/services/serviceSuperAdmin/servicegererclubs/clubs.service"
 import { Clubs } from "src/core/models/clubs"
 import { Competition } from "src/core/models/competition"
-import { NavbarHomeComponent } from "../navbar-home/navbar-home.component";
 
 
 @Component({
@@ -13,7 +12,7 @@ import { NavbarHomeComponent } from "../navbar-home/navbar-home.component";
   standalone: true,
   templateUrl: "./competition-clubs-display.component.html",
   styleUrls: ["./competition-clubs-display.component.css"],
-  imports: [CommonModule, RouterModule, NavbarHomeComponent],
+  imports: [CommonModule, RouterModule],
 })
 export class CompetitionClubsDisplayComponent implements OnInit {
   competitionId!: number

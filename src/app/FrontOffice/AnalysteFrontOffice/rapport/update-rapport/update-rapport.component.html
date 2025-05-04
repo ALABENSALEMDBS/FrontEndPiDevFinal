@@ -1,19 +1,33 @@
 <div class="update-rapport-container">
   <header class="form-header">
     <h2>Player Performance Report</h2>
-    <div class="form-icon">🏆</div>
+    <div class="header-actions">
+      <button type="button" class="btn-close" (click)="closeForm()">
+        <span class="close-icon">×</span>
+      </button>
+      <div class="form-icon">🏆</div>
+    </div>
   </header>
 
-  <form [formGroup]="rapportForm" (ngSubmit)="updateRapport()">
+  <!-- Loading indicator -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Loading report data...</p>
+  </div>
+
+  <form [formGroup]="rapportForm" (ngSubmit)="updateRapport()" *ngIf="!isLoading">
     <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress" [style.width.%]="getProgressPercentage()"></div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
       </div>
       <div class="progress-steps">
-        <span class="step" [class.active]="currentSection === 'performance'">1</span>
-        <span class="step" [class.active]="currentSection === 'strength'">2</span>
-        <span class="step" [class.active]="currentSection === 'agility'">3</span>
-        <span class="step" [class.active]="currentSection === 'state'">4</span>
+        <div *ngFor="let section of sections; let i = index" 
+             class="step" 
+             [class.active]="currentSection === section"
+             (click)="setCurrentSection(section)">
+          <div class="step-number">{{ i + 1 }}</div>
+          <div class="step-label">{{ section | titlecase }}</div>
+        </div>
       </div>
     </div>
 
@@ -21,105 +35,122 @@
     <div class="form-section" *ngIf="currentSection === 'performance'">
       <h3>Performance Metrics <span class="section-icon">⚡</span></h3>
       
-      <ng-container *ngFor="let field of ['speedRapport', 'accelerationRapport', 'endurance']">
-        <div class="form-group">
-          <label [for]="field">{{ field | titlecase }}:</label>
-          <input
-            [id]="field"
-            [formControlName]="field"
-            type="text"
-            placeholder="Enter {{ field | titlecase }} value"
-            (keypress)="allowOnlyNumbers($event)"
-          />
-          <div *ngIf="rapportForm.get(field)?.invalid && rapportForm.get(field)?.touched" class="error-message">
-            Please enter a valid number between 0 and 100.
+      <div class="stats-grid">
+        <ng-container *ngFor="let field of ['speedRapport', 'accelerationRapport', 'endurance']">
+          <div class="form-group">
+            <label [for]="field">{{ field | titlecase }}:</label>
+            <input
+              [id]="field"
+              [formControlName]="field"
+              type="text"
+              class="form-control"
+              [class.ng-invalid]="hasError(field, 'required') || hasError(field, 'min') || hasError(field, 'max') || hasError(field, 'pattern')"
+              placeholder="Enter {{ field | titlecase }} value (0-100)"
+              (keypress)="allowOnlyNumbers($event)"
+              (blur)="validateInputValue($event, 0, 100)"
+            />
+            <div *ngIf="rapportForm.get(field)?.invalid && rapportForm.get(field)?.touched" class="invalid-feedback">
+              {{ getErrorMessage(field) }}
+            </div>
+            <div class="stat-bar" *ngIf="rapportForm.get(field)?.value">
+              <div class="stat-fill" [style.width.%]="rapportForm.get(field)?.value"></div>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
 
     <!-- STRENGTH -->
     <div class="form-section" *ngIf="currentSection === 'strength'">
       <h3>Strength Assessment <span class="section-icon">💪</span></h3>
 
-      <ng-container *ngFor="let field of ['muscularEndurance', 'aerobicCapacity', 'anaerobicCapacity', 'strength', 'power', 'explosiveness']">
-        <div class="form-group">
-          <label [for]="field">{{ field | titlecase }}:</label>
-          <input
-            [id]="field"
-            [formControlName]="field"
-            type="text"
-            placeholder="Enter {{ field | titlecase }} value"
-            (keypress)="allowOnlyNumbers($event)"
-          />
-          <div *ngIf="rapportForm.get(field)?.invalid && rapportForm.get(field)?.touched" class="error-message">
-            Please enter a valid number between 0 and 100.
+      <div class="stats-grid">
+        <ng-container *ngFor="let field of ['muscularEndurance', 'aerobicCapacity', 'anaerobicCapacity', 'strength', 'power', 'explosiveness']">
+          <div class="form-group">
+            <label [for]="field">{{ field | titlecase }}:</label>
+            <input
+              [id]="field"
+              [formControlName]="field"
+              type="text"
+              class="form-control"
+              [class.ng-invalid]="hasError(field, 'required') || hasError(field, 'min') || hasError(field, 'max') || hasError(field, 'pattern')"
+              placeholder="Enter {{ field | titlecase }} value (0-100)"
+              (keypress)="allowOnlyNumbers($event)"
+              (blur)="validateInputValue($event, 0, 100)"
+            />
+            <div *ngIf="rapportForm.get(field)?.invalid && rapportForm.get(field)?.touched" class="invalid-feedback">
+              {{ getErrorMessage(field) }}
+            </div>
+            <div class="stat-bar" *ngIf="rapportForm.get(field)?.value">
+              <div class="stat-fill" [style.width.%]="rapportForm.get(field)?.value"></div>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
 
     <!-- AGILITY -->
     <div class="form-section" *ngIf="currentSection === 'agility'">
       <h3>Agility & Coordination <span class="section-icon">🏃</span></h3>
 
-      <ng-container *ngFor="let field of ['agility', 'balance', 'coordination', 'reactionTime', 'reactivity', 'verticalJump', 'horizontalJump']">
-        <div class="form-group">
-          <label [for]="field">{{ field | titlecase }}:</label>
-          <input
-            [id]="field"
-            [formControlName]="field"
-            type="text"
-            placeholder="Enter {{ field | titlecase }} value"
-            (keypress)="allowOnlyNumbers($event)"
-          />
-          <div *ngIf="rapportForm.get(field)?.invalid && rapportForm.get(field)?.touched" class="error-message">
-            Please enter a valid number between 0 and 100.
+      <div class="stats-grid">
+        <ng-container *ngFor="let field of ['agility', 'balance', 'coordination', 'reactionTime', 'reactivity', 'verticalJump', 'horizontalJump']">
+          <div class="form-group">
+            <label [for]="field">{{ field | titlecase }}:</label>
+            <input
+              [id]="field"
+              [formControlName]="field"
+              type="text"
+              class="form-control"
+              [class.ng-invalid]="hasError(field, 'required') || hasError(field, 'min') || hasError(field, 'max') || hasError(field, 'pattern')"
+              placeholder="Enter {{ field | titlecase }} value (0-100)"
+              (keypress)="allowOnlyNumbers($event)"
+              (blur)="validateInputValue($event, 0, 100)"
+            />
+            <div *ngIf="rapportForm.get(field)?.invalid && rapportForm.get(field)?.touched" class="invalid-feedback">
+              {{ getErrorMessage(field) }}
+            </div>
+            <div class="stat-bar" *ngIf="rapportForm.get(field)?.value">
+              <div class="stat-fill" [style.width.%]="rapportForm.get(field)?.value"></div>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
 
     <!-- STATE -->
     <div class="form-section" *ngIf="currentSection === 'state'">
       <h3>Player Status <span class="section-icon">🏥</span></h3>
 
-      <div class="form-group">
-        <label for="etatRapport">Report State:</label>
-        <select id="etatRapport" formControlName="etatRapport" class="status-select">
-          <option value="" disabled>Select status</option>
-          <option *ngFor="let option of etatOptions" [value]="option">{{ option }}</option>
-        </select>
-        <div *ngIf="etatRapport?.invalid && etatRapport?.touched" class="error-message">
-          Please select a status.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="blessureRapport">Injury Level:</label>
-        <select id="blessureRapport" formControlName="blessureRapport" class="injury-select">
-          <option value="" disabled>Select injury level</option>
-          <option *ngFor="let option of blessureOptions" [value]="option">{{ option }}</option>
-        </select>
-        <div *ngIf="blessureRapport?.invalid && blessureRapport?.touched" class="error-message">
-          Please select an injury level.
+      <div class="status-grid">
+        <div class="form-group">
+          <label for="etatRapport">Report State:</label>
+          <select id="etatRapport" formControlName="etatRapport" class="status-select" [class.ng-invalid]="hasError('etatRapport', 'required')">
+            <option value="" disabled>Select status</option>
+            <option *ngFor="let option of etatOptions" [value]="option">{{ option }}</option>
+          </select>
+          <div *ngIf="etatRapport?.invalid && etatRapport?.touched" class="invalid-feedback">
+            Please select a status.
+          </div>
         </div>
       </div>
     </div>
 
     <!-- BUTTONS -->
-    <div class="button-container">
-      <button type="button" class="btn-previous" (click)="prevSection()" [disabled]="currentSection === 'performance'">
+    <div class="form-navigation">
+      <button type="button" class="btn btn-previous" (click)="prevSection()" [disabled]="currentSection === 'performance'">
         <span class="btn-icon">◀</span> Previous
       </button>
 
-      <button type="button" class="btn-next" (click)="nextSection()" *ngIf="currentSection !== 'state'">
+      <button type="button" class="btn btn-next" (click)="nextSection()" *ngIf="currentSection !== 'state'">
         Next <span class="btn-icon">▶</span>
       </button>
 
-      <button type="submit" class="btn-submit" [disabled]="!rapportForm.valid" *ngIf="currentSection === 'state'">
+      <button type="submit" class="btn btn-submit" [disabled]="!rapportForm.valid" *ngIf="currentSection === 'state'">
         Update Report <span class="btn-icon">✓</span>
       </button>
+      
+     
     </div>
   </form>
 </div>
