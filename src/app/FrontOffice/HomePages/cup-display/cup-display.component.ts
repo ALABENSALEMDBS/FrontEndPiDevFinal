@@ -32,7 +32,7 @@ export class CupDisplayComponent implements OnInit {
 
         // Set the first cup as the featured one if available
         if (this.cups.length > 0) {
-          this.featuredCup = this.cups[0]
+          this.featuredCup = this.cups[1]
         }
 
         this.loading = false
