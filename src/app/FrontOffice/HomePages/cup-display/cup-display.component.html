@@ -1,0 +1,180 @@
+<div class="site-wrap">
+    <!-- Header with navigation -->
+    <header class="site-navbar py-4" role="banner">
+      <div class="container">
+        <div class="d-flex align-items-center">
+          <div class="ml-auto">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li><a routerLink="/home" class="nav-link">Home</a></li>
+                <li><a routerLink="/matches" class="nav-link">Matches</a></li>
+                <li><a routerLink="/clubs" class="nav-link">Friendly Matches</a></li>
+                <li><a routerLink="/competitions" class="nav-link">Competition</a></li>
+                <li class="active"><a routerLink="/cups" class="nav-link">Cups</a></li>
+                <li><a routerLink="/blog" class="nav-link">Players</a></li>
+                <li><a routerLink="/contact" class="nav-link">Contact</a></li>
+              </ul>
+            </nav>
+            <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
+              <span class="icon-menu h3 text-white"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    <!-- Hero section -->
+    <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5 ml-auto">
+            <h1 class="text-white">{{ currentPage }}</h1>
+            <p>Explore our cup tournaments and knockout competitions. Follow the journey to the final!</p>
+            <a href="#cups" class="btn btn-primary py-3 px-4 mr-3">View Cups</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-wrapper">
+      <!-- Featured cup section -->
+      <div class="site-section bg-dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 title-section">
+              <h2 class="heading text-white">Featured Cup</h2>
+            </div>
+          </div>
+          
+          <!-- Loading spinner -->
+          <div *ngIf="loading" class="text-center my-5">
+            <div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          
+          <!-- Error message -->
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+          
+          <!-- No cups message -->
+          <div *ngIf="!loading && !featuredCup" class="alert alert-info">
+            No cups found.
+          </div>
+          
+          <!-- Featured cup -->
+          <div class="row" *ngIf="!loading && featuredCup">
+            <div class="col-lg-12">
+              <div class="widget-next-match">
+                <div class="widget-title">
+                  <h3>{{ featuredCup.name }}</h3>
+                </div>
+                <div class="widget-body mb-3">
+                  <div class="row align-items-center">
+                    <div class="col-md-4">
+                      <div class="tournament-logo text-center">
+                        <img src="assets/front/images/trophy.png" alt="Trophy" class="img-fluid" style="max-height: 150px;">
+                        <h4 class="mt-3">Cup Tournament</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="tournament-info">
+                        <div class="d-flex justify-content-between mb-3">
+                          <div>
+                            <h5 class="text-white">Matches</h5>
+                            <!-- <p class="text-white">{{ getMatchCount(featuredCup) }} matches scheduled</p> -->
+                          </div>
+                          <div>
+                            <h5 class="text-white">Clubs</h5>
+                            <!-- <p class="text-white">{{ getClubCount(featuredCup) }} participating clubs</p> -->
+                          </div>
+                        </div>
+                        
+                        <div class="tournament-actions mt-4">
+                          <a [routerLink]="['/cups/bracket', featuredCup.idCup]" class="btn btn-primary mr-2">
+                            <i class="bi bi-diagram-3"></i> Tournament Bracket
+                          </a>
+                          <a [routerLink]="['/cups/clubs', featuredCup.idCup]" class="btn btn-primary mr-2">
+                            <i class="bi bi-people"></i> Participating Clubs
+                          </a>
+                          <a [routerLink]="['/cups/matches', featuredCup.idCup]" class="btn btn-primary">
+                            <i class="bi bi-trophy"></i> Matches
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- All cups section -->
+      <div id="cups" class="site-section bg-light-custom">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 title-section">
+              <h2 class="heading">All Cups</h2>
+            </div>
+          </div>
+          
+          <!-- Loading spinner (if not already shown above) -->
+          <div *ngIf="loading && !featuredCup" class="text-center my-5">
+            <div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          
+          <!-- No cups message (if not already shown above) -->
+          <div *ngIf="!loading && cups.length === 0 && !featuredCup" class="alert alert-info">
+            No cups found.
+          </div>
+          
+          <!-- Cups grid -->
+          <div class="row" *ngIf="!loading && cups.length > 0">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let cup of cups">
+              <div class="cup-card">
+                <div class="cup-card-header">
+                  <h3 class="cup-name">{{ cup.name }}</h3>
+                  <span class="badge bg-primary">Cup Tournament</span>
+                </div>
+                <div class="cup-card-body">
+                  <div class="cup-info-container">
+                    <div class="cup-info-item">
+                      <div class="info-label">Matches</div>
+                      <!-- <div class="info-value">{{ getMatchCount(cup) }}</div> -->
+                    </div>
+                    <div class="cup-info-item">
+                      <div class="info-label">Clubs</div>
+                      <!-- <div class="info-value">{{ getClubCount(cup) }}</div> -->
+
+
+
+                      <div>{{ clubCounts[cup.idCup] || 0 }}</div>
+
+                    </div>
+                  </div>
+                  
+                  <div class="cup-card-footer">
+                    <a [routerLink]="['/cups/bracket', cup.idCup]" class="btn btn-sm btn-outline-light mr-2">
+                      <i class="bi bi-diagram-3"></i> Bracket
+                    </a>
+                    <a [routerLink]="['/cups/clubs', cup.idCup]" class="btn btn-sm btn-outline-light mr-2">
+                      <i class="bi bi-people"></i> Clubs
+                    </a>
+                    <a [routerLink]="['/cups/matches', cup.idCup]" class="btn btn-sm btn-outline-light">
+                      <i class="bi bi-trophy"></i> Matches
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
