@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceDoctorService } from 'src/app/services/service-doctor.service';
+import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement';
 import { FicheMedical } from 'src/core/models/ficheMedical';
 import { Joueur } from 'src/core/models/Joueurs';
 
@@ -15,6 +16,8 @@ export class UpdateFicheMedicaleComponent {
 
   ficheMedicalForm?: FormGroup;
   players: Joueur[] = [];
+  exercice:ExerciceRetablissements[]=[];
+  
   successMessage = '';
   errorMessage = '';
 
@@ -36,6 +39,7 @@ export class UpdateFicheMedicaleComponent {
     });
 
     this.loadPlayers();
+    this.loadexercice();
   }
 
   loadPlayers(): void {
@@ -43,6 +47,18 @@ export class UpdateFicheMedicaleComponent {
       next: (data) => {
         this.players = data;
         console.log("Joueurs récupérés :", this.players);
+      },
+      error: (err) => {
+        console.error("Erreur lors de la récupération des joueurs", err);
+      }
+    });
+  }
+
+  loadexercice(): void {
+    this.servijoueurServiceced.getAllExercices().subscribe({
+      next: (data) => {
+        this.exercice = data;
+        console.log("Joueurs récupérés :", this.exercice);
       },
       error: (err) => {
         console.error("Erreur lors de la récupération des joueurs", err);
@@ -63,6 +79,7 @@ export class UpdateFicheMedicaleComponent {
             gravite: [value.gravite, Validators.required],
             type: [value.type, Validators.required],
             joueurId:[ { value: value.joueurId, disabled: true} , Validators.required]
+            
           });
 
           console.log('ff : ', this.ficheMedicalForm)

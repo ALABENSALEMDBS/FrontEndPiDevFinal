@@ -20,11 +20,15 @@ export class UpdateseanceComponent implements OnInit {
   listseance: any[] = []
   exercises: Exercices[] = []
   availableExercises: Exercices[] = [] // Exercices disponibles (non affectés à d'autres séances)
+  compatibleExercises: Exercices[] = [] // Exercices compatibles avec la séance
   selectedExercises: number[] = []
   successMessage = ""
   errorMessage = ""
   currentSection = "details"
   sections: string[] = ["details", "schedule", "location", "intensity", "exercises"]
+  
+  // Filtre pour les exercices
+  exerciseFilter: string = "all" // 'all' ou 'compatible'
   
   // URL de base pour les requêtes HTTP directes
   private baseUrl = "http://localhost:8089/PiDevBackEndProject/seances"
@@ -79,7 +83,7 @@ export class UpdateseanceComponent implements OnInit {
         Validators.maxLength(500),  // Maximum de 500 caractères
         Validators.pattern(/^[a-zA-Z0-9\s]*$/)  // Seulement lettres, chiffres et espaces
       ]),
-            location: new FormControl("", [Validators.required]),
+      location: new FormControl("", [Validators.required]),
       intensityLevel: new FormControl("", [
         Validators.required,
         Validators.min(1),
@@ -94,6 +98,32 @@ export class UpdateseanceComponent implements OnInit {
       }
     });
     
+    // Add value change listeners for bidirectional calculation
+    this.seanceform.get('heureDebut')?.valueChanges.subscribe(() => {
+      this.calculateDuration();
+    });
+    
+    this.seanceform.get('heureFin')?.valueChanges.subscribe(() => {
+      this.calculateDuration();
+    });
+    
+    // Add value change listener for duration to update end time
+    this.seanceform.get('durationMinutes')?.valueChanges.subscribe(() => {
+      this.updateEndTimeFromDuration();
+      // Recharger les exercices compatibles quand la durée change
+      if (this.currentSection === 'exercises' && this.exerciseFilter === 'compatible') {
+        this.loadCompatibleExercises();
+      }
+    });
+    
+    // Add value change listener for intensity to update compatible exercises
+    this.seanceform.get('intensityLevel')?.valueChanges.subscribe(() => {
+      this.updateMaxExercisesAllowed();
+      // Recharger les exercices compatibles quand l'intensité change
+      if (this.currentSection === 'exercises' && this.exerciseFilter === 'compatible') {
+        this.loadCompatibleExercises();
+      }
+    });
 
     // Charger les données de la séance à modifier
     this.service.getbyidSeances(this.idSeance).subscribe({
@@ -128,13 +158,21 @@ export class UpdateseanceComponent implements OnInit {
 
         // Charger les exercices associés et les exercices disponibles
         this.loadExercises();
-        this.loadAvailableExercises();
+        this.loadFilteredExercises();
       },
       error: (err) => {
         this.errorMessage = "Erreur lors du chargement des données de la séance."
         console.error(err)
       },
     })
+  }
+
+  // Méthode pour mettre à jour l'intensité depuis le curseur
+  updateIntensityFromRange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target) {
+      this.seanceform.get('intensityLevel')?.setValue(target.value);
+    }
   }
 
   // Determine if an exercise can be selected based on limits
@@ -183,6 +221,15 @@ export class UpdateseanceComponent implements OnInit {
     });
   }
 
+  // Charger les exercices en fonction du filtre sélectionné
+  loadFilteredExercises(): void {
+    if (this.exerciseFilter === 'compatible') {
+      this.loadCompatibleExercises();
+    } else {
+      this.loadAvailableExercises();
+    }
+  }
+
   // Charger les exercices disponibles (non affectés à d'autres séances)
   loadAvailableExercises(): void {
     this.isLoadingExercises = true;
@@ -202,9 +249,35 @@ export class UpdateseanceComponent implements OnInit {
     });
   }
 
+  // Charger les exercices compatibles avec la séance
+  loadCompatibleExercises(): void {
+    this.isLoadingExercises = true;
+    
+    // Utiliser la méthode getCompatibleExercices pour obtenir les exercices compatibles
+    this.service.getCompatibleExercices(this.idSeance).subscribe({
+      next: (data) => {
+        this.compatibleExercises = data;
+        // Filtrer les exercices disponibles pour n'afficher que les compatibles
+        this.availableExercises = this.compatibleExercises;
+        console.log("Exercices compatibles:", this.compatibleExercises);
+        this.isLoadingExercises = false;
+      },
+      error: (err) => {
+        console.error("Erreur lors du chargement des exercices compatibles", err);
+        this.errorMessage = "Erreur lors du chargement des exercices compatibles.";
+        this.isLoadingExercises = false;
+      }
+    });
+  }
+
   // Vérifier si un exercice est sélectionné
   isExerciseSelected(exerciseId: number): boolean {
     return this.selectedExercises.includes(exerciseId);
+  }
+
+  // Vérifier si un exercice est compatible
+  isCompatibleExercise(exerciseId: number): boolean {
+    return this.compatibleExercises.some(ex => ex.idExercice === exerciseId);
   }
 
   // Check if an exercise can be selected (not already selected and within limits)
@@ -274,106 +347,105 @@ export class UpdateseanceComponent implements OnInit {
   }
 
   // MODIFIÉ: Méthode pour désaffecter un exercice de la séance avec POST (corrigé)
-  // Update the removeExerciseFromSession method in updateseance.component.ts
-removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
-  // Ajouter un indicateur de chargement
-  this.isLoadingExercises = true;
-  
-  // Effacer les messages précédents
-  this.successMessage = "";
-  this.errorMessage = "";
-  
-  // Log pour déboguer
-  console.log(`Tentative de retrait de l'exercice ${exerciseId} de la séance ${this.idSeance}`);
-  
-  // Vérifier d'abord si l'exercice est réellement lié à la séance
-  this.service.findBySeanceExerciceIdSeance(this.idSeance).subscribe({
-    next: (exercises) => {
-      // Vérifier si l'exercice est dans la liste des exercices de la séance
-      const isLinked = exercises.some(ex => ex.idExercice === exerciseId);
-      
-      if (!isLinked) {
-        console.log(`L'exercice ${exerciseId} n'est pas lié à la séance ${this.idSeance}. Mise à jour de l'interface.`);
+  removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
+    // Ajouter un indicateur de chargement
+    this.isLoadingExercises = true;
+    
+    // Effacer les messages précédents
+    this.successMessage = "";
+    this.errorMessage = "";
+    
+    // Log pour déboguer
+    console.log(`Tentative de retrait de l'exercice ${exerciseId} de la séance ${this.idSeance}`);
+    
+    // Vérifier d'abord si l'exercice est réellement lié à la séance
+    this.service.findBySeanceExerciceIdSeance(this.idSeance).subscribe({
+      next: (exercises) => {
+        // Vérifier si l'exercice est dans la liste des exercices de la séance
+        const isLinked = exercises.some(ex => ex.idExercice === exerciseId);
         
-        // Si l'exercice n'est pas lié, le retirer simplement de la liste des sélectionnés
-        const index = this.selectedExercises.indexOf(exerciseId);
-        if (index !== -1) {
-          this.selectedExercises.splice(index, 1);
-        }
-        
-        // Recharger les exercices disponibles pour mettre à jour la liste
-        this.loadAvailableExercises();
-        this.isLoadingExercises = false;
-        return;
-      }
-      
-      // Si l'exercice est lié, procéder à la désaffectation
-      const url = `${this.baseUrl}/desafecterMultipleExercisesToSeance/${exerciseId}/${this.idSeance}`;
-      
-      // Configurer les headers
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json, text/plain, */*'
-      });
-      
-      // Utiliser POST comme défini dans le backend
-      this.http.post(url, {}, { 
-        headers: headers,
-        responseType: 'text'
-      })
-      .subscribe({
-        next: (response) => {
-          console.log(`Réponse du serveur:`, response);
+        if (!isLinked) {
+          console.log(`L'exercice ${exerciseId} n'est pas lié à la séance ${this.idSeance}. Mise à jour de l'interface.`);
           
-          // Considérer la réponse comme un succès
-          console.log(`Exercice ${exerciseId} retiré avec succès de la séance ${this.idSeance}`);
-          this.successMessage = "Exercice retiré avec succès!";
-          
-          // Retirer l'exercice de la liste des sélectionnés si ce n'est pas déjà fait
+          // Si l'exercice n'est pas lié, le retirer simplement de la liste des sélectionnés
           const index = this.selectedExercises.indexOf(exerciseId);
           if (index !== -1) {
             this.selectedExercises.splice(index, 1);
           }
           
           // Recharger les exercices disponibles pour mettre à jour la liste
-          this.loadAvailableExercises();
+          this.loadFilteredExercises();
           this.isLoadingExercises = false;
-        },
-        error: (err) => {
-          console.error("Erreur détaillée lors du retrait de l'exercice:", err);
-          
-          // Vérifier si l'erreur est due au fait que l'exercice n'est pas lié à la séance
-          if (err.error && typeof err.error === 'string' && 
-              (err.error.includes("n'est pas lié") || err.error.includes("not linked"))) {
-            console.log(`L'exercice ${exerciseId} n'est plus lié à la séance ${this.idSeance}. Mise à jour de l'interface.`);
+          return;
+        }
+        
+        // Si l'exercice est lié, procéder à la désaffectation
+        const url = `${this.baseUrl}/desafecterMultipleExercisesToSeance/${exerciseId}/${this.idSeance}`;
+        
+        // Configurer les headers
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json, text/plain, */*'
+        });
+        
+        // Utiliser POST comme défini dans le backend
+        this.http.post(url, {}, { 
+          headers: headers,
+          responseType: 'text'
+        })
+        .subscribe({
+          next: (response) => {
+            console.log(`Réponse du serveur:`, response);
             
-            // Si l'exercice n'est pas lié, le retirer simplement de la liste des sélectionnés
+            // Considérer la réponse comme un succès
+            console.log(`Exercice ${exerciseId} retiré avec succès de la séance ${this.idSeance}`);
+            this.successMessage = "Exercice retiré avec succès!";
+            
+            // Retirer l'exercice de la liste des sélectionnés si ce n'est pas déjà fait
             const index = this.selectedExercises.indexOf(exerciseId);
             if (index !== -1) {
               this.selectedExercises.splice(index, 1);
             }
             
             // Recharger les exercices disponibles pour mettre à jour la liste
-            this.loadAvailableExercises();
+            this.loadFilteredExercises();
             this.isLoadingExercises = false;
-            return;
+          },
+          error: (err) => {
+            console.error("Erreur détaillée lors du retrait de l'exercice:", err);
+            
+            // Vérifier si l'erreur est due au fait que l'exercice n'est pas lié à la séance
+            if (err.error && typeof err.error === 'string' && 
+                (err.error.includes("n'est pas lié") || err.error.includes("not linked"))) {
+              console.log(`L'exercice ${exerciseId} n'est plus lié à la séance ${this.idSeance}. Mise à jour de l'interface.`);
+              
+              // Si l'exercice n'est pas lié, le retirer simplement de la liste des sélectionnés
+              const index = this.selectedExercises.indexOf(exerciseId);
+              if (index !== -1) {
+                this.selectedExercises.splice(index, 1);
+              }
+              
+              // Recharger les exercices disponibles pour mettre à jour la liste
+              this.loadFilteredExercises();
+              this.isLoadingExercises = false;
+              return;
+            }
+            
+            // Pour les autres erreurs, afficher un message d'erreur
+            const errorMsg = this.extractErrorMessage(err);
+            this.errorMessage = errorMsg;
+            
+            this.isLoadingExercises = false;
           }
-          
-          // Pour les autres erreurs, afficher un message d'erreur
-          const errorMsg = this.extractErrorMessage(err);
-          this.errorMessage = errorMsg;
-          
-          this.isLoadingExercises = false;
-        }
-      });
-    },
-    error: (err) => {
-      console.error("Erreur lors de la vérification des exercices de la séance:", err);
-      this.errorMessage = "Erreur lors de la vérification des exercices de la séance.";
-      this.isLoadingExercises = false;
-    }
-  });
-}
+        });
+      },
+      error: (err) => {
+        console.error("Erreur lors de la vérification des exercices de la séance:", err);
+        this.errorMessage = "Erreur lors de la vérification des exercices de la séance.";
+        this.isLoadingExercises = false;
+      }
+    });
+  }
 
   // Méthode pour retirer plusieurs exercices à la fois
   removeSelectedExercises(): void {
@@ -434,7 +506,7 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
           console.log("Aucun exercice lié à retirer.");
           this.successMessage = "Mise à jour terminée.";
           this.isLoadingExercises = false;
-          this.loadAvailableExercises();
+          this.loadFilteredExercises();
           return;
         }
         
@@ -465,7 +537,7 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
             
             // Recharger les exercices
             this.loadExercises();
-            this.loadAvailableExercises();
+            this.loadFilteredExercises();
             return;
           }
           
@@ -541,7 +613,7 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
         this.isLoadingExercises = false;
         this.errorMessage = "Délai d'attente dépassé lors du retrait des exercices.";
         this.loadExercises();
-        this.loadAvailableExercises();
+        this.loadFilteredExercises();
       }
     }, 30000); // 30 secondes de timeout
   }
@@ -568,7 +640,8 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
                 this.successMessage = "Exercices mis à jour avec succès!";
                 // Recharger les exercices pour afficher les changements
                 this.loadExercises();
-                this.loadAvailableExercises();
+                this.loadFilteredExercises();
+                this.isLoadingExercises = false;
               },
               error: (err:any) => {
                 console.error("Erreur lors de l'ajout des nouveaux exercices", err);
@@ -626,19 +699,24 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
   // Navigation entre les sections
   setCurrentSection(section: string): void {
     this.currentSection = section;
+    
+    // Si on passe à la section des exercices, charger les exercices filtrés
+    if (section === 'exercises') {
+      this.loadFilteredExercises();
+    }
   }
 
   nextSection(): void {
     const currentIndex = this.sections.indexOf(this.currentSection);
     if (currentIndex < this.sections.length - 1) {
-      this.currentSection = this.sections[currentIndex + 1];
+      this.setCurrentSection(this.sections[currentIndex + 1]);
     }
   }
 
   prevSection(): void {
     const currentIndex = this.sections.indexOf(this.currentSection);
     if (currentIndex > 0) {
-      this.currentSection = this.sections[currentIndex - 1];
+      this.setCurrentSection(this.sections[currentIndex - 1]);
     }
   }
 
@@ -658,12 +736,59 @@ removeExerciseFromSession(exerciseId: number, retryCount: number = 0): void {
 
       let diff = end.getTime() - start.getTime();
       if (diff < 0) {
-        diff += 24 * 60 * 60 * 1000; // Add 24 hours
+        diff += 24 * 60 * 60 * 1000; // Add 24 hours if end time is before start time
       }
 
+      // Temporarily remove the valueChanges subscription to avoid infinite loop
+      const durationControl = this.seanceform.get("durationMinutes");
+      const durationSubs = durationControl?.valueChanges.subscribe();
+      durationSubs?.unsubscribe();
+      
       const durationMinutes = Math.round(diff / 60000);
-      this.seanceform.get("durationMinutes")?.setValue(durationMinutes);
+      durationControl?.setValue(durationMinutes, { emitEvent: false });
+      
+      // Resubscribe after setting the value
+      durationControl?.valueChanges.subscribe(() => {
+        this.updateEndTimeFromDuration();
+      });
     }
+  }
+  
+  // Update end time based on start time and duration
+  updateEndTimeFromDuration(): void {
+    const startTime = this.seanceform.get("heureDebut")?.value;
+    const durationMinutes = this.seanceform.get("durationMinutes")?.value;
+    
+    if (startTime && durationMinutes && 
+        this.isValidTimeFormat(startTime) && 
+        !isNaN(durationMinutes)) {
+      
+      const start = new Date(`2000-01-01T${startTime}`);
+      const end = new Date(start.getTime() + durationMinutes * 60000);
+      
+      // Format the end time as HH:MM
+      const hours = end.getHours().toString().padStart(2, '0');
+      const minutes = end.getMinutes().toString().padStart(2, '0');
+      const endTimeString = `${hours}:${minutes}`;
+      
+      // Temporarily remove the valueChanges subscription to avoid infinite loop
+      const endTimeControl = this.seanceform.get("heureFin");
+      const endTimeSubs = endTimeControl?.valueChanges.subscribe();
+      endTimeSubs?.unsubscribe();
+      
+      endTimeControl?.setValue(endTimeString, { emitEvent: false });
+      
+      // Resubscribe after setting the value
+      endTimeControl?.valueChanges.subscribe(() => {
+        this.calculateDuration();
+      });
+    }
+  }
+  
+  // Helper method to check if a time string is in valid format
+  isValidTimeFormat(time: string): boolean {
+    const timePattern = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    return timePattern.test(time);
   }
 
   // Nouvelles méthodes de validation

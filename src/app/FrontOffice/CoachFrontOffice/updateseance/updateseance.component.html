@@ -22,6 +22,7 @@
         <button type="button" class="form-tab" [class.active]="currentSection === 'exercises'" (click)="setCurrentSection('exercises')">Exercises</button>
       </div>
     
+      <!-- DETAILS SECTION -->
       <div class="form-section" [class.active]="currentSection === 'details'">
         <h3>Session Details</h3>
     
@@ -69,14 +70,13 @@
           </div>
         </div>
         
-        
-    
         <div class="form-navigation">
           <div></div>
           <button type="button" class="nav-button next" (click)="nextSection()">Next →</button>
         </div>
       </div>
     
+      <!-- SCHEDULE SECTION -->
       <div class="form-section" [class.active]="currentSection === 'schedule'">
         <h3>Schedule</h3>
     
@@ -93,7 +93,7 @@
     
         <div class="form-group">
           <label for="heureDebut">Start Time:</label>
-          <input type="time" id="heureDebut" formControlName="heureDebut" required (change)="calculateDuration()">
+          <input type="time" id="heureDebut" formControlName="heureDebut" required>
           <div *ngIf="heureDebut?.invalid && heureDebut?.touched" class="error-message">
             Start time is required.
           </div>
@@ -101,7 +101,7 @@
     
         <div class="form-group">
           <label for="heureFin">End Time:</label>
-          <input type="time" id="heureFin" formControlName="heureFin" required (change)="calculateDuration()">
+          <input type="time" id="heureFin" formControlName="heureFin" required>
           <div *ngIf="heureFin?.invalid && heureFin?.touched" class="error-message">
             End time is required.
           </div>
@@ -121,6 +121,7 @@
           <div *ngIf="isDurationExcessive()" class="warning-message">
             Warning: Sessions over 120 minutes may be excessive.
           </div>
+          <small class="help-text">Duration will be calculated automatically from start and end times.</small>
         </div>
     
         <div class="form-navigation">
@@ -128,8 +129,142 @@
           <button type="button" class="nav-button next" (click)="nextSection()">Next →</button>
         </div>
       </div>
+
+      <!-- LOCATION SECTION -->
+      <div class="form-section" [class.active]="currentSection === 'location'">
+        <h3>Location</h3>
+        
+        <div class="form-group">
+          <label for="location">Location:</label>
+          <input type="text" id="location" formControlName="location" required
+                 placeholder="Enter training location">
+          <div *ngIf="location?.invalid && location?.touched" class="error-message">
+            <div *ngIf="location?.errors?.['required']">Location is required.</div>
+            <div *ngIf="location?.errors?.['minlength']">Location must be at least 2 characters long.</div>
+            <div *ngIf="location?.errors?.['maxlength']">Location cannot exceed 100 characters.</div>
+            <div *ngIf="location?.errors?.['pattern']">Location can only contain letters, numbers, spaces, and basic punctuation.</div>
+          </div>
+        </div>
+        
+        <div class="form-navigation">
+          <button type="button" class="nav-button" (click)="prevSection()">← Previous</button>
+          <button type="button" class="nav-button next" (click)="nextSection()">Next →</button>
+        </div>
+      </div>
+      
+      <!-- INTENSITY SECTION -->
+      <div class="form-section" [class.active]="currentSection === 'intensity'">
+        <h3>Intensity</h3>
+        
+        <div class="form-group">
+          <label for="intensityLevel">Intensity Level (1-10):</label>
+          <div class="intensity-input-container">
+            <input type="range" id="intensityLevel-range" 
+      min="1" max="10" step="1"
+      [value]="seanceform.get('intensityLevel')?.value || 5"
+      (input)="updateIntensityFromRange($event)">
+            <input type="number" id="intensityLevel" formControlName="intensityLevel"
+                  min="1" max="10" required
+                  (change)="updateMaxExercisesAllowed()">
+          </div>
+          <div class="intensity-scale">
+            <span>Low (1-3)</span>
+            <span>Medium (4-7)</span>
+            <span>High (8-10)</span>
+          </div>
+          <div *ngIf="intensityLevel?.invalid && intensityLevel?.touched" class="error-message">
+            <div *ngIf="intensityLevel?.errors?.['required']">Intensity level is required.</div>
+            <div *ngIf="intensityLevel?.errors?.['min'] || intensityLevel?.errors?.['max']">Intensity must be between 1 and 10.</div>
+          </div>
+          <div *ngIf="isHighIntensity()" class="warning-message">
+            Warning: High intensity levels require participants to be in good physical condition.
+          </div>
+        </div>
+        
+        <div class="form-navigation">
+          <button type="button" class="nav-button" (click)="prevSection()">← Previous</button>
+          <button type="button" class="nav-button next" (click)="nextSection()">Next →</button>
+        </div>
+      </div>
+      
+      <!-- EXERCISES SECTION -->
+     <!-- Dans la section des exercices, assurez-vous que le bouton de mise à jour est correctement configuré -->
+<div class="form-section" [class.active]="currentSection === 'exercises'">
+  <h3>Exercises</h3>
+  
+  <div class="exercises-info">
+    <p>Recommended maximum: <strong>{{ maxExercisesAllowed }}</strong> | selected: <strong>{{ selectedExercises.length }}</strong></p>
+    <div *ngIf="selectedExercises.length > maxExercisesAllowed" class="warning-message">
+      Warning: You have selected more exercises than recommended for this intensity and duration.
+    </div>
+  </div>
+  
+  <!-- Filtres pour les exercices -->
+  <div class="exercise-filters">
+    <div class="filter-group">
+      <label>Filter by:</label>
+      <select [(ngModel)]="exerciseFilter" [ngModelOptions]="{standalone: true}" (change)="loadFilteredExercises()">
+        <option value="all">All available exercises</option>
+        <option value="compatible">Compatible exercises</option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Loading indicator -->
+  <div *ngIf="isLoadingExercises" class="loading-indicator">
+    <div class="spinner"></div>
+    <p>Loading exercises..</p>
+  </div>
+  
+  <!-- Current exercises -->
+  <div *ngIf="!isLoadingExercises && exercises.length > 0" class="current-exercises">
+    <h4>Exercises currently assigned</h4>
+    <div class="exercises-list">
+      <div *ngFor="let exercise of exercises" class="exercise-item">
+        <div class="exercise-info">
+          <span class="exercise-name">{{ exercise.nameExercice }}</span>
+          <span class="exercise-type">{{ exercise.exercicetype }}</span>
+        </div>
+        <button type="button" class="remove-exercise-btn" 
+                (click)="toggleExercise(exercise.idExercice)" 
+                title="Retirer l'exercice">✖</button>
+      </div>
+    </div>
+    <button *ngIf="exercises.length > 0" type="button" class="remove-all-btn" 
+            (click)="removeSelectedExercises()">
+            Remove all exercises
+          </button>
+  </div>
+  
+  <!-- Available exercises -->
+  <div *ngIf="!isLoadingExercises" class="available-exercises">
+    <h4>exercises available</h4>
+    <div *ngIf="availableExercises.length === 0" class="no-exercises">
+      No additional exercise available.
+    </div>
+    <div *ngIf="availableExercises.length > 0" class="exercises-list">
+      <div *ngFor="let exercise of availableExercises" class="exercise-item"
+           [class.disabled]="!canSelectExercise(exercise.idExercice)"
+           [class.compatible]="isCompatibleExercise(exercise.idExercice)">
+        <div class="exercise-info">
+          <span class="exercise-name">{{ exercise.nameExercice }}</span>
+          <span class="exercise-type">{{ exercise.exercicetype }}</span>
+          <span *ngIf="isCompatibleExercise(exercise.idExercice)" class="compatibility-badge">compatible</span>
+        </div>
+        <button type="button" class="add-exercise-btn" 
+                [disabled]="!canSelectExercise(exercise.idExercice)"
+                (click)="toggleExercise(exercise.idExercice)" 
+                title="Ajouter l'exercice">+</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-navigation">
+    <button type="button" class="nav-button" (click)="prevSection()">← previous</button>
+    <button type="button" class="nav-button submit" (click)="validateAndSubmit()">Update the session</button>
+  </div>
+</div>
     </form>
-    
     
     <div *ngIf="successMessage" class="success-message">
       {{ successMessage }}
@@ -142,15 +277,15 @@
     <div *ngIf="showConfirmModal" class="confirm-modal-overlay">
       <div class="confirm-modal">
         <div class="confirm-modal-header">
-          <h4>Confirmation</h4>
+          <h4>confirmation</h4>
           <button class="modal-close-btn" (click)="cancelSubmit()">✖</button>
         </div>
         <div class="confirm-modal-body">
           <p>{{ confirmMessage }}</p>
         </div>
         <div class="confirm-modal-footer">
-          <button class="cancel-btn" (click)="cancelSubmit()">Annuler</button>
-          <button class="confirm-btn" (click)="confirmSubmit()">Confirmer</button>
+          <button class="cancel-btn" (click)="cancelSubmit()">cancel</button>
+          <button class="confirm-btn" (click)="confirmSubmit()">confirm</button>
         </div>
       </div>
     </div>

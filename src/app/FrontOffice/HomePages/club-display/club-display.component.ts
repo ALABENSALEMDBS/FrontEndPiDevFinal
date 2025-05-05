@@ -6,13 +6,14 @@ import { MatchService } from "src/app/services/serviceSuperAdmin/servicegerermat
 import { ClubsService } from "src/app/services/serviceSuperAdmin/servicegererclubs/clubs.service";
 import { Clubs } from "src/core/models/clubs";
 import { Match } from "src/core/models/match";
+import { NavbarHomeComponent } from "../navbar-home/navbar-home.component";
 
 @Component({
   selector: "app-club-display",
   standalone: true,
   templateUrl: "./club-display.component.html",
   styleUrls: ["./club-display.component.css"],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarHomeComponent],
 })
 export class ClubDisplayComponent implements OnInit {
   clubs: Clubs[] = [];
@@ -116,4 +117,5 @@ export class ClubDisplayComponent implements OnInit {
     // In a real application, you would fetch this data from your API
     return ["Player 1", "Player 2"];
   }
+
 }

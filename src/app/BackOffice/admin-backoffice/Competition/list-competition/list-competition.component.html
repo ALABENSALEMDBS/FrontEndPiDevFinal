@@ -112,7 +112,7 @@
               (click)="applyFilter('all')">
               All Competitions
             </button>
-            <button 
+            <!-- <button 
               type="button" 
               class="btn" 
               [class.btn-success]="filterType === 'league'"
@@ -127,7 +127,7 @@
               [class.btn-outline-success]="filterType !== 'cup'"
               (click)="applyFilter('cup')">
               Cups
-            </button>
+            </button> -->
           </div>
         </div>
     
@@ -153,9 +153,9 @@
           <table class="table table-striped table-hover">
             <thead>
               <tr>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Name</th>
-                <th>Type</th>
+                <!-- <th>Type</th> -->
                 <th>Matches</th>
                 <th>Participating Clubs</th>
                 <th>Actions</th>
@@ -163,9 +163,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let competition of filteredCompetitions">
-                <td>{{ competition.idCompetition }}</td>
+                <!-- <td>{{ competition.idCompetition }}</td> -->
                 <td>{{ competition.nameCompetition }}</td>
-                <td><span [class]="getTypeClass(competition.TypeC)">{{ competition.TypeC }}</span></td>
+                <!-- <td><span [class]="getTypeClass(competition.TypeC)">{{ competition.TypeC }}</span></td> -->
                 <td>{{ competition.matchesTournoi?.length || 0 }}</td>
                 <td>
                   <button class="btn btn-sm btn-outline-info" (click)="viewParticipatingClubs(competition.idCompetition)">

@@ -38,8 +38,9 @@
       <label for="gravite">Severity</label>
       <select id="gravite" class="form-control" formControlName="gravite" required>
         <option value="" disabled selected>Choose severity</option>
+        <option value="Non blessé">Not Injured</option>
         <option value="Légère">Mild</option>
-        <option value="Modérée">Moderate </option>
+        <option value="Modérée">Moderate</option>
         <option value="Sévère">Severe</option>
       </select>
     </div>
@@ -61,6 +62,14 @@
         <option *ngFor="let player of players" [value]="player.idUser">{{ player.nameUsers }}  {{ player.prenomUser }}</option>
       </select>
     </div>
+ <!-- Sélection du exerciceretablissement  -->
+ <div class="form-group">
+  <label for="joueur">Exercice retablissement</label>
+  <select formControlName="idExerciceRetablissement" required>
+    <option value="" disabled selected>Select a Exercice</option>
+    <option *ngFor="let exerciceretablissement of exercice" [value]="exerciceretablissement.idExerciceRetablissement">{{ exerciceretablissement.nomExerciceRetablissement }}  {{ exerciceretablissement.descriptionExerciceRetablissement}}</option>
+  </select>
+</div>
 
 
 

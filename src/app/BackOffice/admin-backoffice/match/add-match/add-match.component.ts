@@ -24,10 +24,10 @@ export class AddMatchComponent implements OnInit {
   error = "";
 
   // Match status options
-  statusOptions = ["Scheduled", "In Progress", "Completed", "Postponed", "Cancelled"];
+  statusOptions = ["Scheduled", "Completed", "Postponed", "Cancelled"];
 
   // Match type options
-  typeOptions = ["Friendly", "League", "Cup", "Championship", "Playoff"];
+  typeOptions = ["Friendly"];
 
   constructor(
     private formBuilder: FormBuilder,

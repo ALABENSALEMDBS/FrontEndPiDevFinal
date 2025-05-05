@@ -1,0 +1,83 @@
+<div class="site-wrap">
+    <!-- Hero section -->
+    <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5 ml-auto">
+            <h1 class="text-white">{{ currentPage }}</h1>
+            <p>Explore the clubs participating in this cup tournament.</p>
+            <a routerLink="/cups" class="btn btn-danger py-3 px-4 mr-3">Back to Cups</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-wrapper">
+      <!-- Clubs section -->
+      <div class="site-section bg-dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 title-section">
+              <h2 class="heading text-white">Participating Clubs</h2>
+            </div>
+          </div>
+          
+          <!-- Loading spinner -->
+          <div *ngIf="loading" class="text-center my-5">
+            <div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          
+          <!-- Error message -->
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+          
+          <!-- No clubs message -->
+          <div *ngIf="!loading && clubs.length === 0" class="alert alert-info">
+            No clubs found for this cup tournament.
+          </div>
+          
+          <!-- Clubs grid -->
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs">
+              <div class="club-card">
+                <div class="club-card-header">
+                  <div class="club-logo-container">
+                    <img [src]="club.logo" alt="{{ club.nameClub }}" class="club-logo" onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;">
+                  </div>
+                </div>
+                <div class="club-card-body">
+                  <h3 class="club-name">{{ club.nameClub }}</h3>
+                  
+                  <div class="club-info-container">
+                    <div class="club-info-item">
+                      <div class="info-label">Address</div>
+                      <div class="info-value">{{ club.adressClub }}</div>
+                    </div>
+                    
+                    <div class="club-info-item">
+                      <div class="info-label">Email</div>
+                      <div class="info-value">{{ club.emailClub }}</div>
+                    </div>
+                    
+                    <div class="club-info-item">
+                      <div class="info-label">Founded</div>
+                      <div class="info-value">{{ formatDate(club.dateClub) }}</div>
+                    </div>
+                    
+                    <div class="club-info-item">
+                      <div class="info-label">License</div>
+                      <div class="info-value">{{ club.licenceClub }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

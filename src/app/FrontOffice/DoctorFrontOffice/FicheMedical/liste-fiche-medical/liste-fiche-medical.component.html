@@ -1,34 +1,99 @@
-<div class="container">
-    <h2>Liste des Fiches Médicales</h2>
-  
-    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-    <button class="btn btn-primary mt-3" routerLink="/doctor/fichePlayer">Add Medical Record</button>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
 
+<h2 class="titre-fiche">Liste des Fiches Médicales</h2>
+<!-- Toggle Vue -->
+<div class="view-toggle text-end my-3">
+  <button class="btn btn-outline-light me-2" (click)="viewMode = 'table'">🧾 Vue Tableau</button>
+  <button class="btn btn-outline-light" (click)="viewMode = 'cards'">📦 Vue Cartes</button>
+  <button class="btn btn-danger" (click)="exportToPDF()">📝 Export to PDF</button>
+
+</div>
+<div class="add-btn-container">
+  <button class="btn btn-primary mt-3" routerLink="/doctor/fichePlayer">
+    ➕ Add Medical Record
+  </button>
+</div>
+
+
+
+
+<!-- Container -->
+<div class="container">
+  <div class="search-container mb-3">
+    <input 
+      type="text" 
+      [(ngModel)]="searchName" 
+      class="form-control" 
+      placeholder="Search player by name" 
+      (input)="onSearch()">
+  </div>
+
+  <!-- Vue Tableau -->
+  <div *ngIf="viewMode === 'table'">
     <table class="table table-bordered table-striped mt-3">
       <thead>
         <tr>
+          
           <th>Player</th>
           <th>Weight (kg)</th>
           <th>Height (cm)</th>
           <th>Injury Date</th>
           <th>Severity</th>
           <th>Injury Type</th>
+          <th>exerciceretablissement</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let fiche of fichesMedicales">
-           <td>{{ fiche.joueurFullName }}</td>
+        <tr *ngFor="let fiche of filteredFiches">
+          <td>{{ fiche.joueurFullName }}</td>
           <td>{{ fiche.poidsFicheMedicale }}</td>
           <td>{{ fiche.tailleFicheMedicale }}</td>
           <td>{{ fiche.dateBlessure | date }}</td>
           <td>{{ fiche.gravite }}</td>
           <td>{{ fiche.type }}</td>
-          <td> <button  class="btn btn-warning m-2" (click)="onUpdateFicheMedicaleClicked(fiche)">Update</button> 
-            <button class="btn btn-danger" (click)="supprimerficheMedical(fiche)"> Delete</button></td>
-         
+          <td>{{ fiche.nomExerciceRetablissement}}</td>
+          <td>
+            <button class="btn btn-warning m-2" (click)="onUpdateFicheMedicaleClicked(fiche)">✏️ Update</button>
+            <button class="btn btn-danger" (click)="supprimerficheMedical(fiche)">🗑️ Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
-  
   </div>
+  
+  <!-- Vue Cartes -->
+  <div *ngIf="viewMode === 'cards'" class="row mt-4 g-4">
+    <div class="col-md-4" *ngFor="let fiche of filteredFiches">
+      <div class="card bg-dark text-white h-100 shadow-lg rounded-4 p-3">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <!-- Vérification de l'image et affichage sous forme de cercle -->
+            <img *ngIf="fiche.photoUser"  class="player-photo rounded-circle me-3" alt="Image of {{ fiche.joueurFullName }}" style="width: 50px; height: 50px; object-fit: cover;">
+            
+            
+            
+            <!-- Affichage du nom du joueur à côté de l'image -->
+            <h5 class="card-title mb-0">{{ fiche.joueurFullName }}</h5>
+          </div>
+          <p><strong>Poids:</strong> {{ fiche.poidsFicheMedicale }} kg</p>
+          <p><strong>Taille:</strong> {{ fiche.tailleFicheMedicale }} cm</p>
+          <p><strong>Date blessure:</strong> {{ fiche.dateBlessure | date }}</p>
+          <p><strong>Gravité:</strong> {{ fiche.gravite }}</p>
+          <p><strong>Type:</strong> {{ fiche.type }}</p>
+          <div class="mt-3">
+            <!-- <button class="btn btn-light btn-sm me-2" (click)="openPlayerPanel(fiche)">👤 Joueur</button> -->
+            <button class="btn btn-warning me-2" (click)="onUpdateFicheMedicaleClicked(fiche)">✏️ Update</button>
+            <button class="btn btn-danger" (click)="supprimerficheMedical(fiche)">🗑️ Delete</button>
+          </div>
+        </div>
+      </div>
+
+     
+    </div>
+    
+  </div>
+  </div>
+

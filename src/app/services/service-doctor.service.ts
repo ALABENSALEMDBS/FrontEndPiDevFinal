@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Consultation } from 'src/core/models/Consultation';
 import { ExerciceRetablissements } from 'src/core/models/ExerciceRetablissement';
 import { FicheMedical } from 'src/core/models/ficheMedical';
 import { Joueur } from 'src/core/models/Joueurs';
@@ -28,10 +29,11 @@ export class ServiceDoctorService {
   //   return this.http.post<FicheMedical>(`${this.apiUrl}/FicheMedicales/addfichebyplayer/${idPlayer}`, ficheMedical);
   // }
   
-  addFicheMedical(ficheMedical: FicheMedical, idPlayer: number): Observable<FicheMedical> {
-       return this.http.post<FicheMedical>(`${this.apiUrl}/FicheMedicales/add-FicheMedicales/${idPlayer}`, ficheMedical);
-     }
+  addFicheMedical(ficheMedical: FicheMedical, idPlayer: number,idExerciceRetablissement:number): Observable<FicheMedical> {
+    return this.http.post<FicheMedical>(`${this.apiUrl}/FicheMedicales/add-FicheMedicales/${idPlayer}/${idExerciceRetablissement}`, ficheMedical); }
 
+
+    
      updateFicheMedical(ficheMedical: FicheMedical): Observable<FicheMedical> {
           return this.http.put<FicheMedical>(`${this.apiUrl}/FicheMedicales/modify-ficheMedicales`, ficheMedical);
         }
@@ -129,5 +131,57 @@ updateNourritures(nouriture: Nouriture): Observable<Nouriture> {
   return this.http.put<Nouriture>(`${this.apiUrl}/Nouriture/modify-nouriture`, nouriture);
 }
 
+//uploade-file-exerciceretablissement
+// upload CSV file
+uploadExerciceFile(file: File): Observable<string> {
+  const formData = new FormData();
+  formData.append('file', file);
 
+  return this.http.post(`${this.apiUrl}/files/upload`, formData, {
+    responseType: 'text' // pour retourner juste un message
+  });
+}
+
+
+//chartjs pourcentage de gravite player 
+getGraviteStatsByPlayer(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/FicheMedicales/count-by-gravite`);
+  
+}
+
+//consultation
+addConsultation(consultation: Consultation, idn: number): Observable<Consultation> {
+  console.log('Ajout de consultation:', consultation);  // Log des données envoyées
+  return this.http.post<Consultation>(`${this.apiUrl}/consultation/add/${idn}`, consultation);
+}
+
+getAllConsultations(): Observable<Consultation[]> {
+  return this.http.get<Consultation[]>(`${this.apiUrl}/consultation/all`);
+}
+updateConsultation(consultation: Consultation): Observable<Consultation> {
+  return this.http.put<Consultation>(
+    `${this.apiUrl}/consultation/update/${consultation.id}`,
+    consultation
+  );
+}
+
+deleteConsultation(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/consultation/delete/${id}`);
+}
+// updateConsultation(consultation: Consultation): Observable<Consultation> {
+//   return this.http.put<Consultation>(
+//     `${this.apiUrl}/consultation/update/${consultation.id}`,
+//     consultation
+//   ).pipe(
+//     catchError(error => {
+//       if (error.status === 409) {
+//         // Si le statut est 409, cela signifie qu'il y a un conflit (date déjà prise)
+//         return throwError('La date est déjà prise par un autre joueur.');
+//       } else {
+//         // Pour toute autre erreur
+//         return throwError('Une erreur est survenue. Veuillez réessayer plus tard.');
+//       }
+//     })
+//   );
+// }
 }
