@@ -1,4 +1,7 @@
-/* Standings Table Styles */
+
+/*
+
+
 .custom-table {
   border-collapse: separate;
   border-spacing: 0;
@@ -26,31 +29,28 @@
   border-right: none;
 }
 
-/* Make sure the table has horizontal red lines */
 .custom-table {
-  border-collapse: collapse !important; /* Force collapse to ensure borders show properly */
+  border-collapse: collapse !important; 
 }
 
-/* Add strong horizontal red lines */
 .custom-table tbody tr {
   background: #222;
   transition: background 0.3s ease;
-  border-bottom: 2px solid #000000 !important; /* Solid red line, more visible */
+  border-bottom: 2px solid #000000 !important; 
 }
 
 .custom-table tbody tr:last-child {
-  border-bottom: none !important; /* Remove bottom border from last row */
+  border-bottom: none !important; 
 }
 
 .custom-table tbody tr:hover {
   background: #333;
 }
 
-/* Update the top three places styling to maintain the borders */
 .custom-table tbody tr.first-place {
   background-color: #ffd70033 !important;
   border-left: 4px solid gold !important;
-  border-bottom: 1px solid rgba(238, 30, 70, 0.5) !important; /* Red dividing line */
+  border-bottom: 1px solid rgba(238, 30, 70, 0.5) !important; 
 }
 
 .custom-table tbody tr.first-place:hover {
@@ -60,7 +60,7 @@
 .custom-table tbody tr.second-place {
   background-color: #c0c0c033 !important;
   border-left: 4px solid silver !important;
-  border-bottom: 1px solid rgba(238, 30, 70, 0.5) !important; /* Red dividing line */
+  border-bottom: 1px solid rgba(238, 30, 70, 0.5) !important; 
 }
 
 .custom-table tbody tr.second-place:hover {
@@ -70,20 +70,19 @@
 .custom-table tbody tr.third-place {
   background-color: #cd7f3233 !important;
   border-left: 4px solid #cd7f32 !important;
-  border-bottom: 1px solid rgba(238, 30, 70, 0.5) !important; /* Red dividing line */
+  border-bottom: 1px solid rgba(238, 30, 70, 0.5) !important; 
 }
 
 .custom-table tbody tr.third-place:hover {
   background-color: #cd7f3255 !important;
 }
 
-/* Remove vertical dividing lines */
 .custom-table tbody td {
   border: none;
   padding: 15px 10px;
   text-align: center;
   vertical-align: middle;
-  border-right: 1px solid rgba(238, 30, 70, 0.3); /* Red vertical dividing line */
+  border-right: 1px solid rgba(238, 30, 70, 0.3); 
 }
 
 .custom-table tbody td:first-child {
@@ -98,20 +97,17 @@
   border-right: none;
 }
 
-/* Fix text color for team names - More specific selector to ensure it applies */
 .custom-table tbody td .text-black {
   color: #000 !important;
   font-weight: 600;
 }
 
-/* Trophy icon styling */
 .trophy-icon {
   width: 24px;
   height: 24px;
   margin-left: 10px;
 }
 
-/* Legend Styles */
 .card-title {
   color: #ee1e46;
   font-weight: 700;
@@ -131,7 +127,6 @@
   font-weight: 700;
 }
 
-/* Hero Section */
 .hero {
   position: relative;
   background-size: cover;
@@ -161,7 +156,6 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Widget Styles */
 .widget-next-match {
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 30px;
@@ -170,7 +164,6 @@
   border-radius: 4px;
 }
 
-/* Background Styles */
 .bg-dark {
   background-color: #222;
 }
@@ -198,7 +191,6 @@
   margin-bottom: 3rem;
 }
 
-/* Responsive Styles */
 @media (max-width: 992px) {
   .hero h1 {
     font-size: 2.5rem;
@@ -226,7 +218,6 @@
     padding: 10px 5px;
   }
 }
-/* Standings Table Styles */
 .custom-table {
   border-collapse: separate;
   border-spacing: 0;
@@ -253,27 +244,24 @@
   border-top-right-radius: 5px;
 }
 
-/* Make sure the table has horizontal red lines */
 .custom-table {
-  border-collapse: collapse !important; /* Force collapse to ensure borders show properly */
+  border-collapse: collapse !important; 
 }
 
-/* Add strong horizontal red lines */
 .custom-table tbody tr {
   background: #222;
   transition: background 0.3s ease;
-  border-bottom: 2px solid #000000 !important; /* Solid red line, more visible */
+  border-bottom: 2px solid #000000 !important; 
 }
 
 .custom-table tbody tr:last-child {
-  border-bottom: none !important; /* Remove bottom border from last row */
+  border-bottom: none !important; 
 }
 
 .custom-table tbody tr:hover {
   background: #333;
 }
 
-/* Update the top three places styling to maintain the borders */
 .custom-table tbody tr.first-place {
   background-color: #ffd70033 !important;
   border-left: 15px solid gold !important;
@@ -301,7 +289,6 @@
   background-color: #cd7f3255 !important;
 }
 
-/* Remove vertical dividing lines */
 .custom-table tbody td {
   border: none;
   padding: 15px 10px;
@@ -317,20 +304,17 @@
   text-align: left;
 }
 
-/* Fix text color for team names */
 .custom-table tbody td .text-black {
   color: #000 !important;
   font-weight: 600;
 }
 
-/* Trophy icon styling */
 .trophy-icon {
   width: 24px;
   height: 24px;
   margin-left: 10px;
 }
 
-/* Legend Styles */
 .card-title {
   color: #ee1e46;
   font-weight: 700;
@@ -350,7 +334,6 @@
   font-weight: 700;
 }
 
-/* Hero Section */
 .hero {
   position: relative;
   background-size: cover;
@@ -380,7 +363,6 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Widget Styles */
 .widget-next-match {
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 30px;
@@ -389,7 +371,6 @@
   border-radius: 4px;
 }
 
-/* Background Styles */
 .bg-dark {
   background-color: #222;
 }
@@ -417,7 +398,6 @@
   margin-bottom: 3rem;
 }
 
-/* Responsive Styles */
 @media (max-width: 992px) {
   .hero h1 {
     font-size: 2.5rem;
@@ -444,4 +424,183 @@
   .custom-table tbody td {
     padding: 10px 5px;
   }
+}
+  
+
+*/
+
+
+
+
+
+
+
+
+
+
+/* Logo styles */
+.team-logo-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.team-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.trophy-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Table styles */
+.custom-table {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.custom-table thead th {
+  background-color: #343a40;
+  color: #fff;
+  border-bottom: none;
+  padding: 15px 10px;
+  font-weight: 600;
+}
+
+.custom-table tbody tr {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.custom-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.custom-table tbody td {
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+
+/* Highlight top positions */
+.first-place {
+  background-color: var(--first-place-color);
+}
+
+.second-place {
+  background-color: var(--second-place-color);
+}
+
+.third-place {
+  background-color: var(--third-place-color);
+}
+
+/* Hero section styles */
+.hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 7rem 0;
+}
+
+.hero.overlay:before {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Widget styles */
+.widget-next-match {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .team-logo-container {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .team-logo {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .trophy-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .custom-table {
+    font-size: 0.85rem;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+
+
+/* 
+  .custom-table tbody tr.first-place {
+    background-color: #ffd70033 !important;
+    border-left: 15px solid gold !important;
+  }
+  
+  .custom-table tbody tr.first-place:hover {
+    background-color: #ffd70055 !important;
+  }
+  
+  .custom-table tbody tr.second-place {
+    background-color: #c0c0c033 !important;
+    border-left: 15px solid silver !important;
+  }
+  
+  .custom-table tbody tr.second-place:hover {
+    background-color: #c0c0c055 !important;
+  }
+  
+  .custom-table tbody tr.third-place {
+    background-color: #cd7f3233 !important;
+    border-left: 15px solid #cd7f32 !important;
+  }
+  
+  .custom-table tbody tr.third-place:hover {
+    background-color: #cd7f3255 !important;
+  } */
+
+
+
+
 }

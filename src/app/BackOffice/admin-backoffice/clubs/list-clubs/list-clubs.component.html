@@ -131,12 +131,18 @@
         <div class="col" *ngFor="let club of filteredClubs">
           <div class="card h-100 club-card">
             <div class="club-logo-container">
+
+
+
               <img 
                 [src]="getClubLogoUrl(club)" 
                 class="card-img-top club-logo" 
                 [alt]="club.nameClub"
-                onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                onerror="this.src='assets/images/logo_1.png'; this.onerror=null;"
               >
+
+
+
             </div>
             <div class="card-body">
               <h5 class="card-title">{{ club.nameClub }}</h5>
@@ -160,6 +166,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
   <div #bottomOfPage></div>
@@ -167,3 +174,14 @@
   <!-- Router outlet for child routes -->
   <router-outlet></router-outlet>
 </div>
+
+
+
+<style>
+  input, select {
+    color: black !important;
+  }
+  input::placeholder {
+    color: black !important;
+  }
+</style>

@@ -1,342 +1,287 @@
-<!-- src/app/components/club-display/club-display.component.html -->
 <div class="site-wrap">
-
-
-
-
-  
-  
-    <!-- Header section with navigation -->
-    <div class="site-mobile-menu site-navbar-target">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
+  <!-- Header section with navigation -->
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icon-close2 js-menu-toggle"></span>
       </div>
-      <div class="site-mobile-menu-body"></div>
     </div>
-    
-    <header class="site-navbar py-4" role="banner">
-      <div class="container">
-        <div class="d-flex align-items-center">
-          <!-- <div class="site-logo">
-            <a routerLink="/home">
-              <img src="assets/front/images/logo.png" alt="Logo">
-            </a>
-          </div> -->
-          <div class="ml-auto">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                <li><a routerLink="/home" class="nav-link">Home</a></li>
-                <li><a routerLink="/matches" class="nav-link">Matches</a></li>
-                <li class="active"><a routerLink="/clubs" class="nav-link">Friendly Matches</a></li>
-                <li><a routerLink="/competitions" class="nav-link">Competitions</a></li>
-
-                <li><a routerLink="/cups" class="nav-link">Cups</a></li>
-
-
-                <li><a routerLink="/blog" class="nav-link">Players</a></li>
-                <li><a routerLink="/contact" class="nav-link">Contact</a></li>
-              </ul>
-            </nav>
-    
-            <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
-              <span class="icon-menu h3 text-white"></span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
-    
-    <!-- Hero section -->
-    <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-5 ml-auto">
-            <h1 class="text-white">{{ currentPage }}</h1>
-            <p>Explore our clubs and upcoming matches. Stay updated with the latest scores and fixtures.</p>
-            <!-- <a href="#matches" class="btn btn-primary py-3 px-4 mr-3">View Matches</a> -->
-          </div>
+    <div class="site-mobile-menu-body"></div>
+  </div>
+  
+  <header class="site-navbar py-4" role="banner">
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <div class="ml-auto">
+          <nav class="site-navigation position-relative text-right" role="navigation">
+            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+              <li><a routerLink="/home" class="nav-link">Home</a></li>
+              <li><a routerLink="/matches" class="nav-link">Matches</a></li>
+              <li class="active"><a routerLink="/clubs" class="nav-link">Friendly Matches</a></li>
+              <li><a routerLink="/competitions" class="nav-link">Competitions</a></li>
+              <li><a routerLink="/cups" class="nav-link">Cups</a></li>
+              <li><a routerLink="/blog" class="nav-link">Players</a></li>
+              <li><a routerLink="/contact" class="nav-link">Contact</a></li>
+            </ul>
+          </nav>
+  
+          <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
+            <span class="icon-menu h3 text-white"></span>
+          </a>
         </div>
       </div>
     </div>
-    
-    <div class="content-wrapper">
-      <!-- Featured match section -->
-      <div class="container mt-5" *ngIf="featuredMatch">
-        <div class="row">
-          <div class="col-lg-12">
-            <h2 class="mb-4">Featured Match</h2>
-            <div class="d-flex team-vs">
-              <span class="score" *ngIf="featuredMatch.goals1 !== null && featuredMatch.goals2 !== null">
-                {{ featuredMatch.goals1 }} - {{ featuredMatch.goals2 }}
-              </span>
-              <span class="score" *ngIf="featuredMatch.goals1 === null || featuredMatch.goals2 === null">VS</span>
-              
-              <div class="team-1 w-50">
-                <div class="team-details w-100 text-center">
-                  <img [src]="featuredMatch.club1.logo" alt="Club Logo" class="img-fluid" style="max-height: 100px;">
-                  <h3>{{ featuredMatch.club1.nameClub }} 
-                    <span *ngIf="featuredMatch.goals1 !== null && featuredMatch.goals2 !== null">
-                      {{ getWinnerStatus(featuredMatch, featuredMatch.club1.idClub) }}
-                    </span>
-                  </h3>
-                  <ul class="list-unstyled">
-                    <li *ngFor="let scorer of getGoalScorers(featuredMatch, featuredMatch.club1.idClub)">
-                      {{ scorer }}
-                    </li>
-                  </ul>
-                </div>
+  </header>
+  
+  <!-- Hero section -->
+  <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 ml-auto">
+          <h1 class="text-white">{{ currentPage }}</h1>
+          <p>Explore our clubs and upcoming matches. Stay updated with the latest scores and fixtures.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="content-wrapper">
+    <!-- Featured match section -->
+    <div class="container mt-5" *ngIf="featuredMatch">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="mb-4">Featured Match</h2>
+          <div class="d-flex team-vs">
+            <span class="score" *ngIf="featuredMatch.goals1 !== null && featuredMatch.goals2 !== null">
+              {{ featuredMatch.goals1 }} - {{ featuredMatch.goals2 }}
+            </span>
+            <span class="score" *ngIf="featuredMatch.goals1 === null || featuredMatch.goals2 === null">VS</span>
+            
+            <div class="team-1 w-50">
+              <div class="team-details w-100 text-center">
+                <img 
+                  [src]="getClubLogoUrl(featuredMatch.club1)" 
+                  alt="Club Logo" 
+                  class="img-fluid featured-logo"
+                  onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                >
+                <h3>{{ featuredMatch.club1?.nameClub }} 
+                  <span *ngIf="featuredMatch.goals1 !== null && featuredMatch.goals2 !== null">
+                    {{ getWinnerStatus(featuredMatch, featuredMatch.club1.idClub) }}
+                  </span>
+                </h3>
+                <!-- <ul class="list-unstyled">
+<                  <li *ngFor="let scorer of getGoalScorers(featuredMatch, featuredMatch.club1.idClub)">
+                    {{ scorer }}
+                  </li>>
+                </ul> -->
               </div>
-              
-              <div class="team-2 w-50">
-                <div class="team-details w-100 text-center">
-                  <img [src]="featuredMatch.club2.logo" alt="Club Logo" class="img-fluid" style="max-height: 100px;">
-                  <h3>{{ featuredMatch.club2.nameClub }}
-                    <span *ngIf="featuredMatch.goals1 !== null && featuredMatch.goals2 !== null">
-                      {{ getWinnerStatus(featuredMatch, featuredMatch.club2.idClub) }}
-                    </span>
-                  </h3>
-                  <ul class="list-unstyled">
-                    <li *ngFor="let scorer of getGoalScorers(featuredMatch, featuredMatch.club2.idClub)">
-                      {{ scorer }}
-                    </li>
-                  </ul>
-                </div>
+            </div>
+            
+            <div class="team-2 w-50">
+              <div class="team-details w-100 text-center">
+                <img 
+                  [src]="getClubLogoUrl(featuredMatch.club2)" 
+                  alt="Club Logo" 
+                  class="img-fluid featured-logo"
+                  onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                >
+                <h3>{{ featuredMatch.club2?.nameClub }}
+                  <span *ngIf="featuredMatch.goals1 !== null && featuredMatch.goals2 !== null">
+                    {{ getWinnerStatus(featuredMatch, featuredMatch.club2.idClub) }}
+                  </span>
+                </h3>
+                <!-- <ul class="list-unstyled">
+                  <li *ngFor="let scorer of getGoalScorers(featuredMatch, featuredMatch.club2.idClub)">
+                    {{ scorer }}
+                  </li>
+                </ul> -->
               </div>
             </div>
           </div>
         </div>
       </div>
-    
-      <!-- Upcoming matches section -->
-      <div id="matches" class="site-section bg-dark">
-        <div class="container">
-          <div class="row mb-5">
-            <div class="col-lg-12">
-              <div class="widget-next-match">
-                <div class="widget-title">
-                  <h3>Next Match</h3>
+    </div>
+  
+    <!-- Upcoming matches section -->
+    <div id="matches" class="site-section bg-dark">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-12">
+            <div class="widget-next-match">
+              <div class="widget-title">
+                <h3>Next Match</h3>
+              </div>
+              <div class="widget-body mb-3" *ngIf="upcomingMatches.length > 0">
+                <div class="widget-vs">
+                  <div class="d-flex align-items-center justify-content-around justify-content-between w-100">
+                    <div class="team-1 text-center">
+                      <img 
+                        [src]="getClubLogoUrl(upcomingMatches[0].club1)" 
+                        alt="Club Logo" 
+                        class="next-match-logo"
+                        onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                      >
+                      <h3>{{ upcomingMatches[0].club1?.nameClub }}</h3>
+                    </div>
+                    <div>
+                      <span class="vs"><span>VS</span></span>
+                    </div>
+                    <div class="team-2 text-center">
+                      <img 
+                        [src]="getClubLogoUrl(upcomingMatches[0].club2)" 
+                        alt="Club Logo" 
+                        class="next-match-logo"
+                        onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                      >
+                      <h3>{{ upcomingMatches[0].club2?.nameClub }}</h3>
+                    </div>
+                  </div>
                 </div>
-                <div class="widget-body mb-3" *ngIf="upcomingMatches.length > 0">
+              </div>
+  
+              <div class="text-center widget-vs-contents mb-4" *ngIf="upcomingMatches.length > 0">
+                <h4>{{ upcomingMatches[0].typeMatch }}</h4>
+                <p class="mb-5">
+                  <span class="d-block">{{ formatDate(upcomingMatches[0].dateMatch) }}</span>
+                  <span class="d-block">{{ formatTime(upcomingMatches[0].dateMatch) }}</span>
+                  <strong class="text-primary">{{ upcomingMatches[0].lieuMatch }}</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-12 title-section">
+            <h2 class="heading">Upcoming Matches</h2>
+          </div>
+          
+          <ng-container *ngFor="let match of upcomingMatches.slice(0); let i = index">
+            <div class="col-lg-6 mb-4">
+              <div class="bg-dark-match p-4 rounded">
+                <div class="widget-body">
                   <div class="widget-vs">
                     <div class="d-flex align-items-center justify-content-around justify-content-between w-100">
                       <div class="team-1 text-center">
-                        <img [src]="upcomingMatches[0].club1.logo" alt="Club Logo" style="max-height: 80px;">
-                        <h3>{{ upcomingMatches[0].club1.nameClub }}</h3>
+                        <img 
+                          [src]="getClubLogoUrl(match.club1)" 
+                          alt="Club Logo" 
+                          class="upcoming-match-logo"
+                          onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                        >
+                        <h3>{{ match.club1?.nameClub }}</h3>
                       </div>
                       <div>
                         <span class="vs"><span>VS</span></span>
                       </div>
                       <div class="team-2 text-center">
-                        <img [src]="upcomingMatches[0].club2.logo" alt="Club Logo" style="max-height: 80px;">
-                        <h3>{{ upcomingMatches[0].club2.nameClub }}</h3>
+                        <img 
+                          [src]="getClubLogoUrl(match.club2)" 
+                          alt="Club Logo" 
+                          class="upcoming-match-logo"
+                          onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                        >
+                        <h3>{{ match.club2?.nameClub }}</h3>
                       </div>
                     </div>
                   </div>
                 </div>
-    
-                <div class="text-center widget-vs-contents mb-4" *ngIf="upcomingMatches.length > 0">
-                  <h4>{{ upcomingMatches[0].typeMatch }}</h4>
+          
+                <div class="text-center widget-vs-contents mb-4">
+                  <h4>{{ match.typeMatch }}</h4>
                   <p class="mb-5">
-                    <span class="d-block">{{ formatDate(upcomingMatches[0].dateMatch) }}</span>
-                    <span class="d-block">{{ formatTime(upcomingMatches[0].dateMatch) }}</span>
-                    <strong class="text-primary">{{ upcomingMatches[0].lieuMatch }}</strong>
+                    <span class="d-block">{{ formatDate(match.dateMatch) }}</span>
+                    <span class="d-block">{{ formatTime(match.dateMatch) }}</span>
+                    <strong class="text-primary">{{ match.lieuMatch }}</strong>
                   </p>
                 </div>
               </div>
             </div>
-          </div>
-    
-          <div class="row">
-            <div class="col-12 title-section">
-              <h2 class="heading">Upcoming Matches</h2>
-            </div>
-            
-
-<!--             
-            <ng-container *ngFor="let match of upcomingMatches.slice(1); let i = index">
-              <div class="col-lg-6 mb-4">
-                <div class="bg-light p-4 rounded">
-                  <div class="widget-body">
-                    <div class="widget-vs">
-                      <div class="d-flex align-items-center justify-content-around justify-content-between w-100">
-                        <div class="team-1 text-center">
-                          <img [src]="match.club1.logo" alt="Club Logo" style="max-height: 60px;">
-                          <h3>{{ match.club1.nameClub }}</h3>
-                        </div>
-                        <div>
-                          <span class="vs"><span>VS</span></span>
-                        </div>
-                        <div class="team-2 text-center">
-                          <img [src]="match.club2.logo" alt="Club Logo" style="max-height: 60px;">
-                          <h3>{{ match.club2.nameClub }}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-    
-                  <div class="text-center widget-vs-contents mb-4">
-                    <h4>{{ match.typeMatch }}</h4>
-                    <p class="mb-5">
-                      <span class="d-block">{{ formatDate(match.dateMatch) }}</span>
-                      <span class="d-block">{{ formatTime(match.dateMatch) }}</span>
-                      <strong class="text-primary">{{ match.lieuMatch }}</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </ng-container> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <ng-container *ngFor="let match of upcomingMatches.slice(0); let i = index">
-              <div class="col-lg-6 mb-4">
-                <div class="bg-dark-match p-4 rounded">
-                  <div class="widget-body">
-                    <div class="widget-vs">
-                      <div class="d-flex align-items-center justify-content-around justify-content-between w-100">
-                        <div class="team-1 text-center">
-                          <img [src]="match.club1.logo" alt="Club Logo" style="max-height: 60px;">
-                          <h3>{{ match.club1.nameClub }}</h3>
-                        </div>
-                        <div>
-                          <span class="vs"><span>VS</span></span>
-                        </div>
-                        <div class="team-2 text-center">
-                          <img [src]="match.club2.logo" alt="Club Logo" style="max-height: 60px;">
-                          <h3>{{ match.club2.nameClub }}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="text-center widget-vs-contents mb-4">
-                    <h4>{{ match.typeMatch }}</h4>
-                    <p class="mb-5">
-                      <span class="d-block">{{ formatDate(match.dateMatch) }}</span>
-                      <span class="d-block">{{ formatTime(match.dateMatch) }}</span>
-                      <strong class="text-primary">{{ match.lieuMatch }}</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-
-
-
-
-
-
-
-
-
-
-
-
+          </ng-container>
+        </div>
+      </div>
+    </div> <!-- .site-section -->
+  
+    <!-- Clubs section with improved cards -->
+    <div class="site-section bg-dark">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 title-section">
+            <h2 class="heading text-white">Our Clubs</h2>
           </div>
         </div>
-      </div> <!-- .site-section -->
-    
-      <!-- Clubs section with improved cards -->
-      <div class="site-section bg-dark">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 title-section">
-              <h2 class="heading text-white">Our Clubs</h2>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs | slice:0:3">
-              <div class="club-card">
-                <div class="club-card-header">
-                  <div class="club-logo-container">
-                    <img [src]="club.logo" alt="{{ club.nameClub }}" class="club-logo">
-                  </div>
+        
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs | slice:0:3">
+            <div class="club-card">
+              <div class="club-card-header">
+                <div class="club-logo-container">
+                  <img 
+                    [src]="getClubLogoUrl(club)" 
+                    alt="{{ club.nameClub }}" 
+                    class="club-logo"
+                    onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                  >
                 </div>
-                <div class="club-card-body">
-                  <h3 class="club-name">{{ club.nameClub }}</h3>
-                  
-                  <div class="club-info-container">
-                    <div class="club-info-item">
-                      <div class="info-label">Address</div>
-                      <div class="info-value">{{ club.adressClub }}</div>
-                    </div>
-                    
-                    <div class="club-info-item">
-                      <div class="info-label">Email</div>
-                      <div class="info-value">{{ club.emailClub }}</div>
-                    </div>
-                    
-                    <div class="club-info-item">
-                      <div class="info-label">Founded</div>
-                      <div class="info-value">{{ formatDate(club.dateClub) }}</div>
-                    </div>
-                    
-                    <div class="club-info-item">
-                      <div class="info-label">License</div>
-                      <div class="info-value">{{ club.licenceClub }}</div>
-                    </div>
+              </div>
+              <div class="club-card-body">
+                <h3 class="club-name">{{ club.nameClub }}</h3>
+                
+                <div class="club-info-container">
+                  <div class="club-info-item">
+                    <div class="info-label">Address</div>
+                    <div class="info-value">{{ club.adressClub }}</div>
                   </div>
                   
-              
+                  <div class="club-info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">{{ club.emailClub }}</div>
+                  </div>
+                  
+                  <div class="club-info-item">
+                    <div class="info-label">Founded</div>
+                    <div class="info-value">{{ formatDate(club.dateClub) }}</div>
+                  </div>
+                  
+                  <div class="club-info-item">
+                    <div class="info-label">License</div>
+                    <div class="info-value">{{ club.licenceClub }}</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    
-
-
-
-
-
-
-
-
-      <!-- Recent matches section -->
-      <!-- src/app/components/club-display/club-display.component.html -->
-<!-- Only showing the relevant section that needs to be updated -->
-
-<!-- Recent matches section with updated background -->
-<div class="site-section bg-light-custom">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 title-section">
-          <h2 class="heading">Recent Results</h2>
+    </div>
+  
+    <!-- Recent matches section -->
+    <div class="site-section bg-light-custom">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 title-section">
+            <h2 class="heading">Recent Results</h2>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6" *ngFor="let match of recentMatches">
-          <div class="custom-media d-flex">
-            <div class="img mr-4">
-              <div class="match-result">
-                <span class="score">{{ match.goals1 }} - {{ match.goals2 }}</span>
+        <div class="row">
+          <div class="col-lg-6" *ngFor="let match of recentMatches">
+            <div class="custom-media d-flex">
+              <div class="img mr-4">
+                <div class="match-result">
+                  <span class="score">{{ match.goals1 }} - {{ match.goals2 }}</span>
+                </div>
               </div>
-            </div>
-            <div class="text">
-              <span class="meta">{{ formatDate(match.dateMatch) }}</span>
-              <h3 class="mb-4">{{ match.club1.nameClub }} vs {{ match.club2.nameClub }}</h3>
-              <p>{{ match.typeMatch }} at {{ match.lieuMatch }}</p>
-              <p>Referee: {{ match.arbitre }}</p>
+              <div class="text">
+                <span class="meta">{{ formatDate(match.dateMatch) }}</span>
+                <h3 class="mb-4">{{ match.club1?.nameClub }} vs {{ match.club2?.nameClub }}</h3>
+                <p>{{ match.typeMatch }} at {{ match.lieuMatch }}</p>
+                <p>Referee: {{ match.arbitre }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-    
-    <!-- Footer would go here -->
-  </div>
+</div>

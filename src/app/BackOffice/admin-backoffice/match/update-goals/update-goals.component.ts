@@ -20,6 +20,7 @@ export class UpdateGoalsComponent implements OnInit {
   loading = false;
   loadingData = true;
   error = '';
+  successMessage = '';
 
   // Properties for image upload functionality
   uploadedImage: File | null = null;
@@ -76,6 +77,8 @@ export class UpdateGoalsComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    this.error = '';
+    this.successMessage = '';
 
     // Stop here if form is invalid
     if (this.goalsForm.invalid) {
@@ -86,14 +89,37 @@ export class UpdateGoalsComponent implements OnInit {
     const goals1 = this.f['goals1'].value;
     const goals2 = this.f['goals2'].value;
 
+    // Create updated match object with result string and status
+    const updatedMatch: Match = {
+      ...this.match,
+      goals1: goals1,
+      goals2: goals2,
+      resultatMatch: `${goals1} - ${goals2}`,
+      // If goals are set, update status to Completed if it was Scheduled or In Progress
+      statusMatch: this.shouldUpdateStatus() ? "Completed" : this.match.statusMatch
+    };
     
-    this.matchService.updateGoals(this.matchId, goals1, goals2).subscribe({
-      next: () => {
+    this.matchService.updateMatch(this.matchId, updatedMatch).subscribe({
+      next: (updatedData) => {
+        // Update the local match object with the returned data
+        if (updatedData) {
+          this.match = updatedData;
+        } else {
+          // Otherwise update the local object
+          this.match = { ...updatedMatch };
+        }
+        
         this.loading = false;
-        this.router.navigate(['../../'], { relativeTo: this.route });
-        this.cancel()
-        window.location.reload()
-        //this.cancel()
+        this.successMessage = "Match goals updated successfully!";
+        
+        // Navigate back after a short delay
+        setTimeout(() => {
+          this.successMessage = "";
+          this.router.navigate(['../../'], { relativeTo: this.route });
+          window.location.reload();
+        }, 1500);
+        
+        
       },
       error: (err) => {
         this.loading = false;
@@ -103,15 +129,29 @@ export class UpdateGoalsComponent implements OnInit {
     });
   }
 
+  // Helper method to determine if status should be updated to Completed
+  shouldUpdateStatus(): boolean {
+    const currentStatus = this.match.statusMatch?.toLowerCase();
+    return currentStatus === "scheduled" || currentStatus === "in progress";
+  }
+
   cancel(): void {
     this.router.navigate(['../../'], { relativeTo: this.route });
   }
 
-  // File selection handler
+  // File selection handler with improved file handling
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.uploadedImage = input.files[0];
+      
+      // Create a copy of the file to avoid file locking issues
+      // This creates a new File object with a different reference
+      this.uploadedImage = new File(
+        [this.uploadedImage], 
+        this.uploadedImage.name, 
+        { type: this.uploadedImage.type }
+      );
 
       // Create a preview of the image
       const reader = new FileReader();
@@ -122,7 +162,7 @@ export class UpdateGoalsComponent implements OnInit {
     }
   }
 
-  // Update score directly from image
+  // Update score directly from image with improved error handling
   updateScoreFromImage(): void {
     if (!this.uploadedImage) {
       this.error = 'No image selected.';
@@ -130,27 +170,59 @@ export class UpdateGoalsComponent implements OnInit {
     }
 
     this.processingImage = true;
+    this.error = '';
+    this.successMessage = '';
+    
     const formData = new FormData();
-    formData.append('file', this.uploadedImage);
-
-    // Log the request details for debugging
-    console.log('Updating score from image for match ID:', this.matchId);
-    console.log('File name:', this.uploadedImage.name);
-    console.log('File size:', this.uploadedImage.size);
+    
+    // Add a timestamp to the file name to avoid caching issues
+    const timestamp = new Date().getTime();
+    const fileNameParts = this.uploadedImage.name.split('.');
+    const extension = fileNameParts.pop();
+    const baseName = fileNameParts.join('.');
+    const newFileName = `${baseName}_${timestamp}.${extension}`;
+    
+    // Create a new File object with the modified name
+    const modifiedFile = new File(
+      [this.uploadedImage], 
+      newFileName, 
+      { type: this.uploadedImage.type }
+    );
+    
+    formData.append('file', modifiedFile);
 
     this.matchService.updateGoalsFromSheet(this.matchId, formData).subscribe({
       next: (updatedMatch) => {
         this.processingImage = false;
+        
         // Update the form with the new values
         if (updatedMatch.goals1 !== undefined && updatedMatch.goals2 !== undefined) {
           this.goalsForm.patchValue({
             goals1: updatedMatch.goals1,
             goals2: updatedMatch.goals2,
           });
+          
+          // Also update the match object
+          this.match.goals1 = updatedMatch.goals1;
+          this.match.goals2 = updatedMatch.goals2;
+          this.match.resultatMatch = `${updatedMatch.goals1} - ${updatedMatch.goals2}`;
+          
+          if (this.shouldUpdateStatus()) {
+            this.match.statusMatch = "Completed";
+          }
         }
-        this.error = '';
-        // Show success message
-        alert('Score updated successfully from image!');
+        
+        this.successMessage = 'Score updated successfully from image!';
+        
+        // Clear the file input after successful processing
+        this.uploadedImage = null;
+        this.uploadedImagePreview = null;
+        
+        // Reset the file input element
+        const fileInput = document.getElementById('scoreImage') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.value = '';
+        }
       },
       error: (err) => {
         this.processingImage = false;

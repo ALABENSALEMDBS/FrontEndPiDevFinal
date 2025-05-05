@@ -410,6 +410,7 @@ export class UpdateClubsComponent implements OnInit {
     }, 1500);
   }
 
+
   cancel(): void {
     this.router.navigate(['../../'], { relativeTo: this.route });
   }

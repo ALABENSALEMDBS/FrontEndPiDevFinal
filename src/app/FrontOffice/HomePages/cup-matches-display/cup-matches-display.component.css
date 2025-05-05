@@ -1,4 +1,6 @@
-/* Match Card Styles */
+
+
+
 .match-card {
     background: #222;
     border-radius: 8px;
@@ -134,7 +136,6 @@
     font-weight: 600;
   }
   
-  /* Tournament Winner Styles */
   .tournament-winner {
     margin: 30px 0;
     background: linear-gradient(135deg, #ee1e46, #f05e78);
@@ -193,7 +194,6 @@
     font-size: 12px;
   }
   
-  /* Hero Section */
   .hero {
     position: relative;
     background-size: cover;
@@ -223,7 +223,6 @@
     color: rgba(255, 255, 255, 0.9);
   }
   
-  /* Background Styles */
   .bg-dark {
     background-color: #222;
   }
@@ -267,7 +266,6 @@
     position: relative;
   }
   
-  /* Responsive Styles */
   @media (max-width: 992px) {
     .hero h1 {
       font-size: 2.5rem;

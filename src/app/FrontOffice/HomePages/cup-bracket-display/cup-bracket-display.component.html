@@ -11,10 +11,17 @@
       </div>
     </div>
   </div>
-  
+
   <div class="content-wrapper">
-    <!-- Tournament winner banner (if available) -->
-    <div *ngIf="tournamentWinner" class="site-section champion-section">
+    <!-- Loading spinner for winner -->
+    <div *ngIf="loadingWinner" class="text-center my-3">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading tournament status...</span>
+      </div>
+    </div>
+
+    <!-- Tournament winner -->
+    <div *ngIf="!loadingWinner && tournamentWinner" class="site-section champion-section">
       <div class="container">
         <div class="tournament-champion">
           <div class="champion-container">
@@ -25,11 +32,10 @@
               <h3>Tournament Champion</h3>
               <div class="champion-team">
                 <img 
-                  [src]="tournamentWinner.logo" 
-                  [alt]="tournamentWinner.nameClub" 
+                  [src]="getClubLogoUrl(tournamentWinner)" 
+                  [alt]="tournamentWinner.nameClub || 'Champion'" 
                   class="champion-logo"
-                  onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;"
-                >
+                  onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;">
                 <h4>{{ tournamentWinner.nameClub }}</h4>
               </div>
             </div>
@@ -38,7 +44,24 @@
       </div>
     </div>
 
-    <!-- Tournament bracket section -->
+    <!-- Tournament in progress -->
+    <div *ngIf="!loadingWinner && !tournamentWinner && bracketRounds.length > 0" class="site-section champion-section">
+      <div class="container">
+        <div class="tournament-not-completed">
+          <div class="not-completed-container">
+            <div class="not-completed-icon">
+              <i class="bi bi-hourglass-split"></i>
+            </div>
+            <div class="not-completed-info">
+              <h3>Tournament In Progress</h3>
+              <p>The tournament is not completed yet. Stay tuned to see who will be the champion!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bracket Section -->
     <div class="site-section bg-dark">
       <div class="container">
         <div class="row">
@@ -46,25 +69,25 @@
             <h2 class="heading text-white">Tournament Bracket</h2>
           </div>
         </div>
-        
-        <!-- Loading spinner -->
+
+        <!-- Loading -->
         <div *ngIf="loading" class="text-center my-5">
           <div class="spinner-border text-light" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
-        
-        <!-- Error message -->
+
+        <!-- Error -->
         <div *ngIf="error" class="alert alert-danger">
           {{ error }}
         </div>
-        
-        <!-- No rounds message -->
+
+        <!-- No Rounds -->
         <div *ngIf="!loading && bracketRounds.length === 0" class="alert alert-info">
           No matches found for this tournament.
         </div>
-        
-        <!-- Tournament bracket -->
+
+        <!-- Bracket -->
         <div *ngIf="!loading && bracketRounds.length > 0" class="tournament-bracket">
           <div class="bracket-container">
             <div *ngFor="let round of bracketRounds" class="bracket-round">
@@ -72,34 +95,36 @@
               <div class="matches-container">
                 <div *ngFor="let match of round.matches" class="match-item" [ngClass]="getMatchClass(match)">
                   <div class="match-teams">
+                    <!-- Top Team -->
                     <div class="team team-top" [ngClass]="{'winner': hasWinner(match) && match.winner?.idClub === match.club1?.idClub}">
                       <div class="team-logo">
                         <img 
-                          [src]="match.club1?.logo" 
-                          [alt]="match.club1?.nameClub" 
-                          onerror="this.src='/placeholder.svg?height=30&width=30'; this.onerror=null;"
-                        >
+                          [src]="getClubLogoUrl(match.club1)" 
+                          [alt]="match.club1?.nameClub || 'Club 1'" 
+                          onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;">
                       </div>
-                      <div class="team-name">{{ match.club1?.nameClub }}</div>
+                      <div class="team-name">{{ match.club1?.nameClub || 'TBD' }}</div>
                       <div class="team-score">{{ match.goals1 !== null ? match.goals1 : '-' }}</div>
                     </div>
-                    <div class="team" [ngClass]="{'winner': hasWinner(match) && match.winner?.idClub === match.club2?.idClub}">
+                    <!-- Bottom Team -->
+                    <div class="team team-bottom" [ngClass]="{'winner': hasWinner(match) && match.winner?.idClub === match.club2?.idClub}">
                       <div class="team-logo">
                         <img 
-                          [src]="match.club2?.logo" 
-                          [alt]="match.club2?.nameClub" 
-                          onerror="this.src='/placeholder.svg?height=30&width=30'; this.onerror=null;"
-                        >
+                          [src]="getClubLogoUrl(match.club2)" 
+                          [alt]="match.club2?.nameClub || 'Club 2'" 
+                          onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;">
                       </div>
-                      <div class="team-name">{{ match.club2?.nameClub }}</div>
+                      <div class="team-name">{{ match.club2?.nameClub || 'TBD' }}</div>
                       <div class="team-score">{{ match.goals2 !== null ? match.goals2 : '-' }}</div>
                     </div>
                   </div>
+
                   <div class="match-details">
                     <div class="match-date">{{ formatDate(match.dateMatch) }}</div>
                     <div class="match-time">{{ formatTime(match.dateMatch) }}</div>
-                    <div class="match-venue">{{ match.lieuMatch }}</div>
+                    <div class="match-venue">{{ match.lieuMatch || 'TBD' }}</div>
                   </div>
+
                   <div class="match-status">
                     <span class="badge" [ngClass]="{
                       'bg-success': match.statusMatch === 'Completed',
@@ -107,13 +132,15 @@
                       'bg-danger': match.statusMatch === 'Cancelled',
                       'bg-secondary': match.statusMatch === 'Postponed',
                       'bg-info': !match.statusMatch || match.statusMatch === 'Scheduled'
-                    }">{{ match.statusMatch || '' }}</span>
+                    }">{{ match.statusMatch || 'Scheduled' }}</span>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

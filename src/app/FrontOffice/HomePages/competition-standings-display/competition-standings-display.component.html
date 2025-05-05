@@ -1,37 +1,15 @@
 <div class="site-wrap">
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   <header class="site-navbar py-4" role="banner">
     <div class="container">
       <div class="d-flex align-items-center">
-        <!-- <div class="site-logo">
-          <a routerLink="/home">
-            <img src="assets/front/images/logo.png" alt="Logo">
-          </a>
-        </div> -->
         <div class="ml-auto">
           <nav class="site-navigation position-relative text-right" role="navigation">
             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
               <li><a routerLink="/home" class="nav-link">Home</a></li>
               <li><a routerLink="/matches" class="nav-link">Matches</a></li>
               <li><a routerLink="/clubs" class="nav-link">Friendly Matches</a></li>
-              <li class="active"  ><a routerLink="/competitions" class="nav-link">Competitions</a></li>
-
+              <li class="active"><a routerLink="/competitions" class="nav-link">Competitions</a></li>
               <li><a routerLink="/cups" class="nav-link">Cups</a></li>
-
-
               <li><a routerLink="/blog" class="nav-link">Players</a></li>
               <li><a routerLink="/contact" class="nav-link">Contact</a></li>
             </ul>
@@ -44,26 +22,6 @@
       </div>
     </div>
   </header>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   <!-- Hero section -->
   <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
@@ -129,15 +87,16 @@
                     <td>{{ i + 1 }}</td>
                     <td>
                       <div class="d-flex align-items-center">
-                        <img 
-                          [src]="standing.club.logo" 
-                          [alt]="standing.club.nameClub" 
-                          class="me-2" 
-                          style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
-                          onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
-                        >
-                        <strong class="text-black">{{ standing.club.nameClub }}</strong>
-                        <img *ngIf="i === 0" src="assets/front/images/win1.jpg" alt="Champion" class="ms-2 trophy-icon" style="width: 24px; height: 24px;">
+                        <div class="team-logo-container">
+                          <img 
+                            [src]="getClubLogoUrl(standing.club)" 
+                            [alt]="standing.club?.nameClub" 
+                            class="team-logo"
+                            onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                          >
+                        </div>
+                        <strong class="text-black ms-2">{{ standing.club?.nameClub }}</strong>
+                        <img *ngIf="i === 0" src="assets/front/images/win1.jpg" alt="Champion" class="ms-2 trophy-icon">
                       </div>
                     </td>
                     <td>{{ standing.matchesPlayed }}</td>

@@ -147,38 +147,67 @@ export class MatchService {
     return this.http.get<Match[]>(`${this.baseUrl}/notYedPlayedMatchs`)
   }
 
+  updateGoalsFromSheet(matchId: number, formData: FormData): Observable<Match> {
+    return this.http.patch<Match>(`${this.baseUrl}/goalsFromSheet/${matchId}`, formData)
+  }
 
 
 
 
-    // Regular update goals method
-    /*updateGoals(matchId: number, goals1: number, goals2: number): Observable<Match> {
-      return this.http.put<Match>(`${this.baseUrl}/updateGoals/${matchId}/${goals1}/${goals2}`, {})
-    }*/
+
+
+
+
+
+
+  // Get total number of matches
+  getTotalNumberOfMatches(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/totalMatchs`);
+  }
+
+  // Get total number of competitions
+  getTotalNumberOfCompetitions(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/totalCompetition`);
+  }
+
+  // Get total number of cups
+  getTotalNumberOfCups(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/totalCups`);
+  }
+
+
+  pourcentageOfTotalPlayedMatches(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfTotalPlayedMatches`);
+  }
+
+
+  pourcentageOfTotalNotPlayedMatches(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfTotalNotPlayedMatches`);
+  }
+
+  getPercentageOfWinsFriendly(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfWinsFriendly`);
+  }
   
-    // Method to update goals from a score sheet image
-    updateGoalsFromSheet(matchId: number, formData: FormData): Observable<Match> {
-      return this.http.patch<Match>(`${this.baseUrl}/goalsFromSheet/${matchId}`, formData)
-    }
-
-
-
-
-//   getImgToString(formData: FormData)
-// {
-//   return this.http.post<string>(`${this.baseUrl}/ImgToString`, formData, {
-//     responseType: 'text' as 'json'
-//   });
-// }
-
-
-
-
-
-// Method to update goals from a score sheet image
-// updateGoalsFromSheet(matchId: number, formData: FormData)
-// {
-//   return this.http.put<Match>(`${this.baseUrl}/updateGoalsFromSheet/${matchId}`, formData);
-// }
+  getPercentageOfDrawsFriendly(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfDrawsFriendly`);
+  }
+  
+  getPercentageOfWinsCompetitions(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfWinsCompetitions`);
+  }
+  
+  getPercentageOfDrawsCompetitions(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfDrawCompetitions`);
+  }
+  
+  getPercentageOfWinsCups(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfWinsCups`);
+  }
+  
+  getPercentageOfDrawsCups(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/pourcentageOfDrawCups`);
+  }
+  
 
 }
