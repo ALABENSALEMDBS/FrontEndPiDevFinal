@@ -1,4 +1,4 @@
-<h2 class="titre-fiche">Liste des Exercices de Rétablissement</h2>
+<h2 class="titre-fiche">List of Recovery Exercises</h2>
 
 <!-- Boutons actions (alignés à droite comme dans l'autre vue) -->
 <div class="view-toggle text-end my-3">
@@ -44,6 +44,7 @@
   </div>
 
   <!-- Vue Cartes -->
+  <div >
   <div *ngIf="viewMode === 'card'" class="row mt-4 g-4">
     <div class="col-md-4" *ngFor="let exercice of exercices">
       <div class="card bg-dark text-white h-100 shadow-lg rounded-4 p-3">
@@ -60,6 +61,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- Modal Import -->

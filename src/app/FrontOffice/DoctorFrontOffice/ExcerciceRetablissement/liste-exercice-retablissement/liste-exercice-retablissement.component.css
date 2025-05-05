@@ -1,12 +1,26 @@
+/* Error Message */
 .alert-danger {
   margin: 1rem 2rem;
   padding: 1rem;
-  border-radius: 6px;
-  background: linear-gradient(135deg, #dc3545, #a7283a);
-  color: white;
-  font-weight: 600;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #e63946, #dc3545);
+  color: #fff;
+  font-weight: 700;
   text-align: center;
-  box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.5);
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.card-title{
+  
+   text-align: center;
+   color: #fff;
+   font-weight: 700;
 }
 
 /* Add Button Container */
@@ -15,10 +29,7 @@
   justify-content: flex-end;
   align-items: center;
   padding: 1.5rem 2rem;
-  background: linear-gradient(90deg, #0e1c36, #1a2a6c);
-  border-top: 4px solid #040492;
-  border-bottom: 4px solid #040492;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #0e1731, #1a2747);
 }
 
 .add-btn-container .btn {
@@ -32,28 +43,28 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
   font-size: 1rem;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
 }
 
 .add-btn-container .btn:hover {
-  transform: translateY(-4px);
-  background: linear-gradient(135deg, #f9d45c, #f5b041);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+  background: linear-gradient(135deg, #f39c12, #f39c12);
 }
-
 
 /* View Toggle */
 .view-toggle {
   padding: 0 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .view-toggle .btn {
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   border: 2px solid #ffffff;
   border-radius: 8px;
   padding: 0.5rem 1rem;
-  color: #ffffff;
+  color: white;
   background-color: transparent;
   transition: all 0.3s ease;
 }
@@ -67,9 +78,7 @@
 .container {
   padding: 2rem;
 }
-.modal-title {
-  color: black;
-}
+
 /* Table View */
 table {
   width: 100%;
@@ -126,34 +135,228 @@ table {
   transform: scale(1.05);
 }
 
-/* Titre de fiche */
+/* Title */
 .titre-fiche {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #f5f7fa;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #c7d3df;
   text-align: center;
-  margin: 2rem 0 2rem;
-  padding: 1.5rem 0;
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 5px solid #040492;
+  letter-spacing: 1px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Search Input */
+.search-container input {
+  border: 2px solid #0d6efd;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
   width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.search-container input:focus {
+  border-color: #f39c12;
+  outline: none;
+}
+
+/* Card View */
+.card {
+  background: linear-gradient(135deg, #1a2747, #2c3e50);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #05266e, #064c92);
+}
+
+/* Buttons inside cards */
+.card .btn {
+  background: linear-gradient(135deg, #010d2b, #2c3e50);
+  width: 48%;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+
+.btn-player {
+  background: linear-gradient(135deg, #f9c933 0%, #f39c12 100%);
+  color: #0e1731;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-player:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #fad364 0%, #f5b041 100%);
+}
+
+.btn-player:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-player:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 201, 51, 0.5);
+}
+
+/* Optional: Add an icon to the button */
+.btn-player::before {
+  content: "\1F3C8"; /* Soccer ball emoji */
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .btn-player {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-player {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }}
+  .titre-fiche {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #e0f2ff;
+    text-align: center;
+    margin: 2.5rem 0 1.5rem;
+    padding: 0.8rem 1.5rem;
+    letter-spacing: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    text-shadow: 0 0 10px rgba(4, 4, 146, 0.5);
+    background: linear-gradient(135deg, rgba(4, 4, 146, 0.05), rgba(13, 110, 253, 0.1));
+    border-radius: 12px;
+    overflow: hidden;
+    animation: pulse 3s infinite alternate ease-in-out;
+  }
+  
+  /* Borders */
+  .titre-fiche::before,
+  .titre-fiche::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, transparent, #040492, #0d6efd, #040492, transparent);
+    background-size: 200% 100%;
+    z-index: -1;
+  }
+  
+  .titre-fiche::before {
+    top: 0;
+    animation: flow 4s infinite linear;
+  }
+  
+  .titre-fiche::after {
+    bottom: 0;
+    animation: flow 4s infinite linear reverse;
+  }
+  
+  /* Text effect */
+  .titre-fiche span {
+    background: linear-gradient(90deg, #c7d3df, #ffffff, #c7d3df);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 5s infinite linear;
+  }
+  
+  /* Animations */
+  @keyframes pulse {
+    to { box-shadow: 0 0 20px rgba(4, 4, 146, 0.7), 0 0 40px rgba(13, 110, 253, 0.5); }
+  }
+  
+  @keyframes flow {
+    to { background-position: 200% 0; }
+  }
+  
+  @keyframes shimmer {
+    to { background-position: 200% 50%; }
+  }
+  
+  /* Hover effect */
+  .titre-fiche:hover {
+    transform: perspective(1000px) rotateX(5deg) scale(1.05);
+    transition: transform 0.5s ease;
+  }
+
+  /* Add Button Container */
+.add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.5rem 2rem;
   background: linear-gradient(90deg, #0e1c36, #1a2a6c);
   border-top: 4px solid #040492;
   border-bottom: 4px solid #040492;
-  letter-spacing: 1.5px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Popup confirmation */
+.add-btn-container .btn {
+  background: linear-gradient(135deg, #f9c933, #f39c12);
+  color: #0e1731;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.add-btn-container .btn:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #f9d45c, #f5b041);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
 .confirm-popup-container {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
   display: none;
-  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
   justify-content: center;
   align-items: center;
-  z-index: 1050;
+  z-index: 9999;
 }
 
 .confirm-popup-container.show {
@@ -161,27 +364,8 @@ table {
 }
 
 .confirm-popup-content {
-  background: linear-gradient(135deg, #010c2e, #112240);
-  padding: 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  max-width: 400px;
-  color: #dce3f4;
-  box-shadow: 0 0 20px rgba(30, 144, 255, 0.2);
-  animation: fadeInPop 0.4s ease;
-}
-
-@keyframes fadeInPop {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-  
-}
-.table td.actions {
+  background: rgb(2, 1, 68);
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
 }
