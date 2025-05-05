@@ -31,7 +31,7 @@
 }
 
 /* Decorative elements */
-.form-container::before {
+/* .form-container::before {
   content: "";
   position: absolute;
   top: -100px;
@@ -58,7 +58,7 @@
   opacity: 0.1;
   border-radius: 50%;
   z-index: 0;
-}
+} */
 
 
 .close-btn {
@@ -68,7 +68,7 @@
   background: transparent;
   border: none;
   font-size: 1.25rem;
-  color: #016bff;
+  color: #919498;
   cursor: pointer;
   width: 2.5rem;
   height: 2.5rem;
@@ -83,6 +83,7 @@
 .close-btn:hover {
   background-color: rgba(241, 245, 249, 0.8);
   transform: rotate(90deg);
+  color: red;
 }
 
 .form-group {
