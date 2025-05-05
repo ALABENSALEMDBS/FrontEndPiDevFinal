@@ -273,11 +273,7 @@ table {
 .player-info {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, #1156b1, #1a1a1a); /* fond noir/gris foncé */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
 }
 
 .player-photo {
