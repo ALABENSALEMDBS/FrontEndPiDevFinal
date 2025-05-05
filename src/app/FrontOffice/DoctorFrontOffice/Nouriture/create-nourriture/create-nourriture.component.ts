@@ -17,6 +17,7 @@ export class CreateNourritureComponent {
 
   constructor(private fb: FormBuilder, private nouritureService: ServiceDoctorService, private router: Router ) {
     this.nourritureForm = this.fb.group({
+      imagesN:['',Validators.required],
       nom: ['', [Validators.required, Validators.minLength(3)]],
       recommandation: ['', [Validators.required, Validators.minLength(5)]],
       calories: [null, [Validators.required, Validators.min(0)]]
@@ -40,5 +41,17 @@ export class CreateNourritureComponent {
       });
     }
   }
+  imagePreview: string | ArrayBuffer | null = null;
+
+onImageSelected(event: Event): void {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+      this.nourritureForm.patchValue({ imagesN: reader.result });    };
+    reader.readAsDataURL(file);
+  }
+}
 
 }

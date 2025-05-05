@@ -78,7 +78,8 @@ export class UpdateFicheMedicaleComponent {
             dateBlessure: [value.dateBlessure, Validators.required],
             gravite: [value.gravite, Validators.required],
             type: [value.type, Validators.required],
-            joueurId:[ { value: value.joueurId, disabled: true} , Validators.required]
+            joueurId:[ { value: value.joueurId, disabled: true} , Validators.required],
+            idExerciceRetablissement: [value.idExerciceRetablissement, Validators.required] // Make sure this is included
             
           });
 
@@ -111,17 +112,23 @@ export class UpdateFicheMedicaleComponent {
 
     const ficheData: FicheMedical = this.ficheMedicalForm.getRawValue(); // Get form data
     const idPlayer = ficheData.joueurId; // Get player ID from form
+    const idExercice = ficheData.idExerciceRetablissement;
 
     // Check if player ID is valid
     if (!idPlayer || isNaN(Number(idPlayer))) {
       console.error("ID du joueur invalide!");
       return;
     }
+    if (!idExercice || isNaN(Number(idExercice))) {
+      console.error("ID de l'exercice invalide!");
+      return;
+    }
 
     console.log("ID du joueur :", idPlayer); // Log the player ID for debugging
+    console.log("ID de l'exercice :", idExercice);
 
     // Proceed with the API call if the ID is valid
-    this.servijoueurServiceced.updateFicheMedical(ficheData).subscribe({
+    this.servijoueurServiceced.updateFicheMedical(ficheData,idExercice).subscribe({
       next: () => {
         console.log("Fiche médicale ajoutée !");
         this.successMessage = "Fiche médicale ajoutée avec succès !";

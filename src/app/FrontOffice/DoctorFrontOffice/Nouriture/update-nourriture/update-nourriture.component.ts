@@ -17,6 +17,7 @@ export class UpdateNourritureComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
   nourritures: Nouriture[] = [];
+  oldImageUrl: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -58,9 +59,12 @@ export class UpdateNourritureComponent implements OnInit {
           idNourriture: [nourriture.idNourriture, [Validators.required]],
           nom: [nourriture.nom, [Validators.required]],
           calories: [nourriture.calories, [Validators.required, Validators.min(1)]],
-          recommandation: [nourriture.recommandation, Validators.required]
-        });
+          recommandation: [nourriture.recommandation, Validators.required],
+          imagesN:[nourriture.imagesN]
 
+        });
+        //this. = nourriture.imagesN;
+       // this.oldImageUrl = nourriture.imagesN;
         console.log('Formulaire chargé : ', this.nourritureForm.value);
       },
       error: (err) => {
@@ -95,4 +99,26 @@ export class UpdateNourritureComponent implements OnInit {
       }
     });
   }
+
+  imagePreview: string | null = null;
+// à initialiser avec l'URL de l’image existante (depuis l'API)
+
+onImageSelected(event: Event): void {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+
+      // Mettre à jour le champ imagesN dans le formulaire
+      this.nourritureForm.patchValue({
+        imagesN: this.imagePreview
+      });
+
+      // Marquer le champ comme modifié
+      this.nourritureForm.get('imagesN')?.markAsDirty();
+    };
+    reader.readAsDataURL(file);
+  }
+}
 }

@@ -46,10 +46,10 @@
         </div>
 
         <!-- Display Player Name -->
-        <div *ngIf="consultationForm.get('idUser')?.value">
+        <!-- <div *ngIf="consultationForm.get('idUser')?.value">
           <label for="playerName">Nom du joueur</label>
           <p id="playerName">{{ getJoueurName(consultationForm.get('idUser')?.value) }}</p>
-        </div>
+        </div> -->
 
         <button type="submit" [disabled]="consultationForm.invalid || isLoading">
           {{ selectedConsultation ? 'Mettre à jour' : 'Ajouter' }}

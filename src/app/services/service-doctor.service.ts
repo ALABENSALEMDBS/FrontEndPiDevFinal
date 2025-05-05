@@ -34,9 +34,12 @@ export class ServiceDoctorService {
 
 
     
-     updateFicheMedical(ficheMedical: FicheMedical): Observable<FicheMedical> {
-          return this.http.put<FicheMedical>(`${this.apiUrl}/FicheMedicales/modify-ficheMedicales`, ficheMedical);
-        }
+    //  updateFicheMedical(ficheMedical: FicheMedical): Observable<FicheMedical> {
+    //       return this.http.put<FicheMedical>(`${this.apiUrl}/FicheMedicales/modify-ficheMedicales`, ficheMedical);
+    //     }
+    updateFicheMedical(ficheMedical: FicheMedical, idex: number): Observable<FicheMedical> {
+      return this.http.put<FicheMedical>(`${this.apiUrl}/FicheMedicales/modify-ficheMedicales/${idex}`, ficheMedical);
+    }
 
 getalljoueur():Observable<Joueur[]>{
   return this.http.get<Joueur[]>(`${this.apiUrl}/joueurs/retrieve-all-joueurs`);

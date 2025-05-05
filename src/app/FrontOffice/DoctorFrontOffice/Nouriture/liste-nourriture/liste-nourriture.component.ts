@@ -46,18 +46,30 @@ export class ListeNourritureComponent {
     this.router.navigate(['doctor/updatenouriture'], { queryParams: { id: fm.idNourriture } });
   }
 
-  supprimerNourriture(nourriture: Nouriture): void {
- if (confirm("Do you really want to delete this food?")) {
-      this.nouritureService.deletNouriturebyid(nourriture.idNourriture).subscribe({
-        next: () => {
-         // alert('Nourriture supprimée avec succès !');
-          this.chargerNourritures(); // Mettre à jour la liste
-         // this.router.navigate(['doctor/updatenouriture'])
-        },
-        // error: (err) => {
-        //   console.error('Erreur lors de la suppression :', err);
-        //   alert('Erreur lors de la suppression de la nourriture.');
-        // }
-      });
+  showConfirmPopup: boolean = false;
+selectedNourritureToDelete: Nouriture | null = null;
+
+openConfirmPopup(nourriture: Nouriture): void {
+  this.selectedNourritureToDelete = nourriture;
+  this.showConfirmPopup = true;
+}
+
+closeConfirmPopup(): void {
+  this.selectedNourritureToDelete = null;
+  this.showConfirmPopup = false;
+}
+
+confirmDelete(): void {
+  if (!this.selectedNourritureToDelete) return;
+
+  this.nouritureService.deletNouriturebyid(this.selectedNourritureToDelete.idNourriture).subscribe({
+    next: () => {
+      this.chargerNourritures(); // Recharge la liste
+      this.closeConfirmPopup();
+    },
+    error: (err) => {
+      console.error('Erreur lors de la suppression :', err);
+      this.closeConfirmPopup();
     }
-    }}
+  });
+}}

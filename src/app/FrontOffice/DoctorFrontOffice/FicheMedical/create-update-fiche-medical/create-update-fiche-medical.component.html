@@ -2,7 +2,7 @@
 
 <div class="container">
   
-  <h2 class="form-title">Add a Medical Record</h2>
+  <h2  class="form-header">Add a Medical Record</h2>
 
   <form [formGroup]="ficheMedicalForm" (ngSubmit)="addFicheMedicale()" class="custom-form">
 
@@ -45,7 +45,7 @@
       </select>
     </div>
 
-    <!-- Type de Blessure -->
+
     <div class="form-group">
       <label for="typeBlessure">Injury Type</label>
       <input type="text" id="typeBlessure" class="form-control" formControlName="type" placeholder="Entrez le type de blessure" required>
@@ -53,6 +53,14 @@
         This field is required.
       </div>
     </div>
+
+    <!-- <div class="form-group">
+      <label for="type">Type de blessure</label>
+      <div class="input-group">
+        <input type="text" id="type" formControlName="type" class="form-control">
+        <button type="button" class="btn btn-outline-secondary" (click)="startVoiceInput()">🎤</button>
+      </div>
+    </div> -->
 
     <!-- Sélection du joueur -->
     <div class="form-group">
@@ -70,11 +78,9 @@
     <option *ngFor="let exerciceretablissement of exercice" [value]="exerciceretablissement.idExerciceRetablissement">{{ exerciceretablissement.nomExerciceRetablissement }}  {{ exerciceretablissement.descriptionExerciceRetablissement}}</option>
   </select>
 </div>
-
-
-
-    
-
+<div>
+  
+</div>
     <!-- Boutons -->
      
     <button type="submit" class="btn btn-primary mt-3"  [disabled]="ficheMedicalForm.invalid"  > Save</button>
