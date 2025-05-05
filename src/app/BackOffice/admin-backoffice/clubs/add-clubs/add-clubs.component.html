@@ -1,11 +1,11 @@
-<form (ngSubmit)="onSubmit(addClubForm)" #addClubForm="ngForm" class="container mt-4">
+<!-- <form (ngSubmit)="onSubmit(addClubForm)" #addClubForm="ngForm" class="container mt-4">
 
     <div class="card p-4">
       <h3 class="card-title mb-4 text-center">Club Form</h3>
 
-  
+   -->
       <!-- Club Name -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="nameClub" class="form-label">Club Name:</label>
         <input
           type="text"
@@ -20,9 +20,9 @@
           <div *ngIf="nameClub.errors?.['required']">Club Name is required.</div>
         </div>
       </div>
-  
+   -->
       <!-- Club Email -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="emailClub" class="form-label">Club Email:</label>
         <input
           type="email"
@@ -36,10 +36,10 @@
         <div *ngIf="emailClub.invalid && (emailClub.dirty || emailClub.touched)" class="text-danger mt-2">
           <div *ngIf="emailClub.errors?.['required']">Club Email is required.</div>
         </div>
-      </div>
+      </div> -->
   
       <!-- Club Address -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="adressClub" class="form-label">Club Address:</label>
         <input
           type="text"
@@ -53,10 +53,10 @@
         <div *ngIf="adressClub.invalid && (adressClub.dirty || adressClub.touched)" class="text-danger mt-2">
           <div *ngIf="adressClub.errors?.['required']">Club Address is required.</div>
         </div>
-      </div>
+      </div> -->
   
       <!-- Club Date -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="dateClub" class="form-label">Club Date:</label>
         <input
           type="date"
@@ -70,10 +70,10 @@
         <div *ngIf="dateClub.invalid && (dateClub.dirty || dateClub.touched)" class="text-danger mt-2">
           <div *ngIf="dateClub.errors?.['required']">Club Date is required.</div>
         </div>
-      </div>
+      </div> -->
   
       <!-- Club Licence -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="licenceClub" class="form-label">Club Licence:</label>
         <input
           type="text"
@@ -87,7 +87,7 @@
         <div *ngIf="licenceClub.invalid && (licenceClub.dirty || licenceClub.touched)" class="text-danger mt-2">
           <div *ngIf="licenceClub.errors?.['required']">Club Licence is required.</div>
         </div>
-      </div>
+      </div> -->
   
       <!-- File Upload for Logo -->
       <!-- <div class="mb-3">
@@ -95,19 +95,186 @@
         <input type="file" id="logo" class="form-control" (change)="onFileSelected($event)" />
       </div> -->
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
             <input
                   id="mediaUrl"
                   type="file"
                   class="form-control"                   accept="image/*"
                   (change)="onFileSelected($event)"
                 >
-              </div>
+              </div> -->
   
       <!-- Submit Button -->
-      <div class="d-flex justify-content-center">
+      <!-- <div class="d-flex justify-content-center">
         <button type="submit" [disabled]="addClubForm.invalid" class="btn btn-primary">Submit</button>
       </div>
     </div>
-  </form>
+  </form> -->
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h2>Add New Club</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+  
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+  
+        <form [formGroup]="clubForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Club Name -->
+              <div class="mb-3">
+                <label for="nameClub" class="form-label">Club Name</label>
+                <input 
+                  type="text" 
+                  id="nameClub" 
+                  formControlName="nameClub" 
+                  class="form-control"  
+                  [ngClass]="{ 'is-invalid': submitted && clubForm.get('nameClub')?.errors }"
+                >
+                <div *ngIf="submitted && clubForm.get('nameClub')?.errors" class="invalid-feedback">
+                  <div *ngIf="clubForm.get('nameClub')?.errors?.['required']">Club name is required</div>
+                </div>
+              </div>
+              
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="emailClub" class="form-label">Email</label>
+                <input 
+                  type="email" 
+                  id="emailClub" 
+                  formControlName="emailClub" 
+                  class="form-control"  
+                  [ngClass]="{ 'is-invalid': submitted && clubForm.get('emailClub')?.errors }"
+                >
+                <div *ngIf="submitted && clubForm.get('emailClub')?.errors" class="invalid-feedback">
+                  <div *ngIf="clubForm.get('emailClub')?.errors?.['required']">Email is required</div>
+                  <div *ngIf="clubForm.get('emailClub')?.errors?.['email']">Please enter a valid email</div>
+                </div>
+              </div>
+              
+              <!-- Address -->
+              <div class="mb-3">
+                <label for="adressClub" class="form-label">Address</label>
+                <input 
+                  type="text" 
+                  id="adressClub" 
+                  formControlName="adressClub" 
+                  class="form-control"  
+                  [ngClass]="{ 'is-invalid': submitted && clubForm.get('adressClub')?.errors }"
+                >
+                <div *ngIf="submitted && clubForm.get('adressClub')?.errors" class="invalid-feedback">
+                  <div *ngIf="clubForm.get('adressClub')?.errors?.['required']">Address is required</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <!-- Date -->
+              <div class="mb-3">
+                <label for="dateClub" class="form-label">Foundation Date</label>
+                <input 
+                  type="date" 
+                  id="dateClub" 
+                  formControlName="dateClub" 
+                  class="form-control"  
+                  [ngClass]="{ 'is-invalid': submitted && clubForm.get('dateClub')?.errors }"
+                >
+                <div *ngIf="submitted && clubForm.get('dateClub')?.errors" class="invalid-feedback">
+                  <div *ngIf="clubForm.get('dateClub')?.errors?.['required']">Foundation date is required</div>
+                </div>
+              </div>
+              
+              <!-- License -->
+              <div class="mb-3">
+                <label for="licenceClub" class="form-label">License Number</label>
+                <input 
+                  type="number" 
+                  id="licenceClub" 
+                  formControlName="licenceClub" 
+                  class="form-control"  
+                  [ngClass]="{ 'is-invalid': submitted && clubForm.get('licenceClub')?.errors }"
+                >
+                <div *ngIf="submitted && clubForm.get('licenceClub')?.errors" class="invalid-feedback">
+                  <div *ngIf="clubForm.get('licenceClub')?.errors?.['required']">License number is required</div>
+                  <div *ngIf="clubForm.get('licenceClub')?.errors?.['min']">License number must be positive</div>
+                </div>
+              </div>
+              
+              <!-- Logo Upload -->
+              <div class="mb-3">
+                <label for="logoFile" class="form-label">Club Logo</label>
+                <div class="logo-upload-container">
+                  <div class="logo-preview" *ngIf="previewUrl">
+                    <img [src]="previewUrl" alt="Logo Preview">
+                    <button type="button" class="btn btn-sm btn-danger remove-logo" (click)="removeSelectedFile()">
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
+                  <div class="upload-box" *ngIf="!previewUrl" (click)="fileInput.click()">
+                    <i class="bi bi-cloud-upload"></i>
+                    <p>Click to upload logo</p>
+                  </div>
+                  <input 
+                    type="file" 
+                    id="logoFile" 
+                    #fileInput
+                    accept="image/*" 
+                    (change)="onFileSelected($event)" 
+                    style="display: none;"
+                  >
+                </div>
+                <div *ngIf="submitted && !selectedFile" class="text-danger mt-2">
+                  Please upload a club logo
+                </div>
+                
+                <!-- Upload progress bar -->
+                <div *ngIf="isUploading" class="mt-3">
+                  <div class="progress">
+                    <div 
+                      class="progress-bar progress-bar-striped progress-bar-animated" 
+                      role="progressbar" 
+                      [style.width.%]="uploadProgress"
+                      [attr.aria-valuenow]="uploadProgress" 
+                      aria-valuemin="0" 
+                      aria-valuemax="100">
+                      {{ uploadProgress }}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Submit button -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+            <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="loading || isUploading">
+              <span *ngIf="loading && !isUploading" class="spinner-border spinner-border-sm me-1"></span>
+              Create Club
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

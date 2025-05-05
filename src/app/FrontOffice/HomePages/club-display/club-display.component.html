@@ -1,5 +1,10 @@
 <!-- src/app/components/club-display/club-display.component.html -->
 <div class="site-wrap">
+
+
+
+
+  
   
     <!-- Header section with navigation -->
     <div class="site-mobile-menu site-navbar-target">
@@ -25,6 +30,11 @@
                 <li><a routerLink="/home" class="nav-link">Home</a></li>
                 <li><a routerLink="/matches" class="nav-link">Matches</a></li>
                 <li class="active"><a routerLink="/clubs" class="nav-link">Friendly Matches</a></li>
+                <li><a routerLink="/competitions" class="nav-link">Competitions</a></li>
+
+                <li><a routerLink="/cups" class="nav-link">Cups</a></li>
+
+
                 <li><a routerLink="/blog" class="nav-link">Players</a></li>
                 <li><a routerLink="/contact" class="nav-link">Contact</a></li>
               </ul>
@@ -45,7 +55,7 @@
           <div class="col-lg-5 ml-auto">
             <h1 class="text-white">{{ currentPage }}</h1>
             <p>Explore our clubs and upcoming matches. Stay updated with the latest scores and fixtures.</p>
-            <a href="#matches" class="btn btn-primary py-3 px-4 mr-3">View Matches</a>
+            <!-- <a href="#matches" class="btn btn-primary py-3 px-4 mr-3">View Matches</a> -->
           </div>
         </div>
       </div>
@@ -190,11 +200,7 @@
 
 
 
-
-
-
-
-            <ng-container *ngFor="let match of upcomingMatches.slice(1); let i = index">
+            <ng-container *ngFor="let match of upcomingMatches.slice(0); let i = index">
               <div class="col-lg-6 mb-4">
                 <div class="bg-dark-match p-4 rounded">
                   <div class="widget-body">
@@ -252,7 +258,7 @@
           </div>
           
           <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let club of clubs | slice:0:3">
               <div class="club-card">
                 <div class="club-card-header">
                   <div class="club-logo-container">

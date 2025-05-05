@@ -1,0 +1,213 @@
+<div class="site-wrap">
+
+
+
+
+
+
+
+  
+  
+
+
+  <header class="site-navbar py-4" role="banner">
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <!-- <div class="site-logo">
+          <a routerLink="/home">
+            <img src="assets/front/images/logo.png" alt="Logo">
+          </a>
+        </div> -->
+        <div class="ml-auto">
+          <nav class="site-navigation position-relative text-right" role="navigation">
+            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+              <li><a routerLink="/home" class="nav-link">Home</a></li>
+              <li><a routerLink="/matches" class="nav-link">Matches</a></li>
+              <li><a routerLink="/clubs" class="nav-link">Friendly Matches</a></li>
+              <li class="active" ><a routerLink="/competitions" class="nav-link">Competitions</a></li>
+
+              <li><a routerLink="/cups" class="nav-link">Cups</a></li>
+
+
+              <li><a routerLink="/blog" class="nav-link">Players</a></li>
+              <li><a routerLink="/contact" class="nav-link">Contact</a></li>
+            </ul>
+          </nav>
+  
+          <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
+            <span class="icon-menu h3 text-white"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    <!-- Hero section -->
+    <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5 ml-auto">
+            <h1 class="text-white">{{ currentPage }}</h1>
+            <p>Explore our competitions and tournaments. Stay updated with the latest standings and fixtures.</p>
+            <!-- <a href="#competitions" class="btn btn-primary py-3 px-4 mr-3">View Competitions</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-wrapper">
+      <!-- Featured competition section -->
+      <div class="site-section bg-dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 title-section">
+              <h2 class="heading text-white">Featured Competition</h2>
+            </div>
+          </div>
+          
+          <!-- Loading spinner -->
+          <div *ngIf="loading" class="text-center my-5">
+            <div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          
+          <!-- Error message -->
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+          
+          <!-- No competitions message -->
+          <div *ngIf="!loading && !featuredCompetition" class="alert alert-info">
+            No competitions found.
+          </div>
+          
+          <!-- Featured competition -->
+          <div class="row" *ngIf="!loading && featuredCompetition">
+            <div class="col-lg-12">
+              <div class="widget-next-match">
+                <div class="widget-title">
+                  <h3>{{ featuredCompetition.nameCompetition }}</h3>
+                </div>
+                <div class="widget-body mb-3">
+                  <div class="row align-items-center">
+                    <div class="col-md-4">
+                      <div class="tournament-logo text-center">
+                        <img src="assets/front/images/t2.jpg" alt="Trophy" class="img-fluid" style="max-height: 150px;">
+                        <h4 class="mt-3">{{ featuredCompetition.TypeC }}</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="tournament-info">
+                        <div class="d-flex justify-content-between mb-3">
+                          <div>
+                            <h5 class="text-white">Matches</h5>
+                            <p class="text-white">{{ getMatchCount(featuredCompetition) }} matches scheduled</p>
+                          <!-- </div>
+                          <div>
+                            <h5 class="text-white">Type</h5>
+                            <p><span [class]="getTypeClass(featuredCompetition.TypeC)">{{ featuredCompetition.TypeC }}</span></p>
+                          </div> -->
+                        </div>
+                        
+                        <div class="tournament-actions mt-4">
+                          <a [routerLink]="['/competitions/clubs', featuredCompetition.idCompetition]" class="btn btn-danger mr-2">
+                            <i class="bi bi-people"></i> Participating Clubs
+                          </a>
+                          <a [routerLink]="['/competitions/matches', featuredCompetition.idCompetition]" class="btn btn-danger mr-2">
+                            <i class="bi bi-trophy"></i> Matches
+                          </a>
+                          <a [routerLink]="['/competitions/standings', featuredCompetition.idCompetition]" class="btn btn-danger">
+                            <i class="bi bi-table"></i> Standings
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- All competitions section -->
+      <div id="competitions" class="site-section bg-light-custom">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 title-section">
+              <h2 class="heading">All Competitions</h2>
+            </div>
+          </div>
+          
+          <!-- Loading spinner (if not already shown above) -->
+          <div *ngIf="loading && !featuredCompetition" class="text-center my-5">
+            <div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          
+          <!-- No competitions message (if not already shown above) -->
+          <div *ngIf="!loading && competitions.length === 0 && !featuredCompetition" class="alert alert-info">
+            No competitions found.
+          </div>
+        
+          <!-- Competitions grid -->
+          <div class="row" *ngIf="!loading && competitions.length > 0">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let competition of competitions">
+              <div class="competition-card">
+                <div class="competition-card-header">
+                  <h3 class="competition-name">{{ competition.nameCompetition }}</h3>
+                  <span [class]="getTypeClass(competition.TypeC)">{{ competition.TypeC }}</span>
+                </div>
+                <img src="assets/front/images/c2.avif" alt="Trophy" class="img-fluid" style="max-height: 240px;" >
+
+                <div class="competition-card-body">
+                  <div class="competition-info-container">
+                    <div class="competition-info-item">
+                      <div class="info-label">Matches</div>
+                      <div class="info-value">{{ getMatchCount(competition) }}</div>
+                    </div>
+                  </div>
+                  
+                  <div class="competition-card-footer">
+                    <a [routerLink]="['/competitions/clubs', competition.idCompetition]" class="btn btn-sm btn-outline-light mr-2">
+                      <i class="bi bi-people"></i> Clubs
+                    </a>
+                    <a [routerLink]="['/competitions/matches', competition.idCompetition]" class="btn btn-sm btn-outline-light mr-2">
+                      <i class="bi bi-trophy"></i> Matches
+                    </a>
+                    <a [routerLink]="['/competitions/standings', competition.idCompetition]" class="btn btn-sm btn-outline-light">
+                      <i class="bi bi-table"></i> Standings
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  

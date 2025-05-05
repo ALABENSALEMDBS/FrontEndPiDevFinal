@@ -1,48 +1,49 @@
-<!-- src/app/components/cup/cup-clubs/cup-clubs.component.html -->
 <div class="container-fluid p-4">
-    <div class="card">
-      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-        <h2>Participating Clubs in {{ cup?.name }}</h2>
-        <button class="btn btn-light" (click)="goBack()">
-          <i class="bi bi-arrow-left"></i> Back to Cups
-        </button>
+  <div class="card">
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+      <h2>Participating Clubs: {{ cup?.name }}</h2>
+      <button class="btn btn-light" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Back to Cups
+      </button>
+    </div>
+    <div class="card-body">
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center my-5">
+        <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
-      <div class="card-body">
-        <!-- Loading spinner -->
-        <div *ngIf="loading" class="text-center my-5">
-          <div class="spinner-border text-success" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-  
-        <!-- Error message -->
-        <div *ngIf="error" class="alert alert-danger">
-          {{ error }}
-        </div>
-  
-        <!-- No clubs message -->
-        <div *ngIf="!loading && clubs.length === 0" class="alert alert-info">
-          No clubs found for this cup tournament.
-        </div>
-  
-        <!-- Clubs grid -->
-        <div class="row row-cols-1 row-cols-md-3 g-4" *ngIf="!loading && clubs.length > 0">
-          <div class="col" *ngFor="let club of clubs">
-            <div class="card h-100">
-              <div class="card-body text-center">
-                <img 
-                  [src]="club.logo" 
-                  [alt]="club.nameClub" 
-                  class="mb-3" 
-                  style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"
-                >
-                <h5 class="card-title">{{ club.nameClub }}</h5>
-                <p class="card-text">
-                  <small class="text-muted">{{ club.adressClub }}</small>
-                </p>
-                <p class="card-text">
-                  <small class="text-muted">Founded: {{ formatDate(club.dateClub) }}</small>
-                </p>
+
+      <!-- Error message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- No clubs message -->
+      <div *ngIf="!loading && clubs.length === 0" class="alert alert-info">
+        No clubs found for this cup tournament.
+      </div>
+
+      <!-- Clubs grid -->
+      <div *ngIf="!loading && clubs.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div *ngFor="let club of clubs" class="col">
+          <div class="card h-100 club-card">
+            <div class="card-header bg-light d-flex justify-content-center align-items-center" style="height: 120px;">
+              <img 
+                [src]="club.logo" 
+                [alt]="club.nameClub" 
+                class="club-logo"
+                onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;"
+              >
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center">{{ club.nameClub }}</h5>
+              <div class="club-details">
+                <!-- <p><strong>Founded:</strong> {{ club.dateClub }}</p> -->
+                <p><strong>Founded:</strong> {{ club.dateClub | date:'dd MMMM yyyy' }}</p>
+
+                <!-- <p><strong>Stadium:</strong> {{ matc }}</p> -->
+                <!-- <p><strong>Country:</strong> {{ club.pays || 'N/A' }}</p> -->
               </div>
             </div>
           </div>
@@ -50,3 +51,4 @@
       </div>
     </div>
   </div>
+</div>

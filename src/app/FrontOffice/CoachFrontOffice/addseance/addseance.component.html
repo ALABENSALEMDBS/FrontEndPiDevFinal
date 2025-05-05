@@ -25,15 +25,21 @@
         <div class="form-group">
           <label for="titleSeance">Session Title:</label>
           <input type="text" id="titleSeance" formControlName="titleSeance"
-            required maxlength="100" pattern="^[a-zA-ZÀ-ÿ0-9\s\-'\u2019]+$" autocomplete="off">
+            required maxlength="100" pattern="^[a-zA-ZÀ-ÿ0-9\s\-'\u2019]+$" autocomplete="off"
+            [class.is-invalid]="seanceForm.get('titleSeance')?.invalid && (seanceForm.get('titleSeance')?.dirty || seanceForm.get('titleSeance')?.touched)"
+            [class.is-valid]="seanceForm.get('titleSeance')?.valid && (seanceForm.get('titleSeance')?.dirty || seanceForm.get('titleSeance')?.touched)">
           <div *ngIf="seanceForm.get('titleSeance')?.invalid && (seanceForm.get('titleSeance')?.dirty || seanceForm.get('titleSeance')?.touched)" class="error-message">
-            Title is required, at least 3 characters, and without special characters.
+            <span *ngIf="seanceForm.get('titleSeance')?.errors?.['required']">Title is required.</span>
+            <span *ngIf="seanceForm.get('titleSeance')?.errors?.['minlength']">Title must be at least 3 characters.</span>
+            <span *ngIf="seanceForm.get('titleSeance')?.errors?.['pattern']">Title must not contain special characters.</span>
           </div>
         </div>
 
         <div class="form-group">
           <label for="typeSeance">Session Type:</label>
-          <select id="typeSeance" formControlName="typeSeance" required>
+          <select id="typeSeance" formControlName="typeSeance" required
+            [class.is-invalid]="seanceForm.get('typeSeance')?.invalid && (seanceForm.get('typeSeance')?.dirty || seanceForm.get('typeSeance')?.touched)"
+            [class.is-valid]="seanceForm.get('typeSeance')?.valid && (seanceForm.get('typeSeance')?.dirty || seanceForm.get('typeSeance')?.touched)">
             <option value="">Select a type</option>
             <option value="Cardio">Cardio</option>
             <option value="Musculation">Strength</option>
@@ -51,7 +57,16 @@
         <div class="form-group">
           <label for="description">Description:</label>
           <textarea id="description" formControlName="description"
-            maxlength="500" pattern="^[a-zA-ZÀ-ÿ0-9\s\-'\u2019,.()!?]*$" autocomplete="off"></textarea>
+            maxlength="500" pattern="^[a-zA-ZÀ-ÿ0-9\s\-'\u2019,.()!?]*$" autocomplete="off"
+            [class.is-invalid]="seanceForm.get('description')?.invalid && (seanceForm.get('description')?.dirty || seanceForm.get('description')?.touched)"
+            [class.is-valid]="seanceForm.get('description')?.valid && seanceForm.get('description')?.value && (seanceForm.get('description')?.dirty || seanceForm.get('description')?.touched)"></textarea>
+          <div *ngIf="seanceForm.get('description')?.invalid && (seanceForm.get('description')?.dirty || seanceForm.get('description')?.touched)" class="error-message">
+            <span *ngIf="seanceForm.get('description')?.errors?.['minlength']">Description must be at least 5 characters.</span>
+            <span *ngIf="seanceForm.get('description')?.errors?.['pattern']">Description contains invalid characters.</span>
+          </div>
+          <small class="char-count" *ngIf="seanceForm.get('description')?.value">
+            {{ seanceForm.get('description')?.value.length }}/500 characters
+          </small>
         </div>
 
         <div class="form-navigation">
@@ -66,7 +81,9 @@
 
         <div class="form-group">
           <label for="jourSeance">Day:</label>
-          <input type="date" id="jourSeance" formControlName="jourSeance" required>
+          <input type="date" id="jourSeance" formControlName="jourSeance" required
+            [class.is-invalid]="seanceForm.get('jourSeance')?.invalid && (seanceForm.get('jourSeance')?.dirty || seanceForm.get('jourSeance')?.touched)"
+            [class.is-valid]="seanceForm.get('jourSeance')?.valid && (seanceForm.get('jourSeance')?.dirty || seanceForm.get('jourSeance')?.touched)">
           <div *ngIf="seanceForm.get('jourSeance')?.invalid && (seanceForm.get('jourSeance')?.dirty || seanceForm.get('jourSeance')?.touched)" class="error-message">
             Day is required.
           </div>
@@ -74,19 +91,27 @@
 
         <div class="form-group">
           <label for="heureDebut">Start Time:</label>
-          <input type="time" id="heureDebut" formControlName="heureDebut" required>
+          <input type="time" id="heureDebut" formControlName="heureDebut" required
+            [class.is-invalid]="seanceForm.get('heureDebut')?.invalid && (seanceForm.get('heureDebut')?.dirty || seanceForm.get('heureDebut')?.touched)"
+            [class.is-valid]="seanceForm.get('heureDebut')?.valid && (seanceForm.get('heureDebut')?.dirty || seanceForm.get('heureDebut')?.touched)"
+            (blur)="calculateDuration()">
           <div *ngIf="seanceForm.get('heureDebut')?.invalid && (seanceForm.get('heureDebut')?.dirty || seanceForm.get('heureDebut')?.touched)" class="error-message">
-            Start time is required.
+            <span *ngIf="seanceForm.get('heureDebut')?.errors?.['required']">Start time is required.</span>
+            <span *ngIf="seanceForm.get('heureDebut')?.errors?.['pattern'] || seanceForm.get('heureDebut')?.errors?.['invalidTimeFormat']">Invalid time format.</span>
           </div>
         </div>
 
         <div class="form-group">
           <label for="heureFin">End Time:</label>
-          <input type="time" id="heureFin" formControlName="heureFin" required>
+          <input type="time" id="heureFin" formControlName="heureFin" required
+            [class.is-invalid]="(seanceForm.get('heureFin')?.invalid && (seanceForm.get('heureFin')?.dirty || seanceForm.get('heureFin')?.touched)) || seanceForm.errors?.['heureInvalide']"
+            [class.is-valid]="seanceForm.get('heureFin')?.valid && (seanceForm.get('heureFin')?.dirty || seanceForm.get('heureFin')?.touched) && !seanceForm.errors?.['heureInvalide']"
+            (blur)="calculateDuration()">
           <div *ngIf="seanceForm.get('heureFin')?.invalid && (seanceForm.get('heureFin')?.dirty || seanceForm.get('heureFin')?.touched)" class="error-message">
-            End time is required.
+            <span *ngIf="seanceForm.get('heureFin')?.errors?.['required']">End time is required.</span>
+            <span *ngIf="seanceForm.get('heureFin')?.errors?.['pattern'] || seanceForm.get('heureFin')?.errors?.['invalidTimeFormat']">Invalid time format.</span>
           </div>
-          <div *ngIf="seanceForm.errors?.['heureInvalide']" class="error-message">
+          <div *ngIf="seanceForm.errors?.['heureInvalide'] && seanceForm.get('heureDebut')?.valid && seanceForm.get('heureFin')?.valid" class="error-message">
             End time must be after start time.
           </div>
         </div>
@@ -94,12 +119,15 @@
         <div class="form-group">
           <label for="durationMinutes">Duration (minutes):</label>
           <input type="number" id="durationMinutes" formControlName="durationMinutes"
-            min="5" max="240" required>
+            min="5" max="240" required
+            [class.is-invalid]="seanceForm.get('durationMinutes')?.invalid && (seanceForm.get('durationMinutes')?.dirty || seanceForm.get('durationMinutes')?.touched)"
+            [class.is-valid]="seanceForm.get('durationMinutes')?.valid && (seanceForm.get('durationMinutes')?.dirty || seanceForm.get('durationMinutes')?.touched)">
           <div *ngIf="seanceForm.get('durationMinutes')?.invalid && (seanceForm.get('durationMinutes')?.dirty || seanceForm.get('durationMinutes')?.touched)" class="error-message">
             <span *ngIf="seanceForm.get('durationMinutes')?.errors?.['required']">Duration is required.</span>
             <span *ngIf="seanceForm.get('durationMinutes')?.errors?.['min']">Minimum 5 minutes.</span>
             <span *ngIf="seanceForm.get('durationMinutes')?.errors?.['max']">Maximum 240 minutes.</span>
           </div>
+          <small class="help-text">Duration will be calculated automatically from start and end times.</small>
         </div>
 
         <div class="form-navigation">
@@ -114,9 +142,13 @@
         <div class="form-group">
           <label for="location">Location:</label>
           <input type="text" id="location" formControlName="location"
-            required maxlength="100" pattern="^[a-zA-ZÀ-ÿ0-9\s\-'\u2019,.]+$" autocomplete="off">
+            required maxlength="100" pattern="^[a-zA-ZÀ-ÿ0-9\s\-'\u2019,.]+$" autocomplete="off"
+            [class.is-invalid]="seanceForm.get('location')?.invalid && (seanceForm.get('location')?.dirty || seanceForm.get('location')?.touched)"
+            [class.is-valid]="seanceForm.get('location')?.valid && (seanceForm.get('location')?.dirty || seanceForm.get('location')?.touched)">
           <div *ngIf="seanceForm.get('location')?.invalid && (seanceForm.get('location')?.dirty || seanceForm.get('location')?.touched)" class="error-message">
-            Location is required and must not contain special characters.
+            <span *ngIf="seanceForm.get('location')?.errors?.['required']">Location is required.</span>
+            <span *ngIf="seanceForm.get('location')?.errors?.['minlength']">Location must be at least 2 characters.</span>
+            <span *ngIf="seanceForm.get('location')?.errors?.['pattern']">Location must not contain special characters.</span>
           </div>
         </div>
 
@@ -131,8 +163,20 @@
         <h3>Intensity</h3>
         <div class="form-group">
           <label for="intensityLevel">Intensity Level:</label>
-          <input type="number" id="intensityLevel" formControlName="intensityLevel"
-            min="1" max="10" required>
+          <div class="intensity-input-container">
+            <input type="range" id="intensityLevel-range" 
+              min="1" max="10" step="1"
+              [value]="seanceForm.get('intensityLevel')?.value || 5"
+          type="number" id="intensityLevel" formControlName="intensityLevel"
+              min="1" max="10" required
+              [class.is-invalid]="seanceForm.get('intensityLevel')?.invalid && (seanceForm.get('intensityLevel')?.dirty || seanceForm.get('intensityLevel')?.touched)"
+              [class.is-valid]="seanceForm.get('intensityLevel')?.valid && (seanceForm.get('intensityLevel')?.dirty || seanceForm.get('intensityLevel')?.touched)">
+          </div>
+          <div class="intensity-scale">
+            <span>Low</span>
+            <span>Medium</span>
+            <span>High</span>
+          </div>
           <div *ngIf="seanceForm.get('intensityLevel')?.invalid && (seanceForm.get('intensityLevel')?.dirty || seanceForm.get('intensityLevel')?.touched)" class="error-message">
             <span *ngIf="seanceForm.get('intensityLevel')?.errors?.['required']">Intensity level is required.</span>
             <span *ngIf="seanceForm.get('intensityLevel')?.errors?.['min'] || seanceForm.get('intensityLevel')?.errors?.['max']">Value must be between 1 and 10.</span>

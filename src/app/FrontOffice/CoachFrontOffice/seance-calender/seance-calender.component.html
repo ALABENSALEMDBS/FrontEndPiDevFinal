@@ -54,90 +54,207 @@
       </button>
     </div>
     
-    <form [formGroup]="seanceForm" (ngSubmit)="submitForm()" novalidate>
-
+    <form [formGroup]="seanceForm" (ngSubmit)="submitForm()" novalidate class="seance-form">
       <!-- Title -->
       <div class="form-group">
-        <label for="titleSeance">Title</label>
-        <input type="text" id="titleSeance" formControlName="titleSeance" class="form-control" required>
-        <div *ngIf="seanceForm.get('titleSeance')?.touched && seanceForm.get('titleSeance')?.invalid" class="invalid-feedback d-block">
-          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['required']">Title is required.</div>
-          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['minlength']">Min 5 characters.</div>
-          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['maxlength']">Max 100 characters.</div>
-          <div *ngIf="seanceForm.get('titleSeance')?.errors?.['pattern']">Only letters, numbers, accents, and spaces allowed.</div>
+        <label for="titleSeance">Title <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="titleSeance" 
+          formControlName="titleSeance" 
+          class="form-control" 
+          [class.is-invalid]="isInvalidAndTouched('titleSeance')"
+          placeholder="Enter session title"
+          required
+        >
+        <div class="validation-feedback" *ngIf="isInvalidAndTouched('titleSeance')">
+          <div *ngIf="hasError('titleSeance', 'required')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Title is required.
+          </div>
+          <div *ngIf="hasError('titleSeance', 'minlength')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Title must be at least 5 characters.
+          </div>
+          <div *ngIf="hasError('titleSeance', 'maxlength')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Title cannot exceed 100 characters.
+          </div>
+          <div *ngIf="hasError('titleSeance', 'pattern')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Only letters, numbers, accents, and spaces allowed.
+          </div>
         </div>
       </div>
     
       <!-- Date -->
       <div class="form-group">
-        <label for="jourSeance">Date</label>
-        <input type="date" id="jourSeance" formControlName="jourSeance" class="form-control" required>
-        <div *ngIf="seanceForm.get('jourSeance')?.touched && seanceForm.get('jourSeance')?.invalid" class="invalid-feedback d-block">
-          <div *ngIf="seanceForm.get('jourSeance')?.errors?.['required']">Date is required.</div>
-          <div *ngIf="seanceForm.get('jourSeance')?.errors?.['dateInPast']">Date cannot be in the past.</div>
+        <label for="jourSeance">Date <span class="required-star">*</span></label>
+        <input 
+          type="date" 
+          id="jourSeance" 
+          formControlName="jourSeance" 
+          class="form-control"
+          [class.is-invalid]="isInvalidAndTouched('jourSeance')"
+          required
+        >
+        <div class="validation-feedback" *ngIf="isInvalidAndTouched('jourSeance')">
+          <div *ngIf="hasError('jourSeance', 'required')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Date is required.
+          </div>
+          <div *ngIf="hasError('jourSeance', 'dateInPast')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Date cannot be in the past.
+          </div>
         </div>
       </div>
     
       <!-- Time -->
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="heureDebut">Start Time</label>
-          <input type="time" id="heureDebut" formControlName="heureDebut" class="form-control" required>
+          <label for="heureDebut">Start Time <span class="required-star">*</span></label>
+          <input 
+            type="time" 
+            id="heureDebut" 
+            formControlName="heureDebut" 
+            class="form-control"
+            [class.is-invalid]="isInvalidAndTouched('heureDebut') || 
+                               (seanceForm.errors?.['invalidTimeOrder'] && 
+                               (seanceForm.get('heureDebut')?.touched || seanceForm.get('heureFin')?.touched || formSubmitted))"
+            required
+          >
         </div>
         <div class="form-group col-md-6">
-          <label for="heureFin">End Time</label>
-          <input type="time" id="heureFin" formControlName="heureFin" class="form-control" required>
+          <label for="heureFin">End Time <span class="required-star">*</span></label>
+          <input 
+            type="time" 
+            id="heureFin" 
+            formControlName="heureFin" 
+            class="form-control"
+            [class.is-invalid]="isInvalidAndTouched('heureFin') || 
+                               (seanceForm.errors?.['invalidTimeOrder'] && 
+                               (seanceForm.get('heureDebut')?.touched || seanceForm.get('heureFin')?.touched || formSubmitted))"
+            required
+          >
         </div>
       </div>
-      <div class="invalid-feedback d-block" *ngIf="seanceForm.errors?.['invalidTimeOrder'] && (seanceForm.get('heureDebut')?.touched || seanceForm.get('heureFin')?.touched)">
-        End time must be after start time.
+      <div class="validation-feedback" *ngIf="seanceForm.errors?.['invalidTimeOrder'] && 
+                                           (seanceForm.get('heureDebut')?.touched || 
+                                           seanceForm.get('heureFin')?.touched || 
+                                           formSubmitted)">
+        <div class="error-message">
+          <i class="fas fa-exclamation-circle"></i> End time must be after start time.
+        </div>
       </div>
     
       <!-- Type -->
       <div class="form-group">
-        <label for="typeSeance">Session Type</label>
-        <select id="typeSeance" formControlName="typeSeance" class="form-control" required>
+        <label for="typeSeance">Session Type <span class="required-star">*</span></label>
+        <select 
+          id="typeSeance" 
+          formControlName="typeSeance" 
+          class="form-control"
+          [class.is-invalid]="isInvalidAndTouched('typeSeance')"
+          required
+        >
           <option value="">Select a type</option>
           <option value="Group">Group</option>
           <option value="Individual">Individual</option>
           <option value="Workshop">Workshop</option>
           <option value="Seminar">Seminar</option>
         </select>
-        <div class="invalid-feedback d-block" *ngIf="seanceForm.get('typeSeance')?.touched && seanceForm.get('typeSeance')?.invalid">
-          Session type is required.
+        <div class="validation-feedback" *ngIf="isInvalidAndTouched('typeSeance')">
+          <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Session type is required.
+          </div>
         </div>
       </div>
     
       <!-- Location -->
       <div class="form-group">
-        <label for="location">Location</label>
-        <input type="text" id="location" formControlName="location" class="form-control" required>
-        <div *ngIf="seanceForm.get('location')?.touched && seanceForm.get('location')?.invalid" class="invalid-feedback d-block">
-          <div *ngIf="seanceForm.get('location')?.errors?.['required']">Location is required.</div>
-          <div *ngIf="seanceForm.get('location')?.errors?.['minlength']">Min 3 characters required.</div>
-          <div *ngIf="seanceForm.get('location')?.errors?.['pattern']">Invalid characters in location name.</div>
+        <label for="location">Location <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="location" 
+          formControlName="location" 
+          class="form-control"
+          [class.is-invalid]="isInvalidAndTouched('location')"
+          placeholder="Enter location"
+          required
+        >
+        <div class="validation-feedback" *ngIf="isInvalidAndTouched('location')">
+          <div *ngIf="hasError('location', 'required')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Location is required.
+          </div>
+          <div *ngIf="hasError('location', 'minlength')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Location must be at least 3 characters.
+          </div>
+          <div *ngIf="hasError('location', 'pattern')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Invalid characters in location name.
+          </div>
         </div>
       </div>
     
       <!-- Duration & Intensity -->
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="durationMinutes">Duration (minutes)</label>
-          <input type="number" id="durationMinutes" formControlName="durationMinutes" class="form-control" min="5" max="300" required>
-          <div *ngIf="seanceForm.get('durationMinutes')?.touched && seanceForm.get('durationMinutes')?.invalid" class="invalid-feedback d-block">
-            <div *ngIf="seanceForm.get('durationMinutes')?.errors?.['required']">Duration is required.</div>
-            <div *ngIf="seanceForm.get('durationMinutes')?.errors?.['min']">Min 5 minutes.</div>
-            <div *ngIf="seanceForm.get('durationMinutes')?.errors?.['max']">Max 300 minutes.</div>
+          <label for="durationMinutes">Duration (minutes) <span class="required-star">*</span></label>
+          <input 
+            type="number" 
+            id="durationMinutes" 
+            formControlName="durationMinutes" 
+            class="form-control" 
+            min="5" 
+            max="300"
+            [class.is-invalid]="isInvalidAndTouched('durationMinutes')"
+            required
+          >
+          <div class="validation-feedback" *ngIf="isInvalidAndTouched('durationMinutes')">
+            <div *ngIf="hasError('durationMinutes', 'required')" class="error-message">
+              <i class="fas fa-exclamation-circle"></i> Duration is required.
+            </div>
+            <div *ngIf="hasError('durationMinutes', 'min')" class="error-message">
+              <i class="fas fa-exclamation-circle"></i> Duration must be at least 5 minutes.
+            </div>
+            <div *ngIf="hasError('durationMinutes', 'max')" class="error-message">
+              <i class="fas fa-exclamation-circle"></i> Duration cannot exceed 300 minutes.
+            </div>
           </div>
         </div>
     
         <div class="form-group col-md-6">
-          <label for="intensityLevel">Intensity Level (1–5)</label>
-          <input type="number" id="intensityLevel" formControlName="intensityLevel" class="form-control" min="1" max="5" required>
-          <div *ngIf="seanceForm.get('intensityLevel')?.touched && seanceForm.get('intensityLevel')?.invalid" class="invalid-feedback d-block">
-            <div *ngIf="seanceForm.get('intensityLevel')?.errors?.['required']">Intensity is required.</div>
-            <div *ngIf="seanceForm.get('intensityLevel')?.errors?.['min'] || seanceForm.get('intensityLevel')?.errors?.['max']">
-              Must be between 1 and 5.
+          <label for="intensityLevel">Intensity Level (1–5) <span class="required-star">*</span></label>
+          <div class="intensity-input-group">
+            <input 
+              type="range" 
+              id="intensityRange" 
+              [formControlName]="'intensityLevel'" 
+              min="1" 
+              max="5" 
+              step="1" 
+              class="intensity-slider"
+              [style.background]="'linear-gradient(to right, #28a745, #ffc107, #dc3545)'"
+            >
+            <input 
+              type="number" 
+              id="intensityLevel" 
+              formControlName="intensityLevel" 
+              class="form-control intensity-number" 
+              min="1" 
+              max="5"
+              [class.is-invalid]="isInvalidAndTouched('intensityLevel')"
+              required
+            >
+          </div>
+          <div class="intensity-labels">
+            <span>Low</span>
+            <span>Medium</span>
+            <span>High</span>
+          </div>
+          <div class="intensity-text" *ngIf="seanceForm.get('intensityLevel')?.value">
+            {{ getIntensityText(seanceForm.get('intensityLevel')?.value) }}
+          </div>
+          <div class="validation-feedback" *ngIf="isInvalidAndTouched('intensityLevel')">
+            <div *ngIf="hasError('intensityLevel', 'required')" class="error-message">
+              <i class="fas fa-exclamation-circle"></i> Intensity is required.
+            </div>
+            <div *ngIf="hasError('intensityLevel', 'min') || hasError('intensityLevel', 'max')" class="error-message">
+              <i class="fas fa-exclamation-circle"></i> Intensity must be between 1 and 5.
             </div>
           </div>
         </div>
@@ -146,23 +263,46 @@
       <!-- Description -->
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="description" formControlName="description" class="form-control" rows="3" maxlength="300"></textarea>
-        <div *ngIf="seanceForm.get('description')?.touched && seanceForm.get('description')?.invalid" class="invalid-feedback d-block">
-          <div *ngIf="seanceForm.get('description')?.errors?.['maxlength']">Max 300 characters.</div>
-          <div *ngIf="seanceForm.get('description')?.errors?.['containsHtml']">No HTML tags allowed.</div>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          class="form-control" 
+          rows="3" 
+          maxlength="300"
+          [class.is-invalid]="isInvalidAndTouched('description')"
+          placeholder="Enter session description (optional)"
+        ></textarea>
+        <div class="char-counter" [class.warning]="seanceForm.get('description')?.value?.length > 250">
+          {{ seanceForm.get('description')?.value?.length || 0 }}/300
+        </div>
+        <div class="validation-feedback" *ngIf="isInvalidAndTouched('description')">
+          <div *ngIf="hasError('description', 'maxlength')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Description cannot exceed 300 characters.
+          </div>
+          <div *ngIf="hasError('description', 'containsHtml')" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> HTML tags are not allowed in the description.
+          </div>
+        </div>
+      </div>
+    
+      <!-- Form validation summary -->
+      <div class="validation-summary" *ngIf="formSubmitted && seanceForm.invalid">
+        <div class="alert alert-warning">
+          <i class="fas fa-exclamation-triangle"></i>
+          Please correct the errors in the form before submitting.
         </div>
       </div>
     
       <!-- Buttons -->
       <div class="form-buttons mt-3">
-        <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
-        <button type="submit" class="btn btn-primary" [disabled]="seanceForm.invalid">
-          {{ isEditing ? 'Update' : 'Save' }}
+        <button type="button" class="btn btn-secondary" (click)="closeForm()">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save"></i> {{ isEditing ? 'Update' : 'Save' }}
         </button>
       </div>
     </form>
-    
-    
   </div>
 
   <!-- Day Seances Modal -->
@@ -191,17 +331,24 @@
         <p><strong>Type:</strong> {{ seance.typeSeance }}</p>
         <p><strong>Location:</strong> {{ seance.location }}</p>
         <p><strong>Duration:</strong> {{ seance.durationMinutes }} minutes</p>
-        <p><strong>Intensity:</strong> {{ seance.intensityLevel }}/5</p>
+        <p><strong>Intensity:</strong> 
+          <span class="intensity-badge" [style.background-color]="getIntensityColor(seance.intensityLevel)">
+            {{ seance.intensityLevel }}/5 - {{ getIntensityText(seance.intensityLevel) }}
+          </span>
+        </p>
         
         <p *ngIf="seance.description"><strong>Description:</strong> {{ seance.description }}</p>
         
         <div class="action-buttons">
+          <button class="btn btn-sm btn-primary" (click)="openEditForm(seance)">
+            <i class="fas fa-edit"></i> Edit
+          </button>
           <button class="btn btn-sm btn-danger" (click)="openConfirmPopup(seance.idSeance)">
-            Delete
+            <i class="fas fa-trash"></i> Delete
           </button>
         </div>
         
-        <!-- Exercises Section - NEW -->
+        <!-- Exercises Section -->
         <div class="exercises-section">
           <h6 class="mt-4">Exercises</h6>
           
@@ -234,7 +381,6 @@
                 <button class="btn btn-sm btn-outline-info" (click)="loadSousGroupesForExercise(exercise.idExercice)">
                   <i class="fas fa-users"></i> View Subgroups
                 </button>
-               
               </div>
             </div>
           </div>
@@ -293,7 +439,7 @@
     </div>
   </div>
 
-  <!-- Subgroups Modal - NEW -->
+  <!-- Subgroups Modal -->
   <div class="subgroups-modal-overlay" *ngIf="showSubgroupsModal">
     <div class="subgroups-modal">
       <div class="modal-header">

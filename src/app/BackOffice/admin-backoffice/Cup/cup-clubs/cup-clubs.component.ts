@@ -1,10 +1,10 @@
 // src/app/components/cup/cup-clubs/cup-clubs.component.ts
-import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CupService } from "src/app/services/serviceCup/cup.service";
-import { Clubs } from "src/core/models/clubs";
-import { Cup } from "src/core/models/cup";
+import { CommonModule } from "@angular/common"
+import { Component, OnInit } from "@angular/core"
+import { ActivatedRoute, Router } from "@angular/router"
+import { CupService } from "src/app/services/serviceCup/cup.service"
+import { Clubs } from "src/core/models/clubs"
+import { Cup } from "src/core/models/cup"
 
 @Component({
   selector: "app-cup-clubs",
@@ -14,11 +14,11 @@ import { Cup } from "src/core/models/cup";
   imports: [CommonModule],
 })
 export class CupClubsComponent implements OnInit {
-  cupId!: number;
-  cup: Cup | null = null;
-  clubs: Clubs[] = [];
-  loading = true;
-  error = "";
+  cupId!: number
+  cup: Cup | null = null
+  clubs: Clubs[] = []
+  loading = true
+  error = ""
 
   constructor(
     private cupService: CupService,
@@ -27,45 +27,45 @@ export class CupClubsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cupId = +this.route.snapshot.paramMap.get("id")!;
-    this.loadCup();
-    this.loadClubs();
+    this.cupId = +this.route.snapshot.paramMap.get("id")!
+    this.loadCup()
+    this.loadClubs()
   }
 
   loadCup(): void {
     this.cupService.getCupById(this.cupId).subscribe({
       next: (data) => {
-        this.cup = data;
+        this.cup = data
       },
       error: (err) => {
-        this.error = "Failed to load cup details.";
-        console.error(err);
+        this.error = "Failed to load cup details."
+        console.error(err)
       },
-    });
+    })
   }
 
   loadClubs(): void {
-    this.loading = true;
+    this.loading = true
     this.cupService.getParticipatingClubs(this.cupId).subscribe({
       next: (data) => {
-        this.clubs = data;
-        this.loading = false;
+        this.clubs = data
+        this.loading = false
       },
       error: (err) => {
-        this.error = "Failed to load participating clubs. Please try again.";
-        console.error(err);
-        this.loading = false;
+        this.error = "Failed to load participating clubs. Please try again."
+        console.error(err)
+        this.loading = false
       },
-    });
+    })
   }
 
   goBack(): void {
-    this.router.navigate(["/superadmin/showcup"]);
+    this.router.navigate(["/superadmin/showcup"])
   }
 
   formatDate(dateString: string): string {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
+    if (!dateString) return ""
+    const date = new Date(dateString)
+    return date.toLocaleDateString()
   }
 }

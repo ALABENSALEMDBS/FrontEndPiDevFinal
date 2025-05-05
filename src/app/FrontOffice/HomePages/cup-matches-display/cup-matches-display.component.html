@@ -1,0 +1,124 @@
+<div class="site-wrap">
+    <!-- Hero section -->
+    <div class="hero overlay" style="background-image: url('assets/front/images/bg_3.jpg');">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5 ml-auto">
+            <h1 class="text-white">{{ currentPage }}</h1>
+            <p>View all matches for this cup tournament.</p>
+            <a routerLink="/cups" class="btn btn-danger py-3 px-4 mr-3">Back to Cups</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-wrapper">
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center my-5">
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      
+      <!-- Error message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+      
+      <!-- No matches message -->
+      <div *ngIf="!loading && roundNames.length === 0" class="container mt-5">
+        <div class="alert alert-info">
+          No matches found for this cup tournament.
+        </div>
+      </div>
+      
+      <!-- Tournament winner -->
+      <div *ngIf="isLastRound() && getTournamentWinner()" class="site-section bg-dark">
+        <div class="container">
+          <div class="tournament-winner">
+            <div class="winner-container">
+              <div class="winner-trophy">
+                <img src="assets/front/images/trophy.png" alt="Trophy">
+              </div>
+              <div class="winner-info">
+                <h3>Tournament Champion</h3>
+                <div class="winner-team">
+                  <!-- <img 
+                    [src]="matchesByRound['Final'][0].winner.logo" 
+                    [alt]="matchesByRound['Final'][0].winner.nameClub" 
+                    class="winner-logo"
+                    onerror="this.src='/placeholder.svg?height=60&width=60'; this.onerror=null;"
+                  > -->
+                  <h4>{{ getTournamentWinner() }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Matches by round -->
+      <div *ngIf="!loading && roundNames.length > 0">
+        <div *ngFor="let roundName of roundNames" class="site-section" [ngClass]="{'bg-dark': roundNames.indexOf(roundName) % 2 === 0, 'bg-light-custom': roundNames.indexOf(roundName) % 2 !== 0}">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 title-section">
+                <h2 class="heading text-white">{{ roundName }}</h2>
+                <div *ngIf="allMatchesHaveWinners(matchesByRound[roundName]) && roundName !== 'Final'" class="badge bg-success p-2 round-complete">
+                  Round Complete
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-lg-6 mb-4" *ngFor="let match of matchesByRound[roundName]; let i = index">
+                <div class="match-card" [ngClass]="{'match-completed': match.statusMatch?.toLowerCase() === 'completed'}">
+                  <div class="match-header">
+                    <span class="match-round">{{ roundName }} - Match {{ i + 1 }}</span>
+                    <span [class]="getStatusClass(match.statusMatch)">{{ match.statusMatch || 'Scheduled' }}</span>
+                  </div>
+                  <div class="match-teams">
+                    <div class="team team-1" [ngClass]="{'winner': hasWinner(match) && match.winner?.idClub === match.club1?.idClub}">
+                      <div class="team-logo">
+                        <img 
+                          [src]="match.club1?.logo" 
+                          [alt]="match.club1?.nameClub" 
+                          onerror="this.src='/placeholder.svg?height=40&width=40'; this.onerror=null;"
+                        >
+                      </div>
+                      <div class="team-name">{{ match.club1?.nameClub }}</div>
+                      <div class="team-score">{{ match.goals1 !== null ? match.goals1 : '-' }}</div>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team team-2" [ngClass]="{'winner': hasWinner(match) && match.winner?.idClub === match.club2?.idClub}">
+                      <div class="team-logo">
+                        <img 
+                          [src]="match.club2?.logo" 
+                          [alt]="match.club2?.nameClub" 
+                          onerror="this.src='/placeholder.svg?height=40&width=40'; this.onerror=null;"
+                        >
+                      </div>
+                      <div class="team-name">{{ match.club2?.nameClub }}</div>
+                      <div class="team-score">{{ match.goals2 !== null ? match.goals2 : '-' }}</div>
+                    </div>
+                  </div>
+                  <div class="match-details">
+                    <div class="match-info">
+                      <div><i class="bi bi-calendar"></i> {{ formatDate(match.dateMatch) }}</div>
+                      <div><i class="bi bi-clock"></i> {{ formatTime(match.dateMatch) }}</div>
+                      <div><i class="bi bi-geo-alt"></i> {{ match.lieuMatch || '' }}</div>
+                    </div>
+                    <div class="match-result" *ngIf="hasWinner(match)">
+                      <div class="winner-label">Winner:</div>
+                      <div class="winner-name">{{ getWinnerName(match) }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

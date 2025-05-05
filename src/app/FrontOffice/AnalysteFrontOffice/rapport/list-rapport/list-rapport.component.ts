@@ -5,7 +5,6 @@ import { FormsModule } from "@angular/forms"
 
 import type { Rapport } from "src/core/models/rapport"
 import type { Joueurs } from "src/core/models/joueur"
-import { UpdateRapportComponent } from "../update-rapport/update-rapport.component"
 import { PlayerRapportDetailsComponent } from "../player-rapport-details/player-rapport-details.component"
 import { JoueurService } from "src/app/services/serviceAdminClub/serviceJoueur/joueur.service"
 import { RapportService } from "src/app/services/serviceAnalyste/gerer-rapport/rapport.service"
@@ -14,7 +13,7 @@ import { RapportService } from "src/app/services/serviceAnalyste/gerer-rapport/r
 @Component({
   selector: "app-list-rapport",
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, UpdateRapportComponent, PlayerRapportDetailsComponent, FormsModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, PlayerRapportDetailsComponent, FormsModule],
   templateUrl: "./list-rapport.component.html",
   styleUrl: "./list-rapport.component.css",
 })
@@ -41,7 +40,6 @@ export class ListRapportComponent implements OnInit {
   selectedReport: Rapport | null = null
 
   // UI control flags
-  showReportDetails = false
   showDeleteConfirm = false
   reportIdToDelete: number | null = null
   showPlayersPanel = false
@@ -316,15 +314,9 @@ export class ListRapportComponent implements OnInit {
     // This allows us to toggle the panel without losing the selection
   }
 
-  // View a specific report's details
-  viewReportDetails(report: Rapport): void {
-    this.selectedReport = report
-    this.showReportDetails = true
-  }
-
-  closeReportDetails(): void {
-    this.showReportDetails = false
-    this.selectedReport = null
+  // Navigate to update report page instead of showing popup
+  navigateToUpdateReport(report: Rapport): void {
+    this.router.navigate(['updatereport', report.idRapport], { relativeTo: this.route });
   }
 
   // Delete report confirmation
@@ -420,4 +412,3 @@ export class ListRapportComponent implements OnInit {
     return ""
   }
 }
-

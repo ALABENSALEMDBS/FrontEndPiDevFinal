@@ -1,8 +1,8 @@
-<div class="container" style="color: black;">
-  <h2 style="text-align: center; margin-bottom: 20px;">Liste des Clubs</h2>
+<!-- <div class="container" style="color: black;">
+  <h2 style="text-align: center; margin-bottom: 20px;">Liste des Clubs</h2> -->
 
   <!-- Liste des Cartes Clubs -->
-  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  <!-- <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
     <div *ngFor="let club of clubs;let i = index" class="card"
       style="width: 300px; padding: 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); color: black; text-align: center; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
 
@@ -17,11 +17,11 @@
 
             <img *ngIf="imageUrls[i]" [src]="imageUrls[i]" alt="Logo du Club"
         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
-      
+       -->
 
 
       <!-- Boutons d'Action -->
-      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+      <!-- <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
         
         <button (click)="deleteClub(club.idClub)"
           style="background: transparent; color: #dc3545; border: 2px solid #dc3545; padding: 8px 12px; border-radius: 5px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s;">
@@ -35,22 +35,135 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Message si aucun club trouvé -->
-  <div *ngIf="clubs.length === 0" class="no-data" style="text-align: center; margin-top: 20px; font-size: 18px;">
+  <!-- <div *ngIf="clubs.length === 0" class="no-data" style="text-align: center; margin-top: 20px; font-size: 18px;">
     Aucun club trouvé.
   </div>
 
-  <br><br>
+  <br><br> -->
 
   <!-- Bouton Ajouter un Club -->
-  <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+  <!-- <div style="display: flex; justify-content: center; margin-bottom: 20px;">
     <button [routerLink]="['addclubs']"
       style="background: transparent; color: #28a745; border: 2px solid #28a745; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;">
       <i class="fas fa-plus"></i> Ajouter un Club
     </button>
   </div>
 
+  <router-outlet></router-outlet>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid p-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2>Club Management</h2>
+      <button class="btn btn-light" (click)="addNewClub()">
+        <i class="bi bi-plus-circle"></i> Add New Club
+      </button>
+    </div>
+    <div class="card-body">
+      <!-- Search bar -->
+      <div class="search-container mb-4">
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Search clubs..." 
+            [(ngModel)]="searchTerm"
+            (input)="searchClubs()"
+          >
+          <button 
+            class="btn btn-outline-secondary" 
+            type="button"
+            (click)="clearSearch()"
+            *ngIf="searchTerm"
+          >
+            <i class="bi bi-x"></i>
+          </button>
+          <button class="btn btn-outline-primary" type="button">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- No clubs message -->
+      <div *ngIf="!loading && filteredClubs.length === 0" class="alert alert-info">
+        No clubs found. Click "Add New Club" to create one.
+      </div>
+
+      <!-- Clubs grid -->
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="!loading && filteredClubs.length > 0">
+        <div class="col" *ngFor="let club of filteredClubs">
+          <div class="card h-100 club-card">
+            <div class="club-logo-container">
+              <img 
+                [src]="getClubLogoUrl(club)" 
+                class="card-img-top club-logo" 
+                [alt]="club.nameClub"
+                onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+              >
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ club.nameClub }}</h5>
+              <div class="club-details">
+                <p class="card-text"><i class="bi bi-envelope"></i> {{ club.emailClub }}</p>
+                <p class="card-text"><i class="bi bi-geo-alt"></i> {{ club.adressClub }}</p>
+                <p class="card-text"><i class="bi bi-calendar"></i> {{ club.dateClub | date }}</p>
+                <p class="card-text"><i class="bi bi-card-text"></i> License: {{ club.licenceClub }}</p>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent">
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-primary" (click)="updateClub(club.idClub)">
+                  <i class="bi bi-pencil"></i> Edit
+                </button>
+                <button class="btn btn-outline-danger" (click)="deleteClub(club.idClub)">
+                  <i class="bi bi-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div #bottomOfPage></div>
+
+  <!-- Router outlet for child routes -->
   <router-outlet></router-outlet>
 </div>
