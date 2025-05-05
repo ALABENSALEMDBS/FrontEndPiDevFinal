@@ -137,15 +137,72 @@ table {
 
 /* Title */
 .titre-fiche {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #c7d3df;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e0f2ff;
   text-align: center;
-  margin: 2rem 0 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 5px solid #040492;
-  letter-spacing: 1px;
+  margin: 2.5rem 0 1.5rem;
+  padding: 0.8rem 1.5rem;
+  letter-spacing: 2px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  text-shadow: 0 0 10px rgba(4, 4, 146, 0.5);
+  background: linear-gradient(135deg, rgba(4, 4, 146, 0.05), rgba(13, 110, 253, 0.1));
+  border-radius: 12px;
+  overflow: hidden;
+  animation: pulse 3s infinite alternate ease-in-out;
+}
+
+/* Borders */
+.titre-fiche::before,
+.titre-fiche::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, transparent, #040492, #0d6efd, #6868a0, transparent);
+  background-size: 200% 100%;
+  z-index: -1;
+}
+
+.titre-fiche::before {
+  top: 0;
+  animation: flow 4s infinite linear;
+}
+
+.titre-fiche::after {
+  bottom: 0;
+  animation: flow 4s infinite linear reverse;
+}
+
+/* Text effect */
+.titre-fiche span {
+  background: linear-gradient(90deg, #c7d3df, #ffffff, #c7d3df);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s infinite linear;
+}
+
+/* Animations */
+@keyframes pulse {
+  to { box-shadow: 0 0 20px rgba(21, 21, 211, 0.7), 0 0 40px rgba(13, 110, 253, 0.5); }
+}
+
+@keyframes flow {
+  to { background-position: 200% 0; }
+}
+
+@keyframes shimmer {
+  to { background-position: 200% 50%; }
+}
+
+/* Hover effect */
+.titre-fiche:hover {
+  transform: perspective(1000px) rotateX(5deg) scale(1.05);
+  transition: transform 0.5s ease;
 }
 
 /* Search Input */
