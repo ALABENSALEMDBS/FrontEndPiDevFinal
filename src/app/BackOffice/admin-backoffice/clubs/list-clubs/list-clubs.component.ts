@@ -185,8 +185,9 @@ export class ListClubsComponent implements OnInit {
   }
 
   updateClub(id: number): void {
-    this.router.navigate(['update', id], { relativeTo: this.route });
     this.scrollToBottom();
+
+    this.router.navigate(['update', id], { relativeTo: this.route });
   }
 
 

@@ -90,44 +90,42 @@
 
 
 
+
         <!-- Clubs Row -->
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="club1" class="form-label">Home Team</label>
-            <select 
-              id="club1" 
-              formControlName="club1" 
-              class="form-select text-black"  
-              [ngClass]="{ 'is-invalid': submitted && f['club1'].errors }"
-              (change)="onClub1Change()"
-            >
-              <option value="" disabled>Select home team</option>
-              <option *ngFor="let club of clubs" [value]="club.idClub">{{ club.nameClub }}</option>
-            </select>
-            <div *ngIf="submitted && f['club1'].errors" class="invalid-feedback">
-              <div *ngIf="f['club1'].errors['required']">Home team is required</div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label for="club2" class="form-label">Away Team</label>
-            <select 
-              id="club2" 
-              formControlName="club2" 
-              class="form-select text-black"  
-              [ngClass]="{ 'is-invalid': submitted && f['club2'].errors }"
-              (change)="onClub2Change()"
-            >
-              <option value="" disabled>Select away team</option>
-              <option *ngFor="let club of clubs" [value]="club.idClub">{{ club.nameClub }}</option>
-            </select>
-            <div *ngIf="submitted && f['club2'].errors" class="invalid-feedback">
-              <div *ngIf="f['club2'].errors['required']">Away team is required</div>
-            </div>
-          </div>
-        </div>
-        
-
-
+<div class="row mb-3">
+  <div class="col-md-6">
+    <label for="club1" class="form-label">Home Team</label>
+    <select 
+      id="club1" 
+      formControlName="club1" 
+      class="form-select text-black"  
+      [ngClass]="{ 'is-invalid': submitted && f['club1'].errors }"
+      (change)="onClub1Change()"
+    >
+      <option value="" disabled>Select home team</option>
+      <option *ngFor="let club of filteredClubsForTeam1" [value]="club.idClub">{{ club.nameClub }}</option>
+    </select>
+    <div *ngIf="submitted && f['club1'].errors" class="invalid-feedback">
+      <div *ngIf="f['club1'].errors['required']">Home team is required</div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="club2" class="form-label">Away Team</label>
+    <select 
+      id="club2" 
+      formControlName="club2" 
+      class="form-select text-black"  
+      [ngClass]="{ 'is-invalid': submitted && f['club2'].errors }"
+      (change)="onClub2Change()"
+    >
+      <option value="" disabled>Select away team</option>
+      <option *ngFor="let club of filteredClubsForTeam2" [value]="club.idClub">{{ club.nameClub }}</option>
+    </select>
+    <div *ngIf="submitted && f['club2'].errors" class="invalid-feedback">
+      <div *ngIf="f['club2'].errors['required']">Away team is required</div>
+    </div>
+  </div>
+</div>
 
         
 

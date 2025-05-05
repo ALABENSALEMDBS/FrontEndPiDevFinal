@@ -1,4 +1,3 @@
-<!-- src/app/components/cup/cup-matches/cup-matches.component.html -->
 <div class="container-fluid p-4">
   <div class="card">
     <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
@@ -70,34 +69,32 @@
                   <td>{{ i + 1 }}</td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <!-- <img 
-                        [src]="match.club1.logo" 
-                        [alt]="match.club1.nameClub" 
-                        class="me-2" 
-                        style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
-                      > -->
-                      {{ match.club1.nameClub }}
+                      <div class="team-logo-container">
+                        <img 
+                          [src]="getClubLogoUrl(match.club1)" 
+                          [alt]="match.club1?.nameClub" 
+                          class="team-logo"
+                          onerror="this.src='assets/front/images/logo_1.png'; this.onerror=null;"
+                        >
+                      </div>
+                      <span class="ms-2">{{ match.club1?.nameClub }}</span>
                     </div>
                   </td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <!-- <img 
-                        [src]="match.club2.logo" 
-                        [alt]="match.club2.nameClub" 
-                        class="me-2" 
-                        style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;"
-                      > -->
-                      {{ match.club2.nameClub }}
+                      <div class="team-logo-container">
+                        <img 
+                          [src]="getClubLogoUrl(match.club2)" 
+                          [alt]="match.club2?.nameClub" 
+                          class="team-logo"
+                          onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                        >
+                      </div>
+                      <span class="ms-2">{{ match.club2?.nameClub }}</span>
                     </div>
                   </td>
                   <td>
-                    <!-- <span *ngIf="match.goals1 !== null && match.goals2 !== null">
-                      {{ match.goals1 }} - {{ match.goals2 }}
-                    </span>
-                    <span *ngIf="match.goals1 === null || match.goals2 === null">
-                      -
-                    </span> -->
-                    {{match.resultatMatch}}
+                    {{match.resultatMatch || '-'}}
                   </td>
                   <td>{{ formatDate(match.dateMatch) }}</td>
                   <td>{{ match.lieuMatch || 'Not set' }}</td>

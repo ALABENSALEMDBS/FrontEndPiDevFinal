@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
@@ -19,6 +17,8 @@ import { ClubsService } from "src/app/services/serviceSuperAdmin/servicegererclu
 export class AddMatchComponent implements OnInit {
   matchForm!: FormGroup;
   clubs: Clubs[] = [];
+  filteredClubsForTeam1: Clubs[] = []; // Filtered list for team 1
+  filteredClubsForTeam2: Clubs[] = []; // Filtered list for team 2
   submitted = false;
   loading = false;
   error = "";
@@ -58,6 +58,9 @@ export class AddMatchComponent implements OnInit {
     this.clubService.getAllClubs().subscribe({
       next: (data) => {
         this.clubs = data;
+        // Initialize both filtered lists
+        this.filteredClubsForTeam1 = [...this.clubs];
+        this.filteredClubsForTeam2 = [...this.clubs];
       },
       error: (err) => {
         this.error = "Failed to load clubs. Please try again.";
@@ -82,8 +85,8 @@ export class AddMatchComponent implements OnInit {
     this.loading = true;
 
     // Get selected club IDs from the form
-    const club1Id = Number(this.f["club1"].value); // Convert to number if needed
-    const club2Id = Number(this.f["club2"].value); // Convert to number if needed
+    const club1Id = Number(this.f["club1"].value);
+    const club2Id = Number(this.f["club2"].value);
 
     // Find the selected clubs from the list using their IDs
     const club1 = this.clubs.find((club) => club.idClub === club1Id);
@@ -116,51 +119,69 @@ export class AddMatchComponent implements OnInit {
     this.matchService.createMatch(match).subscribe({
       next: () => {
         this.loading = false;
-        // Reload the match data after creation
-        this.loadMatches();  // Add a method to reload matches
-        window.location.reload()
+        // Navigate back after successful creation
         this.router.navigate(["../"], { relativeTo: this.route });
       },
       error: (err) => {
         this.loading = false;
-        this.error = "Check the date , the club can play only one game in 3 days.";
+        this.error = "Check the date, the club can play only one game in 3 days.";
         console.error(err);
       },
     });
   }
 
-  // Method to reload the match data after the match is created
-  loadMatches(): void {
-    this.matchService.getAllMatches().subscribe({
-      next: (matches) => {
-        // Assuming you have a list of matches in your component
-        // You can update the match list here if needed
-        console.log("Matches reloaded:", matches);
-        // If you store matches in the component, you can update them here
-      },
-      error: (err) => {
-        console.error("Failed to load matches:", err);
-      },
-    });
+  // Update filtered clubs for team 1 based on team 2 selection
+  updateFilteredClubsForTeam1(): void {
+    const club2Id = Number(this.f?.["club2"]?.value);
+    
+    if (club2Id) {
+      // Filter out the selected club2 from the options for club1
+      this.filteredClubsForTeam1 = this.clubs.filter(club => club.idClub !== club2Id);
+    } else {
+      // If no club2 is selected, show all clubs for club1
+      this.filteredClubsForTeam1 = [...this.clubs];
+    }
   }
 
-  // Prevent selecting the same club for both teams
-  onClub1Change(): void {
-    const club1Value = this.f["club1"].value;
-    const club2Value = this.f["club2"].value;
+  // Update filtered clubs for team 2 based on team 1 selection
+  updateFilteredClubsForTeam2(): void {
+    const club1Id = Number(this.f?.["club1"]?.value);
+    
+    if (club1Id) {
+      // Filter out the selected club1 from the options for club2
+      this.filteredClubsForTeam2 = this.clubs.filter(club => club.idClub !== club1Id);
+    } else {
+      // If no club1 is selected, show all clubs for club2
+      this.filteredClubsForTeam2 = [...this.clubs];
+    }
+  }
 
-    if (club1Value && club1Value === club2Value) {
+  // Handle club1 selection change
+  onClub1Change(): void {
+    const club1Id = Number(this.f["club1"].value);
+    const club2Id = Number(this.f["club2"].value);
+    
+    // If the same club is selected for both, clear club2
+    if (club1Id && club1Id === club2Id) {
       this.f["club2"].setValue("");
     }
+    
+    // Update filtered list for team 2
+    this.updateFilteredClubsForTeam2();
   }
 
+  // Handle club2 selection change
   onClub2Change(): void {
-    const club1Value = this.f["club1"].value;
-    const club2Value = this.f["club2"].value;
-
-    if (club2Value && club1Value === club2Value) {
+    const club1Id = Number(this.f["club1"].value);
+    const club2Id = Number(this.f["club2"].value);
+    
+    // If the same club is selected for both, clear club1
+    if (club2Id && club1Id === club2Id) {
       this.f["club1"].setValue("");
     }
+    
+    // Update filtered list for team 1
+    this.updateFilteredClubsForTeam1();
   }
 
   cancel(): void {
