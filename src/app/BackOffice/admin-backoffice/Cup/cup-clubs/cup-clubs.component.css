@@ -1,25 +1,47 @@
 .club-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #dee2e6;
-    overflow: hidden;
-  }
-  
-  .club-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .club-logo {
-    max-height: 80px;
-    max-width: 80px;
-    object-fit: contain;
-  }
-  
-  .club-details {
-    font-size: 0.9rem;
-  }
-  
-  .club-details p {
-    margin-bottom: 0.5rem;
-  }
-  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #dee2e6;
+  overflow: hidden;
+}
+
+.club-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.club-logo {
+  max-height: 100px;
+  max-width: 100px;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  display: block;
+  padding: 5px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+.club-details {
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+.club-details p {
+  margin-bottom: 0.5rem;
+}
+
+.logo-loading-spinner {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-weight: 600;
+  color: #28a745;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 8px;
+}

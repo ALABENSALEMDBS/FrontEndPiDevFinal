@@ -21,6 +21,10 @@ export class CupMatchesDisplayComponent implements OnInit {
   error = ""
   currentPage = ""
 
+  // Base URL for club logos and default logo path
+  private baseLogoUrl = "http://localhost:8089/PiDevBackEndProject/club/uploads/"
+  private defaultLogoPath = "assets/images/default-club-logo.png"
+
   constructor(
     private cupService: CupService,
     private route: ActivatedRoute,
@@ -77,6 +81,15 @@ export class CupMatchesDisplayComponent implements OnInit {
           return getOrderValue(a) - getOrderValue(b)
         })
 
+        // Set logo URLs for all clubs in all matches
+        for (const roundName of this.roundNames) {
+          for (const match of this.matchesByRound[roundName]) {
+            if (match.club1) this.setClubLogoUrl(match.club1)
+            if (match.club2) this.setClubLogoUrl(match.club2)
+            if (match.winner) this.setClubLogoUrl(match.winner)
+          }
+        }
+
         this.loading = false
       },
       error: (err) => {
@@ -85,6 +98,29 @@ export class CupMatchesDisplayComponent implements OnInit {
         this.loading = false
       },
     })
+  }
+
+  // Helper methods for handling club logos
+  setClubLogoUrl(club: any): void {
+    if (!club) return
+
+    try {
+      if (club.mediaUrl) {
+        const cleanFilename = club.mediaUrl.replace(/^(\.\/)?uploadss[\\/]/i, "").trim()
+        const timestamp = new Date().getTime()
+        club.logo = `${this.baseLogoUrl}${cleanFilename}?t=${timestamp}&clubId=${club.idClub}`
+      } else {
+        club.logo = this.defaultLogoPath
+      }
+    } catch (error) {
+      console.error("Error setting logo URL for club:", club.nameClub, error)
+      club.logo = this.defaultLogoPath
+    }
+  }
+
+  getClubLogoUrl(club: any): string {
+    if (!club) return this.defaultLogoPath
+    return club.logo || this.defaultLogoPath
   }
 
   formatDate(dateString: string): string {
