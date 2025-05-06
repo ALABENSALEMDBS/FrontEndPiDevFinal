@@ -1,90 +1,21 @@
-// import { CommonModule } from '@angular/common';
-// import { HttpClientModule } from '@angular/common/http';
-// import { Component } from '@angular/core';
-// import { FormsModule, NgForm } from '@angular/forms';
-// import { ClubsService } from '../../../../services/serviceSuperAdmin/servicegererclubs/clubs.service';
-
-// @Component({
-//   selector: 'app-add-clubs',
-//   imports: [CommonModule, FormsModule, HttpClientModule],
-//   templateUrl: './add-clubs.component.html',
-//   styleUrl: './add-clubs.component.css'
-// })
-// export class AddClubsComponent {
-
-//   clubData = {
-//     nameClub: '',
-//     emailClub: '',
-//     adressClub: '',
-//     dateClub: '',
-//     licenceClub: '',
-//     logo: '',
-//     mediaUrl:''
-//   };
-
-//   selectedFile: File | null = null; // Variable to store the selected logo file
-
-//   constructor(private clubsService: ClubsService) {}
-
-//   // Handle file input change
-//   onFileSelected(event: any) {
-//     this.selectedFile = event.target.files[0];
-//   }
-
-//   // Handle form submission
-//   onSubmit(form: NgForm) {
-//     if (form.valid && this.selectedFile) {
-//       // Call the service method to send the data and file to the backend
-//       this.clubsService.createClubs(this.clubData, this.selectedFile).subscribe(
-//         (response) => {
-//           console.log('Club saved successfully', response);
-//           console.log(response.idClub)
-//           this.clubsService.uploadPostPicture(response.idClub,this.selectedFile!).subscribe({next:()=>{
-
-//           }})
-//         },
-//         (error) => {
-//           console.error('Error saving club', error);
-//         }
-//       );
-//     } else {
-//       console.error('Form is not valid or no file selected!');
-//     }
-//   }
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { CommonModule } from '@angular/common';
 import { HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { ClubsService } from 'src/app/services/serviceSuperAdmin/servicegererclubs/clubs.service';
 import { Clubs } from 'src/core/models/clubs';
 
-
 @Component({
   selector: 'app-add-clubs',
   templateUrl: './add-clubs.component.html',
   styleUrls: ['./add-clubs.component.css'],
-      imports: [RouterModule, CommonModule,FormsModule,ReactiveFormsModule],
-  
+  imports: [RouterModule, CommonModule, FormsModule, ReactiveFormsModule],
+  standalone: true
 })
-
 export class AddClubsComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  
   clubForm!: FormGroup;
   loading = false;
   error = '';
@@ -160,44 +91,27 @@ export class AddClubsComponent implements OnInit {
     club.dateClub = this.clubForm.get('dateClub')?.value;
     club.licenceClub = this.clubForm.get('licenceClub')?.value;
 
-    // First create the club without image
-    this.clubsService.createClubs(club).subscribe({
+    // Create the club with the file in a single request
+    this.clubsService.createClubs(club, this.selectedFile).subscribe({
       next: (createdClub) => {
-        // Then upload the image
-        this.uploadClubLogo(createdClub.idClub);
+        this.loading = false;
+        
+        // Log the created club to see what's returned
+        console.log('Created club:', createdClub);
+        
+        this.successMessage = 'Club created successfully with logo!';
+        
+        setTimeout(() => {
+          this.router.navigate(['../'], { relativeTo: this.route });
+        }, 1500);
       },
       error: (err) => {
         this.loading = false;
-        this.error = 'Failed to create club. Please try again.';
-        console.error(err);
-      }
-    });
-  }
-
-  uploadClubLogo(clubId: number): void {
-    if (!this.selectedFile) return;
-    
-    this.isUploading = true;
-    this.uploadProgress = 0;
-
-    this.clubsService.uploadPostPicture(clubId, this.selectedFile).subscribe({
-      next: (event) => {
-        if (event.type === HttpEventType.UploadProgress && event.total) {
-          this.uploadProgress = Math.round(100 * event.loaded / event.total);
-        } else if (event.type === HttpEventType.Response) {
-          this.isUploading = false;
-          this.loading = false;
-          this.successMessage = 'Club created successfully with logo!';
-
-          setTimeout(() => {
-            this.router.navigate(['../'], { relativeTo: this.route });
-          }, 1500);
+        if (err.error && err.error.message) {
+          this.error = `Failed to create club: ${err.error.message}`;
+        } else {
+          this.error = 'Failed to create club. Please try again.';
         }
-      },
-      error: (err) => {
-        this.isUploading = false;
-        this.loading = false;
-        this.error = 'Club created but failed to upload logo. Please try again.';
         console.error(err);
       }
     });
