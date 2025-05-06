@@ -256,32 +256,33 @@
       </div>
     </div>
   
-    <!-- Recent matches section -->
-    <div class="site-section bg-light-custom">
+    <div class="site-section bg-dark-match">
       <div class="container">
         <div class="row">
           <div class="col-12 title-section">
-            <h2 class="heading">Recent Results</h2>
+            <h2 class="heading text-white">Recent Results</h2>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-6" *ngFor="let match of recentMatches">
-            <div class="custom-media d-flex">
-              <div class="img mr-4">
-                <div class="match-result">
-                  <span class="score">{{ match.goals1 }} - {{ match.goals2 }}</span>
-                </div>
+            <div class="club-card d-flex align-items-center p-3 mb-4">
+              <div class="match-result me-4">
+                <span class="score">{{ match.goals1 }} - {{ match.goals2 }}</span>
               </div>
-              <div class="text">
+              <div class="text text-white">
                 <span class="meta">{{ formatDate(match.dateMatch) }}</span>
-                <h3 class="mb-4">{{ match.club1?.nameClub }} vs {{ match.club2?.nameClub }}</h3>
-                <p>{{ match.typeMatch }} at {{ match.lieuMatch }}</p>
-                <p>Referee: {{ match.arbitre }}</p>
+                <h3 class="mb-2">{{ match.club1?.nameClub }} vs {{ match.club2?.nameClub }}</h3>
+                <p class="mb-1">{{ match.typeMatch }} at {{ match.lieuMatch }}</p>
+                <p class="mb-0">Referee: {{ match.arbitre }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
+
+
+
   </div>
 </div>

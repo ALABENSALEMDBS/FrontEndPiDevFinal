@@ -1,188 +1,83 @@
+.team-logo-container {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.logo-loading-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-name {
+  font-weight: 500;
+}
+
 /* Table styling */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.table th {
+  background-color: #212529;
+  color: white;
+  font-weight: 600;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Highlight top 3 positions */
+tbody tr:nth-child(1) td:first-child {
+  background-color: gold;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+tbody tr:nth-child(2) td:first-child {
+  background-color: silver;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+tbody tr:nth-child(3) td:first-child {
+  background-color: #cd7f32; /* bronze */
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Hover effect for rows */
+.table-hover tbody tr:hover {
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .team-logo {
+    width: 24px;
+    height: 24px;
   }
-  
-  .table th,
-  .table td {
-    vertical-align: middle;
-    padding: 0.75rem;
-    border: 1px solid #e9ecef;
+
+  .team-logo-container {
+    width: 24px;
+    height: 24px;
   }
-  
-  .table th {
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-  }
-  
-  .table-dark th {
-    background-color: #198754;
-    border-color: #198754;
-    color: white;
-  }
-  
-  .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.02);
-  }
-  
-  .table-hover tbody tr:hover {
-    background-color: rgba(25, 135, 84, 0.1);
-    transition: background-color 0.2s ease;
-  }
-  
-  /* Position column */
-  .table td:first-child {
-    font-weight: bold;
-    text-align: center;
-    width: 50px;
-  }
-  
-  /* Points column */
-  .table td:last-child {
-    font-weight: bold;
-    background-color: rgba(25, 135, 84, 0.05);
-  }
-  
-  /* Club name and logo styling */
-  .table td:nth-child(2) {
-    min-width: 200px;
-  }
-  
-  .table td:nth-child(2) img {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 1px solid #e9ecef;
-  }
-  
-  /* Center numeric columns */
-  .text-center {
-    text-align: center;
-  }
-  
-  /* Legend styling */
-  .mt-4 h5 {
-    color: #198754;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    border-bottom: 2px solid #198754;
-    padding-bottom: 0.5rem;
-    display: inline-block;
-  }
-  
-  .mt-4 .d-flex {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .mt-4 .me-4 {
-    background-color: #f8f9fa;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .mt-4 .me-4 span {
-    font-weight: bold;
-    color: #198754;
-    margin-right: 0.25rem;
-  }
-  
-  /* Button styling */
-  .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #212529;
-  }
-  
-  .btn-warning:hover {
-    background-color: #e0a800;
-    border-color: #d39e00;
-  }
-  
-  .btn-light {
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-    color: #212529;
-  }
-  
-  .btn-light:hover {
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
-  }
-  
-  /* Card styling */
-  .card {
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-  }
-  
-  .card-header {
-    background-color: #198754;
-    color: white;
-    border-bottom: none;
-    padding: 1rem 1.5rem;
-  }
-  
-  .card-body {
-    padding: 1.5rem;
-  }
-  
-  /* Alert styling */
-  .alert {
-    border-radius: 4px;
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .alert-success {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
-  }
-  
-  .alert-danger {
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    color: #721c24;
-  }
-  
-  .alert-info {
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
-    color: #0c5460;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .table-responsive {
-      border: none;
-    }
-    
-    .card-header {
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .card-header h2 {
-      margin-bottom: 0;
-    }
-    
-    .table th, 
-    .table td {
-      padding: 0.5rem;
-      font-size: 0.9rem;
-    }
-    
-    .table td:nth-child(2) {
-      min-width: 150px;
-    }
-  }
+}

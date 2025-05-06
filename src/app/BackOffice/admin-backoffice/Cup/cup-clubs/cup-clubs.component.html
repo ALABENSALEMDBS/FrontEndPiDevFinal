@@ -25,25 +25,30 @@
       </div>
 
       <!-- Clubs grid -->
-      <div *ngIf="!loading && clubs.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div *ngIf="!loading && clubs.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
         <div *ngFor="let club of clubs" class="col">
           <div class="card h-100 club-card">
-            <div class="card-header bg-light d-flex justify-content-center align-items-center" style="height: 120px;">
+            <div class="card-body text-center">
+              <!-- Logo loading spinner -->
+              <div *ngIf="isLogoLoading(club)" class="logo-loading-spinner">
+                <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                  <span class="visually-hidden">Loading logo...</span>
+                </div>
+              </div>
+              
+              <!-- Club logo with error handling -->
               <img 
-                [src]="club.logo" 
-                [alt]="club.nameClub" 
-                class="club-logo"
-                onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;"
+                [src]="getClubLogoUrl(club)" 
+                class="club-logo" 
+                [alt]="club.nameClub"
+                onerror="this.src='assets/images/default-club-logo.png'; this.onerror=null;"
+                [class.d-none]="isLogoLoading(club)"
               >
-            </div>
-            <div class="card-body">
-              <h5 class="card-title text-center">{{ club.nameClub }}</h5>
+              <h5 class="card-title mt-3">{{ club.nameClub }}</h5>
               <div class="club-details">
-                <!-- <p><strong>Founded:</strong> {{ club.dateClub }}</p> -->
-                <p><strong>Founded:</strong> {{ club.dateClub | date:'dd MMMM yyyy' }}</p>
-
-                <!-- <p><strong>Stadium:</strong> {{ matc }}</p> -->
-                <!-- <p><strong>Country:</strong> {{ club.pays || 'N/A' }}</p> -->
+                <p><strong>Founded:</strong> {{ formatDate(club.dateClub) }}</p>
+                <!-- <p *ngIf="club.stade"><strong>Stadium:</strong> {{ club.stade }}</p> -->
+                <!-- <p *ngIf="club.pays"><strong>Country:</strong> {{ club.pays }}</p> -->
               </div>
             </div>
           </div>
