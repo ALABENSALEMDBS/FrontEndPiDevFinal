@@ -25,7 +25,7 @@ The application supports role-based access for different user types:
 - 🧍‍♂️ **Player Profile Management**
 - 🏥 **Health & Injury Tracking**
 - 📈 **Performance Analytics & Reports**
-- ⚙️ **Club and User Management (for Admins)**
+- ⚙️ **Clubs and Competition Management (for Admins)**
 - 🔁 **Dynamic Interaction with RESTful APIs**
 
 ---
