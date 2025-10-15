@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        SONARQUBE_ENV = 'sq_env' // le nom que tu as déjà configuré dans Jenkins
+        SONARQUBE_ENV = 'sq_env'
     }
 
     stages {
@@ -12,11 +12,23 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sq_env') {
-                    sh 'mvn sonar:sonar'
+                    sh 'sonar-scanner -Dsonar.projectKey=FrontEndPiDevFinal -Dsonar.sources=src'
                 }
+            }
+        }
+
+        stage('Build Angular') {
+            steps {
+                sh 'ng build --prod'
             }
         }
     }
