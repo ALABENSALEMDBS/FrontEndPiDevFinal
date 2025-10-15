@@ -1,9 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:20-alpine' }
+    }
     environment {
         SONARQUBE_ENV = 'sq_env'
     }
-
     stages {
         stage('GIT') {
             steps {
@@ -28,7 +29,7 @@ pipeline {
 
         stage('Build Angular') {
             steps {
-                sh 'ng build --prod'
+                sh 'npx ng build --prod'
             }
         }
     }
