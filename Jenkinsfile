@@ -1,10 +1,9 @@
 pipeline {
-    agent {
-        docker { image 'node:20-alpine' }
-    }
+    agent any
     environment {
         SONARQUBE_ENV = 'sq_env'
     }
+
     stages {
         stage('GIT') {
             steps {
@@ -13,23 +12,12 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sq_env') {
+                    // analyse uniquement les fichiers source dans src
                     sh 'sonar-scanner -Dsonar.projectKey=FrontEndPiDevFinal -Dsonar.sources=src'
                 }
-            }
-        }
-
-        stage('Build Angular') {
-            steps {
-                sh 'npx ng build --prod'
             }
         }
     }
