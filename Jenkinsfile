@@ -4,13 +4,13 @@ pipeline {
         SONARQUBE_ENV = 'sq_env' // le nom que tu as déjà configuré dans Jenkins
     }
 
-      stage('GIT') {
+    stages {
+        stage('GIT') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/ALABENSALEMDBS/FrontEndPiDevFinal.git'
             }
         }
-
 
         stage('SonarQube Analysis') {
             steps {
